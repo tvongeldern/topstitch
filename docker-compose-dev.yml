@@ -1,0 +1,41 @@
+version: '3'
+services:
+  web:
+    build:
+      context: ./packages/web
+      dockerfile: Dockerfile
+    depends_on:
+      - api
+    environment:
+      PORT: 3000
+    ports:
+      - '3000:3000'
+    working_dir: /app/web/
+    command: npm run dev
+    volumes:
+      - ./packages/web:/app/web/
+      - /app/web/node_modules
+  api:
+    build:
+      context: ./packages/api
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    environment:
+      PORT: 8000
+      TEST_VAR: 'I am testvar'
+    ports:
+      - '8000:8000'
+    working_dir: /app/api/
+    command: npm run dev
+    volumes:
+      - ./packages/api:/app/api/
+      - /app/api/node_modules
+  postgres:
+    image: postgres:12.2
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: first_user
+      POSTGRES_PASSWORD: d96f9sbd^A9f86b9a##86
+      POSTGRES_DB: monolith
