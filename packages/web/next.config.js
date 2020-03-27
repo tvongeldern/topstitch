@@ -5,7 +5,6 @@ const withImages = require('next-images');
 
 module.exports = compose([
 	[withCss],
-	[withSassVars],
 	[
 		withScss,
 		{
