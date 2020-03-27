@@ -1,0 +1,23 @@
+import React from 'react';
+import { string } from 'prop-types';
+import { Form } from 'react-final-form';
+import { Page } from '@components';
+import { } from '@state/actions';
+import { populateStoreWithActionCreators } from '@state/connectors';
+import {
+	privateRoute,
+	useActionsToSubmitForms,
+	useSelector,
+} from '@utils';
+
+function {{component}}() {
+	return (
+		<Page>
+
+		</Page>
+	);
+}
+
+{{component}}.getInitialProps = populateStoreWithActionCreators();
+
+export default privateRoute({{component}});

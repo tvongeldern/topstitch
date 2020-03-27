@@ -1,0 +1,23 @@
+{
+	"presets": [
+		"next/babel"
+	],
+	"plugins": [
+		[
+			"module-resolver",
+			{
+				"root": "./",
+				"alias": {
+					"@assets": "./assets",
+					"@components": "./src/components",
+					"@constants": "./src/constants",
+					"@forms": "./src/forms",
+					"@state": "./src/state",
+					"@svg": "./assets/svg",
+					"@utils": "./src/utils"
+				}
+			}
+		],
+		"inline-react-svg"
+	]
+}

@@ -1,0 +1,17 @@
+import React from 'react';
+import { func } from 'prop-types';
+import { Field } from 'react-final-form';
+import { } from '@components/inputs';
+import styles from './styles.scss';
+
+export default function {{name}}({ handleSubmit }) {
+	return (
+		<form onSubmit={handleSubmit}>
+
+		</form>
+	);
+}
+
+{{name}}.propTypes = {
+	handleSubmit: func.isRequired,
+};
