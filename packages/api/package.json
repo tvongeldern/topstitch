@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/server",
     "build": "babel --delete-dir-on-start -d dist src",
-    "dev": "nodemon --watch src dev.js"
+    "dev": "nodemon --watch src dev/server"
   },
   "author": "Tom von Geldern",
   "license": "ISC",

@@ -1,7 +1,6 @@
 import Head from 'next/head'
 
-const abc =123;
-
+const abc = 1234;
 
 const Home = () => (
   <div className="container">
