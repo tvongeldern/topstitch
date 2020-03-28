@@ -5,9 +5,13 @@
     "lerna": "^3.20.2"
   },
   "scripts": {
-    "dev": "docker-compose -f dev/docker-compose.yml up --build",
     "build": "docker-compose build",
-    "start": "docker-compose up",
-    "down": "docker-compose down && docker-compose -f dev/docker-compose.yml down"
+    "dev": "docker-compose -f dev/docker-compose.yml up --build || npm run down",
+    "down": "docker-compose down && docker-compose -f dev/docker-compose.yml down",
+    "install:api": "npm --prefix packages/api install --save",
+    "install:api:dev": "npm --prefix packages/api install --save-dev",
+    "install:web": "npm --prefix packages/web install --save",
+    "install:web:dev": "npm --prefix packages/web install --save-dev",
+    "start": "docker-compose up"
   }
 }

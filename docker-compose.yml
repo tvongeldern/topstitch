@@ -24,7 +24,9 @@ services:
       - postgres
     environment:
       PORT: 8000
-      TEST_VAR: 'I am api runtime testvar'
+      POSTGRES_USER: first_user
+      POSTGRES_PASSWORD: d96f9sbd^A9f86b9a##86
+      POSTGRES_DB: monolith
     ports:
       - '8000:8000'
     working_dir: /app/api/
