@@ -23,7 +23,7 @@ services:
       - postgres
     environment:
       PORT: 8000
-      TEST_VAR: 'I am testvar'
+      TEST_VAR: 'I am api runtime testvar'
     ports:
       - '8000:8000'
     working_dir: /app/api/
@@ -31,6 +31,7 @@ services:
     volumes:
       - ./packages/api:/app/api/
       - /app/api/node_modules
+      - /app/api/dist
   postgres:
     image: postgres:12.2
     ports:

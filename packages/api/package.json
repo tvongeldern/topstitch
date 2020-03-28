@@ -4,8 +4,8 @@
   "description": "Node API",
   "main": "index.js",
   "scripts": {
-    "start": "node build/server",
-    "build": "babel --delete-dir-on-start -d build src",
+    "start": "node dist/server",
+    "build": "babel --delete-dir-on-start -d dist src",
     "dev": "nodemon --watch src dev.js"
   },
   "author": "Tom von Geldern",

@@ -1,5 +1,7 @@
 import { Router } from 'express';
 
+const { TEST_VAR } = process.env;
+
 const router = new Router();
 
 function testHandler(req, res) {
