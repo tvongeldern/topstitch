@@ -8,7 +8,6 @@
     "dev": "docker-compose -f dev/docker-compose.yml up --build",
     "build": "docker-compose build",
     "start": "docker-compose up",
-    "down": "docker-compose down",
-    "reboot": "docker-compose down && docker-compose up"
+    "down": "docker-compose down && docker-compose -f dev/docker-compose.yml down"
   }
 }

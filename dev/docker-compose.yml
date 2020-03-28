@@ -4,10 +4,13 @@ services:
     build:
       context: ../packages/web
       dockerfile: dev/Dockerfile
+      args:
+        NODE_ENV: development
     depends_on:
       - api
     environment:
       PORT: 3000
+      NODE_ENV: development
     ports:
       - '3000:3000'
     working_dir: /app/web/
@@ -19,11 +22,14 @@ services:
     build:
       context: ../packages/api
       dockerfile: dev/Dockerfile
+      args:
+        NODE_ENV: development
     depends_on:
       - postgres
     environment:
       PORT: 8000
       TEST_VAR: 'I am api runtime testvar'
+      NODE_ENV: development
     ports:
       - '8000:8000'
     working_dir: /app/api/
