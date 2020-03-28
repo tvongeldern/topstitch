@@ -1,7 +1,10 @@
 import express from 'express';
+import val from '@utils/test';
 import routes from './routes';
 
 const { PORT, TEST_VAR } = process.env;
+
+console.log({ val });
 
 const app = express();
 

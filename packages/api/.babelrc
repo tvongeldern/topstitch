@@ -3,6 +3,16 @@
 		"@babel/preset-env"
 	],
 	"ignore": ["/node_modules"],
-	"sourceRoot": ".",
-	"sourceFileName": "server.js"
+	"plugins": [
+		[
+			"module-resolver",
+			{
+				"root": "./",
+				"alias": {
+					"@models": "./src/models",
+					"@utils": "./src/utils"
+				}
+			}
+		]
+	]
 }
