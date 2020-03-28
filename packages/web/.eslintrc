@@ -1,9 +1,0 @@
-{
-	"env": {
-		"browser": true
-	},
-	"extends": [
-		"../../.eslintrc",
-		"plugin:react/recommended"
-	]
-}
