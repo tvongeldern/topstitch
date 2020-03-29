@@ -1,0 +1,16 @@
+{
+  "name": "platform-constants",
+  "version": "0.0.0",
+  "description": "Constants used across the platform",
+  "author": "Tom von Geldern <tvongeldern@gmail.com>",
+  "homepage": "https://github.com/tvongeldern/mysize#readme",
+  "license": "ISC",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tvongeldern/mysize.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tvongeldern/mysize/issues"
+  }
+}

@@ -6,8 +6,8 @@
   },
   "scripts": {
     "build": "docker-compose build",
-    "dev": "docker-compose -f dev/docker-compose.yml up --build || npm run down",
-    "down": "docker-compose down && docker-compose -f dev/docker-compose.yml down",
+    "dev": "docker-compose -f dev/docker-compose.yml up --build ; npm run down",
+    "down": "docker-compose -f dev/docker-compose.yml down ; docker-compose down",
     "install:api": "npm --prefix packages/api install --save",
     "install:api:dev": "npm --prefix packages/api install --save-dev",
     "install:web": "npm --prefix packages/web install --save",

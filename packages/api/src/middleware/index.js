@@ -1,0 +1,1 @@
+export { provideLogger } from './provideLogger';

@@ -1,14 +1,27 @@
-import '@db';
 import express from 'express';
 import body from 'body-parser';
 import cookies from 'cookie-parser';
+import { db, migrate } from '@db';
+import { provideLogger } from '@middleware';
 import routes from '@routes';
+import { Logger } from '@utils';
 import config from '@config';
 
-const ON_READY_STRING = `\nReady! Listening on port ${config.port}.`;
+const logger = new Logger().context('startup');
+
+async function onAppReady() {
+	logger.success(`API listening on port ${config.port}`);
+	logger.log('Connecting to database...');
+	await db.authenticate()
+		.catch((error) =>  logger.error('Database did not connect.'));
+	logger.success('Database connected!');
+	await migrate();
+	logger.success('Ready!');
+}
 
 express()
 	.use(body.json())
 	.use(cookies())
+	.use(provideLogger)
 	.use(routes)
-	.listen(config.port, () => console.log(ON_READY_STRING));
+	.listen(config.port, onAppReady);

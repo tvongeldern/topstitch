@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import users from './users';
+import accounts from './accounts';
 
 const router = new Router();
 
-router.use('/users', users);
+router.use('/accounts', accounts);
 
 export default router;

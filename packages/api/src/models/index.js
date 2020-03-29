@@ -1,2 +1,1 @@
-export { Domain } from './Domain';
-export { User } from './User';
+export { Account } from './Account';
