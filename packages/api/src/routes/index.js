@@ -1,13 +1,8 @@
 import { Router } from 'express';
-
-const { TEST_VAR } = process.env;
+import users from './users';
 
 const router = new Router();
 
-function testHandler(req, res) {
-	res.send(`Hello World! testvar is "${TEST_VAR}"`);
-}
-
-router.get('/', testHandler);
+router.use('/users', users);
 
 export default router;

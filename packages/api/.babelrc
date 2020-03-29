@@ -11,6 +11,7 @@
 				"alias": {
 					"@config": "./src/config",
 					"@db": "./src/db",
+					"@middleware": "./src/middleware",
 					"@models": "./src/models",
 					"@routes": "./src/routes",
 					"@utils": "./src/utils"
