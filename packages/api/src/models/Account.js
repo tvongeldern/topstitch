@@ -1,8 +1,5 @@
 import { DataTypes, Sequelize } from 'sequelize';
 import { db } from '@db';
-import crypto from 'crypto';
-
-console.log(crypto);
 
 export const Account = db.define('account', {
 	id: {
