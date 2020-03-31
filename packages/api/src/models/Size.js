@@ -1,8 +1,8 @@
 import { DataTypes, Sequelize } from 'sequelize';
 import { db } from '@db';
-import { Brand } from './Brand';
+import Fit from './Fit';
 
-export const Line = db.define('line', {
+export const Size = db.define('size', {
 	id: {
 		type: DataTypes.UUID,
 		primaryKey: true,
@@ -22,11 +22,11 @@ export const Line = db.define('line', {
 			isAlphanumeric: true,
 		},
 	},
-	brand: {
+	fit: {
 		type: DataTypes.UUID,
 		allowNull: false,
 		references: {
-			model: Brand,
+			model: Fit,
 			key: 'id',
 		},
 	},

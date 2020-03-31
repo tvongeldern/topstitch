@@ -25,7 +25,7 @@ function up(queryInterface) {
     updatedAt: {
       allowNull: false,
       type: DataTypes.DATE
-    }
+    },
   });
 }
 

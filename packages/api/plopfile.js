@@ -14,6 +14,7 @@ const DEV_DIR = join(PROJECT_ROOT, 'dev');
 const TEMPLATES_DIR = join(DEV_DIR, 'templates');
 const MODEL_TEMPLATE = join(TEMPLATES_DIR, 'model.hbs');
 const MIGRATION_TEMPLATE = join(TEMPLATES_DIR, 'migration.hbs');
+const NEW_MODEL_MIGRATION_TEMPLATE = join(TEMPLATES_DIR, 'new-model-migration.hbs');
 
 const SRC_DIR = join(PROJECT_ROOT, 'src');
 const MODELS_DIR = join(SRC_DIR, 'models');
@@ -104,7 +105,7 @@ export default function definePlopGenerators({ getHelper, setGenerator, setHelpe
 			{
 				type: 'add',
 				path: `${MIGRATIONS_DIR}/${getTimeStamp()}-create-{{tableName name}}.js`,
-				templateFile: MIGRATION_TEMPLATE,
+				templateFile: NEW_MODEL_MIGRATION_TEMPLATE,
 			},
 		],
 	});

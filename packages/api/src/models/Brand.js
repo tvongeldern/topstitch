@@ -21,4 +21,7 @@ export const Brand = db.define('brand', {
 			isAlphanumeric: true,
 		},
 	},
+	privateKey: {
+		type: DataTypes.STRING,
+	},
 });

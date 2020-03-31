@@ -1,10 +1,17 @@
 import { DataTypes, Sequelize } from 'sequelize';
 
-const TABLE_NAME = '';
+const TABLE_NAME = '{{tableName name}}';
 
 function up(queryInterface) {
   return queryInterface.createTable(TABLE_NAME, {
-
+		createdAt: {
+			allowNull: false,
+			type: DataTypes.DATE
+		},
+		updatedAt: {
+			allowNull: false,
+			type: DataTypes.DATE
+		},
   });
 }
 

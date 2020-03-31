@@ -1,6 +1,6 @@
 import { DataTypes, Sequelize } from 'sequelize';
 
-const TABLE_NAME = 'lines';
+const TABLE_NAME = 'shapes';
 
 function up(queryInterface) {
   return queryInterface.createTable(TABLE_NAME, {
@@ -23,11 +23,11 @@ function up(queryInterface) {
         isAlphanumeric: true,
       },
     },
-    brand: {
+    line: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: 'brands',
+        model: 'lines',
         key: 'id',
       },
     },
