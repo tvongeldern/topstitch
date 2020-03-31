@@ -3,13 +3,21 @@ import { DataTypes, Sequelize } from 'sequelize';
 const TABLE_NAME = '';
 
 function up(queryInterface) {
-  return queryInterface.createTable(TABLE_NAME, {
+  return queryInterface.changeColumn(
+    TABLE_NAME,
+    {
 
-  });
+    },
+  );
 }
 
 function down(queryInterface) {
-  return queryInterface.dropTable(TABLE_NAME);
+  return queryInterface.changeColumn(
+    TABLE_NAME,
+    {
+      
+    }
+  );
 }
 
 export default { down, up };

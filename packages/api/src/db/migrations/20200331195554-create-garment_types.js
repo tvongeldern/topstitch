@@ -1,6 +1,6 @@
 import { DataTypes, Sequelize } from 'sequelize';
 
-const TABLE_NAME = '{{tableName name}}';
+const TABLE_NAME = 'garment_types';
 
 function up(queryInterface) {
   return queryInterface.createTable(TABLE_NAME, {
@@ -17,6 +17,10 @@ function up(queryInterface) {
 			primaryKey: true,
 			allowNull: false,
 			defaultValue: Sequelize.UUIDV4,
+		},
+		name: {
+			type: DataTypes.STRING,
+			allowNull: false,
 		},
   });
 }
