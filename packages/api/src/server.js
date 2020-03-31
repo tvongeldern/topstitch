@@ -2,7 +2,7 @@ import express from 'express';
 import body from 'body-parser';
 import cookies from 'cookie-parser';
 import { db, migrate } from '@db';
-import { provideLogger } from '@middleware';
+import { provideLogger, responseStructure } from '@middleware';
 import routes from '@routes';
 import { Logger } from '@utils';
 import config from '@config';
@@ -24,5 +24,6 @@ express()
 	.use(body.json())
 	.use(cookies())
 	.use(provideLogger)
+	.use(responseStructure)
 	.use(routes)
 	.listen(config.port, onAppReady);

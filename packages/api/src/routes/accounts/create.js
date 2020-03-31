@@ -4,7 +4,8 @@ export default async function createAccount({ body, logger }, response) {
 	try {
 		const account = new Account(body);
 		const savedAccount = await account.save();
-		response.send(savedAccount);
+		const json = await savedAccount.toJSON();
+		response.send(json);
 	} catch (error) {
 		logger.error(error);
 		response.status(400).send({
