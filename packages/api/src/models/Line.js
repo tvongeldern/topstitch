@@ -1,7 +1,8 @@
 import { DataTypes, Sequelize } from 'sequelize';
 import { db } from '@db';
+import { Brand } from './Brand';
 
-export const Brand = db.define('brand', {
+export const Line = db.define('line', {
 	id: {
 		type: DataTypes.UUID,
 		primaryKey: true,
@@ -19,6 +20,14 @@ export const Brand = db.define('brand', {
 		validate: {
 			isLowercase: true,
 			isAlphanumeric: true,
+		},
+	},
+	brand: {
+		type: DataTypes.UUID,
+		allowNull: false,
+		references: {
+			model: Brand,
+			key: 'id',
 		},
 	},
 });

@@ -19,15 +19,21 @@ const SRC_DIR = join(PROJECT_ROOT, 'src');
 const MODELS_DIR = join(SRC_DIR, 'models');
 const MIGRATIONS_DIR = join(SRC_DIR, 'db', 'migrations');
 
+function pad(num, size) {
+	var s = num + "";
+	while (s.length < size) s = "0" + s;
+	return s;
+}
+
 function getTimeStamp() {
 	const date = new Date();
 	return `
 		${date.getUTCFullYear()}
-		${date.getUTCMonth()}
-		${date.getUTCDate()}
-		${date.getUTCHours()}
-		${date.getUTCMinutes()}
-		${date.getUTCSeconds()}
+		${pad(date.getUTCMonth() + 1, 2)}
+		${pad(date.getUTCDate(), 2)}
+		${pad(date.getUTCHours(), 2)}
+		${pad(date.getUTCMinutes(), 2)}
+		${pad(date.getUTCSeconds(), 2)}
 	`.replace(/[^0-9]/g, '');
 }
 
