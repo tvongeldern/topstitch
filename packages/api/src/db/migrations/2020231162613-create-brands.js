@@ -1,6 +1,6 @@
 import { DataTypes, Sequelize } from 'sequelize';
 
-const TABLE_NAME = 'accounts';
+const TABLE_NAME = 'brands';
 
 function up(queryInterface) {
   return queryInterface.createTable(TABLE_NAME, {
@@ -10,22 +10,20 @@ function up(queryInterface) {
       allowNull: false,
       defaultValue: Sequelize.UUIDV4,
     },
-    email: {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    slug: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
-        isEmail: true,
+        isLowercase: true,
+        isAlphanumeric: true,
       },
     },
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE
-    },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE
-    }
   });
 }
 

@@ -4,9 +4,8 @@ import config from '@config';
 const db = new Sequelize(
 	config.connectionString,
 	{
-		retry: {
-			max: 6,
-		},
+		retry: { max: 3 },
+		schema: 'public',
 	},
 );
 

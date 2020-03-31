@@ -1,0 +1,15 @@
+import { DataTypes, Sequelize } from 'sequelize';
+
+const TABLE_NAME = '{{tableName name}}';
+
+function up(queryInterface) {
+  return queryInterface.createTable(TABLE_NAME, {
+
+  });
+}
+
+function down(queryInterface) {
+  return queryInterface.dropTable(TABLE_NAME);
+}
+
+export default { down, up };

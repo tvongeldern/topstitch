@@ -15,6 +15,7 @@ async function onAppReady() {
 	await db.authenticate()
 		.catch((error) =>  logger.error('Database did not connect.'));
 	logger.success('Database connected!');
+	logger.log('Running migrations...');
 	await migrate();
 	logger.success('Ready!');
 }
