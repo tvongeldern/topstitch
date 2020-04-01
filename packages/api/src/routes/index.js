@@ -17,4 +17,5 @@ router.use('/garment-types', garmentTypes);
 router.use('/fits', fits);
 router.use('/sizes', sizes);
 
+
 export default router;

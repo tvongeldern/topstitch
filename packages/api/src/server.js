@@ -2,14 +2,18 @@ import express from 'express';
 import body from 'body-parser';
 import cookies from 'cookie-parser';
 import { db, migrate } from '@db';
-import { provideLogger, responseStructure } from '@middleware';
+import {
+	provideLogger,
+	responseStructure,
+	errorHandler,
+} from '@middleware';
 import routes from '@routes';
 import { Logger } from '@utils';
 import config from '@config';
 
 const logger = new Logger().context('startup');
 
-async function onAppReady() {
+async function onAppReady(...args) {
 	logger.success(`API listening on port ${config.port}`);
 	logger.log('Connecting to database...');
 	await db.authenticate()
@@ -27,4 +31,5 @@ express()
 	.use(provideLogger)
 	.use(responseStructure)
 	.use(routes)
+	.use(errorHandler)
 	.listen(config.port, onAppReady);
