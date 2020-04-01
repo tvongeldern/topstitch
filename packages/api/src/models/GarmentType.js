@@ -6,6 +6,7 @@ export const GarmentType = db.define('garment_type', {
 		type: DataTypes.UUID,
 		primaryKey: true,
 		allowNull: false,
+		unique: true,
 		defaultValue: Sequelize.UUIDV4,
 	},
 	name: {

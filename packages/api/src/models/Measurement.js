@@ -1,12 +1,11 @@
 import { DataTypes, Sequelize } from 'sequelize';
 import { db } from '@db';
 
-export const Account = db.define('account', {
+export const Measurement = db.define('measurement', {
 	id: {
 		type: DataTypes.UUID,
 		primaryKey: true,
 		allowNull: false,
-		unique: true,
 		defaultValue: Sequelize.UUIDV4,
 	},
 });

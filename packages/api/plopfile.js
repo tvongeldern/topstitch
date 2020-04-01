@@ -59,10 +59,13 @@ function updateIndexFile(getIndexFileLocation, generateNewTextFromUserInput) {
 	return function updateFile(...userInputs) {
 		const indexFileLocation = getIndexFileLocation(...userInputs);
 		const initialText = readFileSync(indexFileLocation).toString();
-		const rows = initialText.split(';').map((row) => row.trim());
-		rows.push(generateNewTextFromUserInput(...userInputs));
-		const newIndexText = rows.filter((r) => r).sort().join(';\n');
-		writeFileSync(indexFileLocation, `${newIndexText};\n`);
+		const newText = generateNewTextFromUserInput(...userInputs);
+		const updatedText = [
+			initialText,
+			'\n\n\n',
+			newText,
+		].replace(/\n{3,}/g, '\n\n');
+		writeFileSync(indexFileLocation, updatedText);
 	};
 }
 
@@ -100,7 +103,7 @@ export default function definePlopGenerators({ getHelper, setGenerator, setHelpe
 			},
 			updateIndexFile(
 				() => `${MODELS_DIR}/index.js`,
-				({ name }) => `export { ${jsClassName(name)} } from './${jsClassName(name)}'`,
+				({ name }) => `export { ${jsClassName(name)} } from './${jsClassName(name)}';`,
 			),
 			{
 				type: 'add',

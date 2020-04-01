@@ -6,22 +6,12 @@ export const Brand = db.define('brand', {
 		type: DataTypes.UUID,
 		primaryKey: true,
 		allowNull: false,
+		unique: true,
 		defaultValue: Sequelize.UUIDV4,
 	},
 	name: {
 		type: DataTypes.STRING,
 		allowNull: false,
 		unique: true,
-	},
-	slug: {
-		type: DataTypes.STRING,
-		unique: true,
-		validate: {
-			isLowercase: true,
-			isAlphanumeric: true,
-		},
-	},
-	privateKey: {
-		type: DataTypes.STRING,
 	},
 });
