@@ -1,13 +1,13 @@
-export function errorHandler(
+export function errorHandler (
 	{
 		error = {},
-		message = 'An error occurred.',
-		status =  500,
-	} = {},
+		status = 500,
+		message = 'An error has occurred.',
+	},
 	request,
 	response,
 	next,
 ) {
 	console.log('\nERROR HANDLER\n', next);
-	return response.status(status).json({ message, error });
+	return response.status(status).send({ error, message });
 }
