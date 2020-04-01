@@ -60,11 +60,9 @@ function updateIndexFile(getIndexFileLocation, generateNewTextFromUserInput) {
 		const indexFileLocation = getIndexFileLocation(...userInputs);
 		const initialText = readFileSync(indexFileLocation).toString();
 		const newText = generateNewTextFromUserInput(...userInputs);
-		const updatedText = [
-			initialText,
-			'\n\n\n',
-			newText,
-		].replace(/\n{3,}/g, '\n\n');
+		const updatedText = [initialText, newText]
+			.join('\n\n')
+			.replace(/\n{3,}/g, '\n\n');
 		writeFileSync(indexFileLocation, updatedText);
 	};
 }
