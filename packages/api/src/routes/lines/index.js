@@ -1,13 +1,12 @@
 import { Router } from 'express';
-import getLine from './getLine';
-import searchCollections from './getLine';
-import createCollection from './createCollection';
+import { Line } from '@models';
+import { creator, getter, searcher } from '@utils/handlers';
 
-const accounts = new Router();
+const lines = new Router();
 
-accounts.get('/:id', getLine);
+lines.get('/:id', getter(Line));
 
-accounts.get('/:id/collections/', searchCollections);
-accounts.post('/:id/collections/', createCollection);
+lines.get('/:id/collections/', searcher(Line, 'Collections'));
+lines.post('/:id/collections/', creator(Line, 'Collection'));
 
-export default accounts;
+export default lines;

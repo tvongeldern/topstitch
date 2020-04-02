@@ -1,16 +1,14 @@
 import { Router } from 'express';
-import createBrand from './createBrand';
-import getBrand from './getBrand';
-import createLine from './createLine';
-import searchLines from './searchLines';
+import { Brand } from '@models';
+import { creator, getter, searcher } from '@utils/handlers';
 
-const accounts = new Router();
+const brands = new Router();
 
-accounts.post('/', createBrand);
+brands.post('/', creator(Brand));
 
-accounts.get('/:id', getBrand);
+brands.get('/:id', getter(Brand));
 
-accounts.post('/:id/lines/', createLine);
-accounts.get('/:id/lines/', searchLines);
+brands.get('/:id/lines/', searcher(Brand, 'Lines'));
+brands.post('/:id/lines/', creator(Brand, 'Line'));
 
-export default accounts;
+export default brands;

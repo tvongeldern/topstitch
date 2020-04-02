@@ -6,6 +6,7 @@ import garmentTypes from './garment-types';
 import lines from './lines';
 import collections from './collections';
 import sizes from './sizes';
+import measurements from './measurements';
 
 const router = new Router();
 
@@ -16,6 +17,7 @@ router.use('/collections', collections);
 router.use('/garment-types', garmentTypes);
 router.use('/fits', fits);
 router.use('/sizes', sizes);
+router.use('/measurements', measurements);
 
 
 export default router;
