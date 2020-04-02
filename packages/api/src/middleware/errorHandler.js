@@ -8,6 +8,7 @@ export function errorHandler (
 	response,
 	next,
 ) {
-	console.log('\nERROR HANDLER\n', next);
-	return response.status(status).send({ error, message });
+	return response
+		.status(status)
+		.send({ error, message });
 }

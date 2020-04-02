@@ -1,11 +1,16 @@
 import { Router } from 'express';
-import create from './create';
+import createBrand from './createBrand';
+import getBrand from './getBrand';
 import createLine from './createLine';
+import searchLines from './searchLines';
 
 const accounts = new Router();
 
-accounts.post('/', create);
-accounts.post('/:brandId/', createLine);
+accounts.post('/', createBrand);
 
+accounts.get('/:id', getBrand);
+
+accounts.post('/:id/lines/', createLine);
+accounts.get('/:id/lines/', searchLines);
 
 export default accounts;

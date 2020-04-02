@@ -13,7 +13,7 @@ import config from '@config';
 
 const logger = new Logger().context('startup');
 
-async function onAppReady(...args) {
+async function onAppReady() {
 	logger.success(`API listening on port ${config.port}`);
 	logger.log('Connecting to database...');
 	await db.authenticate()

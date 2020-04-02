@@ -1,8 +1,13 @@
 import { Router } from 'express';
-import create from './create';
+import getLine from './getLine';
+import searchCollections from './getLine';
+import createCollection from './createCollection';
 
-const lines = new Router();
+const accounts = new Router();
 
-lines.post('/', create);
+accounts.get('/:id', getLine);
 
-export default lines;
+accounts.get('/:id/collections/', searchCollections);
+accounts.post('/:id/collections/', createCollection);
+
+export default accounts;
