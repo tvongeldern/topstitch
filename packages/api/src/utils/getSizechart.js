@@ -18,7 +18,7 @@ function formatSizechart(record = {}) {
 	return record;
 }
 
-export async function populateSizeChart({
+export async function getSizechart({
 	type,
 	id,
 }) {
@@ -46,7 +46,7 @@ const collection_id = '';
 const collection_2_id = '';
 
 async function testItOut() {
-	const sizechart = await populateSizeChart({
+	const sizechart = await getSizechart({
 		id: line_2_id,
 		type: 'line',
 	});
