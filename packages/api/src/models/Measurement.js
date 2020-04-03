@@ -8,4 +8,8 @@ export const Measurement = db.define('measurement', {
 		allowNull: false,
 		defaultValue: Sequelize.UUIDV4,
 	},
+	name: {
+		type: DataTypes.STRING,
+		allowNull: false,
+	},
 });

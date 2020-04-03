@@ -27,6 +27,9 @@ Size.hasMany(Measurement);
 Measurement.belongsTo(Size);
 Measurement.hasOne(GarmentSegment);
 
+GarmentSegment.belongsTo(GarmentType);
+GarmentType.hasMany(GarmentSegment);
+
 export {
 	Account,
 	Brand,
