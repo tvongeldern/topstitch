@@ -18,7 +18,7 @@ Collection.hasMany(GarmentType);
 Collection.hasMany(Fit);
 
 Fit.belongsTo(Collection);
-Fit.hasOne(GarmentType);
+Fit.belongsTo(GarmentType);
 Fit.hasMany(Size);
 
 Size.belongsTo(Fit);
@@ -29,6 +29,7 @@ Measurement.hasOne(GarmentSegment);
 
 GarmentSegment.belongsTo(GarmentType);
 GarmentType.hasMany(GarmentSegment);
+GarmentType.hasMany(Fit);
 
 export {
 	Account,

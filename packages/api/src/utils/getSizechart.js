@@ -14,7 +14,7 @@ const INCLUDE_NESTED_ASSOCIATIONS = {
 	]
 };
 
-function formatSizechart(record = {}) {
+function formatSizechart({ ...record } = {}) {
 	return record;
 }
 
@@ -39,16 +39,21 @@ export async function getSizechart({
 	}
 }
 
+// TEST CODE
+
 const brand_id = '';
 const line_1_id = '';
 const line_2_id = '';
 const collection_id = '';
 const collection_2_id = '';
+const fit_id = '';
+const fit_2_id = '';
+const garment_type_id = '';
 
 async function testItOut() {
 	const sizechart = await getSizechart({
-		id: line_2_id,
-		type: 'line',
+		id: brand_id,
+		type: 'brand',
 	});
 	console.log(
 		JSON.stringify(
@@ -59,4 +64,4 @@ async function testItOut() {
 	);
 }
 
-setTimeout(testItOut, 1500);
+// setTimeout(testItOut, 1500);
