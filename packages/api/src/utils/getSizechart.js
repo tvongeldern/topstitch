@@ -42,15 +42,6 @@ export async function getSizechart({
 
 // TEST CODE
 
-const brand_id = 'b6fa6aea-5a6b-4a27-b140-1878934ebe9a';
-const line_1_id = '';
-const line_2_id = '';
-const collection_id = '';
-const collection_2_id = '';
-const fit_id = '';
-const fit_2_id = '';
-const garment_type_id = '';
-
 async function testItOut() {
 	const sizechart = await getSizechart({
 		id: brand_id,
@@ -81,25 +72,30 @@ async function generateData() {
 	const transaction = await db.transaction();
 
 	try {
-		const garmentType = await new GarmentType({ name: 'Shirt' }).save();
-		console.log(garmentType);
-		const garmentSegment = await garmentType.createGarmentSegment({ name: 'Bottom hip diameter'});
+		const garmentType = await new GarmentType({ name: 'Shirt' }, { transaction }).save({ transaction });
+		// const garmentSegment = await garmentType
+		// 	.createGarmentSegment({ name: 'Bottom hip diameter'}, { transaction });
 
-		const brand = await new Brand({ name: 'My brand' }).save();
-		const line = await brand.createLine({ name: 'My original Line' });
-		const line2 = await brand.createLine({ name: 'My new Line' });
-		const collection = await line.createCollection({ name: 'Mens' });
-		const collection2 = await line.createCollection({ name: 'Womens' });
-		const collection3 = await line2.createCollection({ name: 'Mens' });
-		const fit = await collection.createFit({ name: 'Standard fit' }).addGarmentType(garmentType);
-		const fit2 = await collection2.createFit({ name: 'Petites' });
-		const fit3 = await collection2.createFit({ name: 'Standard fit' });
-		const size = await fit.createSize({ name: 'Large' });
-		const measurement = await size.createMeasurement({ name: 'Hip width' }).addGarmentSegment(garmentSegment);
-		console.log({
-			brandId: brand.id,
-		});
+		const brand = await new Brand({ name: 'My brand' }, { transaction }).save({ transaction });
+		const line = await brand.createLine({ name: 'My original Line' }, { transaction });
+		// const line2 = await brand.createLine({ name: 'My new Line' }, { transaction });
+		const collection = await line.createCollection({ name: 'Mens' }, { transaction });
+		// const collection2 = await line.createCollection({ name: 'Womens' }, { transaction });
+		// const collection3 = await line2.createCollection({ name: 'Mens' }, { transaction });
+		const collectionGarmentType = await collection.addGarmentType(garmentType.id, { transaction });
+		// const fit = await collectionGarmentType.createFit({ name: 'Standard fit' }, { transaction });
+		// const fit2 = await collection2.createFit({ name: 'Petites' }, { transaction });
+		// const fit3 = await collection2.createFit({ name: 'Standard fit' }, { transaction });
+		// const size = await fit.createSize({ name: 'Large' }, { transaction });
+		// const measurement = await size.createMeasurement({ name: 'Hip width' }, { transaction });
+		console.log(
+			'\n\n',
+			'brandId',
+			brand.id,
+			'\n\n',
+		);
 		await transaction.commit();
+		return brand.id;
 	} catch (error) {
 		console.error(error);
 		await transaction.rollback();
@@ -107,5 +103,6 @@ async function generateData() {
 
 }
 
-// setTimeout(generateData, 1500);
-// setTimeout(testItOut, 1500);
+const brand_id = '';
+
+setTimeout(brand_id  ? testItOut : generateData, 2500);

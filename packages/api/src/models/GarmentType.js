@@ -1,7 +1,7 @@
 import { DataTypes, Sequelize } from 'sequelize';
 import { db } from '@db';
 
-export const GarmentType = db.define('garment_type', {
+export const GarmentType = db.define('garmentType', {
 	id: {
 		type: DataTypes.UUID,
 		primaryKey: true,

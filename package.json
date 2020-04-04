@@ -8,6 +8,7 @@
     "build": "docker-compose build",
     "dev": "docker-compose -f dev/docker-compose.yml up --build ; npm run down",
     "dev:api": "docker-compose -f dev/docker-compose.yml up --build api ; npm run down",
+    "docker:prune": "docker system prune -af",
     "down": "docker-compose -f dev/docker-compose.yml down ; docker-compose down",
     "install:api": "npm --prefix packages/api install --save",
     "install:api:dev": "npm --prefix packages/api install --save-dev",

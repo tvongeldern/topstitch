@@ -37,6 +37,7 @@ const logger = new Logger().context('startup');
 			logger.error('API failed to start up');
 		}
 	} catch (error) {
+		console.error(error);
 		logger.error('Database did not connect.');
 	}
 })();
