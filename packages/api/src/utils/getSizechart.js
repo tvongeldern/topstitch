@@ -1,4 +1,5 @@
 import * as models from '@models';
+import { db } from '@db';
 import { getJSON } from './getJSON';
 
 const modelsMap = Object.values(models).reduce((map, model) => ({
@@ -41,7 +42,7 @@ export async function getSizechart({
 
 // TEST CODE
 
-const brand_id = '';
+const brand_id = 'b6fa6aea-5a6b-4a27-b140-1878934ebe9a';
 const line_1_id = '';
 const line_2_id = '';
 const collection_id = '';
@@ -64,4 +65,47 @@ async function testItOut() {
 	);
 }
 
+async function generateData() {
+	console.log('Generating data...');
+	const {
+		Brand,
+		Line,
+		Collection,
+		GarmentType,
+		Fit,
+		Size,
+		GarmentSegment,
+		Measurement,
+	} = models;
+
+	const transaction = await db.transaction();
+
+	try {
+		const garmentType = await new GarmentType({ name: 'Shirt' }).save();
+		console.log(garmentType);
+		const garmentSegment = await garmentType.createGarmentSegment({ name: 'Bottom hip diameter'});
+
+		const brand = await new Brand({ name: 'My brand' }).save();
+		const line = await brand.createLine({ name: 'My original Line' });
+		const line2 = await brand.createLine({ name: 'My new Line' });
+		const collection = await line.createCollection({ name: 'Mens' });
+		const collection2 = await line.createCollection({ name: 'Womens' });
+		const collection3 = await line2.createCollection({ name: 'Mens' });
+		const fit = await collection.createFit({ name: 'Standard fit' }).addGarmentType(garmentType);
+		const fit2 = await collection2.createFit({ name: 'Petites' });
+		const fit3 = await collection2.createFit({ name: 'Standard fit' });
+		const size = await fit.createSize({ name: 'Large' });
+		const measurement = await size.createMeasurement({ name: 'Hip width' }).addGarmentSegment(garmentSegment);
+		console.log({
+			brandId: brand.id,
+		});
+		await transaction.commit();
+	} catch (error) {
+		console.error(error);
+		await transaction.rollback();
+	}
+
+}
+
+// setTimeout(generateData, 1500);
 // setTimeout(testItOut, 1500);
