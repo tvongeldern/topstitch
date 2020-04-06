@@ -78,15 +78,22 @@ async function generateData() {
 
 		const brand = await new Brand({ name: 'My brand' }, { transaction }).save({ transaction });
 		const line = await brand.createLine({ name: 'My original Line' }, { transaction });
-		// const line2 = await brand.createLine({ name: 'My new Line' }, { transaction });
+		const line2 = await brand.createLine({ name: 'My new Line' }, { transaction });
 		const collection = await line.createCollection({ name: 'Mens' }, { transaction });
-		// const collection2 = await line.createCollection({ name: 'Womens' }, { transaction });
-		// const collection3 = await line2.createCollection({ name: 'Mens' }, { transaction });
-		const collectionGarmentType = await collection.addGarmentType(garmentType.id, { transaction });
-		// const fit = await collectionGarmentType.createFit({ name: 'Standard fit' }, { transaction });
-		// const fit2 = await collection2.createFit({ name: 'Petites' }, { transaction });
-		// const fit3 = await collection2.createFit({ name: 'Standard fit' }, { transaction });
-		// const size = await fit.createSize({ name: 'Large' }, { transaction });
+		const collection2 = await line.createCollection({ name: 'Womens' }, { transaction });
+		const collection3 = await line2.createCollection({ name: 'Mens' }, { transaction });
+		await collection.addGarmentType(garmentType.id, { transaction });
+		await collection2.addGarmentType(garmentType.id, { transaction });
+		await collection3.addGarmentType(garmentType.id, { transaction });
+		const fit = await collection.createFit({ name: 'Standard fit' }, { transaction });
+		const fit2 = await collection2.createFit({ name: 'Petites' }, { transaction });
+		const fit3 = await collection3.createFit({ name: 'Standard fit' }, { transaction });
+		await fit.setGarmentType(garmentType.id, { transaction });
+		await fit2.setGarmentType(garmentType.id, { transaction });
+		await fit3.setGarmentType(garmentType.id, { transaction });
+		const size = await fit.createSize({ name: 'Large' }, { transaction });
+		const size2 = await fit2.createSize({ name: 'Extra small' }, { transaction });
+		const size3 = await fit3.createSize({ name: 'Medium' }, { transaction });
 		// const measurement = await size.createMeasurement({ name: 'Hip width' }, { transaction });
 		console.log(
 			'\n\n',

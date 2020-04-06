@@ -18,12 +18,13 @@ Line.hasMany(Collection);
 
 Collection.belongsTo(Line);
 
-Collection.hasMany(GarmentType);
+Collection.hasMany(Fit);
 
 GarmentType.belongsToMany(Collection, { through: CollectionGarmentType });
+Collection.belongsToMany(GarmentType, { through: CollectionGarmentType });
 
-Fit.hasOne(Collection, { through: CollectionGarmentType });
-Fit.hasOne(GarmentType, { through: CollectionGarmentType });
+Fit.belongsTo(Collection, { through: CollectionGarmentType });
+Fit.belongsTo(GarmentType, { through: CollectionGarmentType });
 
 Fit.hasMany(Size);
 
