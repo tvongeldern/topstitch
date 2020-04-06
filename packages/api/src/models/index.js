@@ -8,6 +8,12 @@ import { GarmentType } from './GarmentType';
 import { Line } from './Line';
 import { Size } from './Size';
 import { Measurement } from './Measurement';
+import { SizeGarmentSegment } from './SizeGarmentSegment';
+
+// Garment
+
+GarmentType.hasMany(GarmentSegment);
+GarmentSegment.belongsTo(GarmentType);
 
 // Sizechart
 
@@ -17,7 +23,6 @@ Line.belongsTo(Brand);
 Line.hasMany(Collection);
 
 Collection.belongsTo(Line);
-
 Collection.hasMany(Fit);
 
 GarmentType.belongsToMany(Collection, { through: CollectionGarmentType });
@@ -31,18 +36,11 @@ Fit.hasMany(Size);
 Size.belongsTo(Fit);
 Size.hasMany(Measurement);
 
-Measurement.belongsTo(Size);
+GarmentSegment.belongsToMany(Size, { through: SizeGarmentSegment });
+Size.belongsToMany(GarmentSegment, { through: SizeGarmentSegment });
 
-// Garment
-
-
-// GarmentType.hasMany(GarmentSegment);
-// GarmentSegment.belongsTo(GarmentType);
-
-// GarmentType.hasMany(Fit);
-
-// GarmentSegment.belongsToMany(Measurement, { through: 'MeasurementGarmentSegment' });
-// Measurement.belongsTo(GarmentSegment);
+Measurement.belongsTo(Size, { through: SizeGarmentSegment });
+Measurement.belongsTo(GarmentSegment, { through: SizeGarmentSegment });
 
 export {
 	Account,
