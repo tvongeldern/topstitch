@@ -1,0 +1,48 @@
+@import './web';
+
+:global(#__next) {
+	display: flex;
+	flex-direction: column;
+}
+
+html body {
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+
+	p,
+	a,
+	b,
+	input,
+	span,
+	label,
+	div {
+		font-size: $font-size-regular;
+	}
+
+	h1 {
+		font-size: $font-size-header;
+	}
+
+	h2 {
+		font-size: $font-size-subheader;
+	}
+
+	h3,
+	h4 {
+		font-size: $font-size-large;
+	}
+
+	h5 {
+		font-size: $font-size-regular;
+	}
+
+	input,
+	button,
+	div,
+	a {
+		&:focus {
+			outline: none;
+		}
+	}
+}

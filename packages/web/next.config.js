@@ -2,6 +2,7 @@ const compose = require('next-compose-plugins');
 const withCss = require('@zeit/next-css');
 const withScss = require('@zeit/next-sass');
 const withImages = require('next-images');
+const { webpackDevMiddleware } = require('./dev/webpack-dev-middleware');
 
 module.exports = compose([
 	[withCss],
@@ -18,4 +19,4 @@ module.exports = compose([
 		},
 	],
 	[withImages],
-]);
+], { webpackDevMiddleware });

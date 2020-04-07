@@ -1,0 +1,8 @@
+@import 'theme';
+
+.button {
+	appearance: none;
+	border-radius: $theme-border-radius;
+	cursor: pointer;
+	padding: 16px 24px;
+}

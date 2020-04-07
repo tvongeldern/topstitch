@@ -1,0 +1,24 @@
+@import './colors';
+@import './forms';
+@import './theme';
+
+.inputContainer {
+	display: flex;
+	flex-direction: column;
+
+	.errorText {
+		color: $ui-error-color;
+	}
+
+	label {
+		margin: 8px 0;
+	}
+
+	input {
+		appearance: none;
+		box-shadow: none;
+		border: 1px solid $dark-gray;
+		border-radius: $theme-border-radius;
+		padding: 8px 16px;
+	}
+}
