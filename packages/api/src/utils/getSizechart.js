@@ -96,13 +96,11 @@ function reduceFitsToMap(garmentTypes, { garmentType, ...fit }) {
 }
 
 function formatCollection({ id, name, fits }) {
-	// prob need to add recursion here
-	// ie wrap this in formatSizechart()
-	return {
+	return formatSizechart({
 		id,
 		name,
 		garmentTypes: Object.values(fits.reduce(reduceFitsToMap, EMPTY_OBJECT)),
-	};
+	});
 }
 
 function reduceResource(formatted, [key, value]) {
@@ -157,98 +155,3 @@ export async function getSizechart({
 		throw new Error(`Invalid ${type} ID`);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-// TEST CODE
-
-let brand_id = '';
-
-function createOrTest() {
-	if (brand_id) {
-		return testItOut();
-	}
-	return Brand.findAll().then((brands) => {
-		if (brands[0]) {
-			brand_id = brands[0].id;
-			return createOrTest();
-		}
-		return generateData()
-			.then((brandId) => {
-				brand_id = brandId;
-				return createOrTest();
-			});
-	});
-}
-
-async function testItOut() {
-	const sizechart = await getSizechart({
-		id: brand_id,
-		type: 'brand',
-	});
-	console.log(
-		JSON.stringify(
-			sizechart,
-			null,
-			2,
-		),
-	);
-}
-
-async function generateData() {
-	console.log('Generating data...');
-
-	try {
-		const gt = new GarmentType({ name: 'Shirt' });
-		const garmentType = await gt.save();
-		const garmentSegment = await garmentType.createGarmentSegment({ name: 'Bottom hip diameter' });
-
-		const brand = await new Brand({ name: 'My brand' }).save();
-
-		const line = await brand.createLine({ name: 'My original Line' });
-		const line2 = await brand.createLine({ name: 'My new Line' });
-
-		const collection = await line.createCollection({ name: 'Mens' });
-		const collection2 = await line.createCollection({ name: 'Womens' });
-		const collection3 = await line2.createCollection({ name: 'Mens' });
-		await collection.addGarmentType(garmentType.id);
-		await collection2.addGarmentType(garmentType.id);
-		await collection3.addGarmentType(garmentType.id);
-
-		const fit = await collection.createFit({ name: 'Standard fit' });
-		const fit2 = await collection2.createFit({ name: 'Petites' });
-		const fit3 = await collection3.createFit({ name: 'Standard fit' });
-		await fit.setGarmentType(garmentType.id);
-		await fit2.setGarmentType(garmentType.id);
-		await fit3.setGarmentType(garmentType.id);
-
-		const size = await fit.createSize({ name: 'Large' });
-		const size2 = await fit2.createSize({ name: 'Extra small' });
-		const size3 = await fit3.createSize({ name: 'Medium' });
-
-		const measurement = await size.createMeasurement({ name: 'Hip width' });
-		await measurement.setGarmentSegment(garmentSegment.id);
-
-		console.log(
-			'\n\n',
-			'brandId',
-			brand.id,
-			'\n\n',
-		);
-		return brand.id;
-	} catch (error) {
-		console.error(error);
-		throw new Error(error);
-	}
-
-}
-
-setTimeout(createOrTest, 2500);
