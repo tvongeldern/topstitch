@@ -9,6 +9,7 @@
     "gen": "plop --require @babel/register",
     "gen:component": "npm run gen -- component",
     "gen:form": "npm run gen -- form",
+    "gen:icon": "npm run gen -- icon",
     "gen:page": "npm run gen -- page"
   },
   "dependencies": {

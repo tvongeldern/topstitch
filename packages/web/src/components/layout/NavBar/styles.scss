@@ -1,0 +1,41 @@
+@import 'theme';
+@import 'web';
+
+.container {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	width: 100%;
+	background-color: $theme-color-primary;
+
+	input {
+		background-color: transparent;
+		border-color: $white;
+
+		&::placeholder {
+			color: $white;
+		}
+
+		&:focus{
+			border-color: $theme-color-secondary;
+		}
+	}
+
+	.content {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		max-width: $content-max-width;
+		padding: 8px 24px;
+
+		.links {
+			a {
+				color: $white;
+				margin-left: 16px;
+				text-decoration: none;
+			}
+		}
+	}
+}

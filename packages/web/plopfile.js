@@ -6,8 +6,10 @@ import {
 } from 'fs';
 
 const PROJECT_ROOT = __dirname;
+const ASSETS_DIR = `${PROJECT_ROOT}/assets`;
 const TEMPLATES_DIR = `${PROJECT_ROOT}/dev/templates`;
 const SOURCE_DIR = `${PROJECT_ROOT}/src`;
+const ICONS_DIR = `${SOURCE_DIR}/icons`;
 const COMPONENTS_DIR = `${SOURCE_DIR}/components`;
 const FORMS_DIR = `${SOURCE_DIR}/forms`;
 // const STATE_DIR = `${SOURCE_DIR}/state`;
@@ -72,6 +74,34 @@ export default function definePlopGenerators({ setGenerator }) {
 			updateIndexFile(
 				({ location }) => `${COMPONENTS_DIR}/${location}/index.js`,
 				({ name }) => `export { ${name} } from './${name}'`,
+			),
+		],
+	});
+
+	setGenerator('icon', {
+		description: 'Generate an icon component',
+		prompts: [
+			{
+				name: 'icon',
+				message: 'Which icon are you wrapping?',
+				type: 'list',
+				choices: readdirSync(ASSETS_DIR),
+			},
+			{
+				name: 'component',
+				message: 'What would you like to name your component?',
+				type: 'input',
+			},
+		],
+		actions: [
+			{
+				type: 'add',
+				path: `${ICONS_DIR}/{{component}}.js`,
+				templateFile: `${TEMPLATES_DIR}/Icon.hbs`,
+			},
+			updateIndexFile(
+				() => `${ICONS_DIR}/index.js`,
+				({ component }) => `export { ${component} } from './${component}'`,
 			),
 		],
 	});

@@ -12,8 +12,8 @@
 					"@components": "./src/components",
 					"@constants": "./src/constants",
 					"@forms": "./src/forms",
+					"@icons": "./src/icons",
 					"@state": "./src/state",
-					"@svg": "./assets/svg",
 					"@utils": "./src/utils"
 				}
 			}

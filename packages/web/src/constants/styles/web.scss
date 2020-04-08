@@ -7,6 +7,8 @@ $font-size-large: 24px;
 $font-size-subheader: 32px;
 $font-size-header: 40px;
 
+$content-max-width: 1200px;
+
 :global(#__next) {
 	display: flex;
 	flex-direction: column;
@@ -36,7 +38,7 @@ html body {
 	h4,
 	h5 {
 		font-family: $theme-font-primary;
-		font-weight: bold;
+		font-weight: bold; // prob wont work :(
 	}
 
 	h1 {
@@ -62,6 +64,21 @@ html body {
 	a {
 		&:focus {
 			outline: none;
+		}
+	}
+
+	a,
+	button,
+	input[type="checkbox"],
+	input[type="radio"] {
+		cursor: pointer;
+	}
+
+	a {
+		color: $ui-link-color;
+
+		&:visited {
+			color: $ui-link-visited-color;
 		}
 	}
 }
