@@ -1,0 +1,12 @@
+@font-face {
+	font-family: inter;
+	src: url('/fonts/Inter-Light.ttf');
+}
+
+@font-face {
+	font-family: dosis;
+	src: url('/fonts/Dosis-Regular.ttf');
+}
+
+$theme-font-primary: dosis, sans-serif;
+$theme-font-secondary: inter, sans-serif;

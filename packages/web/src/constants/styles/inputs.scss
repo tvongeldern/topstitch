@@ -1,6 +1,5 @@
 @import './colors';
-@import './forms';
-@import './theme';
+@import './edges';
 
 .inputContainer {
 	display: flex;
@@ -18,7 +17,8 @@
 		appearance: none;
 		box-shadow: none;
 		border: 1px solid $dark-gray;
-		border-radius: $theme-border-radius;
-		padding: 8px 16px;
+		border-radius: $input-border-radius;
+		padding: 8px;
+		transition: border-color 0.4s;
 	}
 }

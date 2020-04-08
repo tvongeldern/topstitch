@@ -1,5 +1,67 @@
+@import './theme';
+@import './forms';
+
 $font-size-small: 12px;
 $font-size-regular: 16px;
 $font-size-large: 24px;
 $font-size-subheader: 32px;
 $font-size-header: 40px;
+
+:global(#__next) {
+	display: flex;
+	flex-direction: column;
+	font-family: $theme-font-secondary;
+	color: $text-color;
+}
+
+html body {
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+
+	p,
+	a,
+	b,
+	input,
+	span,
+	label,
+	button,
+	div {
+		font-size: $font-size-regular;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5 {
+		font-family: $theme-font-primary;
+		font-weight: bold;
+	}
+
+	h1 {
+		font-size: $font-size-header;
+	}
+
+	h2 {
+		font-size: $font-size-subheader;
+	}
+
+	h3,
+	h4 {
+		font-size: $font-size-large;
+	}
+
+	h5 {
+		font-size: $font-size-regular;
+	}
+
+	input,
+	button,
+	div,
+	a {
+		&:focus {
+			outline: none;
+		}
+	}
+}

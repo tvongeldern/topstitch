@@ -1,15 +1,19 @@
-$theme-color-primary: purple;
-$theme-color-secondary: orange;
-$theme-color-tertiary: green;
-$theme-color-quaternary: blue;
+// https://mycolor.space/?hex=%23FF5233&sub=1
 
-$ui-error-color: red;
-$ui-success-color: green;
-$ui-warning-color: orange;
-$ui-link-color: blue;
+$theme-color-primary: #ff5233;
+$theme-color-secondary: #5ab7d4;
+$theme-color-tertiary: #5f63e3;
+$theme-color-quaternary: #fd247b;
+
+$ui-error-color: #8c0000;
+$ui-success-color: #40a400;
+$ui-warning-color: #ec6700;
+$ui-disabled-color: #487e90;
+$ui-link-color: #0076c6;
+$ui-link-clicked-color: #5f63e3;
 
 $white: #fff;
-$light-gray: #f2f2f2;
-$gray: #cbcbcb;
-$dark-gray: #a6a6a6;
-$text-color: black;
+$light-gray: #ede9d0;
+$gray: #bea6a0;
+$dark-gray: #56423d;
+$text-color: #322724; // not mathematically related

@@ -1,8 +1,17 @@
 @import 'theme';
 
-.button {
-	appearance: none;
-	border-radius: $theme-border-radius;
-	cursor: pointer;
-	padding: 16px 24px;
+.primary {
+	background-color: $theme-color-primary;
+}
+
+.secondary {
+	background-color: $theme-color-secondary;
+}
+
+.tertiary {
+	background-color: $theme-color-tertiary;
+}
+
+.quaternary {
+	background-color: $theme-color-quaternary;
 }

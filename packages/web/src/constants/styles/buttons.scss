@@ -1,0 +1,14 @@
+@import './colors';
+@import './edges';
+
+button {
+	appearance: none;
+	border-radius: $button-border-radius;
+	cursor: pointer;
+	padding: 16px 24px;
+	background-color: $theme-color-primary;
+	color: $white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
