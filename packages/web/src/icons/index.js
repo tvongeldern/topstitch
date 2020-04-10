@@ -1,0 +1,1 @@
+export { FirstDrawing } from './FirstDrawing';

@@ -1,0 +1,10 @@
+<svg version="1.1" viewBox="0 0 100 100" fill="none" stroke="none" stroke-linecap="square" stroke-miterlimit="10" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+	<path
+		fill="none"
+		stroke="red"
+		d="M 20,20
+			v 40
+			h40
+		"
+		/>
+</svg>
