@@ -17,7 +17,7 @@ export const name = {
 export const slug = {
 	type: DataTypes.STRING,
 	allowNull: false,
-	validate: {
-		is: SLUG,
-	},
+	// validate: {
+	// 	is: SLUG,
+	// },
 };

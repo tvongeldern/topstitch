@@ -10,6 +10,7 @@ import {
 import routes from '@routes';
 import { Logger } from '@utils';
 import { config } from '@constants';
+import { test } from '@utils/getSizeChart';
 
 const logger = new Logger().context('startup');
 
@@ -32,6 +33,7 @@ const logger = new Logger().context('startup');
 				.use(errorHandler)
 				.listen(config.port, () => logger.success(
 					`API listening on port ${config.port}`,
+					test(),
 				));
 		} catch (error) {
 			logger.error('API failed to start up');

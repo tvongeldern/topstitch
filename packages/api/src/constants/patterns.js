@@ -1,1 +1,1 @@
-const SLUG = /^[a-z0-9-_]+$/;
+export const SLUG = /^[a-z0-9-_]+$/;

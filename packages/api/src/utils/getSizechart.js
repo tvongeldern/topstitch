@@ -28,7 +28,7 @@ const modelsMap = [
 
 const measurement = {
 	model: Measurement,
-	attributes: ['id', 'name'],
+	attributes: ['average', 'id', 'min', 'max'],
 	include: [
 		{
 			model: GarmentSegment,
@@ -80,7 +80,7 @@ const queryOptionsMap = {
 };
 
 function reduceFitsToMap(garmentTypes, { garmentType, ...fit }) {
-	const { id } = garmentType;
+	const { id } = garmentType || {};
 	const existing = garmentTypes[id] || {};
 	return {
 		...garmentTypes,
@@ -155,3 +155,64 @@ export async function getSizechart({
 		throw new Error(`Invalid ${type} ID`);
 	}
 }
+
+
+// const asyncPause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+// const now = Date.now();
+
+// export async function test() {
+// 	await asyncPause(1000);
+// 	console.log('Starting...');
+// 	const shirt = await new GarmentType({
+// 		name: `Shirt ${now}`,
+// 		slug: `shirt-${now}`,
+// 	}).save();
+// 	const hip = await shirt.createGarmentSegment({
+// 		name: 'Hip',
+// 		slug: 'hip',
+// 	});
+// 	const brand = await new Brand({
+// 		name: `Brand ${now}`,
+// 		slug: `brand-${now}`,
+// 	}).save();
+// 	const line = await brand.createLine({
+// 		name: 'Line',
+// 		slug: 'line',
+// 	});
+	
+// 	const collection = await line.createCollection({
+// 		name: 'Collection',
+// 		slug: 'collection',
+// 	});
+// 	await collection.addGarmentType(shirt.id);
+// 	const fit = await collection.createFit({
+// 		name: 'Fit',
+// 		slug: 'fit',
+// 	});
+// 	await fit.setGarmentType(shirt.id);
+// 	const medium = await fit.createSize({
+// 		name: 'Medium',
+// 		slug: 'm',
+// 	});
+// 	const measurement = await medium.createMeasurement({
+// 		max: 42,
+// 		min: 40,
+// 	});
+// 	await measurement.setGarmentSegment(hip.id);
+// 	const measurement2 = await medium.createMeasurement({
+// 		max: 48,
+// 		min: 46,
+// 	});
+// 	await measurement2.setGarmentSegment(hip.id);
+// 	const sizechart = await getSizechart({
+// 		type: 'brand',
+// 		id: brand.id,
+// 	});
+// 	console.log(
+// 		JSON.stringify(
+// 			sizechart,
+// 			null,
+// 			2,
+// 		),
+// 	);
+// }
