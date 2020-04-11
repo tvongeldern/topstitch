@@ -20,48 +20,38 @@ export function Shirt_ShortSleeves({
 		armpitWidth = 0,
 		shoulderWidth = 0,
 		neckWidth = 0,
-		hipToArmpitHeightLeft = 0,
-		hipToArmpitHeightRight = 0,
-		hipToNeckHeightCenter = 0,
-		hipToNeckHeightLeft = 0,
-		hipToNeckHeightRight = 0,
-		hipToShoulderHeightLeft = 0,
-		hipToShoulderHeightRight = 0,
-		innerSleeveLengthLeft = 0,
-		innerSleeveLengthRight = 0,
-		outerSleeveLengthLeft = 0,
-		outerSleeveLengthRight = 0,
-		sleeveWidthElbowLeft = 0,
-		sleeveWidthElbowRight = 0,
-		sleeveWidthShoulderLeft = 0,
-		sleeveWidthShoulderRight = 0,
-		neckToShoulderLengthLeft = 0,
-		neckToShoulderLengthRight = 0,
+		hipToArmpitHeight = 0,
+		hipToNeckHeightFront = 0,
+		hipToNeckHeightBack = 0,
+		hipToNeckHeightSide = 0,
+		hipToShoulderHeight = 0,
+		innerSleeveLength = 0,
+		outerSleeveLength = 0,
+		sleeveWidthElbow = 0,
+		sleeveWidthShoulder = 0,
+		neckToShoulderLength = 0,
 		collarThickness = 0,
 	},
 }) {
 	// Setting container size
 	const maxHeight = Math.max(
-		hipToArmpitHeightLeft,
-		hipToArmpitHeightRight,
-		hipToNeckHeightCenter,
-		hipToNeckHeightLeft,
-		hipToNeckHeightRight,
-		hipToShoulderHeightLeft,
-		hipToShoulderHeightRight,
+		hipToArmpitHeight,
+		hipToNeckHeightFront,
+		hipToNeckHeightSide,
+		hipToShoulderHeight,
 	);
 	const maxWidth = Math.max(
-		hipWidth + outerSleeveLengthLeft + outerSleeveLengthRight,
-		waistWidth + outerSleeveLengthLeft + outerSleeveLengthRight,
-		armpitWidth + outerSleeveLengthLeft + outerSleeveLengthRight,
-		shoulderWidth + outerSleeveLengthLeft + outerSleeveLengthRight,
-		neckWidth + neckToShoulderLengthLeft + neckToShoulderLengthRight + outerSleeveLengthLeft + outerSleeveLengthRight,
+		hipWidth + outerSleeveLength + outerSleeveLength,
+		waistWidth + outerSleeveLength + outerSleeveLength,
+		armpitWidth + outerSleeveLength + outerSleeveLength,
+		shoulderWidth + outerSleeveLength + outerSleeveLength,
+		neckWidth + neckToShoulderLength + neckToShoulderLength + outerSleeveLength + outerSleeveLength,
 	);
 	const maxSleeve = Math.max(
-		innerSleeveLengthLeft,
-		innerSleeveLengthRight,
-		outerSleeveLengthLeft,
-		outerSleeveLengthRight,
+		innerSleeveLength,
+		innerSleeveLength,
+		outerSleeveLength,
+		outerSleeveLength,
 	);
 	const containerSize = Math.max(maxHeight, maxWidth + maxSleeve, 90) + 10;
 	// Container points
@@ -78,59 +68,59 @@ export function Shirt_ShortSleeves({
 	};
 	const waistLeft = {
 		x: middle - (waistWidth / 2),
-		y: bottom - (hipToArmpitHeightLeft / 2),
+		y: bottom - (hipToArmpitHeight / 2),
 	};
 	const waistRight = {
 		x: middle + (waistWidth / 2),
-		y: bottom - (hipToArmpitHeightRight / 2),
+		y: bottom - (hipToArmpitHeight / 2),
 	};
 	const armpitLeft = {
 		x: middle - (armpitWidth / 2),
-		y: bottom - hipToArmpitHeightLeft,
+		y: bottom - hipToArmpitHeight,
 	};
 	const armpitRight = {
 		x: middle + (armpitWidth / 2),
-		y: bottom - hipToArmpitHeightRight,
+		y: bottom - hipToArmpitHeight,
 	};
 	const neckLeft = {
 		x: middle - (neckWidth / 2),
-		y: bottom - hipToNeckHeightLeft,
+		y: bottom - hipToNeckHeightSide,
 	};
 	const neckRight = {
 		x: middle + (neckWidth / 2),
-		y: bottom - hipToNeckHeightRight,
+		y: bottom - hipToNeckHeightSide,
 	};
 	const neckCenter = {
 		x: middle,
-		y: bottom - hipToNeckHeightCenter,
+		y: bottom - hipToNeckHeightFront,
 	};
 	const shoulderLeft = circleIntersection(
-		[neckLeft, neckToShoulderLengthLeft],
-		[armpitLeft, sleeveWidthShoulderLeft],
+		[neckLeft, neckToShoulderLength],
+		[armpitLeft, sleeveWidthShoulder],
 	).sort(xDesc)[0];
 	const shoulderRight = circleIntersection(
-		[neckRight, neckToShoulderLengthRight],
-		[armpitRight, sleeveWidthShoulderRight],
+		[neckRight, neckToShoulderLength],
+		[armpitRight, sleeveWidthShoulder],
 	).sort(xAsc)[0];
 	const elbowLeftTop = endOfHypotenuse({
 		point: shoulderLeft,
-		distance: outerSleeveLengthLeft,
+		distance: outerSleeveLength,
 		slope: 1,
 		options: { inverseX: true },
 	});
 	const elbowLeftBottom = endOfHypotenuse({
 		point: elbowLeftTop,
-		distance: sleeveWidthElbowLeft,
+		distance: sleeveWidthElbow,
 		slope: 1,
 	});
 	const elbowRightTop = endOfHypotenuse({
 		point: shoulderRight,
-		distance: outerSleeveLengthRight,
+		distance: outerSleeveLength,
 		slope: 1,
 	});
 	const elbowRightBottom = endOfHypotenuse({
 		point: elbowRightTop,
-		distance: sleeveWidthElbowRight,
+		distance: sleeveWidthElbow,
 		slope: 1,
 		options: { inverseX: true },
 	});
@@ -167,7 +157,6 @@ export function Shirt_ShortSleeves({
 		{
 			d: `M ${elbowRightTop.x},${elbowRightTop.y} L ${elbowRightBottom.x},${elbowRightBottom.y}`,
 		},
-		
 	];
 	return (
 		<svg
