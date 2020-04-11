@@ -9,7 +9,7 @@
 			{
 				"root": "./",
 				"alias": {
-					"@config": "./src/config",
+					"@constants": "./src/constants",
 					"@db": "./src/db",
 					"@middleware": "./src/middleware",
 					"@models": "./src/models",

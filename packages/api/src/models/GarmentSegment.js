@@ -1,16 +1,23 @@
-import { DataTypes, Sequelize } from 'sequelize';
 import { db } from '@db';
+import { id, name, slug } from './_commonFields';
 
-export const GarmentSegment = db.define('garmentSegment', {
-	id: {
-		type: DataTypes.UUID,
-		primaryKey: true,
-		allowNull: false,
-		unique: true,
-		defaultValue: Sequelize.UUIDV4,
+export const GarmentSegment = db.define(
+	'garmentSegment',
+	{
+		id,
+		name,
+		slug,
 	},
-	name: {
-		type: DataTypes.STRING,
-		allowNull: false,
+	{
+		indexes: [
+			{
+				unique: true,
+				fields: ['name', 'garmentTypeId'],
+			},
+			{
+				unique: true,
+				fields: ['slug', 'garmentTypeId'],
+			},
+		],
 	},
-});
+);

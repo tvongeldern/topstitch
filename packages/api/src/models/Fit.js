@@ -1,16 +1,23 @@
-import { DataTypes, Sequelize } from 'sequelize';
 import { db } from '@db';
+import { id, name, slug } from './_commonFields';
 
-export const Fit = db.define('fit', {
-	id: {
-		type: DataTypes.UUID,
-		primaryKey: true,
-		allowNull: false,
-		unique: true,
-		defaultValue: Sequelize.UUIDV4,
+export const Fit = db.define(
+	'fit',
+	{
+		id,
+		name,
+		slug,
 	},
-	name: {
-		type: DataTypes.STRING,
-		allowNull: false,
+	{
+		indexes: [
+			{
+				unique: true,
+				fields: ['name', 'collectionId'],
+			},
+			{
+				unique: true,
+				fields: ['slug', 'collectionId'],
+			},
+		],
 	},
-});
+);

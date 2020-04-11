@@ -1,4 +1,5 @@
 import { DataTypes, Sequelize } from 'sequelize';
+import { SLUG } from '@constants/patterns';
 import { db } from '@db';
 
 export const Measurement = db.define('measurement', {
@@ -11,5 +12,23 @@ export const Measurement = db.define('measurement', {
 	name: {
 		type: DataTypes.STRING,
 		allowNull: false,
+	},
+	slug: {
+		type: DataTypes.STRING,
+		allowNull: false,
+		validate: {
+			is: SLUG,
+		},
+	},
+	min: {
+		type: DataTypes.SMALLINT,
+		allowNull: false,
+	},
+	max: {
+		type: DataTypes.SMALLINT,
+		allowNull: false,
+	},
+	average: {
+		type: DataTypes.SMALLINT,
 	},
 });

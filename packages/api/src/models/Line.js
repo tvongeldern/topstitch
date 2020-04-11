@@ -1,27 +1,23 @@
-import { DataTypes, Sequelize } from 'sequelize';
+import { id, name, slug } from './_commonFields';
 import { db } from '@db';
 
 export const Line = db.define(
 	'line',
 	{
-		id: {
-			type: DataTypes.UUID,
-			primaryKey: true,
-			allowNull: false,
-			unique: true,
-			defaultValue: Sequelize.UUIDV4,
-		},
-		name: {
-			type: DataTypes.STRING,
-			allowNull: false,
-		},
+		id,
+		name,
+		slug,
 	},
 	{
 		indexes: [
 			{
 				unique: true,
 				fields: ['name', 'brandId'],
-			}
-		]
-	}
+			},
+			{
+				unique: true,
+				fields: ['slug', 'brandId'],
+			},
+		],
+	},
 );
