@@ -3,6 +3,6 @@ import { sizechartGetter } from './sizechartGetter';
 
 const sizecharts = new Router();
 
-sizecharts.get('/:type/:id', sizechartGetter);
+sizecharts.get('/:type/:slug', sizechartGetter);
 
 export default sizecharts;

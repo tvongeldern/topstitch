@@ -1,7 +1,7 @@
 import express from 'express';
 import body from 'body-parser';
 import cookies from 'cookie-parser';
-import { db, migrate } from '@db';
+import { db, migrate, seed } from '@db';
 import {
 	provideLogger,
 	responseStructure,
@@ -17,9 +17,9 @@ const logger = new Logger().context('startup');
 	try {
 		logger.log('Connecting to database...');
 		await db.authenticate();
-		logger.log('Synchronizing tables...');
 		// await db.sync();
 		await migrate(); // switch to migrations once data models have stabilized
+		await seed();
 		logger.success('Database ready!');
 		try {
 			logger.info('Starting API...');

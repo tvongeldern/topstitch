@@ -1,16 +1,16 @@
 import { Router } from 'express';
 import { Collection } from '@models';
-import { addExisting, creator, getter, searcher } from '@utils/handlers';
+import { addExisting, creator, getBySlug, getChildren } from '@utils/handlers';
 
 const collections = new Router();
 
-collections.get('/:id', getter(Collection));
+collections.get('/:slug', getBySlug(Collection));
 
-collections.get('/:id/fits/', searcher(Collection, 'Fits'));
-collections.post('/:id/fits/', creator(Collection, 'Fit'));
+collections.get('/:slug/fits/', getChildren(Collection, 'Fits'));
+collections.post('/:slug/fits/', creator(Collection, 'Fit'));
 
 collections.post(
-	'/:id/garment-types/add/:childId',
+	'/:slug/garment-types/add/:childId',
 	addExisting(Collection, 'GarmentType'),
 );
 

@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import { Measurement } from '@models';
-import { getter } from '@utils/handlers';
+import { getBySlug } from '@utils/handlers';
 
 const measurements = new Router();
 
-measurements.get('/:id', getter(Measurement));
+measurements.get('/:slug', getBySlug(Measurement));
 
 export default measurements;

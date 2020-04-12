@@ -1,4 +1,4 @@
 export { addExisting } from './addExisting';
 export { creator } from './creator';
-export { getter } from './getter';
-export { searcher } from './searcher';
+export { getBySlug } from './getBySlug';
+export { getChildren } from './getChildren';

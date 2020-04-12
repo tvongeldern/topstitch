@@ -1,13 +1,17 @@
-export function getter(Model) {
+export function getBySlug(Model, { attributes, include } = {}) {
 	return async function get(
 		{
-			params: { id },
+			params: { slug },
 		},
 		response,
 		next,
 	) {
 		try {
-			const object = await Model.findByPk(id);
+			const object = await Model.findOne({
+				attributes,
+				include,
+				where: { slug },
+			});
 			if (!object) {
 				return next({
 					status: 404,

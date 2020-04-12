@@ -1,6 +1,7 @@
 export function addExisting(ParentModel, childModelName) {
 	return async function add(
 		{
+			logger,
 			params: { childId, id },
 		},
 		response,
@@ -19,7 +20,7 @@ export function addExisting(ParentModel, childModelName) {
 			const json = updated.toJSON();
 			response.send(json);
 		} catch (error) {
-			console.log(error);
+			logger.error(error);
 			return errorHandler({
 				error,
 				status: 400,

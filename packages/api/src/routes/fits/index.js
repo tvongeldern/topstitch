@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { Fit } from '@models';
-import { creator, getter, searcher } from '@utils/handlers';
+import { creator, getBySlug, getChildren } from '@utils/handlers';
 
 const fits = new Router();
 
-fits.get('/:id', getter(Fit));
+fits.get('/:slug', getBySlug(Fit));
 
-fits.get('/:id/sizes/', searcher(Fit, 'Sizes'));
-fits.post('/:id/sizes/', creator(Fit, 'Size'));
+fits.get('/:slug/sizes/', getChildren(Fit, 'Sizes'));
+fits.post('/:slug/sizes/', creator(Fit, 'Size'));
 
 export default fits;

@@ -4,4 +4,5 @@ module.exports = {
 	'config': './src/db/config.json',
 	'models-path': './src/models',
 	'migrations-path': './src/db/migrations',
+	'seeders-path: './serc/db/seeders',
 };

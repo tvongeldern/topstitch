@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { Size } from '@models';
-import { creator, getter, searcher } from '@utils/handlers';
+import { creator, getBySlug, getChildren } from '@utils/handlers';
 
 const sizes = new Router();
 
-sizes.get('/:id', getter(Size));
+sizes.get('/:slug', getBySlug(Size));
 
-sizes.get('/:id/measurements/', searcher(Size, 'Measurements'));
-sizes.post('/:id/measurements/', creator(Size, 'Measurement'));
+sizes.get('/:slug/measurements/', getChildren(Size, 'Measurements'));
+sizes.post('/:slug/measurements/', creator(Size, 'Measurement'));
 
 export default sizes;

@@ -1,40 +1,39 @@
 import { Sequelize } from 'sequelize';
 import { getJSON } from '../getJSON';
 
+const NO_ATTRIBUTES = [];
 const { iLike } = Sequelize.Op;
 
-export function searcher(ParentModel, childModelNamePlural) {
+export function getChildren(ParentModel, ChildModel, options = {}) {
 	return async function searchTable(
 		{
 			logger,
-			params: { id },
+			params: { slug },
 			query: { search, ...query },
 		},
 		response,
 		next,
 	) {
-		const method = `get${childModelNamePlural}`;
 		try {
-			const parent = await ParentModel.findByPk(id);
+			const parent = await ParentModel.findOne({
+				attributes: NO_ATTRIBUTES,
+				include: [{
+					model: ChildModel,
+					...options,
+				}],
+				where: { slug },
+			});
 			if (!parent) {
 				return next({
 					status: 404,
-					message: `No ${ParentModel.name} found with ID ${id}`,
+					message: `${ParentModel.name} not found`,
 				});
 			}
 			try {
-				const children = await parent[method]({
-					where: {
-						...query,
-						name: {
-							[iLike]: `%${search}%`,
-						},
-					},
-				});
-				const json = children.map(getJSON);
-				return response.send(json);
+				const json = parent.toJSON();
+				const [children] = Object.values(json);
+				return response.send(children);
 			} catch (error) {
-				logger.error(error);
 				return next({ error });
 			}
 		} catch (error) {

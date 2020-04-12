@@ -1,14 +1,14 @@
 import { Router } from 'express';
 import { Brand } from '@models';
-import { creator, getter, searcher } from '@utils/handlers';
+import { creator, getBySlug, getChildren } from '@utils/handlers';
 
 const brands = new Router();
 
 brands.post('/', creator(Brand));
 
-brands.get('/:id', getter(Brand));
+brands.get('/:slug', getBySlug(Brand));
 
-brands.get('/:id/lines/', searcher(Brand, 'Lines'));
-brands.post('/:id/lines/', creator(Brand, 'Line'));
+brands.get('/:slug/lines/', getChildren(Brand, 'Lines'));
+brands.post('/:slug/lines/', creator(Brand, 'Line'));
 
 export default brands;
