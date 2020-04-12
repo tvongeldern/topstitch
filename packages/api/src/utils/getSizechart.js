@@ -160,12 +160,12 @@ export async function getSizechart({
 // const asyncPause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 // const now = Date.now();
 
-// export async function test() {
+// async function test() {
 // 	await asyncPause(1000);
 // 	console.log('Starting...');
 // 	const shirt = await new GarmentType({
-// 		name: `Shirt ${now}`,
-// 		slug: `shirt-${now}`,
+// 		name: `Shirt`,
+// 		slug: `shirt`,
 // 	}).save();
 // 	const hip = await shirt.createGarmentSegment({
 // 		name: 'Hip',
@@ -216,3 +216,5 @@ export async function getSizechart({
 // 		),
 // 	);
 // }
+
+// test();
