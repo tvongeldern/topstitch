@@ -32,14 +32,14 @@ const measurement = {
 	include: [
 		{
 			model: GarmentSegment,
-			attributes: ['id', 'name'],
+			attributes: ['id', 'name', 'slug'],
 		},
 	],
 };
 
 const garmentType = {
 	model: GarmentType,
-	attributes: ['id', 'name'],
+	attributes: ['id', 'name', 'slug'],
 };
 
 const size = {
@@ -199,14 +199,14 @@ export async function getSizechart({
 // 		min: 40,
 // 	});
 // 	await measurement.setGarmentSegment(hip.id);
-// 	const measurement2 = await medium.createMeasurement({
-// 		max: 48,
-// 		min: 46,
-// 	});
-// 	await measurement2.setGarmentSegment(hip.id);
+// 	// const measurement2 = await medium.createMeasurement({
+// 	// 	max: 48,
+// 	// 	min: 46,
+// 	// });
+// 	// await measurement2.setGarmentSegment(hip.id);
 // 	const sizechart = await getSizechart({
-// 		type: 'brand',
-// 		id: brand.id,
+// 		type: 'fit',
+// 		id: fit.id,
 // 	});
 // 	console.log(
 // 		JSON.stringify(

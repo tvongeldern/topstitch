@@ -225,10 +225,18 @@ async function up(queryInterface) {
   );
   await Promise.all(
     tableForeignKeys.map(
-      ({ table, key, uniqueKey }) => queryInterface.addIndex(table, [key, uniqueKey]),
+      ({ table, key, uniqueKey }) => queryInterface.addIndex(
+        table,
+        [key, uniqueKey],
+        { unique: true },
+      ),
     ),
   );
-  await queryInterface.addIndex('measurements', ['garmentSegmentId', 'sizeId']);
+  await queryInterface.addIndex(
+    'measurements',
+    ['garmentSegmentId', 'sizeId'],
+    { unique: true },
+  );
 }
 
 function down(queryInterface) {

@@ -10,7 +10,6 @@ import {
 import routes from '@routes';
 import { Logger } from '@utils';
 import { config } from '@constants';
-import { test } from '@utils/getSizeChart';
 
 const logger = new Logger().context('startup');
 
@@ -19,8 +18,8 @@ const logger = new Logger().context('startup');
 		logger.log('Connecting to database...');
 		await db.authenticate();
 		logger.log('Synchronizing tables...');
-		await db.sync();
-		// await migrate(); // switch to migrations once data models have stabilized
+		// await db.sync();
+		await migrate(); // switch to migrations once data models have stabilized
 		logger.success('Database ready!');
 		try {
 			logger.info('Starting API...');
@@ -33,7 +32,6 @@ const logger = new Logger().context('startup');
 				.use(errorHandler)
 				.listen(config.port, () => logger.success(
 					`API listening on port ${config.port}`,
-					test(),
 				));
 		} catch (error) {
 			logger.error('API failed to start up');
