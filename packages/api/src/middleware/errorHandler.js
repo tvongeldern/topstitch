@@ -1,16 +1,15 @@
 export function errorHandler (
 	{
-		error = {},
-		logger = console,
+		error = null,
 		status = 500,
 		message = 'An error has occurred.',
 		metadata,
 	},
-	request,
+	{ logger = console },
 	response,
 	next,
 ) {
-	logger.error(`${message} ${error}`);
+	logger.error(error || message);
 	return response
 		.status(status)
 		.send({ error, message, metadata });

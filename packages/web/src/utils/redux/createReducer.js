@@ -7,7 +7,7 @@ import createReducerFromMap from './createReducerFromMap';
  * Creates a reducer function from a map of action types
  * and their respective reducers
  */
-export default function createReducer(subreducers, initialState) {
+export function createReducer(subreducers, initialState) {
 	return createReducerFromMap(
 		createReducerMap(subreducers),
 		initialState,

@@ -15,15 +15,16 @@ export function getBySlug(Model, { attributes, include } = {}) {
 			if (!object) {
 				return next({
 					status: 404,
-					message: `No ${Model.name} found with ID ${id}`,
+					message: `${Model.name} ${slug} not found`,
 				});
 			}
 			const json = object.toJSON();
 			response.send(json);
 		} catch (error) {
 			return next({
-				status: 400,
+				error,
 				message: `Invalid ${Model.name} ID`,
+				status: 400,
 			});
 		}
 	}

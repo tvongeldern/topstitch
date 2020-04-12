@@ -4,6 +4,13 @@ const withScss = require('@zeit/next-sass');
 const withImages = require('next-images');
 const { webpackDevMiddleware } = require('./dev/webpack-dev-middleware');
 
+const config = {
+	webpackDevMiddleware,
+	publicRuntimeConfig: {
+		API_HOST: process.env.API_HOST,
+	},
+};
+
 module.exports = compose([
 	[withCss],
 	[
@@ -19,4 +26,4 @@ module.exports = compose([
 		},
 	],
 	[withImages],
-], { webpackDevMiddleware });
+], config);

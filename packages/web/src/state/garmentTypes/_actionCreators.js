@@ -1,0 +1,1 @@
+export { getGarmentType } from './getGarmentType';

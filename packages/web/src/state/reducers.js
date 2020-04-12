@@ -1,0 +1,1 @@
+export { garmentTypes } from './garmentTypes';

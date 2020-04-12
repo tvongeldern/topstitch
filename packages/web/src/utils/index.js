@@ -1,4 +1,4 @@
-export { iconWrapper } from './iconWrapper';
 export * from './geometry';
-
-export const EXISTS = (v) => v;
+export * from './hooks';
+export * from './hoc';
+export * from './simpleFunctions';

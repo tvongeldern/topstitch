@@ -1,6 +1,7 @@
 import express from 'express';
 import body from 'body-parser';
 import cookies from 'cookie-parser';
+import cors from 'cors';
 import { db, migrate, seed } from '@db';
 import {
 	provideLogger,
@@ -26,6 +27,7 @@ const logger = new Logger().context('startup');
 			express()
 				.use(body.json())
 				.use(cookies())
+				.use(cors())
 				.use(provideLogger)
 				.use(responseStructure)
 				.use(routes)
@@ -37,7 +39,6 @@ const logger = new Logger().context('startup');
 			logger.error('API failed to start up');
 		}
 	} catch (error) {
-		console.error(error);
 		logger.error('Database did not connect.');
 	}
 })();
