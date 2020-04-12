@@ -1,6 +1,6 @@
 import {
-	GarmentType,
-	GarmentSegment,
+	Garment,
+	Segment,
 	Brand,
 	Line,
 	Collection,
@@ -13,8 +13,8 @@ import { getJSON } from './getJSON';
 const EMPTY_OBJECT = {};
 
 const modelsMap = [
-	GarmentType,
-	GarmentSegment,
+	Garment,
+	Segment,
 	Brand,
 	Line,
 	Collection,
@@ -31,14 +31,14 @@ const measurement = {
 	attributes: ['average', 'id', 'min', 'max'],
 	include: [
 		{
-			model: GarmentSegment,
+			model: Segment,
 			attributes: ['id', 'name', 'slug'],
 		},
 	],
 };
 
-const garmentType = {
-	model: GarmentType,
+const garment = {
+	model: Garment,
 	attributes: ['id', 'name', 'slug'],
 };
 
@@ -51,7 +51,7 @@ const size = {
 const fit = {
 	model: Fit,
 	attributes: ['id', 'name'],
-	include: [size, garmentType],
+	include: [size, garment],
 };
 
 const collection = {
@@ -79,14 +79,14 @@ const queryOptionsMap = {
 	size,
 };
 
-function reduceFitsToMap(garmentTypes, { garmentType, ...fit }) {
-	const { id } = garmentType || {};
-	const existing = garmentTypes[id] || {};
+function reduceFitsToMap(garments, { garment, ...fit }) {
+	const { id } = garment || {};
+	const existing = garments[id] || {};
 	return {
-		...garmentTypes,
+		...garments,
 		[id]: {
 			...existing,
-			...garmentType,
+			...garment,
 			fits: [
 				...(existing.fits || []),
 				fit,
@@ -99,7 +99,7 @@ function formatCollection({ id, name, fits }) {
 	return formatSizechart({
 		id,
 		name,
-		garmentTypes: Object.values(fits.reduce(reduceFitsToMap, EMPTY_OBJECT)),
+		garments: Object.values(fits.reduce(reduceFitsToMap, EMPTY_OBJECT)),
 	});
 }
 
@@ -163,11 +163,11 @@ export async function getSizechart({
 // async function test() {
 // 	await asyncPause(1000);
 // 	console.log('Starting...');
-// 	const shirt = await new GarmentType({
-// 		name: `Shirt`,
-// 		slug: `shirt`,
+// 	const shirt = await new Garment({
+// 		name: `Shirt ${now}`,
+// 		slug: `shirt-${now}`,
 // 	}).save();
-// 	const hip = await shirt.createGarmentSegment({
+// 	const hip = await shirt.createSegment({
 // 		name: 'Hip',
 // 		slug: 'hip',
 // 	});
@@ -184,12 +184,12 @@ export async function getSizechart({
 // 		name: 'Collection',
 // 		slug: 'collection',
 // 	});
-// 	await collection.addGarmentType(shirt.id);
+// 	await collection.addGarment(shirt.id);
 // 	const fit = await collection.createFit({
 // 		name: 'Fit',
 // 		slug: 'fit',
 // 	});
-// 	await fit.setGarmentType(shirt.id);
+// 	await fit.setGarment(shirt.id);
 // 	const medium = await fit.createSize({
 // 		name: 'Medium',
 // 		slug: 'm',
@@ -198,12 +198,12 @@ export async function getSizechart({
 // 		max: 42,
 // 		min: 40,
 // 	});
-// 	await measurement.setGarmentSegment(hip.id);
+// 	await measurement.setSegment(hip.id);
 // 	// const measurement2 = await medium.createMeasurement({
 // 	// 	max: 48,
 // 	// 	min: 46,
 // 	// });
-// 	// await measurement2.setGarmentSegment(hip.id);
+// 	// await measurement2.setSegment(hip.id);
 // 	const sizechart = await getSizechart({
 // 		type: 'fit',
 // 		id: fit.id,

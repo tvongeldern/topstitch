@@ -1,4 +1,4 @@
-import { GarmentType, GarmentSegment } from '@models';
+import { Garment, Segment } from '@models';
 import { logger } from '../migration-logger';
 
 const garments = [
@@ -23,14 +23,14 @@ const garments = [
 ]
 
 async function generateGarment({ segments, ...where }) {
-  const existing = await GarmentType.findOne({ where });
+  const existing = await Garment.findOne({ where });
   if (existing) {
     logger.error(`Garment type ${where.name} already exists`);
     throw new Error('Tried to seed existing object');
   }
-  const garment = await new GarmentType(where).save();
+  const garment = await new Garment(where).save();
   await Promise.all(
-    segments.map((segment) => garment.createGarmentSegment(segment)),
+    segments.map((segment) => garment.createSegment(segment)),
   );
   logger.success(`Generated garment type "${where.name}"`);
 }

@@ -1,8 +1,8 @@
 import { db } from '@db';
 import { id, name, slug } from './_commonFields';
 
-export const GarmentSegment = db.define(
-	'garmentSegment',
+export const Segment = db.define(
+	'segment',
 	{
 		id,
 		name,
@@ -12,11 +12,11 @@ export const GarmentSegment = db.define(
 		indexes: [
 			{
 				unique: true,
-				fields: ['name', 'garmentTypeId'],
+				fields: ['name', 'garmentId'],
 			},
 			{
 				unique: true,
-				fields: ['slug', 'garmentTypeId'],
+				fields: ['slug', 'garmentId'],
 			},
 		],
 	},

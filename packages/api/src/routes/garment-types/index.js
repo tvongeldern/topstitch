@@ -1,17 +1,17 @@
 import { Router } from 'express';
-import { GarmentType, GarmentSegment } from '@models';
+import { Garment, Segment } from '@models';
 import { creator, getBySlug, getChildren } from '@utils/handlers';
 
 const options = {
 	attributes: ['id', 'name', 'slug'],
 };
 
-const garmentTypes = new Router();
+const garments = new Router();
 
-garmentTypes.post('/', creator(GarmentType));
+garments.post('/', creator(Garment));
 
-garmentTypes.get('/:slug', getBySlug(GarmentType, options));
+garments.get('/:slug', getBySlug(Garment, options));
 
-garmentTypes.get('/:slug/segments', getChildren(GarmentType, GarmentSegment));
+garments.get('/:slug/segments', getChildren(Garment, Segment));
 
-export default garmentTypes;
+export default garments;

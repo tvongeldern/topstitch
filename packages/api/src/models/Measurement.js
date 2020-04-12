@@ -41,7 +41,7 @@ export const Measurement = db.define(
 		indexes: [
 			{
 				unique: true,
-				fields: ['garmentSegmentId', 'sizeId'],
+				fields: ['segmentId', 'sizeId'],
 			},
 		],
 		validate: {

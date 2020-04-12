@@ -1,1 +1,1 @@
-export { garmentTypes } from './garmentTypes';
+export { garments } from './garments';

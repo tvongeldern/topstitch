@@ -55,7 +55,7 @@ const TABLES = {
       updatedAt,
     }),
   },
-  garmentTypes: {
+  garments: {
     columns: ({ name, slug, ...defaults }) => ({
       ...defaults,
       name: {
@@ -68,10 +68,10 @@ const TABLES = {
       }
     }),
   },
-  garmentSegments: {
+  segments: {
     foreignKeys: {
-      garmentTypeId: {
-        model: 'garmentTypes',
+      garmentId: {
+        model: 'garments',
         unique: ['name', 'slug'],
       },
     },
@@ -115,13 +115,13 @@ const TABLES = {
       ...defaults,
     }),
   },
-  collectionGarmentTypes: {
+  collectionGarments: {
     foreignKeys: {
       collectionId: {
         model: 'collections',
       },
-      garmentTypeId: {
-        model: 'garmentTypes',
+      garmentId: {
+        model: 'garments',
       },
     },
     columns: ({ createdAt, id, updatedAt }) => ({
@@ -136,8 +136,8 @@ const TABLES = {
         model: 'collections',
         unique: ['name', 'slug'],
       },
-      garmentTypeId: {
-        model: 'garmentTypes',
+      garmentId: {
+        model: 'garments',
       }
     },
     columns: (defaults) => ({
@@ -155,13 +155,13 @@ const TABLES = {
       ...defaults,
     }),
   },
-  sizeGarmentSegments: {
+  sizeSegments: {
     foreignKeys: {
       sizeId: {
         model: 'sizes',
       },
-      garmentSegmentId: {
-        model: 'garmentSegments',
+      segmentId: {
+        model: 'segments',
       },
     },
     columns: ({ createdAt, id, updatedAt }) => ({
@@ -175,8 +175,8 @@ const TABLES = {
       sizeId: {
         model: 'sizes',
       },
-      garmentSegmentId: {
-        model: 'garmentSegments',
+      segmentId: {
+        model: 'segments',
       },
     },
     columns: ({ name, slug, ...defaults }) => ({
@@ -234,7 +234,7 @@ async function up(queryInterface) {
   );
   await queryInterface.addIndex(
     'measurements',
-    ['garmentSegmentId', 'sizeId'],
+    ['segmentId', 'sizeId'],
     { unique: true },
   );
 }

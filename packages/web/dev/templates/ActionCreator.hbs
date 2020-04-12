@@ -1,0 +1,21 @@
+const types = {
+	start: 'seamstress.{{location}}.{{name}}.start',
+	success: 'seamstress.{{location}}.{{name}}.success',
+	fail: 'seamstress.{{location}}.{{name}}.fail',
+};
+
+export const {{name}}Reducer = {
+	[types.start]: (state) => state,
+	[types.success]: (state, { response }) => ({
+		...state,
+	}),
+	[types.fail]: (state, { error }) => ({
+		...state,
+		error,
+	}),
+};
+
+export const {{name}} = ({  }) => ({
+	types: [types.start, types.success, types.fail],
+	promise: ({ api }) => api.get(`/`),
+});

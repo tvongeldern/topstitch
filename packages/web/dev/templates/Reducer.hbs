@@ -1,6 +1,8 @@
 import { createReducer } from '@utils/redux';
-import * as reducers from '../actions/{{name}}/reducers';
+import * as reducers from './_reducers';
 
-const initialState = {};
+const INITIAL_STATE = {};
 
-export default createReducer(reducers, initialState);
+export const {{name}} = createReducer(reducers, INITIAL_STATE);
+
+export * from './_actionCreators';

@@ -7,10 +7,12 @@
     "dev": "next dev",
     "start": "next start",
     "gen": "plop --require @babel/register",
+    "gen:action": "npm run gen -- action",
     "gen:component": "npm run gen -- component",
     "gen:form": "npm run gen -- form",
     "gen:icon": "npm run gen -- icon",
-    "gen:page": "npm run gen -- page"
+    "gen:page": "npm run gen -- page",
+    "gen:reducer": "npm run gen -- reducer"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",

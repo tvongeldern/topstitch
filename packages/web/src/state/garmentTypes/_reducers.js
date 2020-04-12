@@ -1,1 +1,0 @@
-export { getGarmentTypeReducer } from './getGarmentType';

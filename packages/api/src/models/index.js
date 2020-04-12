@@ -1,19 +1,19 @@
 import { Account } from './Account';
 import { Brand } from './Brand';
 import { Collection } from './Collection';
-import { CollectionGarmentType } from './CollectionGarmentType';
+import { CollectionGarment } from './CollectionGarment';
 import { Fit } from './Fit';
-import { GarmentSegment } from './GarmentSegment';
-import { GarmentType } from './GarmentType';
+import { Segment } from './Segment';
+import { Garment } from './Garment';
 import { Line } from './Line';
 import { Size } from './Size';
 import { Measurement } from './Measurement';
-import { SizeGarmentSegment } from './SizeGarmentSegment';
+import { SizeSegment } from './SizeSegment';
 
 // Garment
 
-GarmentType.hasMany(GarmentSegment);
-GarmentSegment.belongsTo(GarmentType);
+Garment.hasMany(Segment);
+Segment.belongsTo(Garment);
 
 // Sizechart
 
@@ -25,30 +25,30 @@ Line.hasMany(Collection);
 Collection.belongsTo(Line);
 Collection.hasMany(Fit);
 
-GarmentType.belongsToMany(Collection, { through: CollectionGarmentType });
-Collection.belongsToMany(GarmentType, { through: CollectionGarmentType });
+Garment.belongsToMany(Collection, { through: CollectionGarment });
+Collection.belongsToMany(Garment, { through: CollectionGarment });
 
-Fit.belongsTo(Collection, { through: CollectionGarmentType });
-Fit.belongsTo(GarmentType, { through: CollectionGarmentType });
+Fit.belongsTo(Collection, { through: CollectionGarment });
+Fit.belongsTo(Garment, { through: CollectionGarment });
 
 Fit.hasMany(Size);
 
 Size.belongsTo(Fit);
 Size.hasMany(Measurement);
 
-GarmentSegment.belongsToMany(Size, { through: SizeGarmentSegment });
-Size.belongsToMany(GarmentSegment, { through: SizeGarmentSegment });
+Segment.belongsToMany(Size, { through: SizeSegment });
+Size.belongsToMany(Segment, { through: SizeSegment });
 
-Measurement.belongsTo(Size, { through: SizeGarmentSegment });
-Measurement.belongsTo(GarmentSegment, { through: SizeGarmentSegment });
+Measurement.belongsTo(Size, { through: SizeSegment });
+Measurement.belongsTo(Segment, { through: SizeSegment });
 
 export {
 	Account,
 	Brand,
 	Collection,
 	Fit,
-	GarmentSegment,
-	GarmentType,
+	Segment,
+	Garment,
 	Line,
 	Size,
 	Measurement,

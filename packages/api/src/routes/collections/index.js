@@ -11,7 +11,7 @@ collections.post('/:slug/fits/', creator(Collection, 'Fit'));
 
 collections.post(
 	'/:slug/garment-types/add/:childId',
-	addExisting(Collection, 'GarmentType'),
+	addExisting(Collection, 'Garment'),
 );
 
 export default collections;

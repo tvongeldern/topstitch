@@ -1,7 +1,7 @@
 import { db } from '@db';
 import { id, name, slug } from './_commonFields';
 
-export const GarmentType = db.define('garmentType', {
+export const Garment = db.define('garment', {
 	id,
 	name: {
 		...name,

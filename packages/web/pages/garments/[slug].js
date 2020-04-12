@@ -1,9 +1,5 @@
-import { useEffect } from 'react';
 import { Page, Shirt_ShortSleeves } from '@components';
-import { getGarmentType } from '@state/garmentTypes';
-import { populatePage, useActionCreators } from '@utils';
-
-import axios from 'axios';
+import { getGarment } from '@state/garments';
 
 const MEASUREMENTS = {
 	hipWidth: 32,
@@ -22,11 +18,7 @@ const MEASUREMENTS = {
 	collarThickness: 2,
 };
 
-export default function GarmentTypePage({ slug }) {
-	// const [dispatchGetGarment] = useActionCreators(getGarmentType);
-	// useEffect(() => {
-	// 	dispatchGetGarment({ slug: 'tshirt' });
-	// }, []);
+export default function GarmentPage({ slug }) {
 	return (
 		<Page>
 			<Shirt_ShortSleeves measurements={MEASUREMENTS} />
@@ -34,4 +26,4 @@ export default function GarmentTypePage({ slug }) {
 	);
 };
 
-GarmentTypePage.populate = [getGarmentType];
+GarmentPage.populate = [getGarment];

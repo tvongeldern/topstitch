@@ -12,9 +12,7 @@ const SOURCE_DIR = `${PROJECT_ROOT}/src`;
 const ICONS_DIR = `${SOURCE_DIR}/icons`;
 const COMPONENTS_DIR = `${SOURCE_DIR}/components`;
 const FORMS_DIR = `${SOURCE_DIR}/forms`;
-// const STATE_DIR = `${SOURCE_DIR}/state`;
-// const ACTIONS_DIR = `${STATE_DIR}/actions`;
-// const REDUCERS_DIR = `${STATE_DIR}/reducers`;
+const STATE_DIR = `${SOURCE_DIR}/state`;
 const PAGES_DIR = `${PROJECT_ROOT}/pages`;
 const SCSS_TEMPLATE = '.container {\n\n}';
 
@@ -159,87 +157,70 @@ export default function definePlopGenerators({ setGenerator }) {
 		],
 	});
 
-	// setGenerator('action', {
-	// 	description: 'Generate a Redux action creator',
-	// 	prompts: [
-	// 		{
-	// 			name: 'location',
-	// 			message: 'To which reducer does this action apply?',
-	// 			type: 'list',
-	// 			choices: listSubdirectories(ACTIONS_DIR),
-	// 		},
-	// 		{
-	// 			name: 'name',
-	// 			message: 'What would you like to name your action creator?',
-	// 			type: 'input',
-	// 		},
-	// 		{
-	// 			name: 'type',
-	// 			message: 'What would you like to name your action creator?',
-	// 			type: 'list',
-	// 			choices: [
-	// 				'async',
-	// 				'sync',
-	// 				'process',
-	// 			],
-	// 		},
-	// 	],
-	// 	actions: [
-	// 		{
-	// 			type: 'add',
-	// 			path: `${ACTIONS_DIR}/{{location}}/creators/{{name}}.js`,
-	// 			templateFile: `${TEMPLATES_DIR}/ActionCreator-{{type}}.hbs`,
-	// 		},
-	// 		updateIndexFile(
-	// 			({ location }) => `${ACTIONS_DIR}/${location}/index.js`,
-	// 			({ name }) => `export { creator as ${name} } from './creators/${name}'`,
-	// 		),
-	// 		updateIndexFile(
-	// 			({ location }) => `${ACTIONS_DIR}/${location}/reducers.js`,
-	// 			({ name }) => `export { reducer as ${name} } from './creators/${name}'`,
-	// 		),
-	// 	],
-	// });
+	setGenerator('action', {
+		description: 'Generate a Redux action creator',
+		prompts: [
+			{
+				name: 'location',
+				message: 'To which reducer does this action apply?',
+				type: 'list',
+				choices: listSubdirectories(STATE_DIR).filter((dirName) => dirName !== 'middleware'),
+			},
+			{
+				name: 'name',
+				message: 'What would you like to name your action creator?',
+				type: 'input',
+			},
+		],
+		actions: [
+			{
+				type: 'add',
+				path: `${STATE_DIR}/{{location}}/{{name}}.js`,
+				templateFile: `${TEMPLATES_DIR}/ActionCreator.hbs`,
+			},
+			updateIndexFile(
+				({ location }) => `${STATE_DIR}/${location}/_actionCreators.js`,
+				({ name }) => `export { ${name} } from './${name}'`,
+			),
+			updateIndexFile(
+				({ location }) => `${STATE_DIR}/${location}/_reducers.js`,
+				({ name }) => `export { ${name}Reducer } from './${name}'`,
+			),
+		],
+	});
 
-	// setGenerator('reducer', {
-	// 	description: 'Generate a new Redux reducer',
-	// 	prompts: [
-	// 		{
-	// 			name: 'name',
-	// 			message: 'What would you like to name this reducer?',
-	// 			type: 'input',
-	// 		},
-	// 	],
-	// 	actions: [
-	// 		{
-	// 			type: 'add',
-	// 			path: `${REDUCERS_DIR}/{{name}}.js`,
-	// 			templateFile: `${TEMPLATES_DIR}/Reducer.hbs`,
-	// 		},
-	// 		addDirectory(
-	// 			({ name }) => `${ACTIONS_DIR}/${name}`,
-	// 		),
-	// 		addDirectory(
-	// 			({ name }) => `${ACTIONS_DIR}/${name}/creators`,
-	// 		),
-	// 		{
-	// 			type: 'add',
-	// 			path: `${ACTIONS_DIR}/{{name}}/index.js`,
-	// 			template: '',
-	// 		},
-	// 		{
-	// 			type: 'add',
-	// 			path: `${ACTIONS_DIR}/{{name}}/reducers.js`,
-	// 			template: '',
-	// 		},
-	// 		updateIndexFile(
-	// 			() => `${REDUCERS_DIR}/index.js`,
-	// 			({ name }) => `export { default as ${name} } from './${name}'`,
-	// 		),
-	// 		updateIndexFile(
-	// 			() => `${ACTIONS_DIR}/index.js`,
-	// 			({ name }) => `export * from './${name}'`,
-	// 		),
-	// 	],
-	// });
+	setGenerator('reducer', {
+		description: 'Generate a new Redux reducer',
+		prompts: [
+			{
+				name: 'name',
+				message: 'What would you like to name this reducer?',
+				type: 'input',
+			},
+		],
+		actions: [
+			addDirectory(
+				({ name }) => `${STATE_DIR}/${name}`,
+			),
+			{
+				type: 'add',
+				path: `${STATE_DIR}/{{name}}/_actionCreators.js`,
+				template: '',
+			},
+			{
+				type: 'add',
+				path: `${STATE_DIR}/{{name}}/_reducers.js`,
+				template: '',
+			},
+			{
+				type: 'add',
+				path: `${STATE_DIR}/{{name}}/index.js`,
+				templateFie: `${TEMPLATES_DIR}/Reducer.hbs`,
+			},
+			updateIndexFile(
+				() => `${STATE_DIR}/index.js`,
+				({ name }) => `export { ${name} } from './${name}'`,
+			),
+		],
+	});
 }
