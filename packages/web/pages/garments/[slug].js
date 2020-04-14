@@ -1,17 +1,17 @@
-import { Page, Shirt_ShortSleeves } from '@components';
+import { Page, Shirt } from '@components';
 import { getGarment } from '@state/garments';
 
 const MEASUREMENTS = {
 	hipWidth: 32,
 	waistWidth: 33,
-	armpitWidth: 34,
-	shoulderWidth: 38,
+	chestWidth: 34,
+	shoulderWidth: 36,
 	neckWidth: 16,
 	hipToArmpitHeight: 26,
-	hipToNeckHeightFront: 34,
+	hipToNeckHeightFront: 36,
 	hipToNeckHeightSide: 42,
 	hipToShoulderHeight: 36,
-	outerSleeveLength: 14,
+	sleeveLengthOuter: 14,
 	sleeveWidthElbow: 10,
 	sleeveWidthShoulder: 14,
 	neckToShoulderLength: 12,
@@ -21,7 +21,7 @@ const MEASUREMENTS = {
 export default function GarmentPage({ slug }) {
 	return (
 		<Page>
-			<Shirt_ShortSleeves measurements={MEASUREMENTS} />
+			<Shirt {...MEASUREMENTS} />
 		</Page>
 	);
 };

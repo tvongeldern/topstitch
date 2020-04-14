@@ -1,8 +1,11 @@
-const square = (num) => Math.pow(num, 2);
-
 // https://www.geeksforgeeks.org/find-points-at-a-given-distance-on-a-line-of-given-slope/
 
-export function endOfHypotenuse({
+/**
+ * Provided with a starting point, length, and slope
+ * Returns coordinates of the end of a line segment
+ * @param {point { x, y }, distance, slope, options {inverseX, inverseY }} param
+ */
+export function endOfLineSegment({
 	point: { x, y },
 	distance,
 	slope,

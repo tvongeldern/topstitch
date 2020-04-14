@@ -5,10 +5,10 @@ import { NavBar } from '../NavBar';
 import styles from './styles.scss';
 
 const BASE_TITLE = 'The Perfect Fit';
-const EXISTS = (v) => v;
+const IS_TRUTHY = (v) => v;
 
 export function Page({ children, title }) {
-	const pageTitle = [BASE_TITLE, title].filter(EXISTS).join(' | ');
+	const pageTitle = [BASE_TITLE, title].filter(IS_TRUTHY).join(' | ');
 	return (
 		<div className={styles.container}>
 			<Head>

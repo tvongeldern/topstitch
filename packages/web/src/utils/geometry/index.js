@@ -1,3 +1,3 @@
-export { circleIntersection } from './circleIntersection';
-export { remainingTrapezoidCoords } from './remainingTrapezoidCoords';
-export { endOfHypotenuse } from './endOfHypotenuse';
+export { circleIntersections } from './circleIntersections';
+export { endOfLineSegment } from './endOfLineSegment';
+export { pythagoreanTheoremSolver } from './pythagoreanTheoremSolver';

@@ -5,7 +5,7 @@
  * @param {[{ x, y }, length ]} circle1
  * @param {[{ x, y }, length ]} circle2
  */
-export function circleIntersection(circle1, circle2) {
+export function circleIntersections(circle1, circle2) {
 	const [{ x: x0, y: y0 }, r0] = circle1;
 	const [{ x: x1, y: y1 }, r1] = circle2;
 

@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { provideStore } from '@state/store';
 import { populatePage } from '@utils/hoc';
 
-
 class Seamstress extends App {
 	static async getInitialProps({ Component, router, ctx }) {
 		const Container = populatePage(Component);
