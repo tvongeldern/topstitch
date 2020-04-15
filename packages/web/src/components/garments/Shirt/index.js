@@ -42,6 +42,11 @@ export function Shirt({
 		hipWaistOffset,
 		waistArmpitOffset,
 		armpitShoulderOffset,
+		shoulderNeckOffset,
+		necklineFrontOffset,
+		necklineBackOffset,
+		shoulderElbowOuterOffset,
+		elbowOuterInnerOffset,
 	} = deriveOffsets(measurements);
 
 	const containerSize = 100;
@@ -78,6 +83,34 @@ export function Shirt({
 		armpitShoulderOffset,
 	);
 
+	const [neckLeft, neckRight] = deriveCoordinates(
+		shoulderLeft,
+		shoulderRight,
+		shoulderNeckOffset,
+	);
+
+	const neckFront = {
+		x: middle,
+		y: neckLeft.y + necklineFrontOffset.y,
+	};
+
+	const neckBack = {
+		x: middle,
+		y: neckLeft.y + necklineBackOffset.y,
+	};
+
+	const [elbowOuterLeft, elbowOuterRight] = deriveCoordinates(
+		shoulderLeft,
+		shoulderRight,
+		shoulderElbowOuterOffset,
+	);
+
+	const [elbowInnerLeft, elbowInnerRight] = deriveCoordinates(
+		elbowOuterLeft,
+		elbowOuterRight,
+		elbowOuterInnerOffset,
+	);
+
 	const strokes = [
 		// hips
 		{ d: `M ${hipLeft.x},${hipLeft.y} L ${hipRight.x},${hipRight.y}` },
@@ -88,7 +121,20 @@ export function Shirt({
 		{ d: `M ${waistLeft.x},${waistLeft.y} L ${armpitLeft.x},${armpitLeft.y}` },
 		{ d: `M ${waistRight.x},${waistRight.y} L ${armpitRight.x},${armpitRight.y}` },
 		// shoulders
-		{ d: `M ${shoulderLeft.x},${shoulderLeft.y} L ${shoulderRight.x},${shoulderRight.y}`},
+		{ d: `M ${shoulderLeft.x},${shoulderLeft.y} L ${neckLeft.x},${neckLeft.y}`},
+		{ d: `M ${shoulderRight.x},${shoulderRight.y} L ${neckRight.x},${neckRight.y}` },
+		// collar / neck
+		{ d: `M ${neckLeft.x},${neckLeft.y} L ${neckFront.x},${neckFront.y} L ${neckRight.x},${neckRight.y}` },
+		{ d: `M ${neckLeft.x},${neckLeft.y} L ${neckBack.x},${neckBack.y} L ${neckRight.x},${neckRight.y}` },
+		// sleeves from shoulder
+		{ d: `M ${shoulderLeft.x},${shoulderLeft.y} L ${elbowOuterLeft.x},${elbowOuterLeft.y}` },
+		{ d: `M ${shoulderRight.x},${shoulderRight.y} L ${elbowOuterRight.x},${elbowOuterRight.y}` },
+		// cross sleeves
+		{ d: `M ${elbowOuterLeft.x},${elbowOuterLeft.y} L ${elbowInnerLeft.x},${elbowInnerLeft.y}` },
+		{ d: `M ${elbowOuterRight.x},${elbowOuterRight.y} L ${elbowInnerRight.x},${elbowInnerRight.y}` },
+		// back to armpits
+		{ d: `M ${elbowInnerLeft.x},${elbowInnerLeft.y} L ${armpitLeft.x},${armpitLeft.y}` },
+		{ d: `M ${elbowInnerRight.x},${elbowInnerRight.y} L ${armpitRight.x},${armpitRight.y}` },
 	];
 	return (
 		<svg
