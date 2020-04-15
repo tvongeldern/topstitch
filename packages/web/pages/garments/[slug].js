@@ -1,4 +1,5 @@
-import { Page, Shirt } from '@components';
+import { Page, GarmentView } from '@components';
+import { Shirt } from '@garments';
 import { getGarment } from '@state/garments';
 
 const MEASUREMENTS = {
@@ -20,7 +21,7 @@ const MEASUREMENTS = {
 export default function GarmentPage({ slug }) {
 	return (
 		<Page>
-			<Shirt measurements={MEASUREMENTS} />
+			<GarmentView garment={Shirt} measurements={MEASUREMENTS} />
 		</Page>
 	);
 };

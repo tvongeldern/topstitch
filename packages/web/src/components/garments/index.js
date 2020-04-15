@@ -1,1 +1,0 @@
-export { Shirt } from './Shirt';

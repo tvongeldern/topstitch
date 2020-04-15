@@ -1,15 +1,8 @@
-import React from 'react';
-import { number } from 'prop-types';
 import { symmetricalCoordinates } from '@utils';
-import { deriveOffsets } from './deriveOffsets';
-import styles from './styles.scss';
+import styles from '@constants/styles/garments.scss';
 
-// https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d#Path_commands
-
-export function Shirt({
-	measurements,
-}) {
-	const {
+export function drawGarment({
+	offsets: {
 		startHipOffset,
 		hipWaistOffset,
 		waistArmpitOffset,
@@ -19,13 +12,19 @@ export function Shirt({
 		necklineBackOffset,
 		shoulderElbowOuterOffset,
 		elbowOuterInnerOffset,
-	} = deriveOffsets(measurements);
+	},
+	viewBox: {
+		maxHeight,
+		maxWidth,
+		size,
+	},
+}) {
 
-	const containerSize = 60;
-	const middle = containerSize / 2;
+	
+	const middle = size / 2;
 	const start = {
 		x: middle,
-		y: middle + (middle/2),
+		y: middle + (maxHeight / 2),
 	};
 
 	const hipLeft = {
@@ -83,7 +82,7 @@ export function Shirt({
 		elbowOuterInnerOffset,
 	);
 
-	const strokes = [
+	return [
 		// hips
 		{ d: `M ${hipLeft.x},${hipLeft.y} L ${hipRight.x},${hipRight.y}` },
 		//waist
@@ -93,17 +92,18 @@ export function Shirt({
 		{ d: `M ${waistLeft.x},${waistLeft.y} L ${armpitLeft.x},${armpitLeft.y}` },
 		{ d: `M ${waistRight.x},${waistRight.y} L ${armpitRight.x},${armpitRight.y}` },
 		// shoulders
-		{ d: `M ${shoulderLeft.x},${shoulderLeft.y} L ${neckLeft.x},${neckLeft.y}`},
+		{ d: `M ${shoulderLeft.x},${shoulderLeft.y} L ${neckLeft.x},${neckLeft.y}` },
 		{ d: `M ${shoulderRight.x},${shoulderRight.y} L ${neckRight.x},${neckRight.y}` },
 		// collar / neck
-		{ d: `
+		{
+			d: `
 				M ${neckLeft.x},${neckLeft.y}
 				Q ${neckLeft.x},${neckFront.y} ${neckFront.x},${neckFront.y}
 				Q ${neckRight.x},${neckFront.y} ${neckRight.x},${neckRight.y}
 				Q ${neckRight.x},${neckBack.y} ${neckBack.x},${neckBack.y}
 				Q ${neckLeft.x},${neckBack.y} ${neckLeft.x},${neckLeft.y}
 			`,
-			fill: 'gray'
+			className: styles.shaded,
 		},
 		// { d: `M ${neckLeft.x},${neckLeft.y} Q ${neckLeft.x},${neckBack.y} ${neckBack.x},${neckBack.y} Q ${neckRight.x},${neckBack.y} ${neckRight.x},${neckRight.y}` },
 		// { d: `M ${neckLeft.x},${neckLeft.y} Q ${neckFront.x},${neckFront.y} ${neckRight.x},${neckRight.y}` },
@@ -117,59 +117,4 @@ export function Shirt({
 		{ d: `M ${elbowInnerLeft.x},${elbowInnerLeft.y} L ${armpitLeft.x},${armpitLeft.y}` },
 		{ d: `M ${elbowInnerRight.x},${elbowInnerRight.y} L ${armpitRight.x},${armpitRight.y}` },
 	];
-	return (
-		<svg
-			version="1.1"
-			viewBox={`0 0 ${containerSize} ${containerSize}`}
-			fill="none"
-			stroke="none"
-			strokeLinecap="round"
-			strokeMiterlimit="10"
-			xlink="http://www.w3.org/1999/xlink"
-			xmlns="http://www.w3.org/2000/svg"
-			className={styles.svg}
-		>
-			{strokes.map((stroke) => (
-				<path
-					key={stroke.d}
-					strokeWidth={0.2}
-					fill="none"
-					stroke="red"
-					{...stroke}
-				/>
-			))}
-		</svg>
-	);
 }
-
-Shirt.propTypes = {
-	chestWidth: number,
-	hipWidth: number,
-	waistWidth: number,
-	shoulderWidth: number,
-	neckWidth: number,
-	hipToArmpitHeight: number,
-	hipToNeckHeightFront: number,
-	hipToNeckHeightBack: number,
-	hipToNeckHeightSide: number,
-	sleeveLengthOuter: number,
-	sleeveWidthElbow: number,
-	sleeveWidthShoulder: number,
-	neckToShoulderLength: number,
-};
-
-Shirt.defaultProps = {
-	chestWidth: 0,
-	hipWidth: 0,
-	waistWidth: 0,
-	shoulderWidth: 0,
-	neckWidth: 0,
-	hipToArmpitHeight: 0,
-	hipToNeckHeightFront: 0,
-	hipToNeckHeightBack: 0,
-	hipToNeckHeightSide: 0,
-	sleeveLengthOuter: 0,
-	sleeveWidthElbow: 0,
-	sleeveWidthShoulder: 0,
-	neckToShoulderLength: 0,
-};
