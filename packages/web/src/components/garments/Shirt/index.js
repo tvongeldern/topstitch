@@ -1,42 +1,14 @@
 import React from 'react';
 import { number } from 'prop-types';
-import { circleIntersections, endOfLineSegment, pythagoreanTheoremSolver } from '@utils/geometry';
+import { symmetricalCoordinates } from '@utils';
 import { deriveOffsets } from './deriveOffsets';
 import styles from './styles.scss';
-
-function deriveCoordinates(leftSide, rightSide, offset) {
-	return [
-		{ // left
-			x: leftSide.x - offset.x,
-			y: leftSide.y - offset.y,
-		},
-		{ // right
-			x: rightSide.x + offset.x,
-			y: rightSide.y - offset.y,
-		},
-	];
-}
 
 // https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d#Path_commands
 
 export function Shirt({
-	...measurements
+	measurements,
 }) {
-	const {
-		hipWidth,
-		waistWidth,
-		chestWidth,
-		shoulderWidth,
-		neckWidth,
-		hipToArmpitHeight,
-		hipToNeckHeightFront,
-		hipToNeckHeightBack,
-		hipToNeckHeightSide,
-		sleeveLengthOuter,
-		sleeveWidthElbow,
-		sleeveWidthShoulder,
-		neckToShoulderLength,
-	} = measurements;
 	const {
 		startHipOffset,
 		hipWaistOffset,
@@ -49,7 +21,7 @@ export function Shirt({
 		elbowOuterInnerOffset,
 	} = deriveOffsets(measurements);
 
-	const containerSize = 100;
+	const containerSize = 60;
 	const middle = containerSize / 2;
 	const start = {
 		x: middle,
@@ -65,25 +37,25 @@ export function Shirt({
 		y: start.y - startHipOffset.y,
 	};
 
-	const [waistLeft, waistRight] = deriveCoordinates(
+	const [waistLeft, waistRight] = symmetricalCoordinates(
 		hipLeft,
 		hipRight,
 		hipWaistOffset,
 	);
 
-	const [armpitLeft, armpitRight] = deriveCoordinates(
+	const [armpitLeft, armpitRight] = symmetricalCoordinates(
 		waistLeft,
 		waistRight,
 		waistArmpitOffset,
 	);
 
-	const [shoulderLeft, shoulderRight] = deriveCoordinates(
+	const [shoulderLeft, shoulderRight] = symmetricalCoordinates(
 		armpitLeft,
 		armpitRight,
 		armpitShoulderOffset,
 	);
 
-	const [neckLeft, neckRight] = deriveCoordinates(
+	const [neckLeft, neckRight] = symmetricalCoordinates(
 		shoulderLeft,
 		shoulderRight,
 		shoulderNeckOffset,
@@ -99,13 +71,13 @@ export function Shirt({
 		y: neckLeft.y + necklineBackOffset.y,
 	};
 
-	const [elbowOuterLeft, elbowOuterRight] = deriveCoordinates(
+	const [elbowOuterLeft, elbowOuterRight] = symmetricalCoordinates(
 		shoulderLeft,
 		shoulderRight,
 		shoulderElbowOuterOffset,
 	);
 
-	const [elbowInnerLeft, elbowInnerRight] = deriveCoordinates(
+	const [elbowInnerLeft, elbowInnerRight] = symmetricalCoordinates(
 		elbowOuterLeft,
 		elbowOuterRight,
 		elbowOuterInnerOffset,
@@ -124,8 +96,17 @@ export function Shirt({
 		{ d: `M ${shoulderLeft.x},${shoulderLeft.y} L ${neckLeft.x},${neckLeft.y}`},
 		{ d: `M ${shoulderRight.x},${shoulderRight.y} L ${neckRight.x},${neckRight.y}` },
 		// collar / neck
-		{ d: `M ${neckLeft.x},${neckLeft.y} L ${neckFront.x},${neckFront.y} L ${neckRight.x},${neckRight.y}` },
-		{ d: `M ${neckLeft.x},${neckLeft.y} L ${neckBack.x},${neckBack.y} L ${neckRight.x},${neckRight.y}` },
+		{ d: `
+				M ${neckLeft.x},${neckLeft.y}
+				Q ${neckLeft.x},${neckFront.y} ${neckFront.x},${neckFront.y}
+				Q ${neckRight.x},${neckFront.y} ${neckRight.x},${neckRight.y}
+				Q ${neckRight.x},${neckBack.y} ${neckBack.x},${neckBack.y}
+				Q ${neckLeft.x},${neckBack.y} ${neckLeft.x},${neckLeft.y}
+			`,
+			fill: 'gray'
+		},
+		// { d: `M ${neckLeft.x},${neckLeft.y} Q ${neckLeft.x},${neckBack.y} ${neckBack.x},${neckBack.y} Q ${neckRight.x},${neckBack.y} ${neckRight.x},${neckRight.y}` },
+		// { d: `M ${neckLeft.x},${neckLeft.y} Q ${neckFront.x},${neckFront.y} ${neckRight.x},${neckRight.y}` },
 		// sleeves from shoulder
 		{ d: `M ${shoulderLeft.x},${shoulderLeft.y} L ${elbowOuterLeft.x},${elbowOuterLeft.y}` },
 		{ d: `M ${shoulderRight.x},${shoulderRight.y} L ${elbowOuterRight.x},${elbowOuterRight.y}` },
@@ -151,7 +132,7 @@ export function Shirt({
 			{strokes.map((stroke) => (
 				<path
 					key={stroke.d}
-					strokeWidth={0.5}
+					strokeWidth={0.2}
 					fill="none"
 					stroke="red"
 					{...stroke}

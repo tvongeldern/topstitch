@@ -12,6 +12,7 @@
 					"@components": "./src/components",
 					"@constants": "./src/constants",
 					"@forms": "./src/forms",
+					"@garments": "./src/garments",
 					"@icons": "./src/icons",
 					"@state": "./src/state",
 					"@utils": "./src/utils"

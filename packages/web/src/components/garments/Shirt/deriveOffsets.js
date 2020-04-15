@@ -1,20 +1,14 @@
 import {
+	derive,
 	endOfLineSegment,
 	pythagoreanTheoremSolver,
 } from "@utils";
+import { MAGIC_RATIO } from '@constants';
 
-const MAGIC_RATIO = 1.6180339887;
 const defaultShoulderNeckYOffset = ({ _chestWidth }) => Math.round(0.05 * _chestWidth);
 const defaultShoulderArmpitXOffset = ({ _chestWidth }) => Math.round(0.1 * _chestWidth);
 const defaultNecklineFrontDip = ({ _chestWidth }) => Math.round(0.1 * _chestWidth);
 const defaultNecklineBackDip = ({ _chestWidth }) => Math.round(0.05 * _chestWidth);
-
-function derive(deriver, basis, defaultValue) {
-	if (defaultValue) {
-		return defaultValue;
-	}
-	return deriver(basis);
-}
 
 function deriveChestWidth({ waistWidth, hipWidth, shoulderWidth }) {
 	return hipWidth || shoulderWidth || waistWidth;

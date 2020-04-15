@@ -20,7 +20,7 @@ const MEASUREMENTS = {
 export default function GarmentPage({ slug }) {
 	return (
 		<Page>
-			<Shirt {...MEASUREMENTS} />
+			<Shirt measurements={MEASUREMENTS} />
 		</Page>
 	);
 };
