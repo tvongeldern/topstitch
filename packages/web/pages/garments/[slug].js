@@ -1,27 +1,35 @@
 import { Page, GarmentView } from '@components';
 import { Shirt } from '@garment-builders';
 import { getGarment, getGarmentSegments } from '@state/actions';
+import { useSelectorCreator } from '@utils/hooks';
 
-const MEASUREMENTS = {
-	// hipWidth: 32,
-	// waistWidth: 33,
-	chestWidth: 22,
-	// shoulderWidth: 40,
-	// neckWidth: 16,
-	// hipToArmpitHeight: 26,
-	// hipToNeckHeightFront: 32,
-	hipToNeckHeightSide: 30,
-	// sleeveLengthOuter: 14,
-	// sleeveWidthElbow: 10,
-	// sleeveWidthShoulder: 14,
-	// neckToShoulderLength: 12,
-	// collarThickness: 2,
-};
+function garmentPageSelectorCreator({ slug }) {
+	return function garmentPageSelector({
+		garments: { garments, slugs },
+		segments: { segments },
+	}) {
+		const id = slugs[slug];
+		const garment = garments[id];
+		return {
+			garment,
+			segments: Object.values(segments)
+				.filter(({ garmentId }) => garmentId === id),
+		};
+	}
+}
 
 export default function GarmentPage({ slug }) {
+	const { garment, segments } = useSelectorCreator(
+		garmentPageSelectorCreator,
+		{ slug },
+	);
 	return (
 		<Page>
-			<GarmentView garment={Shirt} measurements={MEASUREMENTS} />
+			<GarmentView
+				component={Shirt}
+				garment={garment}
+				segments={segments}
+			/>
 		</Page>
 	);
 };

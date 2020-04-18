@@ -1,5 +1,10 @@
 import { db } from '@db';
-import { id, name, propName } from './_fields';
+import {
+	measurement,
+	id,
+	name,
+	propName,
+} from './_fields';
 
 export const Segment = db.define(
 	'segment',

@@ -8,6 +8,9 @@ export const getGarmentReducer = {
 	[types.start]: (state) => state,
 	[types.success]: (state, { response }) => ({
 		...state,
+		slugs: {
+			[response.slug]: response.id,
+		},
 		garments: {
 			...state.garments,
 			[response.id]: response,

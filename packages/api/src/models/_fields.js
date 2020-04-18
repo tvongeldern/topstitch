@@ -1,6 +1,27 @@
 import { DataTypes, Sequelize } from 'sequelize';
 import { PROP_NAME, SLUG } from '@constants/patterns';
 
+function constrainedNumber({
+	min,
+	max,
+	minMsg = 'Does not meet minimum value',
+	maxMsg = 'Exceeds maximum value',
+}) {
+	return {
+		type: DataTypes.SMALLINT,
+		validate: {
+			min: {
+				args: [min],
+				msg: minMsg,
+			},
+			max: {
+				args: [max],
+				msg: maxMsg,
+			}
+		},
+	};
+}
+
 // Unique object identifier
 export const id = {
 	type: DataTypes.UUID,
@@ -50,21 +71,10 @@ export const tag = {
 	},
 };
 
-export const constrainedNumber = ({
-	min,
-	max,
-	minMsg = 'Does not meet minimum value',
-	maxMsg = 'Exceeds maximum value',
-}) => ({
-	type: DataTypes.SMALLINT,
-	validate: {
-		min: {
-			args: [min],
-			msg: minMsg,
-		},
-		max: {
-			args: [max],
-			msg: maxMsg,
-		}
-	},
+// Measurements are always stored in mm
+export const measurement = constrainedNumber({
+	min: 1,
+	max: 9999,
+	minMsg: 'All measurements must be at least 1mm',
+	maxMsg: 'No measurement can be over 3 meters long',
 });

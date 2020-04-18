@@ -1,5 +1,3 @@
-import styles from '@constants/styles/garments.scss';
-
 export function drawGarment({
 	coordinates: {
 		hipLeft,
@@ -41,7 +39,6 @@ export function drawGarment({
 				Q ${neckRight.x},${neckBack.y} ${neckBack.x},${neckBack.y}
 				Q ${neckLeft.x},${neckBack.y} ${neckLeft.x},${neckLeft.y}
 			`,
-			className: styles.shaded,
 		},
 		// { d: `M ${neckLeft.x},${neckLeft.y} Q ${neckLeft.x},${neckBack.y} ${neckBack.x},${neckBack.y} Q ${neckRight.x},${neckBack.y} ${neckRight.x},${neckRight.y}` },
 		// { d: `M ${neckLeft.x},${neckLeft.y} Q ${neckFront.x},${neckFront.y} ${neckRight.x},${neckRight.y}` },

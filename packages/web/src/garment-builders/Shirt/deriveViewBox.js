@@ -28,8 +28,8 @@ export function deriveViewBox({
 		shoulderNeckOffset.y,
 	);
 	const size = Math.ceil(
-		Math.max(maxWidth, maxHeight) * 1.1
-	);
+		Math.max(maxWidth, maxHeight)
+	) + 24;
 	return {
 		maxWidth,
 		maxHeight,

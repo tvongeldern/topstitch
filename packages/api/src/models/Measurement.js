@@ -1,12 +1,5 @@
 import { db } from '@db';
-import { id, constrainedNumber } from './_fields';
-
-const measurement = constrainedNumber({
-	min: 1,
-	max: 9999,
-	minMsg: 'All measurements must be at least 1mm',
-	maxMsg: 'No measurement can be over 3 meters long',
-});
+import { id, measurement } from './_fields';
 
 export const Measurement = db.define(
 	'measurement',
