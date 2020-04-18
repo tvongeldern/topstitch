@@ -16,7 +16,7 @@ router.use('/accounts', accounts);
 router.use('/brands', brands);
 router.use('/lines', lines);
 router.use('/collections', collections);
-router.use('/garment-types', garments);
+router.use('/garments', garments);
 router.use('/fits', fits);
 router.use('/sizes', sizes);
 router.use('/measurements', measurements);

@@ -215,10 +215,10 @@ export default function definePlopGenerators({ setGenerator }) {
 			{
 				type: 'add',
 				path: `${STATE_DIR}/{{name}}/index.js`,
-				templateFie: `${TEMPLATES_DIR}/Reducer.hbs`,
+				templateFile: `${TEMPLATES_DIR}/Reducer.hbs`,
 			},
 			updateIndexFile(
-				() => `${STATE_DIR}/index.js`,
+				() => `${STATE_DIR}/reducers.js`,
 				({ name }) => `export { ${name} } from './${name}'`,
 			),
 		],

@@ -1,5 +1,16 @@
 @import './theme';
 
-.shaded {
-	fill: $gray;
+.garment {
+	path {
+		stroke: $theme-color-primary;
+		fill: none;
+	}
+	.shaded {
+		fill: $gray;
+	}
+	.measurement {
+		path {
+			stroke: $theme-color-tertiary;
+		}
+	}
 }

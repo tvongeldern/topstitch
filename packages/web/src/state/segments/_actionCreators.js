@@ -1,0 +1,1 @@
+export { getGarmentSegments } from './getGarmentSegments';

@@ -1,15 +1,17 @@
 import { ADD_ABS } from '@utils';
 
 export function deriveViewBox({
-	startHipOffset,
-	hipWaistOffset,
-	waistArmpitOffset,
-	armpitShoulderOffset,
-	shoulderNeckOffset,
-	necklineFrontOffset,
-	necklineBackOffset,
-	shoulderElbowOuterOffset,
-	elbowOuterInnerOffset,
+	offsets: {
+		startHipOffset,
+		hipWaistOffset,
+		waistArmpitOffset,
+		armpitShoulderOffset,
+		shoulderNeckOffset,
+		necklineFrontOffset,
+		necklineBackOffset,
+		shoulderElbowOuterOffset,
+		elbowOuterInnerOffset,
+	},
 }) {
 	const maxWidth = ADD_ABS(
 		startHipOffset.x,

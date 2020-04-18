@@ -1,6 +1,6 @@
 import { Page, GarmentView } from '@components';
-import { Shirt } from '@garments';
-import { getGarment } from '@state/garments';
+import { Shirt } from '@garment-builders';
+import { getGarment, getGarmentSegments } from '@state/actions';
 
 const MEASUREMENTS = {
 	// hipWidth: 32,
@@ -26,4 +26,4 @@ export default function GarmentPage({ slug }) {
 	);
 };
 
-GarmentPage.populate = [getGarment];
+GarmentPage.populate = [getGarment, getGarmentSegments];

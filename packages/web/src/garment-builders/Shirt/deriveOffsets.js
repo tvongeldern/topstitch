@@ -221,19 +221,21 @@ function deriveElbowOuterInnerOffset({ _sleeveWidthElbow }) {
  * @param {props} param
  */
 export function deriveOffsets({
-	hipWidth,
-	waistWidth,
-	chestWidth,
-	shoulderWidth,
-	neckWidth,
-	hipToArmpitHeight,
-	hipToNeckHeightFront,
-	hipToNeckHeightBack,
-	hipToNeckHeightSide,
-	sleeveLengthOuter,
-	sleeveWidthElbow,
-	sleeveWidthShoulder,
-	neckToShoulderLength,
+	measurements: {
+		hipWidth,
+		waistWidth,
+		chestWidth,
+		shoulderWidth,
+		neckWidth,
+		hipToArmpitHeight,
+		hipToNeckHeightFront,
+		hipToNeckHeightBack,
+		hipToNeckHeightSide,
+		sleeveLengthOuter,
+		sleeveWidthElbow,
+		sleeveWidthShoulder,
+		neckToShoulderLength,
+	},
 }) {
 	// Derive measurements
 	const _chestWidth = derive(deriveChestWidth, { waistWidth, hipWidth, shoulderWidth }, chestWidth);

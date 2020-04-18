@@ -8,6 +8,10 @@ export const getGarmentReducer = {
 	[types.start]: (state) => state,
 	[types.success]: (state, { response }) => ({
 		...state,
+		garments: {
+			...state.garments,
+			hmmm: response,
+		},
 	}),
 	[types.fail]: (state, { error }) => ({
 		...state,
@@ -15,7 +19,7 @@ export const getGarmentReducer = {
 	}),
 };
 
-export const getGarment = ({  }) => ({
+export const getGarment = ({ slug }) => ({
 	types: [types.start, types.success, types.fail],
-	promise: ({ api }) => api.get(`/`),
+	promise: ({ api }) => api.get(`/garments/${slug}`),
 });
