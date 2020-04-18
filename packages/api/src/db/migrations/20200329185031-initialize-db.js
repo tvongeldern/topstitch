@@ -1,9 +1,10 @@
 import { DataTypes, Sequelize } from 'sequelize';
-import { SLUG } from '@constants/patterns';
+import { PROP_NAME,SLUG } from '@constants/patterns';
 
 function foreignKey(model) {
   return {
     type: Sequelize.UUID,
+    allowNull: false,
     reference: {
       model,
       key: 'id',
@@ -18,46 +19,90 @@ function addForeignKeyColumns(foreignKeys = {}) {
   }), {});
 }
 
-const DEFAULT_COLUMNS = {
-  createdAt: {
-    allowNull: false,
-    type: DataTypes.DATE
-  },
-  id: {
-    type: DataTypes.UUID,
-    primaryKey: true,
-    allowNull: false,
-    unique: true,
-    defaultValue: Sequelize.UUIDV4,
-  },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  slug: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      is: SLUG,
+// COLUMN DEFINITIONS
+
+const constrainedNumber = ({
+  min,
+  max,
+  minMsg = 'Does not meet minimum value',
+  maxMsg = 'Exceeds maximum value',
+}) => ({
+  type: DataTypes.SMALLINT,
+  validate: {
+    min: {
+      args: [min],
+      msg: minMsg,
     },
+    max: {
+      args: [max],
+      msg: maxMsg,
+    }
   },
-  updatedAt: {
-    allowNull: false,
-    type: DataTypes.DATE
+});
+
+const createdAt = {
+  allowNull: false,
+  type: DataTypes.DATE,
+};
+
+const updatedAt = {
+  allowNull: false,
+  type: DataTypes.DATE,
+};
+
+const measurementNumber = constrainedNumber({
+  min: 1,
+  max: 9999,
+  minMsg: 'All measurements must be at least 1mm',
+  maxMsg: 'No measurement can be over 3 meters long',
+});
+
+export const id = {
+  type: DataTypes.UUID,
+  primaryKey: true,
+  allowNull: false,
+  unique: true,
+  // defaultValue: Sequelize.UUIDV4,
+  defaultValue: Sequelize.literal('uuid_generate_v4()'),
+};
+
+export const name = {
+  type: DataTypes.STRING,
+  allowNull: false,
+};
+
+export const propName = {
+  type: DataTypes.STRING,
+  allowNull: false,
+  validate: {
+    is: PROP_NAME,
+    len: [2, 64],
+  },
+};
+
+export const slug = {
+  type: DataTypes.STRING,
+  allowNull: false,
+  unique: true,
+  validate: {
+    is: SLUG,
+    len: [2, 32],
+  },
+};
+
+export const tag = {
+  type: DataTypes.STRING,
+  allowNull: false,
+  validate: {
+    is: SLUG,
+    len: [2, 32],
   },
 };
 
 const TABLES = {
-  accounts: {
-    columns: ({ createdAt, id, updatedAt }) => ({
-      createdAt,
-      id,
-      updatedAt,
-    }),
-  },
+  accounts: {},
   garments: {
-    columns: ({ name, slug, ...defaults }) => ({
-      ...defaults,
+    columns: {
       name: {
         ...name,
         unique: true,
@@ -65,55 +110,32 @@ const TABLES = {
       slug: {
         ...slug,
         unique: true,
-      }
-    }),
+      },
+    },
   },
   segments: {
     foreignKeys: {
       garmentId: {
         model: 'garments',
-        unique: ['name', 'slug'],
+        unique: ['name', 'propName'],
       },
     },
-    columns: (defaults) => ({
-      ...defaults,
-    }),
+    columns: { name, propName },
   },
   brands: {
-    columns: ({ name, slug, ... defaults }) => ({
-      ...defaults,
-      name: {
-        ...name,
-        unique: true,
-      },
-      slug: {
-        ...slug,
-        unique: true,
-      }
-    }),
-  },
-  lines: {
-    foreignKeys: {
-      brandId: {
-        model: 'brands',
-        unique: ['name', 'slug'],
-      },
+    columns: {
+      name: { ...name, unique: true },
+      slug,
     },
-    columns: (defaults) => ({
-      ...defaults,
-      brandId: foreignKey('brands'),
-    }),
   },
   collections: {
     foreignKeys: {
-      lineId: {
-        model: 'lines',
-        unique: ['name', 'slug'],
+      brandId: {
+        model: 'brands',
+        unique: ['name', 'tag'],
       },
     },
-    columns: (defaults) => ({
-      ...defaults,
-    }),
+    columns: { name, tag },
   },
   collectionGarments: {
     foreignKeys: {
@@ -124,36 +146,27 @@ const TABLES = {
         model: 'garments',
       },
     },
-    columns: ({ createdAt, id, updatedAt }) => ({
-      createdAt,
-      id,
-      updatedAt,
-    }),
   },
   fits: {
     foreignKeys: {
       collectionId: {
         model: 'collections',
-        unique: ['name', 'slug'],
+        unique: ['name', 'tag'],
       },
       garmentId: {
         model: 'garments',
       }
     },
-    columns: (defaults) => ({
-      ...defaults,
-    }),
+    columns: { name, tag },
   },
   sizes: {
     foreignKeys: {
       fitId: {
         model: 'fits',
-        unique: ['name', 'slug'],
+        unique: ['name', 'tag'],
       },
     },
-    columns: (defaults) => ({
-      ...defaults,
-    }),
+    columns: { name, tag },
   },
   sizeSegments: {
     foreignKeys: {
@@ -164,11 +177,6 @@ const TABLES = {
         model: 'segments',
       },
     },
-    columns: ({ createdAt, id, updatedAt }) => ({
-      createdAt,
-      id,
-      updatedAt,
-    }),
   },
   measurements: {
     foreignKeys: {
@@ -179,29 +187,27 @@ const TABLES = {
         model: 'segments',
       },
     },
-    columns: ({ name, slug, ...defaults }) => ({
-      ...defaults,
-      average: {
-        type: DataTypes.SMALLINT,
-      },
+    columns: {
+      average: measurementNumber,
       min: {
-        type: DataTypes.SMALLINT,
+        ...measurementNumber,
         allowNull: false,
       },
       max: {
-        type: DataTypes.SMALLINT,
+        ...measurementNumber,
         allowNull: false,
       },
-    }),
+    },
   },
 };
 
 const TABLE_ENTRIES = Object.entries(TABLES);
 
-const tables = TABLE_ENTRIES.map(([name, { columns, foreignKeys }]) => [
+const tables = TABLE_ENTRIES.map(([name, { columns = {}, foreignKeys }]) => [
   name,
   {
-    ...columns(DEFAULT_COLUMNS),
+    id, createdAt, updatedAt,
+    ...columns,
     ...addForeignKeyColumns(foreignKeys),
   },
 ]);
@@ -220,6 +226,7 @@ const tableForeignKeys = TABLE_ENTRIES
   ], []);
 
 async function up(queryInterface) {
+  await queryInterface.sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
   await Promise.all(
     tables.map((table) => queryInterface.createTable(...table)),
   );

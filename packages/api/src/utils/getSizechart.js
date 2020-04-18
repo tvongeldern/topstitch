@@ -2,7 +2,6 @@ import {
 	Garment,
 	Segment,
 	Brand,
-	Line,
 	Collection,
 	Fit,
 	Size,
@@ -16,7 +15,6 @@ const modelsMap = [
 	Garment,
 	Segment,
 	Brand,
-	Line,
 	Collection,
 	Fit,
 	Size,
@@ -60,20 +58,13 @@ const collection = {
 	include: [fit],
 };
 
-const line = {
-	model: Line,
+const brand = {
 	attributes: ['id', 'name'],
 	include: [collection],
 };
 
-const brand = {
-	attributes: ['id', 'name'],
-	include: [line],
-};
-
 const queryOptionsMap = {
 	brand,
-	line,
 	collection,
 	fit,
 	size,
@@ -175,12 +166,8 @@ export async function getSizechart({
 // 		name: `Brand ${now}`,
 // 		slug: `brand-${now}`,
 // 	}).save();
-// 	const line = await brand.createLine({
-// 		name: 'Line',
-// 		slug: 'line',
-// 	});
-	
-// 	const collection = await line.createCollection({
+//
+// 	const collection = await brand.createCollection({
 // 		name: 'Collection',
 // 		slug: 'collection',
 // 	});

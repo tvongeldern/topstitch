@@ -1,12 +1,12 @@
 import { db } from '@db';
-import { id, name, slug } from './_commonFields';
+import { id, name, tag } from './_fields';
 
 export const Size = db.define(
 	'size',
 	{
 		id,
 		name,
-		slug,
+		tag,
 	},
 	{
 		indexes: [
@@ -16,7 +16,7 @@ export const Size = db.define(
 			},
 			{
 				unique: true,
-				fields: ['slug', 'fitId'],
+				fields: ['tag', 'fitId'],
 			},
 		],
 	},

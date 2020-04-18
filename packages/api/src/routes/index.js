@@ -3,8 +3,7 @@ import { genericEndpointError } from '@middleware';
 import accounts from './accounts';
 import brands from './brands';
 import fits from './fits';
-import garments from './garment-types';
-import lines from './lines';
+import garments from './garments';
 import collections from './collections';
 import sizes from './sizes';
 import measurements from './measurements';
@@ -14,7 +13,6 @@ const router = new Router();
 
 router.use('/accounts', accounts);
 router.use('/brands', brands);
-router.use('/lines', lines);
 router.use('/collections', collections);
 router.use('/garments', garments);
 router.use('/fits', fits);

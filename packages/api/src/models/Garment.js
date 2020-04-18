@@ -1,5 +1,5 @@
 import { db } from '@db';
-import { id, name, slug } from './_commonFields';
+import { id, name, slug } from './_fields';
 
 export const Garment = db.define('garment', {
 	id,
@@ -7,8 +7,5 @@ export const Garment = db.define('garment', {
 		...name,
 		unique: true,
 	},
-	slug: {
-		...slug,
-		unique: true,
-	},
+	slug,
 });

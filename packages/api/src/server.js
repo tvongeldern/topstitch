@@ -2,7 +2,7 @@ import express from 'express';
 import body from 'body-parser';
 import cookies from 'cookie-parser';
 import cors from 'cors';
-import { db, migrate, seed } from '@db';
+import { db, migrate } from '@db';
 import {
 	provideLogger,
 	responseStructure,
@@ -20,7 +20,6 @@ const logger = new Logger().context('startup');
 		await db.authenticate();
 		// await db.sync();
 		await migrate(); // switch to migrations once data models have stabilized
-		await seed();
 		logger.success('Database ready!');
 		try {
 			logger.info('Starting API...');
@@ -39,6 +38,7 @@ const logger = new Logger().context('startup');
 			logger.error('API failed to start up');
 		}
 	} catch (error) {
+		console.error(error);
 		logger.error('Database did not connect.');
 	}
 })();

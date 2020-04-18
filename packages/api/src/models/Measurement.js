@@ -1,41 +1,26 @@
-import { DataTypes, Sequelize } from 'sequelize';
-import { SLUG } from '@constants/patterns';
 import { db } from '@db';
+import { id, constrainedNumber } from './_fields';
 
-const validateNumber = {
-	min: {
-		args: [1],
-		msg: 'Minimum value must be at least 1 millimieter',
-	},
-	max: {
-		args: [9999],
-		msg: 'No measurement can be over 10 meters',
-	},
-};
+const measurement = constrainedNumber({
+	min: 1,
+	max: 9999,
+	minMsg: 'All measurements must be at least 1mm',
+	maxMsg: 'No measurement can be over 3 meters long',
+});
 
 export const Measurement = db.define(
 	'measurement',
 	{
-		id: {
-			type: DataTypes.UUID,
-			primaryKey: true,
-			allowNull: false,
-			defaultValue: Sequelize.UUIDV4,
-		},
+		id,
 		min: {
-			type: DataTypes.SMALLINT,
+			...measurement,
 			allowNull: false,
-			validate: validateNumber,
 		},
 		max: {
-			type: DataTypes.SMALLINT,
+			...measurement,
 			allowNull: false,
-			validate: validateNumber,
 		},
-		average: {
-			type: DataTypes.SMALLINT,
-			validate: validateNumber,
-		},
+		average: measurement,
 	},
 	{
 		indexes: [

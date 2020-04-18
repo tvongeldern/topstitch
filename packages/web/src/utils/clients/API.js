@@ -17,12 +17,12 @@ function parseSuccessResponse({ data } = EMPTY_OBJECT) {
 	return data;
 }
 
-function parseErrorResponse({
-	response: {
-		data = EMPTY_OBJECT,
-	} = EMPTY_OBJECT,
-} = EMPTY_OBJECT) {
-	return Promise.reject(data);
+function parseErrorResponse(error = '') {
+	const errorString = (error.response && error.response.data && error.response.data.message)
+		|| error.message
+		|| error.code
+		|| 'An HTTP error occurred';
+	return Promise.reject(errorString);
 }
 
 export function API({ req }) {

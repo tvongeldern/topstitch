@@ -30,8 +30,8 @@ export function creator(ParentModel, childModelName) {
 				next({ status: 404, message: `No ${ParentModel.name} found with ID "${id}"` });
 			}
 			try {
-				const line = await parent[method](body);
-				const json = line.toJSON();
+				const child = await parent[method](body);
+				const json = child.toJSON();
 				return response.send(json);
 			} catch (error) {
 				return next({

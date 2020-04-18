@@ -5,7 +5,6 @@ import { CollectionGarment } from './CollectionGarment';
 import { Fit } from './Fit';
 import { Segment } from './Segment';
 import { Garment } from './Garment';
-import { Line } from './Line';
 import { Size } from './Size';
 import { Measurement } from './Measurement';
 import { SizeSegment } from './SizeSegment';
@@ -17,12 +16,9 @@ Segment.belongsTo(Garment);
 
 // Sizechart
 
-Brand.hasMany(Line);
+Brand.hasMany(Collection);
 
-Line.belongsTo(Brand);
-Line.hasMany(Collection);
-
-Collection.belongsTo(Line);
+Collection.belongsTo(Brand);
 Collection.hasMany(Fit);
 
 Garment.belongsToMany(Collection, { through: CollectionGarment });
@@ -49,7 +45,6 @@ export {
 	Fit,
 	Segment,
 	Garment,
-	Line,
 	Size,
 	Measurement,
 };

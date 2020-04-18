@@ -1,6 +1,5 @@
-import { DataTypes, Sequelize } from 'sequelize';
 import { db } from '@db';
-import { id } from './_commonFields';
+import { id } from './_fields';
 
 
 export const Account = db.define(

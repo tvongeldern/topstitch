@@ -1,4 +1,4 @@
 import { db } from '@db';
-import { id } from './_commonFields';
+import { id } from './_fields';
 
 export const SizeSegment = db.define('sizeSegment', { id });

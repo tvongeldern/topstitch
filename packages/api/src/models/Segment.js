@@ -1,12 +1,12 @@
 import { db } from '@db';
-import { id, name, slug } from './_commonFields';
+import { id, name, propName } from './_fields';
 
 export const Segment = db.define(
 	'segment',
 	{
 		id,
 		name,
-		slug,
+		propName,
 	},
 	{
 		indexes: [
@@ -16,7 +16,7 @@ export const Segment = db.define(
 			},
 			{
 				unique: true,
-				fields: ['slug', 'garmentId'],
+				fields: ['propName', 'garmentId'],
 			},
 		],
 	},

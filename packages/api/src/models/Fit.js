@@ -1,12 +1,12 @@
 import { db } from '@db';
-import { id, name, slug } from './_commonFields';
+import { id, name, tag } from './_fields';
 
 export const Fit = db.define(
 	'fit',
 	{
 		id,
 		name,
-		slug,
+		tag,
 	},
 	{
 		indexes: [
@@ -16,7 +16,7 @@ export const Fit = db.define(
 			},
 			{
 				unique: true,
-				fields: ['slug', 'collectionId'],
+				fields: ['tag', 'collectionId'],
 			},
 		],
 	},

@@ -1,22 +1,22 @@
 import { db } from '@db';
-import { id, name, slug } from './_commonFields';
+import { id, name, tag } from './_fields';
 
 export const Collection = db.define(
 	'collection',
 	{
 		id,
 		name,
-		slug,
+		tag,
 	},
 	{
 		indexes: [
 			{
 				unique: true,
-				fields: ['name', 'lineId'],
+				fields: ['name', 'brandId'],
 			},
 			{
 				unique: true,
-				fields: ['slug', 'lineId'],
+				fields: ['tag', 'brandId'],
 			},
 		],
 	},

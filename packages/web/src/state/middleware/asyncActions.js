@@ -25,9 +25,10 @@ export function asyncActions({ req } = {}) {
 		// REQUEST will be dispatched first
 		next({ ...rest, type: REQUEST });
 		return promise(providedPromiseObject)
-			.then((response) => next({
+			.then(({ data, metadata }) => next({
 				...rest,
-				response,
+				response: data,
+				metadata,
 				type: SUCCESS,
 			}))
 			.catch((error) => next({

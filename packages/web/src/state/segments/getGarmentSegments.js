@@ -1,3 +1,5 @@
+import { reduceObjectsToMap } from '@utils';
+
 const types = {
 	start: 'seamstress.segments.getGarmentSegments.start',
 	success: 'seamstress.segments.getGarmentSegments.success',
@@ -8,10 +10,10 @@ export const getGarmentSegmentsReducer = {
 	[types.start]: (state) => state,
 	[types.success]: (state, { response }) => ({
 		...state,
-		segments: {
-			...state.segments,
-			[seg]: response,
-		},
+		segments: reduceObjectsToMap(
+			response,
+			state.segments,
+		),
 	}),
 	[types.fail]: (state, { error }) => ({
 		...state,

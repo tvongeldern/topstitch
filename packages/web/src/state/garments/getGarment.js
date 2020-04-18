@@ -10,7 +10,7 @@ export const getGarmentReducer = {
 		...state,
 		garments: {
 			...state.garments,
-			hmmm: response,
+			[response.id]: response,
 		},
 	}),
 	[types.fail]: (state, { error }) => ({
