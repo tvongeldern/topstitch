@@ -1,17 +1,21 @@
 import { db } from '@db';
 import {
-	measurement,
+	description,
 	id,
 	name,
 	propName,
 } from './_fields';
 
+/**
+ * A "segment" is a measurable stretch of a garment
+ */
 export const Segment = db.define(
 	'segment',
 	{
 		id,
 		name,
 		propName,
+		description,
 	},
 	{
 		indexes: [

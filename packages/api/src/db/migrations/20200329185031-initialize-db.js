@@ -57,7 +57,7 @@ const measurementNumber = constrainedNumber({
   maxMsg: 'No measurement can be over 3 meters long',
 });
 
-export const id = {
+const id = {
   type: DataTypes.UUID,
   primaryKey: true,
   allowNull: false,
@@ -66,12 +66,16 @@ export const id = {
   defaultValue: Sequelize.literal('uuid_generate_v4()'),
 };
 
-export const name = {
+const name = {
   type: DataTypes.STRING,
   allowNull: false,
 };
 
-export const propName = {
+const paragraph = {
+  type: DataTypes.STRING,
+};
+
+const propName = {
   type: DataTypes.STRING,
   allowNull: false,
   validate: {
@@ -80,7 +84,7 @@ export const propName = {
   },
 };
 
-export const slug = {
+const slug = {
   type: DataTypes.STRING,
   allowNull: false,
   unique: true,
@@ -90,7 +94,7 @@ export const slug = {
   },
 };
 
-export const tag = {
+const tag = {
   type: DataTypes.STRING,
   allowNull: false,
   validate: {
@@ -101,27 +105,6 @@ export const tag = {
 
 const TABLES = {
   accounts: {},
-  garments: {
-    columns: {
-      name: {
-        ...name,
-        unique: true,
-      },
-      slug: {
-        ...slug,
-        unique: true,
-      },
-    },
-  },
-  segments: {
-    foreignKeys: {
-      garmentId: {
-        model: 'garments',
-        unique: ['name', 'propName'],
-      },
-    },
-    columns: { name, propName },
-  },
   brands: {
     columns: {
       name: { ...name, unique: true },
@@ -159,22 +142,15 @@ const TABLES = {
     },
     columns: { name, tag },
   },
-  sizes: {
-    foreignKeys: {
-      fitId: {
-        model: 'fits',
-        unique: ['name', 'tag'],
+  garments: {
+    columns: {
+      name: {
+        ...name,
+        unique: true,
       },
-    },
-    columns: { name, tag },
-  },
-  sizeSegments: {
-    foreignKeys: {
-      sizeId: {
-        model: 'sizes',
-      },
-      segmentId: {
-        model: 'segments',
+      slug: {
+        ...slug,
+        unique: true,
       },
     },
   },
@@ -196,6 +172,34 @@ const TABLES = {
       max: {
         ...measurementNumber,
         allowNull: false,
+      },
+    },
+  },
+  segments: {
+    foreignKeys: {
+      garmentId: {
+        model: 'garments',
+        unique: ['name', 'propName'],
+      },
+    },
+    columns: { name, propName, description: paragraph },
+  },
+  sizes: {
+    foreignKeys: {
+      fitId: {
+        model: 'fits',
+        unique: ['name', 'tag'],
+      },
+    },
+    columns: { name, tag },
+  },
+  sizeSegments: {
+    foreignKeys: {
+      sizeId: {
+        model: 'sizes',
+      },
+      segmentId: {
+        model: 'segments',
       },
     },
   },

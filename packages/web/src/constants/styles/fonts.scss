@@ -1,12 +1,82 @@
+// Inter
+// @font-face {
+//   font-family: 'Inter';
+//   font-style: normal;
+//   font-weight: 100;
+//   src: local('Inter Thin'), local('Inter-Thin'), url('/fonts/Inter-Thin.ttf') format('ttf');
+// }
+
+// @font-face {
+//   font-family: 'Inter';
+//   font-style: normal;
+//   font-weight: 200;
+//   src: local('Inter Extra Light'), local('Inter ExtraLight') local('Inter-ExtraLight'), url('/fonts/Inter-ExtraLight.ttf') format('ttf');
+// }
+
 @font-face {
-	font-family: inter;
-	src: url('/fonts/Inter-Light.ttf');
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Inter Light'), local('Inter-Light'), url('/fonts/Inter-Light.ttf') format('ttf');
+}
+
+// @font-face {
+//   font-family: 'Inter';
+//   font-style: normal;
+//   font-weight: 400;
+//   src: local('Inter Regular'), local('Inter-Regular'), url('/fonts/Inter-Regular.ttf') format('ttf');
+// }
+
+// @font-face {
+//   font-family: 'Inter';
+//   font-style: normal;
+//   font-weight: 500;
+//   src: local('Inter Medium'), local('Inter-Medium'), url('/fonts/Inter-Medium.ttf') format('ttf');
+// }
+
+// @font-face {
+//   font-family: 'Inter';
+//   font-style: normal;
+//   font-weight: 600;
+//   src: local('Inter SemiBold'), local('Inter Semi-Bold'), local('Inter-SemiBold'), url('/fonts/Inter-SemiBold.ttf') format('ttf');
+// }
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Inter Bold'), local('Inter-Bold'), url('/fonts/Inter-Bold.ttf') format('ttf');
+}
+
+// @font-face {
+//   font-family: 'Inter';
+//   font-style: normal;
+//   font-weight: 800;
+//   src: local('Inter ExtraBold'), local('Inter Extra-Bold'), local('Inter-ExtraBold'), url('/fonts/Inter-ExtraBold.ttf') format('ttf');
+// }
+
+// @font-face {
+//   font-family: 'Inter';
+//   font-style: normal;
+//   font-weight: 900;
+//   src: local('Inter Black'), local('Inter-Black'), url('/fonts/Inter-Black.ttf') format('ttf');
+// }
+
+// Karla
+
+@font-face {
+	font-family: 'Karla';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Karla Regular'), local('Karla-Regular'), url('/fonts/Karla-Regular.ttf') format('ttf');
 }
 
 @font-face {
-	font-family: dosis;
-	src: url('/fonts/Dosis-Regular.ttf');
+	font-family: 'Karla';
+	font-style: normal;
+	font-weight: 700;
+	src: local('Karla Bold'), local('Karla-Bold'), url('/fonts/Karla-Bold.ttf') format('ttf');
 }
 
-$theme-font-primary: dosis, sans-serif;
-$theme-font-secondary: inter, sans-serif;
+$theme-font-primary: 'Karla', sans-serif;
+$theme-font-secondary: 'Inter', sans-serif;

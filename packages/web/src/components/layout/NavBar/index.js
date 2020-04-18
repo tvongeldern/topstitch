@@ -6,15 +6,18 @@ import styles from './styles.scss';
 
 export function NavBar() {
 	return (
-		<div className={styles.container}>
-			<div className={styles.content}>
-				<input type="text" placeholder="Search" />
-				<div className={styles.links}>
-					<Link href="/">Home</Link>
-					<Link href="/login">Login</Link>
+		<>
+			<div className={styles.splint} />
+			<div className={styles.container}>
+				<div className={styles.content}>
+					<input type="text" placeholder="Search" />
+					<div className={styles.links}>
+						<Link href="/">Home</Link>
+						<Link href="/login">Login</Link>
+					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 }
 

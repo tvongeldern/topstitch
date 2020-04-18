@@ -1,23 +1,24 @@
 @import 'theme';
 @import 'web';
 
+$nav-height: 60px;
+
 .container {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	width: 100%;
 	background-color: $theme-color-primary;
+	position: fixed;
+	height: $nav-height;
 
 	input {
 		background-color: transparent;
 		border-color: $white;
+		color: $white;
 
 		&::placeholder {
 			color: $white;
-		}
-
-		&:focus{
-			border-color: $theme-color-secondary;
 		}
 	}
 
@@ -38,4 +39,10 @@
 			}
 		}
 	}
+}
+
+.splint {
+	position: relative;
+	height: $nav-height;
+	opacity: 0;
 }

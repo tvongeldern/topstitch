@@ -22,6 +22,14 @@ function constrainedNumber({
 	};
 }
 
+// Paragraphs are long strings with minimal validation attached,
+// meant to be helpful to the end user with no value as an index
+const paragraph = {
+	type: DataTypes.STRING,
+};
+
+export const description = paragraph;
+
 // Unique object identifier
 export const id = {
 	type: DataTypes.UUID,
@@ -30,6 +38,14 @@ export const id = {
 	unique: true,
 	defaultValue: Sequelize.UUIDV4,
 };
+
+// Measurements are always stored in mm
+export const measurement = constrainedNumber({
+	min: 1,
+	max: 9999,
+	minMsg: 'All measurements must be at least 1mm',
+	maxMsg: 'No measurement can be over 3 meters long',
+});
 
 // Human-readable name for an object
 export const name = {
@@ -70,11 +86,3 @@ export const tag = {
 		len: [2, 32],
 	},
 };
-
-// Measurements are always stored in mm
-export const measurement = constrainedNumber({
-	min: 1,
-	max: 9999,
-	minMsg: 'All measurements must be at least 1mm',
-	maxMsg: 'No measurement can be over 3 meters long',
-});
