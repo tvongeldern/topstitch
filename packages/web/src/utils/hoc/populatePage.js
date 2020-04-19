@@ -18,7 +18,7 @@ function QueryProvider(query) {
 }
 
 export function populatePage(Container, context) {
-	const { populate } = Container;
+	const { populate, provide = {} } = Container;
 	if (!populate) {
 		Container.getInitialProps = Container.getInitialProps || placeholderGetInitialProps;
 		return Container;
@@ -27,7 +27,10 @@ export function populatePage(Container, context) {
 		const { getInitialProps = placeholderGetInitialProps } = Container;
 		return async function _getInitialProps(providedProps) {
 			const { query, store: { dispatch } } = providedProps;
-			const provideQuery = QueryProvider(query);
+			const provideQuery = QueryProvider({
+				...provide,
+				...query,
+			});
 			await Promise.all(
 				actionCreators
 					.map(provideQuery)

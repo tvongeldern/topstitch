@@ -4,20 +4,18 @@ import { arrayOf, func, object } from 'prop-types';
 import styles from './styles.scss';
 
 export function GarmentView({
-	component: Garment,
+	builder: Builder,
 	garment,
 	segments,
 }) {
-	const measurements = Garment.defaultMeasurements;
-	const [defaultSelected] = Object.keys(measurements);
-	const [selectedSegment, setSelectedSegment] = useState(defaultSelected);
-	const offsets = Garment.deriveOffsets({ measurements });
-	const viewBox = Garment.deriveViewBox({ offsets });
-	const coordinates = Garment.deriveCoordinates({ offsets, viewBox });
-	const garmentStrokes = Garment.drawGarment({ coordinates });
-	const measurementStrokeMap = Garment.drawMeasurements({ coordinates, measurements });
+	const builder = new Builder({ useDefaultMeasurements: true });
+	// const [defaultSelected] = Object.keys(measurements);
+	const [selectedSegment, setSelectedSegment] = useState('defaultSelected');
+	const garmentStrokes = builder.draw();
+	const { viewBox, size } = builder.getBounds();
+	const measurementStrokeMap = builder.drawMeasurements();
 	const measurementStrokes = Object.entries(measurementStrokeMap);
-	const strokeWidth = (viewBox.size / 100);
+	const strokeWidth = (size / 100);
 	const segmentHoverHandler = (event = {}) => {
 		const {
 			target: {
@@ -26,14 +24,14 @@ export function GarmentView({
 		} = event;
 		setSelectedSegment(propname);
 		event.stopPropagation();
-	}
+	};
 	return (
 		<div className={styles.container}>
 			<div className={styles.wrapper}>
 				<h2>{garment.name}</h2>
 				<svg
 					version="1.1"
-					viewBox={viewBox.svgProp}
+					viewBox={viewBox}
 					fill="none"
 					stroke="none"
 					strokeLinecap="round"
@@ -63,7 +61,7 @@ export function GarmentView({
 				</svg>
 			</div>
 
-			<div className={styles.segments}>
+			<div className={styles.segments} onKeyPress={console.log}>
 				<h2>Measurements</h2>
 				{segments.map((segment) => (
 					<div
@@ -86,7 +84,7 @@ export function GarmentView({
 }
 
 GarmentView.propTypes = {
-	component: func.isRequired,
+	builder: func.isRequired,
 	garment: object.isRequired,
 	segments: arrayOf(object).isRequired
 };

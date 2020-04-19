@@ -1,16 +1,12 @@
 import { deriveOffsets } from './deriveOffsets';
-import { deriveViewBox } from './deriveViewBox';
+import { deriveMeasurements } from './deriveMeasurements';
 import { drawGarment } from './drawGarment';
 import { drawMeasurements } from './drawMeasurements';
 import { deriveCoordinates } from './deriveCoordinates';
 
-export class Shirt {
-	static defaultMeasurements = {
-		chestWidth: 762,
-	};
-
+export class ShirtTorso {
 	static deriveOffsets = deriveOffsets;
-	static deriveViewBox = deriveViewBox;
+	static deriveMeasurements = deriveMeasurements;
 	static drawGarment = drawGarment;
 	static drawMeasurements = drawMeasurements;
 	static deriveCoordinates = deriveCoordinates;

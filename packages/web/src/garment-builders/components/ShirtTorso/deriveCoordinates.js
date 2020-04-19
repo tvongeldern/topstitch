@@ -7,14 +7,9 @@ export function deriveCoordinates({
 		waistArmpitOffset,
 		armpitShoulderOffset,
 		shoulderNeckOffset,
-		necklineFrontOffset,
-		necklineBackOffset,
-		shoulderElbowOuterOffset,
-		elbowOuterInnerOffset,
 	},
-	viewBox: {
+	bounds: {
 		maxHeight,
-		maxWidth,
 		size,
 	},
 }) {
@@ -57,27 +52,6 @@ export function deriveCoordinates({
 		shoulderNeckOffset,
 	);
 
-	const neckFront = {
-		x: middle,
-		y: neckLeft.y + necklineFrontOffset.y,
-	};
-
-	const neckBack = {
-		x: middle,
-		y: neckLeft.y + necklineBackOffset.y,
-	};
-
-	const [elbowOuterLeft, elbowOuterRight] = symmetricalCoordinates(
-		shoulderLeft,
-		shoulderRight,
-		shoulderElbowOuterOffset,
-	);
-
-	const [elbowInnerLeft, elbowInnerRight] = symmetricalCoordinates(
-		elbowOuterLeft,
-		elbowOuterRight,
-		elbowOuterInnerOffset,
-	);
 	return {
 		start,
 		hipLeft,
@@ -90,11 +64,5 @@ export function deriveCoordinates({
 		shoulderRight,
 		neckLeft,
 		neckRight,
-		neckFront,
-		neckBack,
-		elbowOuterLeft,
-		elbowOuterRight,
-		elbowInnerLeft,
-		elbowInnerRight,
 	};
 }

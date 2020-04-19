@@ -1,1 +1,2 @@
-export { Shirt } from './Shirt';
+export { TShirt } from './TShirt';
+export { TShirtVNeck } from './TShirtVNeck';

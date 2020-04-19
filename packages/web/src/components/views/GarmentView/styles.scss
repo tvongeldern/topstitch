@@ -92,9 +92,9 @@ $garment-box-height-mobile: 40vh;
 		}
 
 		.segments {
-			position: fixed;
 			margin-top: $garment-box-height-mobile;
-			width: 100%;
+			height: inherit;
+			padding-top: 16px;
 		}
 	}
 }

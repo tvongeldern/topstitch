@@ -10,68 +10,6 @@ const defaultShoulderArmpitXOffset = ({ _chestWidth }) => Math.round(0.1 * _ches
 const defaultNecklineFrontDip = ({ _chestWidth }) => Math.round(0.1 * _chestWidth);
 const defaultNecklineBackDip = ({ _chestWidth }) => Math.round(0.05 * _chestWidth);
 
-function deriveChestWidth({ waistWidth, hipWidth, shoulderWidth }) {
-	return hipWidth || shoulderWidth || waistWidth;
-}
-
-function deriveHipWidth({ _chestWidth }) {
-	return _chestWidth;
-}
-
-function deriveWaistWidth({ _hipWidth }) {
-	return _hipWidth;
-}
-
-function deriveArmpitHeight({ _chestWidth, _hipToNeckHeightBack }) {
-	if (_hipToNeckHeightBack) {
-		return _hipToNeckHeightBack / MAGIC_RATIO;
-	}
-	return Math.round((_chestWidth * MAGIC_RATIO) / 2);
-}
-
-function deriveSleeveLengthOuter({ _chestWidth }) {
-	return _chestWidth / 2;
-}
-
-function deriveHipToNeckHeightFront({
-	hipToNeckHeightBack,
-	hipToNeckHeightSide,
-	_chestWidth
-}) {
-	if (hipToNeckHeightBack) {
-		return hipToNeckHeightBack - defaultNecklineBackDip({ _chestWidth });
-	}
-	if (hipToNeckHeightSide) {
-		return hipToNeckHeightSide - defaultNecklineFrontDip({ _chestWidth });
-	}
-}
-
-function deriveHipToNeckHeightBack({
-	hipToNeckHeightSide,
-	hipToNeckHeightFront,
-	_chestWidth,
-}) {
-	if (hipToNeckHeightSide) {
-		return hipToNeckHeightSide - defaultNecklineBackDip({ _chestWidth });
-	}
-	if (hipToNeckHeightFront) {
-		return hipToNeckHeightFront + defaultNecklineBackDip({ _chestWidth });
-	}
-}
-
-function deriveHipToNeckHeightSide({
-	hipToNeckHeightBack,
-	hipToNeckHeightFront,
-	_chestWidth,
-}) {
-	if (hipToNeckHeightBack) {
-		return hipToNeckHeightBack + defaultNecklineBackDip({ _chestWidth });
-	}
-	if (hipToNeckHeightFront) {
-		return hipToNeckHeightFront + defaultNecklineFrontDip({ _chestWidth });
-	}
-}
-
 /**
  * Offsets
  */
@@ -183,100 +121,25 @@ function deriveNecklineOffsets({
 	];
 }
 
-function deriveShoulderElbowOuterOffset({ _sleeveLengthOuter }) {
-	return endOfLineSegment({
-		point: { x: 0, y: 0 },
-		distance: _sleeveLengthOuter,
-		slope: MAGIC_RATIO / 2,
-		options: { inverseY: true },
-	});
-}
-
-function deriveSleeveWidthElbow({
-	sleeveWidthShoulder,
-	armpitShoulderOffset,
-}) {
-	if (sleeveWidthShoulder) {
-		return (MAGIC_RATIO * sleeveWidthShoulder) / 2;
-	}
-	const { c } = pythagoreanTheoremSolver({
-		a: armpitShoulderOffset.x,
-		b: armpitShoulderOffset.y,
-	});
-	return c * MAGIC_RATIO / 2;
-}
-
-function deriveElbowOuterInnerOffset({ _sleeveWidthElbow }) {
-	return endOfLineSegment({
-		point: { x: 0, y: 0 },
-		distance: _sleeveWidthElbow,
-		slope: MAGIC_RATIO * (MAGIC_RATIO / 2),
-		options: { inverseX: true, inverseY: true },
-	});
-}
-
-
 /**
  * Derive coordinate offsets based on provided measurements
  * @param {props} param
  */
 export function deriveOffsets({
 	measurements: {
-		hipWidth,
-		waistWidth,
-		chestWidth,
 		shoulderWidth,
 		neckWidth,
-		hipToArmpitHeight,
-		hipToNeckHeightFront,
-		hipToNeckHeightBack,
-		hipToNeckHeightSide,
-		sleeveLengthOuter,
-		sleeveWidthElbow,
 		sleeveWidthShoulder,
 		neckToShoulderLength,
+		_chestWidth,
+		_hipWidth,
+		_waistWidth,
+		_hipToNeckHeightFront,
+		_hipToNeckHeightSide,
+		_hipToNeckHeightBack,
+		_armpitHeight,
 	},
 }) {
-	// Derive measurements
-	const _chestWidth = derive(deriveChestWidth, { waistWidth, hipWidth, shoulderWidth }, chestWidth);
-	const _hipWidth = derive(deriveHipWidth, { _chestWidth }, hipWidth);
-	const _waistWidth = derive(deriveWaistWidth, { _hipWidth }, waistWidth);
-	const _sleeveLengthOuter = derive(deriveSleeveLengthOuter, { _chestWidth }, sleeveLengthOuter);
-	const _hipToNeckHeightFront = derive(
-		deriveHipToNeckHeightFront,
-		{
-			hipToNeckHeightBack,
-			hipToNeckHeightSide,
-			_chestWidth,
-		},
-		hipToNeckHeightFront,
-	);
-	const _hipToNeckHeightBack = derive(
-		deriveHipToNeckHeightBack,
-		{
-			hipToNeckHeightSide,
-			hipToNeckHeightFront,
-			_chestWidth,
-		},
-		hipToNeckHeightBack,
-	);
-	const _hipToNeckHeightSide = derive(
-		deriveHipToNeckHeightSide,
-		{
-			hipToNeckHeightBack,
-			hipToNeckHeightFront,
-			_chestWidth,
-		},
-		hipToNeckHeightSide,
-	);
-	const _armpitHeight = derive(
-		deriveArmpitHeight,
-		{
-			_chestWidth,
-			_hipToNeckHeightBack,
-		},
-		hipToArmpitHeight,
-	);
 	// offsets
 	const startHipOffset = {
 		x: _hipWidth / 2,
@@ -320,24 +183,6 @@ export function deriveOffsets({
 			_chestWidth,
 		},
 	);
-	const shoulderElbowOuterOffset = derive(
-		deriveShoulderElbowOuterOffset,
-		{ _sleeveLengthOuter },
-	);
-	const _sleeveWidthElbow = derive(
-		deriveSleeveWidthElbow,
-		{
-			sleeveWidthShoulder,
-			armpitShoulderOffset,
-		},
-		sleeveWidthElbow,
-	);
-	const elbowOuterInnerOffset = derive(
-		deriveElbowOuterInnerOffset,
-		{
-			_sleeveWidthElbow
-		},
-	);
 	return {
 		startHipOffset,
 		hipWaistOffset,
@@ -346,7 +191,5 @@ export function deriveOffsets({
 		shoulderNeckOffset,
 		necklineFrontOffset,
 		necklineBackOffset,
-		shoulderElbowOuterOffset,
-		elbowOuterInnerOffset,
 	};
 }
