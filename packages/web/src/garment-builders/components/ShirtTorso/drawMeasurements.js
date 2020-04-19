@@ -13,11 +13,11 @@ function measurementInstructions({
 	const startPoint = `${start.x},${start.y}`;
 	const demoY = horizontal ? start.y : end.y;
 	const demoX = vertical ? start.x : end.x;
-	const demo = { d: `M ${startPoint} L ${demoX},${demoY}` };
+	const demo = { draw: `M ${startPoint} L ${demoX},${demoY}` };
 	return {
 		demo,
 		// provided: {
-		// 	d: `M ${start.x},${start.y} l ${providedLine}`,
+		// 	draw: `M ${start.x},${start.y} l ${providedLine}`,
 		// },
 	};
 }

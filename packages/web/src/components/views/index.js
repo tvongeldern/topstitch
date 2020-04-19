@@ -1,1 +1,2 @@
-export { GarmentView } from './GarmentView';
+export { GarmentComparisonView } from './GarmentComparisonView';
+export { GarmentSegmentsView } from './GarmentSegmentsView';

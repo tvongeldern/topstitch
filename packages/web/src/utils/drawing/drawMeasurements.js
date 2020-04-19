@@ -1,3 +1,14 @@
+import { endOfLineSegment, slopeFromTwoPoints } from '../geometry';
+
+function getDiagonalProvidedLine({ start, end, distance }) {
+	const endCoords = endOfLineSegment({
+		distance,
+		point: start,
+		slope: slopeFromTwoPoints(start, end),
+	});
+	return `L ${endCoords.x},${endCoords.y}`;
+}
+
 function measurementInstructions({
 	top,
 	bottom,
@@ -13,12 +24,20 @@ function measurementInstructions({
 	const startPoint = `${start.x},${start.y}`;
 	const demoY = horizontal ? start.y : end.y;
 	const demoX = vertical ? start.x : end.x;
-	const demo = { d: `M ${startPoint} L ${demoX},${demoY}` };
+	const providedLine = diagonal
+		? getDiagonalProvidedLine({ start, end, distance })
+		: `${horizontal ? 'h' : 'v'} ${distance}`;
+
+	const demo = {
+		draw: `M ${startPoint} L ${demoX},${demoY}`,
+	};
+	const provided = {
+		draw: `M ${start.x},${start.y} ${providedLine}`,
+	};
+
 	return {
 		demo,
-		// provided: {
-		// 	d: `M ${start.x},${start.y} l ${providedLine}`,
-		// },
+		provided,
 	};
 }
 

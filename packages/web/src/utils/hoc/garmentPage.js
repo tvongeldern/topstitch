@@ -1,4 +1,4 @@
-import { Page, GarmentView } from '@components';
+import { Page, GarmentSegmentsView } from '@components';
 import { getGarment, getGarmentSegments } from '@state/actions';
 import { useSelector } from '@utils/hooks';
 
@@ -24,7 +24,7 @@ export function garmentPage(slug, Component) {
 		return (
 			<Page>
 				{garment && segments ? (
-					<GarmentView
+					<GarmentSegmentsView
 						builder={Component}
 						garment={garment}
 						segments={segments}

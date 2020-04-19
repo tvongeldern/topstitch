@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import cn from 'classnames';
 import { arrayOf, func, object } from 'prop-types';
+import cn from 'classnames';
+import { GarmentViewer } from '@components/layout';
 import styles from './styles.scss';
 
-export function GarmentView({
+export function GarmentSegmentsView({
 	builder: Builder,
 	garment,
 	segments,
 }) {
-	const builder = new Builder({ useDefaultMeasurements: true });
-	// const [defaultSelected] = Object.keys(measurements);
-	const [selectedSegment, setSelectedSegment] = useState('defaultSelected');
+	const builder = new Builder();
+	const [{ propName: defaultSelected }] = segments;
+	const [selectedSegment, setSelectedSegment] = useState(defaultSelected);
 	const garmentStrokes = builder.draw();
 	const { viewBox, size } = builder.getBounds();
 	const measurementStrokeMap = builder.drawMeasurements();
@@ -26,11 +27,13 @@ export function GarmentView({
 		event.stopPropagation();
 	};
 	return (
-		<div className={styles.container}>
-			<div className={styles.wrapper}>
-				<h2>{garment.name}</h2>
+		<GarmentViewer
+			svgHeader={garment.name}
+			textHeader="Measurements"
+			svg={
 				<svg
 					version="1.1"
+					className={styles.wrapper}
 					viewBox={viewBox}
 					fill="none"
 					stroke="none"
@@ -42,48 +45,49 @@ export function GarmentView({
 					<g className={styles.garment}>
 						{garmentStrokes.map((stroke) => (
 							<path
-								key={stroke.d}
+								key={stroke.draw}
 								strokeWidth={strokeWidth}
-								{...stroke}
+								d={stroke.draw}
+								className={cn({ [styles.shaded]: stroke.filled })}
 							/>
 						))}
 					</g>
 					<g className={styles.measurements}>
-						{measurementStrokes.map(([propName, { demo }]) => (
+						{measurementStrokes.map(([propName, { demo: { draw } }]) => (
 							<path
-								key={demo.d}
+								key={draw}
 								strokeWidth={strokeWidth}
 								className={cn({ [styles.selected]: propName === selectedSegment })}
-								{...demo}
+								d={draw}
 							/>
 						))}
 					</g>
 				</svg>
-			</div>
-
-			<div className={styles.segments} onKeyPress={console.log}>
-				<h2>Measurements</h2>
-				{segments.map((segment) => (
-					<div
-						key={segment.id}
-						data-propname={segment.propName}
-						name={segment.propName}
-						className={cn(
-							styles.segment,
-							{ [styles.selected]: selectedSegment === segment.propName },
-						)}
-						onMouseOver={segmentHoverHandler}
-					>
-						<h5 data-propname={segment.propName}>{segment.name}</h5>
-						<p data-propname={segment.propName}>{segment.description}</p>
-					</div>
-				))}
-			</div>
-		</div>
+			}
+			textModule={
+				<>
+					{segments.map((segment) => (
+						<div
+							key={segment.id}
+							data-propname={segment.propName}
+							name={segment.propName}
+							className={cn(
+								styles.segment,
+								{ [styles.selected]: selectedSegment === segment.propName },
+							)}
+							onMouseOver={segmentHoverHandler}
+						>
+							<h5 data-propname={segment.propName}>{segment.name}</h5>
+							<p data-propname={segment.propName}>{segment.description}</p>
+						</div>
+					))}
+				</>
+			}
+		/>
 	);
 }
 
-GarmentView.propTypes = {
+GarmentSegmentsView.propTypes = {
 	builder: func.isRequired,
 	garment: object.isRequired,
 	segments: arrayOf(object).isRequired

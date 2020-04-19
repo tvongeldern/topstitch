@@ -27,3 +27,14 @@ export function reduceObjectsToMap(
 		[obj[mappingKey]]: obj,
 	}), baseMap);
 }
+
+function _sortByAbs(a, b) {
+	return Math.abs(b) - Math.abs(a);
+}
+/**
+ * Returns argument with highest absolute value
+ * @param  {...number}
+ */
+export function greatestAbsoluteValue(...numbers) {
+	return numbers.sort(_sortByAbs)[0];
+}

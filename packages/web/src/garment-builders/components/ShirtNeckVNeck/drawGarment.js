@@ -9,7 +9,7 @@ export function drawGarment({
 	return [
 		// collar / neck
 		{
-			d: `
+			draw: `
 				M ${neckLeft.x},${neckLeft.y}
 				L ${neckFront.x},${neckFront.y}
 				L ${neckRight.x},${neckRight.y}

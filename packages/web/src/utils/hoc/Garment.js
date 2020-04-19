@@ -2,12 +2,9 @@ import { drawMeasurements } from '../drawing';
 import { EMPTY_OBJECT, EMPTY_ARRAY } from '@constants';
 
 export class Garment {
-	constructor({
-		measurements = EMPTY_OBJECT,
-		useDefaultMeasurements = false,
-	} = {}) {
+	constructor(measurements) {
 		this._providedMeasurements = measurements;
-		this._useDefaultMeasurements = useDefaultMeasurements;
+		this._useDefaultMeasurements = !measurements;
 	}
 
 	measurements() {

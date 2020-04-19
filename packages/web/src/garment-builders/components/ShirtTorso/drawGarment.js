@@ -14,15 +14,15 @@ export function drawGarment({
 }) {
 	return [
 		// hips
-		{ d: `M ${hipLeft.x},${hipLeft.y} L ${hipRight.x},${hipRight.y}` },
+		{ draw: `M ${hipLeft.x},${hipLeft.y} L ${hipRight.x},${hipRight.y}` },
 		//waist
-		{ d: `M ${hipLeft.x},${hipLeft.y} L ${waistLeft.x},${waistLeft.y}` },
-		{ d: `M ${hipRight.x},${hipRight.y} L ${waistRight.x},${waistRight.y}` },
+		{ draw: `M ${hipLeft.x},${hipLeft.y} L ${waistLeft.x},${waistLeft.y}` },
+		{ draw: `M ${hipRight.x},${hipRight.y} L ${waistRight.x},${waistRight.y}` },
 		// armpits
-		{ d: `M ${waistLeft.x},${waistLeft.y} L ${armpitLeft.x},${armpitLeft.y}` },
-		{ d: `M ${waistRight.x},${waistRight.y} L ${armpitRight.x},${armpitRight.y}` },
+		{ draw: `M ${waistLeft.x},${waistLeft.y} L ${armpitLeft.x},${armpitLeft.y}` },
+		{ draw: `M ${waistRight.x},${waistRight.y} L ${armpitRight.x},${armpitRight.y}` },
 		// shoulders
-		{ d: `M ${shoulderLeft.x},${shoulderLeft.y} L ${neckLeft.x},${neckLeft.y}` },
-		{ d: `M ${shoulderRight.x},${shoulderRight.y} L ${neckRight.x},${neckRight.y}` },
+		{ draw: `M ${shoulderLeft.x},${shoulderLeft.y} L ${neckLeft.x},${neckLeft.y}` },
+		{ draw: `M ${shoulderRight.x},${shoulderRight.y} L ${neckRight.x},${neckRight.y}` },
 	];
 }
