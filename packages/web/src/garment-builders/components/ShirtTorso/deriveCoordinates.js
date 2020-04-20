@@ -8,15 +8,10 @@ export function deriveCoordinates({
 		armpitShoulderOffset,
 		shoulderNeckOffset,
 	},
-	bounds: {
-		maxHeight,
-		size,
-	},
 }) {
-	const middle = size / 2;
 	const start = {
-		x: middle,
-		y: middle + (maxHeight / 2),
+		x: 0,
+		y: 0,
 	};
 
 	const hipLeft = {

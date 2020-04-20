@@ -7,17 +7,14 @@ export function deriveCoordinates({
 		necklineFrontOffset,
 		necklineBackOffset,
 	},
-	bounds: {
-		middle,
-	},
 }) {
 	const neckFront = {
-		x: middle,
+		x: 0,
 		y: neckLeft.y + necklineFrontOffset.y,
 	};
 
 	const neckBack = {
-		x: middle,
+		x: 0,
 		y: neckLeft.y + necklineBackOffset.y,
 	};
 

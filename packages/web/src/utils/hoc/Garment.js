@@ -1,4 +1,5 @@
 import { drawMeasurements } from '../drawing';
+import { calculateSize, shiftCoordinates } from '../geometry';
 import { EMPTY_OBJECT, EMPTY_ARRAY } from '@constants';
 
 export class Garment {
@@ -48,20 +49,10 @@ export class Garment {
 		return this._offsets;
 	}
 
-	getBounds() {
-		if (!this._bounds) {
-			const offsets = this.offsets();
-			const measurements = this.measurements();
-			this._bounds = this.bounds({ offsets, measurements });
-		}
-		return this._bounds;
-	}
-
 	coordinates() {
 		if (!this._coordinates) {
 			const measurements = this.measurements();
 			const offsets = this.offsets();
-			const bounds = this.getBounds();
 			const derivedCoordinates = this.components.reduce((coordinates, Component) => {
 				if (!Component.deriveCoordinates) {
 					return coordinates;
@@ -70,7 +61,6 @@ export class Garment {
 					coordinates,
 					measurements,
 					offsets,
-					bounds,
 				});
 				return {
 					...coordinates,
@@ -82,18 +72,25 @@ export class Garment {
 		return this._coordinates;
 	}
 
+	size() {
+		if (!this._size) {
+			const coordinates = this.coordinates();
+			const size = calculateSize(coordinates);
+			this._size = size;
+		}
+		return this._size;
+	}
+
 	draw() {
 		if (!this._garmentStrokes) {
 			const coordinates = this.coordinates();
 			const measurements = this.measurements();
 			const offsets = this.offsets();
-			const bounds = this.getBounds();
 			const derivedGarmentStrokes = this.components.reduce((garmentStrokes, Component) => {
 				const componentGarmentStrokes = Component.drawGarment({
 					coordinates,
 					measurements,
 					offsets,
-					bounds,
 				});
 				return [
 					...garmentStrokes,

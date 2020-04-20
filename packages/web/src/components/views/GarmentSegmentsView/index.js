@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { arrayOf, func, object } from 'prop-types';
 import cn from 'classnames';
 import { GarmentViewer } from '@components/layout';
+import { SVG } from '@components/ui';
+import { getViewBox } from '@utils/drawing';
 import styles from './styles.scss';
 
 export function GarmentSegmentsView({
@@ -12,11 +14,12 @@ export function GarmentSegmentsView({
 	const builder = new Builder();
 	const [{ propName: defaultSelected }] = segments;
 	const [selectedSegment, setSelectedSegment] = useState(defaultSelected);
+	const { height, width } = builder.size();
+	const viewBox = getViewBox({ height, width });
 	const garmentStrokes = builder.draw();
-	const { viewBox, size } = builder.getBounds();
 	const measurementStrokeMap = builder.drawMeasurements();
 	const measurementStrokes = Object.entries(measurementStrokeMap);
-	const strokeWidth = (size / 100);
+	const strokeWidth = height / 100; // @TODO
 	const segmentHoverHandler = (event = {}) => {
 		const {
 			target: {
@@ -31,16 +34,9 @@ export function GarmentSegmentsView({
 			svgHeader={garment.name}
 			textHeader="Measurements"
 			svg={
-				<svg
-					version="1.1"
+				<SVG
 					className={styles.wrapper}
 					viewBox={viewBox}
-					fill="none"
-					stroke="none"
-					strokeLinecap="round"
-					strokeMiterlimit="10"
-					xlink="http://www.w3.org/1999/xlink"
-					xmlns="http://www.w3.org/2000/svg"
 				>
 					<g className={styles.garment}>
 						{garmentStrokes.map((stroke) => (
@@ -62,7 +58,7 @@ export function GarmentSegmentsView({
 							/>
 						))}
 					</g>
-				</svg>
+				</SVG>
 			}
 			textModule={
 				<>
