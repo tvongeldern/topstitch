@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { NavBar } from '../NavBar';
 import styles from './styles.scss';
 
-const BASE_TITLE = 'The Perfect Fit';
+const BASE_TITLE = 'TailorStand';
 const IS_TRUTHY = (v) => v;
 
 export function Page({ children, title }) {
