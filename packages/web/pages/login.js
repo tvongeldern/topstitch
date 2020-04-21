@@ -6,7 +6,7 @@ import { } from '@state/actions';
 
 export default function LoginPage() {
 	return (
-		<Page>
+		<Page title="Log in">
 			<Form
 				component={LoginForm}
 				onSubmit={console.log}

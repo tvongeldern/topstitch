@@ -221,6 +221,10 @@ export default function definePlopGenerators({ setGenerator }) {
 				() => `${STATE_DIR}/reducers.js`,
 				({ name }) => `export { ${name} } from './${name}'`,
 			),
+			updateIndexFile(
+				() => `${STATE_DIR}/actions.js`,
+				({ name }) => `export * from './${name}'`,
+			),
 		],
 	});
 }

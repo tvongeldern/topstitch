@@ -8,6 +8,11 @@ const config = {
 	webpackDevMiddleware,
 	publicRuntimeConfig: {
 		API_HOST: process.env.API_HOST,
+		cognito: {
+			region: process.env.COGNITO_REGION,
+			userPoolId: process.env.COGNITO_POOL_ID,
+			userPoolWebClientId: process.env.COGNITO_APP_CLIENT_ID,
+		},
 	},
 };
 

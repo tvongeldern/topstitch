@@ -7,7 +7,7 @@ export function asyncActions({ req } = {}) {
 	// Object provided to async action creators
 	const providedPromiseObject = {
 		api: API({ req }),
-		// auth: new Auth({ req }),
+		auth: new Auth({ req }),
 	};
 	return () => (next) => (action) => {
 		const {

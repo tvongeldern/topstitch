@@ -14,6 +14,7 @@ export function NavBar() {
 					<div className={styles.links}>
 						<Link href="/">Home</Link>
 						<Link href="/login">Login</Link>
+						<Link href="/signup">Signup</Link>
 					</div>
 				</div>
 			</div>

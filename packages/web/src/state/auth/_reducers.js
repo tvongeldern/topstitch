@@ -1,0 +1,1 @@
+export { signUpReducer } from './signUp';

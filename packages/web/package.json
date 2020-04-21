@@ -17,6 +17,7 @@
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
+    "aws-amplify": "^3.0.8",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
     "final-form": "^4.19.1",
