@@ -81,6 +81,13 @@ export class Garment {
 		return this._size;
 	}
 
+	shift({ x = 0, y = 0 }) {
+		this._coordinates = shiftCoordinates({
+			shift: { x, y },
+			coordinates: this.coordinates(),
+		});
+	}
+
 	draw() {
 		if (!this._garmentStrokes) {
 			const coordinates = this.coordinates();

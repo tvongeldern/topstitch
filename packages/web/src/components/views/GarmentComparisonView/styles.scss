@@ -1,7 +1,19 @@
+@import 'web';
+
 .wrapper {
 	g {
 		path {
-			stroke: orange;
+			stroke: $white;
+		}
+		&:nth-child(3n+2) {
+			path {
+				stroke: $theme-color-tertiary;
+			}
+		}
+		&:nth-child(3n+3) {
+			path {
+				stroke: $theme-color-quaternary;
+			}
 		}
 	}
 }
