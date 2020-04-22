@@ -14,7 +14,6 @@ const COMPONENTS_DIR = `${SOURCE_DIR}/components`;
 const FORMS_DIR = `${SOURCE_DIR}/forms`;
 const STATE_DIR = `${SOURCE_DIR}/state`;
 const PAGES_DIR = `${PROJECT_ROOT}/pages`;
-const SCSS_TEMPLATE = '.container {\n\n}';
 
 function updateIndexFile(getIndexFileLocation, generateNewTextFromUserInput) {
 	return function updateFile(...userInputs) {
@@ -62,7 +61,7 @@ export default function definePlopGenerators({ setGenerator }) {
 			{
 				type: 'add',
 				path: `${COMPONENTS_DIR}/{{location}}/{{name}}/styles.scss`,
-				template: SCSS_TEMPLATE,
+				templateFile: `${TEMPLATES_DIR}/SassFile.hbs`,
 			},
 			{
 				type: 'add',

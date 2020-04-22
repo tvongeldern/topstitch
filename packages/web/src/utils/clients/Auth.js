@@ -8,23 +8,23 @@ export function Auth({ req } = {}) {
 	const client = this;
 	const cookies = req ? new Cookies(req.headers.cookie) : new Cookies();
 
-	this.login = async function login({ email, password }) {
-		const signedInUser = await AmplifyAuth.signIn(email, password);
-		const jwtToken = signedInUser?.signInUserSession?.idToken?.jwtToken;
+	this.logIn = async function login({ email, password }) {
+		const data = await AmplifyAuth.signIn(email, password);
+		const jwtToken = data?.signInUserSession?.idToken?.jwtToken;
 		if (!jwtToken) {
 			throw new Error('Authentication not completed'); // Shows in login form when thrown
 		}
 		cookies.set(AUTH_TOKEN_COOKIE_NAME, jwtToken, config.cookies);
-		return signedInUser;
+		return { data };
 	};
 
 	this.logout = async function logout() {
 		try {
 			cookies.remove(AUTH_TOKEN_COOKIE_NAME, config.cookies);
 			cookies.remove(AUTH_TOKEN_COOKIE_NAME);
-			const response = await AmplifyAuth.signOut({ global: true });
+			const data = await AmplifyAuth.signOut({ global: true });
 			Cache.clear();
-			return response;
+			return { data };
 		} catch (error) {
 			Cache.clear();
 			return Promise.reject(error);
@@ -32,26 +32,27 @@ export function Auth({ req } = {}) {
 	};
 
 	this.signUp = async function signUp({ email, password }) {
-		const signedUpUser = await AmplifyAuth.signUp({
+		const data = await AmplifyAuth.signUp({
 			password,
 			username: email,
+			attributes: { email },
 		});
-		return signedUpUser;
+		return { data };
 	};
 
 	this.forgotPassword = async function forgotPassword(email) {
-		const confirmation = await AmplifyAuth.forgotPassword(email);
-		return confirmation;
+		const data = await AmplifyAuth.forgotPassword(email);
+		return { data };
 	};
 
 	this.forgotPasswordSubmit = async function forgotPasswordSubmit(email, code, newPassword) {
 		await AmplifyAuth.forgotPasswordSubmit(email, code, newPassword);
-		const signedInUser = await client.login({ email, password: newPassword });
-		return signedInUser;
+		const data = await client.login({ email, password: newPassword });
+		return { data };
 	};
 
 	this.resendSignUp = async function resendSignUp(username) {
-		const resentCodeDetails = await AmplifyAuth.resendSignUp(username);
-		return resentCodeDetails;
+		const data = await AmplifyAuth.resendSignUp(username);
+		return { data };
 	};
 }

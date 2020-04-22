@@ -14,7 +14,7 @@ export function TextInput({
 		<div className={styles.inputContainer}>
 			{label && <label>{label}</label>}
 			<input type="text" {...input} {...rest} />
-			<p>{error}</p>
+			<p className={styles.error}>{error}</p>
 		</div>
 	);
 }

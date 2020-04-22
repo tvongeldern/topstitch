@@ -6,11 +6,13 @@ import styles from './styles.scss';
 
 export function LoginForm({ handleSubmit }) {
 	return (
-		<form onSubmit={handleSubmit}>
+		<form onSubmit={handleSubmit} noValidate>
 			<Field
 				component={TextInput}
-				name="username"
-				label="Username"
+				name="email"
+				label="Email"
+				type="email"
+				autoComplete="username"
 			/>
 
 			<Field
@@ -18,6 +20,7 @@ export function LoginForm({ handleSubmit }) {
 				name="password"
 				type="password"
 				label="Password"
+				autoComplete="current-password"
 			/>
 
 			<Button type="submit">Log in</Button>

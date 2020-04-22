@@ -1,3 +1,4 @@
+export { authMiddleware } from './authMiddleware';
 export { errorHandler } from './errorHandler';
 export { genericEndpointError } from './genericEndpointError';
 export { provideLogger } from './provideLogger';
