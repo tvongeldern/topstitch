@@ -57,12 +57,22 @@ const measurementNumber = constrainedNumber({
   maxMsg: 'No measurement can be over 3 meters long',
 });
 
-const id = {
+const email = {
+  type: DataTypes.STRING,
+  validate: {
+    isEmail: true,
+  },
+};
+
+const uuid = {
   type: DataTypes.UUID,
+  unique: true,
+};
+
+const id = {
+  ...uuid,
   primaryKey: true,
   allowNull: false,
-  unique: true,
-  // defaultValue: Sequelize.UUIDV4,
   defaultValue: Sequelize.literal('uuid_generate_v4()'),
 };
 
@@ -104,7 +114,19 @@ const tag = {
 };
 
 const TABLES = {
-  accounts: {},
+  accounts: {
+    columns: {
+      cognitoId: {
+        ...uuid,
+        allowNull: false,
+      },
+      email: {
+        ...email,
+        allowNull: false,
+        unique: true,
+      },
+    },
+  },
   brands: {
     columns: {
       name: { ...name, unique: true },

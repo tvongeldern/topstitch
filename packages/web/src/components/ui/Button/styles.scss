@@ -1,17 +1,43 @@
 @import 'theme';
 
 .primary {
-	background-color: $theme-color-primary;
+	color: $theme-color-primary;
 }
 
 .secondary {
-	background-color: $theme-color-secondary;
+	color: $theme-color-secondary;
 }
 
 .tertiary {
-	background-color: $theme-color-tertiary;
+	color: $theme-color-tertiary;
 }
 
 .quaternary {
-	background-color: $theme-color-quaternary;
+	color: $theme-color-quaternary;
+}
+
+button {
+	.buttonText {
+		background-color: currentColor;
+		padding: 4px 8px;
+		border-radius: 4px;
+
+		> span {
+			color: $white;
+		}
+	}
+	background-repeat: no-repeat;
+	background-position-x: center;
+	background-position-y: center;
+	background-size: 0;
+	transition: background-size 0.2s;
+	&:hover {
+		background-image: url('/images/patterns/paisley-multi-1.jpg');
+		background-size: 100%;
+	}
+}
+
+.loading {
+	// background-image: url('/images/patterns/paisley-multi-1.jpg');
+	// background-size: 100%;
 }

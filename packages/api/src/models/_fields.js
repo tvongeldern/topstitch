@@ -30,13 +30,24 @@ const paragraph = {
 
 export const description = paragraph;
 
+export const email = {
+	type: DataTypes.STRING,
+	validate: {
+		isEmail: true,
+	},
+};
+
+export const uuid = {
+	type: DataTypes.UUID,
+	defaultValue: Sequelize.UUIDV4,
+};
+
 // Unique object identifier
 export const id = {
-	type: DataTypes.UUID,
+	...uuid,
 	primaryKey: true,
 	allowNull: false,
 	unique: true,
-	defaultValue: Sequelize.UUIDV4,
 };
 
 // Measurements are always stored in mm

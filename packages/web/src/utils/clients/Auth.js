@@ -19,16 +19,10 @@ export function Auth({ req } = {}) {
 	};
 
 	this.logout = async function logout() {
-		try {
-			cookies.remove(AUTH_TOKEN_COOKIE_NAME, config.cookies);
-			cookies.remove(AUTH_TOKEN_COOKIE_NAME);
-			const data = await AmplifyAuth.signOut({ global: true });
-			Cache.clear();
-			return { data };
-		} catch (error) {
-			Cache.clear();
-			return Promise.reject(error);
-		}
+		cookies.remove(AUTH_TOKEN_COOKIE_NAME, config.cookies);
+		cookies.remove(AUTH_TOKEN_COOKIE_NAME);
+		Cache.clear();
+		const data = await AmplifyAuth.signOut({ global: true });
 	};
 
 	this.signUp = async function signUp({ email, password }) {

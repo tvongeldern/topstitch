@@ -11,7 +11,8 @@ services:
     environment:
       PORT: 3000
       NODE_ENV: development
-      API_HOST: http://api:8000
+      CLIENT_API_HOST: http://localhost:8000
+      DOCKER_API_HOST: http://api:8000
     env_file:
       - .env.dev
     ports:

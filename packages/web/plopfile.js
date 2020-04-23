@@ -119,7 +119,7 @@ export default function definePlopGenerators({ setGenerator }) {
 			{
 				type: 'add',
 				path: `${FORMS_DIR}/{{name}}/styles.scss`,
-				template: SCSS_TEMPLATE,
+				templateFile: `${TEMPLATES_DIR}/SassFile.hbs`,
 			},
 			{
 				type: 'add',

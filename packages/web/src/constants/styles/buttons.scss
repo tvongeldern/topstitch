@@ -5,10 +5,12 @@ button {
 	appearance: none;
 	border-radius: $button-border-radius;
 	padding: 16px 24px;
-	background-color: $theme-color-primary;
-	color: $white;
+	color: $theme-color-primary;
+	background-color: currentColor;
+	border: 4px solid currentColor;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	margin: 16px;
+	font-weight: bold;
 }

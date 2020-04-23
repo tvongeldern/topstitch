@@ -5,6 +5,7 @@ import cors from 'cors';
 import { db, migrate } from '@db';
 import {
 	authMiddleware,
+	jwtMiddleware,
 	provideLogger,
 	responseStructure,
 	errorHandler,
@@ -29,6 +30,7 @@ const logger = new Logger().context('startup');
 				.use(cookies())
 				.use(cors())
 				.use(provideLogger)
+				.use(jwtMiddleware)
 				.use(authMiddleware)
 				.use(responseStructure)
 				.use(routes)

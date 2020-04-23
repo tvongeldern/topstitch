@@ -4,7 +4,10 @@ import { Field } from 'react-final-form';
 import { Button, TextInput } from '@components';
 import styles from './styles.scss';
 
-export function LoginForm({ handleSubmit }) {
+export function LoginForm({
+	handleSubmit,
+	submitting,
+}) {
 	return (
 		<form onSubmit={handleSubmit} noValidate>
 			<Field
@@ -23,7 +26,7 @@ export function LoginForm({ handleSubmit }) {
 				autoComplete="current-password"
 			/>
 
-			<Button type="submit">Log in</Button>
+			<Button type="submit" loading={submitting}>Log in</Button>
 		</form>
 	);
 }

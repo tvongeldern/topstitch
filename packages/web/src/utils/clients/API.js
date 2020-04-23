@@ -6,7 +6,10 @@ import {
 	config,
 } from '@constants';
 
-const { API_HOST } = config;
+const {
+	CLIENT_API_HOST,
+	DOCKER_API_HOST,
+} = config;
 
 const headers = {
 	Accept: 'application/json',
@@ -29,7 +32,7 @@ export function API({ req }) {
 	const instance = axios.create({
 		headers,
 		timeout: 30000,
-		baseURL: API_HOST,
+		baseURL: req ? DOCKER_API_HOST : CLIENT_API_HOST,
 	});
 	instance.interceptors.response.use(parseSuccessResponse, parseErrorResponse);
 	const cookies = req ? new Cookies(req.headers.cookie) : new Cookies();

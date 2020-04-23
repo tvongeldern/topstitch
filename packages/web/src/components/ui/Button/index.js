@@ -10,6 +10,7 @@ export function Button({
 	secondary,
 	tertiary,
 	quaternary,
+	loading,
 	...rest
 }) {
 	const buttonClass = cn(styles.button, className, {
@@ -17,8 +18,17 @@ export function Button({
 		[styles.secondary]: secondary,
 		[styles.tertiary]: tertiary,
 		[styles.quaternary]: quaternary,
+		[styles.loading]: loading,
 	});
-	return <button className={buttonClass} {...rest}>{children}</button>;
+	return (
+		<button className={buttonClass} {...rest}>
+			<div className={styles.buttonText}>
+				<span>
+					{children}
+				</span>
+			</div>
+		</button>
+	);
 }
 
 Button.propTypes = {

@@ -7,7 +7,8 @@ const { webpackDevMiddleware } = require('./dev/webpack-dev-middleware');
 const config = {
 	webpackDevMiddleware,
 	publicRuntimeConfig: {
-		API_HOST: process.env.API_HOST,
+		CLIENT_API_HOST: process.env.CLIENT_API_HOST,
+		DOCKER_API_HOST: process.env.DOCKER_API_HOST,
 		cognito: {
 			region: process.env.COGNITO_REGION,
 			userPoolId: process.env.COGNITO_POOL_ID,

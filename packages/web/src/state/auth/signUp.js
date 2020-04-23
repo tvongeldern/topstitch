@@ -18,5 +18,6 @@ export const signUpReducer = {
 
 export const signUp = ({ email, password, confirm }) => ({
 	types: [types.start, types.success, types.fail],
-	promise: ({ auth }) => auth.signUp({ email, password, confirm }),
+	promise: ({ auth }) => auth.signUp({ email, password, confirm })
+		.then(() => auth.logIn({ email, password })),
 });

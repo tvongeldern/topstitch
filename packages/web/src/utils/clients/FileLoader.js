@@ -28,7 +28,7 @@ function parseErrorResponse(error) {
 const instance = axios.create({
 	headers,
 	timeout: 30000,
-	baseURL: config.API_HOST,
+	baseURL: config.CLIENT_API_HOST,
 });
 instance.interceptors.response.use(parseSuccessResponse, parseErrorResponse);
 instance.interceptors.request.use((requestConfig) => ({
