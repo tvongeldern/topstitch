@@ -8,6 +8,11 @@
 .error {
 	background-image: url('/images/patterns/paisley-red.jpg');
 	border-color: $ui-error-color;
+
+	&:hover { // animates the change of background image when already in hover state
+		animation-name: addBackgroundPicture;
+		animation-duration: 0.2s;
+	}
 }
 
 .loading {
@@ -17,6 +22,11 @@
 .success {
 	background-image: url('/images/patterns/paisley-green.jpg');
 	border-color: $ui-success-color;
+
+	&:hover {
+		animation-name: addBackgroundPicture;
+		animation-duration: 0.2s;
+	}
 }
 
 button {
@@ -30,7 +40,7 @@ button {
 	background-position-x: center;
 	background-position-y: center;
 	background-size: 0;
-	transition: background-size 0.2s;
+	transition: background-size 0.2s, border-color 0.4s;
 	background-image: url('/images/patterns/paisley-purple.jpg');
 
 	&:disabled {

@@ -64,6 +64,8 @@ html body {
 
 	p {
 		margin: 4px 0;
+		line-height: 1em;
+		min-height: 1em;
 	}
 
 	input,
@@ -98,6 +100,8 @@ html body {
 
 		.error {
 			color: $ui-error-color;
+			font-size: $font-size-small;
+			// margin-top: 8px;
 		}
 	}
 

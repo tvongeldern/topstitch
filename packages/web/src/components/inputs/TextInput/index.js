@@ -3,19 +3,26 @@ import { } from 'prop-types';
 import styles from './styles.scss';
 
 export function TextInput({
-	input,
+	input: {
+		type = 'text',
+		...input
+	},
 	label,
 	meta: {
 		error,
 		touched,
-		...meta
 	},
 	...rest
 }) {
 	return (
 		<div className={styles.inputContainer}>
 			{label && <label>{label}</label>}
-			<input type="text" {...input} {...rest} />
+			<input
+				type={type}
+				data-lpignore={type !== 'email' && type !== 'password'}
+				{...rest}
+				{...input}
+			/>
 			<p className={styles.error}>{touched ? error : ''}</p>
 		</div>
 	);

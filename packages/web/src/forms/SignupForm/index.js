@@ -22,7 +22,6 @@ export function SignupForm({
 	hasSubmitErrors,
 	hasValidationErrors,
 	submitting,
-	...rest
 }) {
 	const hasTouchedField = Object.values(touched).find(IS_TRUTHY);
 	const hasError = hasTouchedField && (hasSubmitErrors || hasValidationErrors);
@@ -51,7 +50,6 @@ export function SignupForm({
 				name="confirm"
 				type="password"
 				label="Confirm password"
-				autoComplete="new-password"
 				validate={validateConfirmPassword}
 			/>
 
