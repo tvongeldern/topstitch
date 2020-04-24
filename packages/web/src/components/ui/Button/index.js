@@ -1,48 +1,41 @@
 import React from 'react';
-import { arrayOf, bool, node, oneOfType } from 'prop-types';
+import { any, arrayOf, bool, node, oneOfType } from 'prop-types';
 import cn from 'classnames';
+import { Loading } from '@components/icons';
 import styles from './styles.scss';
 
 export function Button({
 	children,
 	className,
-	primary,
-	secondary,
-	tertiary,
-	quaternary,
+	error,
+	success,
 	loading,
 	...rest
 }) {
 	const buttonClass = cn(styles.button, className, {
-		[styles.primary]: primary,
-		[styles.secondary]: secondary,
-		[styles.tertiary]: tertiary,
-		[styles.quaternary]: quaternary,
+		[styles.error]: error,
 		[styles.loading]: loading,
+		[styles.success]: success,
 	});
 	return (
 		<button className={buttonClass} {...rest}>
-			<div className={styles.buttonText}>
-				<span>
-					{children}
-				</span>
-			</div>
+			<span className={styles.buttonText}>
+				{loading ? <Loading size={24} color="white" /> : children}
+			</span>
 		</button>
 	);
 }
 
 Button.propTypes = {
 	children: oneOfType([node, arrayOf(node)]),
-	primary: bool,
-	secondary: bool,
-	tertiary: bool,
-	quaternary: bool,
+	loading: bool,
+	error: any,
+	success: any,
 };
 
 Button.defaultProps = {
 	children: null,
-	primary: false,
-	secondary: false,
-	tertiary: false,
-	quaternary: false,
+	loading: false,
+	error: null,
+	success: null,
 };

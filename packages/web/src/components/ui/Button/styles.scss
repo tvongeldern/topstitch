@@ -1,43 +1,45 @@
 @import 'theme';
 
-.primary {
-	color: $theme-color-primary;
+@keyframes addBackgroundPicture {
+  from { background-size: 0; }
+  to { background-size: 100%; }
 }
 
-.secondary {
-	color: $theme-color-secondary;
+.error {
+	background-image: url('/images/patterns/paisley-red.jpg');
+	border-color: $ui-error-color;
 }
 
-.tertiary {
-	color: $theme-color-tertiary;
+.loading {
+	.buttonText { padding: 0px 4px; }
 }
 
-.quaternary {
-	color: $theme-color-quaternary;
+.success {
+	background-image: url('/images/patterns/paisley-green.jpg');
+	border-color: $ui-success-color;
 }
 
 button {
 	.buttonText {
-		background-color: currentColor;
+		background-color: $theme-color-primary;
 		padding: 4px 8px;
 		border-radius: 4px;
-
-		> span {
-			color: $white;
-		}
+		color: $white;
 	}
 	background-repeat: no-repeat;
 	background-position-x: center;
 	background-position-y: center;
 	background-size: 0;
 	transition: background-size 0.2s;
+	background-image: url('/images/patterns/paisley-purple.jpg');
+
+	&:disabled {
+		cursor: not-allowed;
+		background-image: url('/images/patterns/paisley-gray.jpg');
+		border-color: $gray;
+	}
+
 	&:hover {
-		background-image: url('/images/patterns/paisley-multi-1.jpg');
 		background-size: 100%;
 	}
-}
-
-.loading {
-	// background-image: url('/images/patterns/paisley-multi-1.jpg');
-	// background-size: 100%;
 }

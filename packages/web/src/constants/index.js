@@ -7,3 +7,5 @@ export const EMPTY_ARRAY = Object.freeze([]);
 export const EMPTY_OBJECT = Object.freeze({});
 
 export const MAGIC_RATIO = 1.6180339887;
+
+export const EMAIL_PATTERN = /^[^@]+@[^@.]+.[^@.]+$/;

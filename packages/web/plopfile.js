@@ -75,34 +75,6 @@ export default function definePlopGenerators({ setGenerator }) {
 		],
 	});
 
-	setGenerator('icon', {
-		description: 'Generate an icon component',
-		prompts: [
-			{
-				name: 'icon',
-				message: 'Which icon are you wrapping?',
-				type: 'list',
-				choices: readdirSync(ASSETS_DIR),
-			},
-			{
-				name: 'component',
-				message: 'What would you like to name your component?',
-				type: 'input',
-			},
-		],
-		actions: [
-			{
-				type: 'add',
-				path: `${ICONS_DIR}/{{component}}.js`,
-				templateFile: `${TEMPLATES_DIR}/Icon.hbs`,
-			},
-			updateIndexFile(
-				() => `${ICONS_DIR}/index.js`,
-				({ component }) => `export { ${component} } from './${component}'`,
-			),
-		],
-	});
-
 	setGenerator('form', {
 		description: 'Generate a React form component',
 		prompts: [

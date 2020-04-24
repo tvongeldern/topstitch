@@ -58,3 +58,5 @@ services:
       POSTGRES_USER: local
       POSTGRES_PASSWORD: sw0rdf1sH
       POSTGRES_DB: mono
+    # volumes:
+    #   - localdata:/var/lib/postgresql/data

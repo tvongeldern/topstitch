@@ -15,11 +15,3 @@
 		padding: 16px;
 	}
 }
-
-@include mobile {
-	.container {
-		.content {
-			padding-top: 0;
-		}
-	}
-}

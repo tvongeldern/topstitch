@@ -7,6 +7,8 @@ export function TextInput({
 	label,
 	meta: {
 		error,
+		touched,
+		...meta
 	},
 	...rest
 }) {
@@ -14,7 +16,7 @@ export function TextInput({
 		<div className={styles.inputContainer}>
 			{label && <label>{label}</label>}
 			<input type="text" {...input} {...rest} />
-			<p className={styles.error}>{error}</p>
+			<p className={styles.error}>{touched ? error : ''}</p>
 		</div>
 	);
 }

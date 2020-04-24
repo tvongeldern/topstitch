@@ -2,12 +2,20 @@ import React from 'react';
 import { func } from 'prop-types';
 import { Field } from 'react-final-form';
 import { Button, TextInput } from '@components';
-import styles from './styles.scss';
+import { IS_TRUTHY } from '@utils';
+import { validateRequired } from '../validators';
 
 export function LoginForm({
 	handleSubmit,
+	submitError,
+	touched,
+	hasSubmitErrors,
+	hasValidationErrors,
 	submitting,
+	...rest
 }) {
+	const hasTouchedField = Object.values(touched).find(IS_TRUTHY);
+	const hasError = hasTouchedField && (hasSubmitErrors || hasValidationErrors);
 	return (
 		<form onSubmit={handleSubmit} noValidate>
 			<Field
@@ -16,6 +24,7 @@ export function LoginForm({
 				label="Email"
 				type="email"
 				autoComplete="username"
+				validate={validateRequired}
 			/>
 
 			<Field
@@ -24,9 +33,16 @@ export function LoginForm({
 				type="password"
 				label="Password"
 				autoComplete="current-password"
+				validate={validateRequired}
 			/>
 
-			<Button type="submit" loading={submitting}>Log in</Button>
+			<Button
+				type="submit"
+				loading={submitting}
+				error={hasError}
+			>
+				Log in
+			</Button>
 		</form>
 	);
 }
