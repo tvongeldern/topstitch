@@ -10,6 +10,10 @@ export const ADD_ABS = (...args) => args.reduce((sum, num) => sum + Math.abs(num
 
 export const RETURN_EMPTY_OBJECT = () => EMPTY_OBJECT;
 
+export function capitalize(value = '') {
+	return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
 /**
  * Recuces an array of objects to a map,
  * using the `mappingKey` as the key for each object

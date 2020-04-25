@@ -14,7 +14,7 @@
 	}
 }
 
-input {
+input, select {
 	appearance: none;
 	box-shadow: none;
 	border: 2px solid $dark-gray;
@@ -26,5 +26,12 @@ input {
 	&::placeholder {
 		transition: color 0.4s;
 		color: $dark-gray;
+	}
+
+	&[type="checkbox"] {
+		width: 24px;
+		&:checked {
+			background-color: $theme-color-tertiary;
+		}
 	}
 }

@@ -8,7 +8,7 @@ export default function SizechartsPage() {
 		<Page title="Sizecharts">
 			<Form
 				component={SizechartForm}
-				onSubmit={console.log}
+				onSubmit={() => {}}
 			/>
 		</Page>
 	);

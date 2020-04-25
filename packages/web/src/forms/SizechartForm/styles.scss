@@ -1,3 +1,9 @@
 @import 'web';
 
-.container {}
+form {
+	.type {
+		.list {
+			display: flex;
+		}
+	}
+}
