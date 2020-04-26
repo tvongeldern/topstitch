@@ -60,12 +60,11 @@ const TYPES_CHAIN = [
 	},
 ];
 
-function reduceTypes({
+function reduceFormSelector({
 	selectedMap,
 	sizechart,
 	formSelector,
 	selectedKey,
-	...rest
 }, { type }) {
 	const plural = `${type}s`;
 	if (!formSelector) {
@@ -216,9 +215,10 @@ export function SizechartForm({
 	});
 
 	const { formSelector } = TYPES_CHAIN.reduce(
-		reduceTypes,
+		reduceFormSelector,
 		{ sizechart, selectedMap },
 	);
+
 
 	return (
 		<form onSubmit={handleSubmit}>
