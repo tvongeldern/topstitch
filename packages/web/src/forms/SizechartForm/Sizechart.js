@@ -8,6 +8,7 @@ export function Sizechart({
 	sizechart,
 	selected,
 	garments,
+	segments,
 }) {
 	const brandsMap = sizechart.brands || {};
 	const brandsArray = Object.values(brandsMap || {});
@@ -28,6 +29,10 @@ export function Sizechart({
 	const sizesMap = selectedFit.sizes || {};
 	const sizesArray = Object.values(sizesMap);
 	const selectedSize = sizesMap[selected.size] || {};
+
+	const measurementsMap = selectedSize.measurements || {};
+	const measurementsArray = Object.values(measurementsMap);
+	const selectedMeasurement = measurementsMap[selected.measurement] || {};
 
 	return (
 		<div className={styles.sizechart}>
@@ -135,6 +140,33 @@ export function Sizechart({
 									label={size['name']}
 									component={RadioLabel}
 									key={size['name']}
+								/>
+							)
+						)}
+					</div>
+				</div>
+			)}
+
+			{measurementsArray.length > 0 && (
+				<div className={styles.type}>
+					<h3>Measurements</h3>
+					<div className={styles.list}>
+						{measurementsArray.map(
+							(measurement) => (
+								<Field
+									name="selected"
+									type="radio"
+									value={[
+										selected.brand,
+										selected.collection,
+										selected.garment,
+										selected.fit,
+										selected.size,
+										measurement['segmentId'],
+									].join(DIVIDER)}
+									label={`${segments[measurement['segmentId']].name} : ${measurement['mm']}`}
+									component={RadioLabel}
+									key={measurement['segmentId']}
 								/>
 							)
 						)}

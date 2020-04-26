@@ -14,7 +14,7 @@ export function Dropdown({
 		touched,
 	},
 	options,
-	defaultOption,
+	placeholder,
 	...rest
 }) {
 	return (
@@ -24,7 +24,7 @@ export function Dropdown({
 				{...rest}
 				{...input}
 			>
-				{defaultOption && renderOption({ children: defaultOption })}
+				{placeholder && renderOption({ children: placeholder })}
 				{options.map(renderOption)}
 			</select>
 			<p className={styles.error}>{touched ? error : ''}</p>

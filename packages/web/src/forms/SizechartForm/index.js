@@ -39,65 +39,96 @@ const segments = {
 	},
 };
 
+const mapOption = ([key, { id, name }]) => ({ value: id, children: name });
+
 function getChildProps({
 	brand,
 	collection,
 	garment,
 	fit,
 	size,
-	segment,
 	measurement,
 	context,
 }) {
 	if (!brand) {
 		return {
-			fieldLabel: 'Brand',
+			textInput: {
+				label: 'Brand',
+			},
 			formSelector: 'brands',
 			buttonText: 'Add brand',
 		};
 	}
 	if (!collection) {
 		return {
-			fieldLabel: 'Collection',
+			textInput: {
+				label: 'Collection',
+			},
 			formSelector: `brands.${brand}.collections`,
 			buttonText: 'Add collection',
 		};
 	}
 	if (!garment) {
+		const { garments = {} } = context.sizechart
+			.brands[brand]
+			.collections[collection];
 		return {
-			fieldLabel: 'Garment',
 			formSelector: `brands.${brand}.collections.${collection}.garments`,
 			buttonText: 'Add garment',
-			inputKey: 'id',
-			inputOptions: Object.values(context.garments).map(mapGarmentOption),
+			dropDown: {
+				label: 'Garment',
+				placeholder: 'Select garment',
+				options: Object.entries(context.garments)
+					.filter(([key]) => !garments[key])
+					.map(mapOption),
+			},
 		};
 	}
 	if (!fit) {
 		return {
-			fieldLabel: 'Fit',
+			textInput: {
+				label: 'Fit',
+			},
 			formSelector: `brands.${brand}.collections.${collection}.garments.${garment}.fits`,
 			buttonText: 'Add fit',
 		};
 	}
 	if (!size) {
 		return {
-			fieldLabel: 'Size',
+			textInput: {
+				label: 'Size',
+			},
 			formSelector: `brands.${brand}.collections.${collection}.garments.${garment}.fits.${fit}.sizes`,
 			buttonText: 'Add size',
 		};
 	}
+	const { measurements = {} } = context.sizechart
+		.brands[brand]
+		.collections[collection]
+		.garments[garment]
+		.fits[fit]
+		.sizes[size];
 	return {
-		fieldLabel: 'Segment',
-		formSelector: `brands.${brand}.collections.${collection}.garments.${garment}.fits.${fit}.sizes.${size}.segments`,
-		buttonText: 'Add Segment',
-		inputKey: 'id',
-		inputOptions: Object.values(context.segments)
-			.filter(({ garmentId }) => garmentId === garment)
-			.map(mapGarmentOption),
+		formSelector: `brands.${brand}.collections.${collection}.garments.${garment}.fits.${fit}.sizes.${size}.measurements`,
+		buttonText: measurement ? 'Update measurement' : 'Add measurement',
+		formKey: 'segmentId',
+		dropDown: {
+			label: 'Measurement',
+			placeholder: 'Select one',
+			options: Object.entries(context.segments)
+				.filter(([key, { garmentId }]) => !measurements[key] && garmentId === garment)
+				.map(mapOption),
+			name: "input.segmentId",
+			//
+			disabled: measurement,
+			defaultValue: measurement
+		},
+		textInput: {
+			label: 'Length',
+			name: 'input.mm',
+		},
 	};
 }
-
-const mapGarmentOption = ({ id, name }) => ({ value: id, children: name });
 
 export function SizechartForm({
 	form,
@@ -114,7 +145,6 @@ export function SizechartForm({
 		garment,
 		fit,
 		size,
-		segment,
 		measurement,
 	] = selected.split(DIVIDER);
 	const selectedMap = {
@@ -123,56 +153,60 @@ export function SizechartForm({
 		garment,
 		fit,
 		size,
-		segment,
 		measurement,
 	};
 
 	const {
-		fieldLabel,
 		formSelector,
 		buttonText,
-		inputKey = 'name',
-		inputOptions,
-		hideForm,
+		textInput,
+		dropDown,
+		formKey = dropDown ? 'id' : 'name',
 	} = getChildProps({
 		...selectedMap,
 		context: {
 			garments,
 			segments,
+			sizechart,
 		},
 	});
-
-	const inputProps = inputOptions
-		? { component: Dropdown, options: inputOptions, defaultOption: 'Select garment' }
-		: { component: TextInput };
 
 	return (
 		<form onSubmit={handleSubmit}>
 
-			{!hideForm && (
-				<div className={styles.form}>
+			<div className={styles.form}>
+				{dropDown && (
 					<Field
-						label={fieldLabel}
-						name={`input.${inputKey}`}
-						{...inputProps}
+						name="input.id"
+						component={Dropdown}
+						{...dropDown}
 					/>
+				)}
 
-					<Button
-						onClick={() => {
-							form.change(
-								`sizechart.${formSelector}.${values.input[inputKey]}`,
-								values.input,
-							);
-							form.change('input', {});
-						}}
-					>
-						{buttonText}
-					</Button>
-				</div>
-			)}
+				{textInput && (
+					<Field
+						name="input.name"
+						component={TextInput}
+						{...textInput}
+					/>
+				)}
+
+				<Button
+					onClick={() => {
+						form.change(
+							`sizechart.${formSelector}.${values.input[formKey]}`,
+							values.input,
+						);
+						form.change('input', {});
+					}}
+				>
+					{buttonText}
+				</Button>
+			</div>
 
 			<Sizechart
 				garments={garments}
+				segments={segments}
 				sizechart={sizechart}
 				selected={{
 					brand,
@@ -180,7 +214,6 @@ export function SizechartForm({
 					garment,
 					fit,
 					size,
-					segment,
 					measurement,
 				}}
 			/>
