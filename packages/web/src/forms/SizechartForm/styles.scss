@@ -1,9 +1,20 @@
 @import 'web';
 
 form {
-	.type {
-		.list {
+
+	.sizechart {
+		display: flex;
+		flex-direction: column;
+
+		.type {
+			margin: 8px;
 			display: flex;
+			flex-direction: column;
+
+			.list {
+				display: flex;
+				flex-direction: row;
+			}
 		}
 	}
 }

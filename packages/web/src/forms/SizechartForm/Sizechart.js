@@ -4,6 +4,36 @@ import styles from './styles.scss';
 
 export const DIVIDER = '::';
 
+function RadioGroup({
+	map,
+	selected,
+	key = 'name',
+	title,
+	getRadioValue,
+}) {
+	const array = Object.values(map || {});
+	if (array.length === 0) { return null; }
+	return (
+		<div className={styles.type}>
+			<h3>{title}</h3>
+			<div className={styles.list}>
+				{array.map(
+					(obj) => (
+						<Field
+							name="selected"
+							type="radio"
+							value={getRadioValue(obj)}
+							label={obj[key]}
+							component={RadioLabel}
+							key={obj[key]}
+						/>
+					)
+				)}
+			</div>
+		</div>
+	)
+}
+
 export function Sizechart({
 	sizechart,
 	selected,
@@ -36,7 +66,7 @@ export function Sizechart({
 
 	return (
 		<div className={styles.sizechart}>
-			{brandsArray.length > 0 && (
+			{/* {brandsArray.length > 0 && (
 				<div className={styles.type}>
 					<h3>Brand</h3>
 					<div className={styles.list}>
@@ -54,9 +84,15 @@ export function Sizechart({
 						)}
 					</div>
 				</div>
-			)}
+			)} */}
+			<RadioGroup
+				map={brandsMap}
+				selected={selectedBrand}
+				title="Brand"
+				getRadioValue={({ name }) => name}
+			/>
 
-			{collectionsArray.length > 0 && (
+			{/* {collectionsArray.length > 0 && (
 				<div className={styles.type}>
 					<h3>Collections</h3>
 					<div className={styles.list}>
@@ -74,7 +110,14 @@ export function Sizechart({
 						)}
 					</div>
 				</div>
-			)}
+			)} */}
+
+			<RadioGroup
+				map={collectionsMap}
+				selected={selectedCollection}
+				title="Collection"
+				getRadioValue={({ name }) => [selected.brand, name].join(DIVIDER)}
+			/>
 
 			{garmentsArray.length > 0 && (
 				<div className={styles.type}>

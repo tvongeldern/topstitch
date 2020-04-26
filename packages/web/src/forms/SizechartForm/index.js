@@ -173,36 +173,33 @@ export function SizechartForm({
 
 	return (
 		<form onSubmit={handleSubmit}>
+			{dropDown && (
+				<Field
+					name="input.id"
+					component={Dropdown}
+					{...dropDown}
+				/>
+			)}
 
-			<div className={styles.form}>
-				{dropDown && (
-					<Field
-						name="input.id"
-						component={Dropdown}
-						{...dropDown}
-					/>
-				)}
+			{textInput && (
+				<Field
+					name="input.name"
+					component={TextInput}
+					{...textInput}
+				/>
+			)}
 
-				{textInput && (
-					<Field
-						name="input.name"
-						component={TextInput}
-						{...textInput}
-					/>
-				)}
-
-				<Button
-					onClick={() => {
-						form.change(
-							`sizechart.${formSelector}.${values.input[formKey]}`,
-							values.input,
-						);
-						form.change('input', {});
-					}}
-				>
-					{buttonText}
-				</Button>
-			</div>
+			<Button
+				onClick={() => {
+					form.change(
+						`sizechart.${formSelector}.${values.input[formKey]}`,
+						values.input,
+					);
+					form.change('input', {});
+				}}
+			>
+				{buttonText}
+			</Button>
 
 			<Sizechart
 				garments={garments}
@@ -217,7 +214,6 @@ export function SizechartForm({
 					measurement,
 				}}
 			/>
-
 		</form>
 	);
 }
