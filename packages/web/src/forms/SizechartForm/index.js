@@ -39,6 +39,57 @@ const segments = {
 	},
 };
 
+const TYPES_CHAIN = [
+	{
+		type: 'brand',
+	},
+	{
+		type: 'collection',
+	},
+	{
+		type: 'garment',
+	},
+	{
+		type: 'fit',
+	},
+	{
+		type: 'size',
+	},
+	{
+		type: 'measurement',
+	},
+];
+
+function reduceTypes({
+	selectedMap,
+	sizechart,
+	formSelector,
+	selectedKey,
+	...rest
+}, { type }) {
+	const plural = `${type}s`;
+	if (!formSelector) {
+		return {
+			type,
+			selectedMap,
+			sizechart,
+			formSelector: plural,
+			selectedKey: selectedMap[type],
+		};
+	}
+	if (!selectedKey) {
+		return {
+			formSelector,
+		};
+	}
+	return {
+		selectedKey: selectedMap[type],
+		selectedMap,
+		sizechart,
+		formSelector: `${formSelector}.${selectedKey}.${plural}`,
+	};
+}
+
 const mapOption = ([key, { id, name }]) => ({ value: id, children: name });
 
 function getChildProps({
@@ -55,7 +106,6 @@ function getChildProps({
 			textInput: {
 				label: 'Brand',
 			},
-			formSelector: 'brands',
 			buttonText: 'Add brand',
 		};
 	}
@@ -64,7 +114,6 @@ function getChildProps({
 			textInput: {
 				label: 'Collection',
 			},
-			formSelector: `brands.${brand}.collections`,
 			buttonText: 'Add collection',
 		};
 	}
@@ -73,7 +122,6 @@ function getChildProps({
 			.brands[brand]
 			.collections[collection];
 		return {
-			formSelector: `brands.${brand}.collections.${collection}.garments`,
 			buttonText: 'Add garment',
 			dropDown: {
 				label: 'Garment',
@@ -89,7 +137,6 @@ function getChildProps({
 			textInput: {
 				label: 'Fit',
 			},
-			formSelector: `brands.${brand}.collections.${collection}.garments.${garment}.fits`,
 			buttonText: 'Add fit',
 		};
 	}
@@ -98,7 +145,6 @@ function getChildProps({
 			textInput: {
 				label: 'Size',
 			},
-			formSelector: `brands.${brand}.collections.${collection}.garments.${garment}.fits.${fit}.sizes`,
 			buttonText: 'Add size',
 		};
 	}
@@ -109,7 +155,6 @@ function getChildProps({
 		.fits[fit]
 		.sizes[size];
 	return {
-		formSelector: `brands.${brand}.collections.${collection}.garments.${garment}.fits.${fit}.sizes.${size}.measurements`,
 		buttonText: measurement ? 'Update measurement' : 'Add measurement',
 		formKey: 'segmentId',
 		dropDown: {
@@ -157,7 +202,6 @@ export function SizechartForm({
 	};
 
 	const {
-		formSelector,
 		buttonText,
 		textInput,
 		dropDown,
@@ -170,6 +214,11 @@ export function SizechartForm({
 			sizechart,
 		},
 	});
+
+	const { formSelector } = TYPES_CHAIN.reduce(
+		reduceTypes,
+		{ sizechart, selectedMap },
+	);
 
 	return (
 		<form onSubmit={handleSubmit}>

@@ -6,10 +6,10 @@ export const DIVIDER = '::';
 
 function RadioGroup({
 	map,
-	selected,
-	key = 'name',
+	inputKey = 'name',
 	title,
 	getRadioValue,
+	getRadioLabel = (obj) => obj[inputKey],
 }) {
 	const array = Object.values(map || {});
 	if (array.length === 0) { return null; }
@@ -23,9 +23,9 @@ function RadioGroup({
 							name="selected"
 							type="radio"
 							value={getRadioValue(obj)}
-							label={obj[key]}
+							label={getRadioLabel(obj)}
 							component={RadioLabel}
-							key={obj[key]}
+							key={obj[inputKey]}
 						/>
 					)
 				)}
@@ -41,181 +41,93 @@ export function Sizechart({
 	segments,
 }) {
 	const brandsMap = sizechart.brands || {};
-	const brandsArray = Object.values(brandsMap || {});
 	const selectedBrand = brandsMap[selected.brand] || {};
 
 	const collectionsMap = selectedBrand.collections || {};
-	const collectionsArray = Object.values(collectionsMap);
 	const selectedCollection = collectionsMap[selected.collection] || {};
 
 	const garmentsMap = selectedCollection.garments || {};
-	const garmentsArray = Object.values(garmentsMap);
 	const selectedGarment = garmentsMap[selected.garment] || {};
 	
 	const fitsMap = selectedGarment.fits || {};
-	const fitsArray = Object.values(fitsMap);
 	const selectedFit = fitsMap[selected.fit] || {};
 
 	const sizesMap = selectedFit.sizes || {};
-	const sizesArray = Object.values(sizesMap);
 	const selectedSize = sizesMap[selected.size] || {};
 
 	const measurementsMap = selectedSize.measurements || {};
-	const measurementsArray = Object.values(measurementsMap);
 	const selectedMeasurement = measurementsMap[selected.measurement] || {};
 
 	return (
 		<div className={styles.sizechart}>
-			{/* {brandsArray.length > 0 && (
-				<div className={styles.type}>
-					<h3>Brand</h3>
-					<div className={styles.list}>
-						{brandsArray.map(
-							(brand) => (
-								<Field
-									name="selected"
-									type="radio"
-									value={brand['name']}
-									label={brand['name']}
-									component={RadioLabel}
-									key={brand['name']}
-								/>
-							)
-						)}
-					</div>
-				</div>
-			)} */}
 			<RadioGroup
 				map={brandsMap}
-				selected={selectedBrand}
 				title="Brand"
 				getRadioValue={({ name }) => name}
 			/>
 
-			{/* {collectionsArray.length > 0 && (
-				<div className={styles.type}>
-					<h3>Collections</h3>
-					<div className={styles.list}>
-						{collectionsArray.map(
-							(collection) => (
-								<Field
-									name="selected"
-									type="radio"
-									value={[selected.brand, collection['name']].join(DIVIDER)}
-									label={collection['name']}
-									component={RadioLabel}
-									key={collection['name']}
-								/>
-							)
-						)}
-					</div>
-				</div>
-			)} */}
-
 			<RadioGroup
 				map={collectionsMap}
-				selected={selectedCollection}
-				title="Collection"
+				title="Collections"
 				getRadioValue={({ name }) => [selected.brand, name].join(DIVIDER)}
 			/>
 
-			{garmentsArray.length > 0 && (
-				<div className={styles.type}>
-					<h3>Garments</h3>
-					<div className={styles.list}>
-						{garmentsArray.map(
-							(garment) => (
-								<Field
-									name="selected"
-									type="radio"
-									value={[selected.brand, selected.collection, garment['id']].join(DIVIDER)}
-									label={garments[garment['id']].name}
-									component={RadioLabel}
-									key={garment['id']}
-								/>
-							)
-						)}
-					</div>
-				</div>
-			)}
+			<RadioGroup
+				map={garmentsMap}
+				title="Garments"
+				inputKey="id"
+				getRadioValue={({ id }) => [selected.brand, selected.collection, id].join(DIVIDER)}
+				getRadioLabel={({ id }) => garments[id].name}
+			/>
 
-			{fitsArray.length > 0 && (
-				<div className={styles.type}>
-					<h3>Fits</h3>
-					<div className={styles.list}>
-						{fitsArray.map(
-							(fit) => (
-								<Field
-									name="selected"
-									type="radio"
-									value={[
-										selected.brand,
-										selected.collection,
-										selected.garment,
-										fit['name']
-									].join(DIVIDER)}
-									label={fit['name']}
-									component={RadioLabel}
-									key={fit['name']}
-								/>
-							)
-						)}
-					</div>
-				</div>
-			)}
+			<RadioGroup
+				map={fitsMap}
+				title="Fits"
+				getRadioValue={({ name }) => [
+					selected.brand,
+					selected.collection,
+					selected.garment,
+					name,
+				].join(DIVIDER)}
+			/>
 
-			{sizesArray.length > 0 && (
-				<div className={styles.type}>
-					<h3>Sizes</h3>
-					<div className={styles.list}>
-						{sizesArray.map(
-							(size) => (
-								<Field
-									name="selected"
-									type="radio"
-									value={[
-										selected.brand,
-										selected.collection,
-										selected.garment,
-										selected.fit,
-										size['name'],
-									].join(DIVIDER)}
-									label={size['name']}
-									component={RadioLabel}
-									key={size['name']}
-								/>
-							)
-						)}
-					</div>
-				</div>
-			)}
+			<RadioGroup
+				map={sizesMap}
+				title="Sizes"
+				getRadioValue={({ name }) => [
+					selected.brand,
+					selected.collection,
+					selected.garment,
+					selected.fit,
+					name,
+				].join(DIVIDER)}
+			/>
 
-			{measurementsArray.length > 0 && (
-				<div className={styles.type}>
-					<h3>Measurements</h3>
-					<div className={styles.list}>
-						{measurementsArray.map(
-							(measurement) => (
-								<Field
-									name="selected"
-									type="radio"
-									value={[
-										selected.brand,
-										selected.collection,
-										selected.garment,
-										selected.fit,
-										selected.size,
-										measurement['segmentId'],
-									].join(DIVIDER)}
-									label={`${segments[measurement['segmentId']].name} : ${measurement['mm']}`}
-									component={RadioLabel}
-									key={measurement['segmentId']}
-								/>
-							)
-						)}
-					</div>
-				</div>
-			)}
+			<RadioGroup
+				map={measurementsMap}
+				title="Measurements"
+				inputKey="segmentId"
+				getRadioValue={({ segmentId }) => [
+					selected.brand,
+					selected.collection,
+					selected.garment,
+					selected.fit,
+					selected.size,
+					segmentId,
+				].join(DIVIDER)}
+				getRadioLabel={({ segmentId, mm }) => {
+					try {
+						return `${segments[segmentId].name} : ${mm}`
+					} catch(e) {
+						console.log(e);
+						console.log({
+							segments,
+							segmentId,
+							mm,
+						});
+					}
+				}}
+			/>
 		</div>
 	);
 }
