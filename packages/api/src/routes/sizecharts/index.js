@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { sizechartGetter } from './sizechartGetter';
+import { getByBrand } from './getByBrand';
 
 const sizecharts = new Router();
 
-sizecharts.get('/:type/:slug', sizechartGetter);
+sizecharts.get('/:slugOrId', getByBrand);
 
 export default sizecharts;

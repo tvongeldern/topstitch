@@ -6,11 +6,11 @@ import {
 	Dropdown,
 	TextInput,
 } from '@components';
-import { capitalize } from '@utils';
 import { DIVIDER, Sizechart } from './Sizechart';
 import styles from './styles.scss';
 
-const garments = { // should come from redux eventually
+// @TODO Should come from redux!!!
+const garments = {
 	abcdef: {
 		id: 'abcdef',
 		name: 'T shirt',
@@ -18,6 +18,24 @@ const garments = { // should come from redux eventually
 	vwxyz: {
 		id: 'vwxyz',
 		name: 'V Neck',
+	},
+};
+
+const segments = {
+	sd786g: {
+		id: 'sd786g',
+		garmentId: 'abcdef',
+		name: 'Chest width',
+	},
+	d8g7ds: {
+		id: 'd8g7ds',
+		garmentId: 'abcdef',
+		name: 'Shoulder width',
+	},
+	gf6hfg: {
+		id: 'gf6hfg',
+		garmentId: 'vwxyz',
+		name: 'Hip width',
 	},
 };
 
@@ -68,7 +86,15 @@ function getChildProps({
 			buttonText: 'Add size',
 		};
 	}
-	return { hideForm: true };
+	return {
+		fieldLabel: 'Segment',
+		formSelector: `brands.${brand}.collections.${collection}.garments.${garment}.fits.${fit}.sizes.${size}.segments`,
+		buttonText: 'Add Segment',
+		inputKey: 'id',
+		inputOptions: Object.values(context.segments)
+			.filter(({ garmentId }) => garmentId === garment)
+			.map(mapGarmentOption),
+	};
 }
 
 const mapGarmentOption = ({ id, name }) => ({ value: id, children: name });
@@ -112,6 +138,7 @@ export function SizechartForm({
 		...selectedMap,
 		context: {
 			garments,
+			segments,
 		},
 	});
 
@@ -157,12 +184,6 @@ export function SizechartForm({
 					measurement,
 				}}
 			/>
-
-			{selectedMap.size && (
-				<div>
-					<p>SET MEASUREMENTS WITH A FORM HERE</p>
-				</div>
-			)}
 
 		</form>
 	);
