@@ -5,10 +5,10 @@ import {
 	Button,
 	Dropdown,
 	TextInput,
+	RadioLabel,
 } from '@components';
 import { RETURN_EMPTY_OBJECT } from '@utils';
-import { DIVIDER, Sizechart } from './Sizechart';
-import { TYPES_CHAIN, reduceTypesChain } from './typesChain';
+import { DIVIDER, TYPES_CHAIN, reduceTypesChain } from './typesChain';
 import styles from './styles.scss';
 
 // @TODO Should come from redux!!!
@@ -77,11 +77,15 @@ export function SizechartForm({
 		textInput,
 		dropDown,
 		button,
-		formEntryKey,
+		formKey,
 		presetInputValues = RETURN_EMPTY_OBJECT,
+		radioGroups,
 	} = TYPES_CHAIN.reduce(
 		reduceTypesChain,
-		{ sizechart, selectedMap },
+		{
+			scopedSizechart: sizechart,
+			selectedMap,
+		},
 	);
  
 	return (
@@ -106,7 +110,6 @@ export function SizechartForm({
 			<Button
 				{...button}
 				onClick={() => {
-					const formKey = formEntryKey || (dropDown ? 'id' : 'name');
 					const inputValues = {
 						...presetInputValues({ selectedMap }),
 						...values.input,
@@ -118,21 +121,37 @@ export function SizechartForm({
 					form.change('input', {});
 				}}
 			/>
-			
 
-			<Sizechart
-				garments={garments}
-				segments={segments}
-				sizechart={sizechart}
-				selected={{
-					brand,
-					collection,
-					garment,
-					fit,
-					size,
-					measurement,
-				}}
-			/>
+			{/* RADIO GROUPS */}
+
+			<div className={styles.sizechart}>
+				{Object.values(radioGroups).map(({
+					header,
+					radioSelectorBase,
+					options,
+					formKey,
+					getRadioLabel = (obj) => obj[formKey],
+				}) => options.length > 0 && (
+					<div className={styles.type} key={header}>
+						<h3>{header}</h3>
+						<div className={styles.list}>
+							{options.map(
+								(obj) => (
+									<Field
+										name="selected"
+										type="radio"
+										value={radioSelectorBase + obj[formKey]}
+										label={getRadioLabel(obj, context)}
+										component={RadioLabel}
+										key={obj[formKey]}
+									/>
+								)
+							)}
+						</div>
+					</div>
+				))}
+			</div>
+
 		</form>
 	);
 }

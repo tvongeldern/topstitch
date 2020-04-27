@@ -1,3 +1,5 @@
+export const DIVIDER = '::';
+
 const mapOption = ([key, { id, name }]) => ({ value: id, children: name });
 const getGarmentOptions = ({ selectedMap, sizechart, context }) => Object.entries(context.garments)
 	.filter(([key]) => !sizechart
@@ -19,6 +21,116 @@ const getSegmentOptions = ({ selectedMap, sizechart, context }) => Object.entrie
 	)
 	.map(mapOption);
 
+export function reduceTypesChain(
+	{
+		selectedMap = {},
+		scopedSizechart = {},
+		radioGroups,
+		formSelector,
+		selectedKey,
+		radioSelectorBase = '',
+		...accumulator
+	},
+	{
+		type,
+		formEntryKey,
+		textInput,
+		dropDown,
+		button,
+		inheritType,
+		presetInputValues,
+		radios,
+	}) {
+	const plural = `${type}s`;
+	const children = scopedSizechart[plural] || {};
+	const keyOfSelectedChild = selectedMap[type];
+	const selectedChild = children[keyOfSelectedChild] || Object.values(children)[0] || {};
+	const formKey = formEntryKey || (dropDown ? 'id' : 'name');
+
+	// first recursion/iteration
+	if (!formSelector) {
+		return {
+			...accumulator,
+			selectedMap,
+			scopedSizechart: selectedChild,
+			radioSelectorBase,
+			radioGroups: {
+				[plural]: {
+					...radios,
+					formKey,
+					radioSelectorBase,
+					options: Object.values(children),
+				},
+			},
+			formSelector: plural,
+			selectedKey: keyOfSelectedChild,
+			// use input props
+			formKey,
+			textInput,
+			dropDown,
+			button,
+			presetInputValues,
+		};
+	}
+
+	// once recursion/iteration has stopped
+	if (!selectedKey) {
+		return {
+			formSelector,
+			radioGroups,
+			// textInput,
+			...accumulator,
+		};
+	}
+
+	// special case for inhertiting the same type
+	if (inheritType) {
+		return {
+			selectedKey,
+			selectedMap,
+			scopedSizechart: selectedChild,
+			radioGroups,
+			formSelector,
+			// use input props
+			formKey,
+			textInput,
+			dropDown,
+			button,
+			presetInputValues,
+			radioSelectorBase,
+		};
+	}
+
+	const newRadioSelectorBase = radioSelectorBase
+		? radioSelectorBase + selectedKey + DIVIDER
+		: selectedKey + DIVIDER;
+
+	// standard case
+	return {
+		...accumulator,
+		selectedKey: keyOfSelectedChild,
+		selectedMap,
+		scopedSizechart: selectedChild,
+		radioSelectorBase: newRadioSelectorBase,
+		radioGroups: {
+			...radioGroups,
+			[plural]: {
+				...radios,
+				formKey,
+				radioSelectorBase: newRadioSelectorBase,
+				options: Object.values(children),
+			},
+		},
+		formSelector: `${formSelector}.${selectedKey}.${plural}`,
+		// use input props
+		formKey,
+		textInput,
+		dropDown,
+		button,
+		presetInputValues,
+	};
+}
+
 export const TYPES_CHAIN = [
 	{
 		type: 'brand',
@@ -28,6 +140,9 @@ export const TYPES_CHAIN = [
 		button: {
 			children: 'Add brand',
 		},
+		radios: {
+			header: 'Brands',
+		},
 	},
 	{
 		type: 'collection',
@@ -36,6 +151,9 @@ export const TYPES_CHAIN = [
 		},
 		button: {
 			children: 'Add collection',
+		},
+		radios: {
+			header: 'Collections',
 		},
 	},
 	{
@@ -48,6 +166,10 @@ export const TYPES_CHAIN = [
 		button: {
 			children: 'Add garment',
 		},
+		radios: {
+			header: 'Garments',
+			getRadioLabel: ({ id }, { garments }) => garments[id].name,
+		},
 	},
 	{
 		type: 'fit',
@@ -57,6 +179,9 @@ export const TYPES_CHAIN = [
 		button: {
 			children: 'Add fit',
 		},
+		radios: {
+			header: 'Fits',
+		},
 	},
 	{
 		type: 'size',
@@ -65,6 +190,9 @@ export const TYPES_CHAIN = [
 		},
 		button: {
 			children: 'Add size',
+		},
+		radios: {
+			header: 'Sizes',
 		},
 	},
 	{
@@ -83,6 +211,10 @@ export const TYPES_CHAIN = [
 		button: {
 			children: 'Add measurement',
 		},
+		radios: {
+			header: 'Measurements',
+			getRadioLabel: ({ segmentId, mm }, { segments }) => `${segments[segmentId].name} : ${mm}`,
+		},
 	},
 	{
 		inheritType: true,
@@ -99,72 +231,3 @@ export const TYPES_CHAIN = [
 		}) => ({ segmentId: measurement }),
 	},
 ];
-
-export function reduceTypesChain(
-	{
-		selectedMap,
-		sizechart,
-		formSelector,
-		selectedKey,
-		...accumulator
-	},
-	{
-		type,
-		formEntryKey,
-		textInput,
-		dropDown,
-		button,
-		inheritType,
-		presetInputValues,
-	}) {
-	const plural = `${type}s`;
-	if (!formSelector) {
-		return {
-			...accumulator,
-			selectedMap,
-			sizechart,
-			formSelector: plural,
-			selectedKey: selectedMap[type],
-			// use input props
-			formEntryKey,
-			textInput,
-			dropDown,
-			button,
-			presetInputValues,
-		};
-	}
-	if (!selectedKey) {
-		return {
-			formSelector,
-			// textInput,
-			...accumulator,
-		};
-	}
-	if (inheritType) {
-		return {
-			selectedKey,
-			selectedMap,
-			sizechart,
-			formSelector,
-			// use input props
-			formEntryKey,
-			textInput,
-			dropDown,
-			button,
-			presetInputValues,
-		};
-	}
-	return {
-		...accumulator,
-		selectedKey: selectedMap[type],
-		selectedMap,
-		sizechart,
-		formSelector: `${formSelector}.${selectedKey}.${plural}`,
-		// use input props
-		formEntryKey,
-		textInput,
-		dropDown,
-		button,
-		presetInputValues,
-	};
-}
