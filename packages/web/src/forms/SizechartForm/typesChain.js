@@ -42,9 +42,9 @@ export function reduceTypesChain(
 		radios,
 	}) {
 	const plural = `${type}s`;
-	const children = scopedSizechart[plural] || {};
+	const scopeChildren = scopedSizechart[plural] || {};
 	const keyOfSelectedChild = selectedMap[type];
-	const selectedChild = children[keyOfSelectedChild] || Object.values(children)[0] || {};
+	const selectedChild = scopeChildren[keyOfSelectedChild] || Object.values(scopeChildren)[0] || {};
 	const formKey = formEntryKey || (dropDown ? 'id' : 'name');
 
 	// first recursion/iteration
@@ -59,7 +59,7 @@ export function reduceTypesChain(
 					...radios,
 					formKey,
 					radioSelectorBase,
-					options: Object.values(children),
+					options: Object.values(scopeChildren),
 				},
 			},
 			formSelector: plural,
@@ -75,6 +75,24 @@ export function reduceTypesChain(
 
 	// once recursion/iteration has stopped
 	if (!selectedKey) {
+		// // show children down the tree even if not selected
+		// if (Object.keys(selectedChild).length > 0) {
+		// 	return {
+		// 		formSelector,
+		// 		radioGroups: {
+		// 			...radioGroups,
+		// 			[plural]: {
+		// 				...radios,
+		// 				formKey,
+		// 				radioSelectorBase: newRadioSelectorBase,
+		// 				options: Object.values(scopeChildren),
+		// 			},
+		// 		},
+		// 		// textInput,
+		// 		...accumulator,
+		// 	};
+		// }
+		// final return state
 		return {
 			formSelector,
 			radioGroups,
@@ -118,7 +136,7 @@ export function reduceTypesChain(
 				...radios,
 				formKey,
 				radioSelectorBase: newRadioSelectorBase,
-				options: Object.values(children),
+				options: Object.values(scopeChildren),
 			},
 		},
 		formSelector: `${formSelector}.${selectedKey}.${plural}`,
