@@ -115,18 +115,7 @@ export function Sizechart({
 					selected.size,
 					segmentId,
 				].join(DIVIDER)}
-				getRadioLabel={({ segmentId, mm }) => {
-					try {
-						return `${segments[segmentId].name} : ${mm}`
-					} catch(e) {
-						console.log(e);
-						console.log({
-							segments,
-							segmentId,
-							mm,
-						});
-					}
-				}}
+				getRadioLabel={({ segmentId, mm }) => `${segments[segmentId].name} : ${mm}`}
 			/>
 		</div>
 	);
