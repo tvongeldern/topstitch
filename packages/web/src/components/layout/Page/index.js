@@ -7,7 +7,11 @@ import styles from './styles.scss';
 const BASE_TITLE = 'TailorStand';
 const IS_TRUTHY = (v) => v;
 
-export function Page({ children, title }) {
+export function Page({
+	children,
+	error,
+	title,
+}) {
 	const pageTitle = [BASE_TITLE, title].filter(IS_TRUTHY).join(' | ');
 	return (
 		<div className={styles.container}>
@@ -16,7 +20,7 @@ export function Page({ children, title }) {
 			</Head>
 			<NavBar />
 			<div className={styles.content}>
-				{children}
+				{error || children}
 			</div>
 		</div>
 	);

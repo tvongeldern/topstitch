@@ -186,12 +186,7 @@ const TABLES = {
       },
     },
     columns: {
-      average: measurementNumber,
-      min: {
-        ...measurementNumber,
-        allowNull: false,
-      },
-      max: {
+      average: {
         ...measurementNumber,
         allowNull: false,
       },

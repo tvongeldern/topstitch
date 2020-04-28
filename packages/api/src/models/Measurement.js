@@ -5,15 +5,10 @@ export const Measurement = db.define(
 	'measurement',
 	{
 		id,
-		min: {
+		average: {
 			...measurement,
 			allowNull: false,
 		},
-		max: {
-			...measurement,
-			allowNull: false,
-		},
-		average: measurement,
 	},
 	{
 		indexes: [

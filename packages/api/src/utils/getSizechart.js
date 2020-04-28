@@ -26,11 +26,11 @@ const modelsMap = [
 
 const measurement = {
 	model: Measurement,
-	attributes: ['average', 'id', 'min', 'max'],
+	attributes: ['average', 'id'],
 	include: [
 		{
 			model: Segment,
-			attributes: ['id', 'name'],
+			attributes: ['id', 'name', 'propName'],
 		},
 	],
 };
@@ -183,14 +183,12 @@ export async function getSizechart({
 // 		tag: 'med',
 // 	});
 // 	const measurement = await medium.createMeasurement({
-// 		max: 42,
-// 		min: 40,
+// 		average: 42,
 // 		segmentId: hip.id,
 // 	});
 // 	// await measurement.setSegment(hip.id);
 // 	// const measurement2 = await medium.createMeasurement({
-// 	// 	max: 48,
-// 	// 	min: 46,
+// 	// 	average: 48,
 // 	// });
 // 	// await measurement2.setSegment(hip.id);
 // 	const sizechart = await getSizechart({
