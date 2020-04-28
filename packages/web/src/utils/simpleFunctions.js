@@ -10,6 +10,8 @@ export const ADD_ABS = (...args) => args.reduce((sum, num) => sum + Math.abs(num
 
 export const RETURN_EMPTY_OBJECT = () => EMPTY_OBJECT;
 
+export const RETURN_NULL = () => null;
+
 export function capitalize(value = '') {
 	return value.charAt(0).toUpperCase() + value.slice(1);
 }

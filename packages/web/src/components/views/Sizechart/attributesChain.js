@@ -21,6 +21,7 @@ export function reduceAttributesChain(
 	const selectedChild = attributeIsSelected && members.find((obj) => obj[selectedKey] === selectedValue);
 	return {
 		scopedSizechart: selectedChild || members[0] || {},
+		measurements: members,
 		selected,
 		selectedObject: selectedChild || selectedObject,
 		selectedAttribute,

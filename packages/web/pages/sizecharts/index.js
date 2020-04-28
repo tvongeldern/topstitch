@@ -1,6 +1,5 @@
 import { Form } from 'react-final-form';
-import { Page } from '@components';
-import { Sizechart } from '@forms';
+import { Page, Sizechart } from '@components';
 import { useSubmit } from '@utils/hooks';
 
 const sizechart = {
@@ -30,7 +29,37 @@ const sizechart = {
 												id: "694b5e0d-5079-4390-b7a3-9f8de2fa484a",
 												name: "Hip"
 											}
-										}
+										},
+										{
+											average: 48,
+											id: "abc37533-8664-44c9-aaf0-e950ac3abcde",
+											segment: {
+												id: "123b5e0d-5079-4390-b7a3-9f8de2fa1abc",
+												name: "Chest"
+											},
+										},
+									]
+								},
+								{
+									id: "0d1a775d-564f-4af6-9f6c-2ddc3ee666a6",
+									name: "Small",
+									measurements: [
+										{
+											average: 32,
+											id: "3e237533-8664-44c9-aaf0-e950ac315499",
+											segment: {
+												id: "694b5e0d-5079-4390-b7a3-9f8de2fa484a",
+												name: "Hip"
+											}
+										},
+										{
+											average: 42,
+											id: "abc37533-8664-44c9-aaf0-e950ac3abc69",
+											segment: {
+												id: "123b5e0d-5079-4390-b7a3-9f8de2fa1abc",
+												name: "Chest"
+											},
+										},
 									]
 								}
 							]
@@ -49,12 +78,7 @@ const sizechart = {
 export default function SizechartsPage() {
 	return (
 		<Page title="Sizecharts">
-			<Form
-				component={Sizechart}
-				onSubmit={console.log}
-				onChange={console.log}
-				sizechart={sizechart}
-			/>
+			<Sizechart onChange={console.log} sizechart={sizechart} />
 		</Page>
 	);
 }
