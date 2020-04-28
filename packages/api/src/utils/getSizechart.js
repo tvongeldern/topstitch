@@ -30,14 +30,14 @@ const measurement = {
 	include: [
 		{
 			model: Segment,
-			attributes: ['id', 'name', 'slug'],
+			attributes: ['id', 'name'],
 		},
 	],
 };
 
 const garment = {
 	model: Garment,
-	attributes: ['id', 'name', 'slug'],
+	attributes: ['id', 'name'],
 };
 
 const size = {
@@ -152,7 +152,7 @@ export async function getSizechart({
 // const now = Date.now();
 
 // async function test() {
-// 	await asyncPause(1000);
+// 	await asyncPause(5000);
 // 	console.log('Starting...');
 // 	const shirt = await new Garment({
 // 		name: `Shirt ${now}`,
@@ -160,40 +160,42 @@ export async function getSizechart({
 // 	}).save();
 // 	const hip = await shirt.createSegment({
 // 		name: 'Hip',
-// 		slug: 'hip',
+// 		propName: 'hip',
 // 	});
 // 	const brand = await new Brand({
 // 		name: `Brand ${now}`,
 // 		slug: `brand-${now}`,
 // 	}).save();
-//
+
 // 	const collection = await brand.createCollection({
 // 		name: 'Collection',
-// 		slug: 'collection',
+// 		tag: 'collection',
 // 	});
 // 	await collection.addGarment(shirt.id);
 // 	const fit = await collection.createFit({
 // 		name: 'Fit',
-// 		slug: 'fit',
+// 		tag: 'fit',
+// 		garmentId: shirt.id,
 // 	});
-// 	await fit.setGarment(shirt.id);
+// 	// await fit.setGarment(shirt.id);
 // 	const medium = await fit.createSize({
 // 		name: 'Medium',
-// 		slug: 'm',
+// 		tag: 'med',
 // 	});
 // 	const measurement = await medium.createMeasurement({
 // 		max: 42,
 // 		min: 40,
+// 		segmentId: hip.id,
 // 	});
-// 	await measurement.setSegment(hip.id);
+// 	// await measurement.setSegment(hip.id);
 // 	// const measurement2 = await medium.createMeasurement({
 // 	// 	max: 48,
 // 	// 	min: 46,
 // 	// });
 // 	// await measurement2.setSegment(hip.id);
 // 	const sizechart = await getSizechart({
-// 		type: 'fit',
-// 		id: fit.id,
+// 		type: 'brand',
+// 		id: brand.id,
 // 	});
 // 	console.log(
 // 		JSON.stringify(

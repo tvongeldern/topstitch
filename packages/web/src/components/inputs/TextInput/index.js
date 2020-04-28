@@ -1,5 +1,6 @@
 import React from 'react';
-import { } from 'prop-types';
+import { oneOf } from 'prop-types';
+import { getInputErrorState } from '@utils';
 import styles from './styles.scss';
 
 export function TextInput({
@@ -10,10 +11,12 @@ export function TextInput({
 	label,
 	meta: {
 		error,
-		touched,
+		...meta
 	},
+	errors,
 	...rest
 }) {
+	const showErrorMessage = getInputErrorState(errors, meta);
 	return (
 		<div className={styles.inputContainer}>
 			{label && <label>{label}</label>}
@@ -24,9 +27,15 @@ export function TextInput({
 				{...rest}
 				{...input}
 			/>
-			<p className={styles.error}>{touched ? error : ''}</p>
+			<p className={styles.error}>{showErrorMessage ? error : ''}</p>
 		</div>
 	);
 }
 
-TextInput.propTypes = {};
+TextInput.propTypes = {
+	errors: oneOf(['show', 'hide', 'submit']),
+};
+
+TextInput.defaultProps = {
+	errors: 'submit',
+};

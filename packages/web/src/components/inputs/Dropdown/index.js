@@ -1,5 +1,6 @@
 import React from 'react';
-import { arrayOf, object, string } from 'prop-types';
+import { arrayOf, object, oneOf, string } from 'prop-types';
+import { getInputErrorState } from '@utils';
 import styles from './styles.scss';
 
 function renderOption(props) {
@@ -11,12 +12,14 @@ export function Dropdown({
 	label,
 	meta: {
 		error,
-		touched,
+		...meta
 	},
 	options,
 	placeholder,
+	errors,
 	...rest
 }) {
+	const showError = getInputErrorState(errors, meta);
 	return (
 		<div className={styles.inputContainer}>
 			{label && <label>{label}</label>}
@@ -27,13 +30,18 @@ export function Dropdown({
 				{placeholder && renderOption({ children: placeholder })}
 				{options.map(renderOption)}
 			</select>
-			<p className={styles.error}>{touched ? error : ''}</p>
+			<p className={styles.error}>{showError ? error : ''}</p>
 		</div>
 	);
 }
 
 Dropdown.propTypes = {
-	options: arrayOf(object).isRequired,
-	label: string,
+	errors: oneOf(['show', 'hide', 'submit']),
 	input: object.isRequired,
+	label: string,
+	options: arrayOf(object).isRequired,
+};
+
+Dropdown.defaultProps = {
+	errors: 'submit',
 };

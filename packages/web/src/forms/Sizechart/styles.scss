@@ -1,0 +1,35 @@
+@import 'web';
+
+.sizechart {
+	display: flex;
+	flex-direction: column;
+
+	.type {
+		margin-bottom: 8px;
+		display: flex;
+		flex-direction: column;
+
+		.list {
+			display: flex;
+			flex-direction: row;
+
+			label {
+				cursor: pointer;
+				background-color: $theme-color-primary;
+				color: $white;
+				border-radius: 2px;
+				border: 2px solid $theme-color-primary;
+				padding: 8px 16px;
+				margin-right: 8px;
+
+				&.selected {
+					border-color: $theme-color-quaternary;
+				}
+
+				input {
+					display: none;
+				}
+			}
+		}
+	}
+}
