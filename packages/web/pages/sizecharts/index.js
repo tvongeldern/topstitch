@@ -1,6 +1,14 @@
+import React from 'react';
+import Router from 'next/router';
 import { Form } from 'react-final-form';
 import { Page, Sizechart } from '@components';
-import { useSubmit } from '@utils/hooks';
+import { SearchForm } from '@forms';
+import { searchBrands } from '@state/actions';
+import {
+	useActionCreators,
+	useSelector,
+	useSubmit,
+} from '@utils/hooks';
 
 const sizechart = {
 	id: "c6112d01-de5b-41df-bfb6-2cd0b952c632",
@@ -75,10 +83,35 @@ const sizechart = {
 	]
 };
 
+function sizechartsPageSelector({
+	brands: { brands },
+}) {
+	return { brands };
+}
+
+function navigate({ q }) {
+	Router.push({
+		url: '/sizecharts/[slug]',
+		as: `/sizecharts/${q}`,
+	});
+}
+
 export default function SizechartsPage() {
+	const [dispatchSearch] = useActionCreators(
+		searchBrands
+	);
+	const { brands } = useSelector(
+		sizechartsPageSelector,
+	);
 	return (
 		<Page title="Sizecharts">
-			<Sizechart onChange={console.log} sizechart={sizechart} />
+			<Form
+				component={SearchForm}
+				onSubmit={navigate}
+				search={dispatchSearch}
+				brands={brands}
+			/>
+			{/* <Sizechart onChange={console.log} sizechart={sizechart} /> */}
 		</Page>
 	);
 }

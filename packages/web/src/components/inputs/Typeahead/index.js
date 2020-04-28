@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { arrayOf, func, object, string, number } from 'prop-types';
 import cn from 'classnames';
-// import { Remove } from '@components/icons';
-// import { colors } from '@constants';
+import { XOut } from '@components/icons';
 import { TypeaheadOption } from './TypeaheadOption';
 import styles from './styles.scss';
 
@@ -67,7 +66,11 @@ export function Typeahead({
 	...rest
 }) {
 	const [state, setState] = useState(INITIAL_STATE);
-	const { focusedOptionIndex, selectedOption, textInputValue } = state;
+	const {
+		focusedOptionIndex,
+		selectedOption,
+		textInputValue,
+	} = state;
 	if (value === '' && selectedOption) {
 		const {
 			selectedOption: deleted,
@@ -78,7 +81,7 @@ export function Typeahead({
 	const elementId = `typeahead-${name}`;
 	const renderOption = optionComponent || ((option) => option[selectedDisplayField]);
 	const filteredOptions = options
-		.filter(filterFunction({ exactMatchFields, searchFields, textInputValue }));
+	.filter(filterFunction({ exactMatchFields, searchFields, textInputValue }));
 	const showDropdown = textInputValue && textInputValue.length >= minLength;
 	const showErrorMessage = error && !showDropdown
 		&& ((touched && modified) || submitFailed || initial);
@@ -152,7 +155,7 @@ export function Typeahead({
 					</>
 				) : (
 						<div className={selectedOptionField} onClick={clearSelectedOption}>
-							{/* <Remove size={16} color={colors.white} /> */}
+							<XOut size={16} />
 							<span>{selectedOption[selectedDisplayField]}</span>
 						</div>
 					)
@@ -164,9 +167,9 @@ export function Typeahead({
 Typeahead.propTypes = {
 	input: object.isRequired,
 	meta: object.isRequired,
+	options: arrayOf(object).isRequired, // results/options to filter from
 	label: string, // input label
 	search: func, // function to that requests matches for input value
-	options: arrayOf(object).isRequired, // results/options to filter from
 	optionComponent: func, // render instructions for each option
 	minLength: number, // minimum number of input characters before requesting results
 	searchFields: arrayOf(string), // partial match fields to search by
@@ -183,7 +186,7 @@ Typeahead.defaultProps = {
 	outputField: 'id',
 	optionComponent: null,
 	search: null,
-	searchFields: ['id'],
-	selectedDisplayField: 'id',
+	searchFields: ['name'],
+	selectedDisplayField: 'name',
 	className: null,
 };

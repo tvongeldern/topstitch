@@ -1,0 +1,1 @@
+export { searchBrands } from './searchBrands';

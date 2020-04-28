@@ -1,0 +1,1 @@
+export { searchBrandsReducer } from './searchBrands';
