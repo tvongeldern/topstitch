@@ -8,15 +8,20 @@ const attributes = ['id'];
 export async function getByBrand({ params: { slugOrId } }, response, next) {
 	try {
 		const isId = UUID.test(slugOrId);
+		console.log({
+			isId,
+			slugOrId,
+		});
 		if (isId) {
 			const sizechart = await getSizechart({ type, id: slugOrId });
 			return response.send(sizechart);
 		}
-		const brandId = await Brand.findOne({
+		const { id } = await Brand.findOne({
 			attributes,
 			where: { slug: slugOrId },
 		});
-		const sizechart = await getSizechart({ type, id: brandId });
+		console.log({ id });
+		const sizechart = await getSizechart({ type, id });
 		return response.send(sizechart);
 	} catch (error) {
 		return next(error);

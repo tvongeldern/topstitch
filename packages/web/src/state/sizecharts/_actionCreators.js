@@ -1,0 +1,1 @@
+export { getSizechart } from './getSizechart';

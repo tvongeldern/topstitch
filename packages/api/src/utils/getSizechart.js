@@ -152,7 +152,7 @@ export async function getSizechart({
 // const now = Date.now();
 
 // async function test() {
-// 	await asyncPause(5000);
+// 	await asyncPause(2000);
 // 	console.log('Starting...');
 // 	const shirt = await new Garment({
 // 		name: `Shirt ${now}`,

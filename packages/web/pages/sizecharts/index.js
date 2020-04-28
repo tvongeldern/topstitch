@@ -90,10 +90,10 @@ function sizechartsPageSelector({
 }
 
 function navigate({ q }) {
-	Router.push({
-		url: '/sizecharts/[slug]',
-		as: `/sizecharts/${q}`,
-	});
+	Router.push(
+		'/sizecharts/[slug]',
+		`/sizecharts/${q}`,
+	);
 }
 
 export default function SizechartsPage() {
