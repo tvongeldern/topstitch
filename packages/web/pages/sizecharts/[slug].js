@@ -5,7 +5,7 @@ import {
 	GarmentComparisonView,
 	InteractiveImageViewer,
 	Page,
-	Sizechart,
+	SizesBrowser,
 } from '@components';
 import { TShirt } from '@garment-builders';
 import { getSizechart } from '@state/actions';
@@ -89,6 +89,20 @@ const sizechart = {
 	]
 };
 
+function toggleValue(array, value) {
+	if (array.includes(value)) {
+		return array.filter(v => v !== value);
+	}
+	return array.concat(value);
+}
+
+function formatMeasurementSetEntry([name, measurements]) {
+	return {
+		name,
+		measurements,
+	};
+}
+
 function sizechartPageSelector({
 	sizecharts: {
 		sizecharts
@@ -99,9 +113,19 @@ function sizechartPageSelector({
 
 function SizechartPage({ slug }) {
 	const [state, setState] = useState(EMPTY_OBJECT);
-	const addMeasurementSet = ({ displayName, measurements }) => setState({
+	const { view = [], ...measurementSets } = state;
+	const stageMeasurementSet = ({
+		displayName,
+		measurements,
+	}) => measurements && setState({
 		...state,
 		[displayName]: measurements,
+	});
+	const viewMeasurementSet = ({
+		target: { dataset: { value } },
+	}) => setState({
+		...state,
+		view: toggleValue(view, value),
 	});
 	const { sizecharts } = useSelector(
 		sizechartPageSelector,
@@ -110,9 +134,11 @@ function SizechartPage({ slug }) {
 	if (!sizechart) {
 		return <Page error="Sizechart not found" />;
 	}
-	const measurementSets = Object.entries(state).map(([name, measurements]) => ({
-		measurements,
+	const stagedMeasurementSets = Object.entries(measurementSets)
+		.map(formatMeasurementSetEntry);
+	const viewMeasurementSets = view.map((name) => ({
 		name,
+		measurements: measurementSets[name],
 	}));
 	return (
 		<Page title={slug}>
@@ -122,14 +148,16 @@ function SizechartPage({ slug }) {
 				svg={
 					<GarmentComparisonView
 						builder={TShirt}
-						measurementSets={measurementSets}
+						measurementSets={viewMeasurementSets}
 					/>
 				}
 				textModule={
-					<Sizechart
-						onChange={addMeasurementSet}
+					<SizesBrowser
+						measurementSets={stagedMeasurementSets}
+						stageMeasurementSet={stageMeasurementSet}
 						sizechart={sizechart}
-						browseMode
+						viewMeasurementSet={viewMeasurementSet}
+						view={view}
 					/>
 				}
 			/>
