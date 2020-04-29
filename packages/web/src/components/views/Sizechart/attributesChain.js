@@ -1,7 +1,20 @@
 export const DIVIDER = '::::';
 
+function getSelectedChild({
+	attribute,
+	members,
+	selectedAttribute,
+	selectedId,
+}) {
+	if (selectedAttribute === attribute) {
+		return members.find(({ id }) => id === selectedId);
+	}
+}
+
 export function reduceAttributesChain(
 	{
+		measurements,
+		nameChain,
 		radioGroups = {},
 		scopedSizechart,
 		selected,
@@ -9,28 +22,31 @@ export function reduceAttributesChain(
 	},
 	{
 		attribute,
-		...rest
+		...attributePayload
 	}) {
-		const [
-			selectedAttribute,
-			selectedKey,
-			selectedValue,
-		] = selected.split(DIVIDER);
 	const members = scopedSizechart[attribute] || [];
-	const attributeIsSelected = selectedAttribute === attribute;
-	const selectedChild = attributeIsSelected && members.find((obj) => obj[selectedKey] === selectedValue);
-	return {
-		scopedSizechart: selectedChild || members[0] || {},
-		measurements: members,
-		selected,
-		selectedObject: selectedChild || selectedObject,
+	const [selectedAttribute, selectedId] = selected.split(DIVIDER);
+	const selectedChild = getSelectedChild({
+		attribute,
+		members,
 		selectedAttribute,
+		selectedId,
+	});
+	return {
+		// pass through
+		selected,
+		selectedAttribute,
+		// reduce
+		measurements: measurements || scopedSizechart.measurements,
+		nameChain: nameChain ? [...nameChain, scopedSizechart.name] : [],
+		scopedSizechart: selectedChild || members[0] || {},
+		selectedObject: selectedChild || selectedObject,
 		radioGroups: {
 			...radioGroups,
 			[attribute]: {
 				attribute,
 				members,
-				...rest,
+				...attributePayload,
 			},
 		},
 	}

@@ -11,6 +11,7 @@ import styles from './styles.scss';
 import {
 	capitalize,
 	RETURN_NULL,
+	IS_TRUTHY,
 } from '@utils';
 
 const RETURN_NAME = ({ name }) => name;
@@ -40,12 +41,12 @@ function SizechartForm({
 		selected = '',
 	},
 }) {
-
 	const {
 		radioGroups,
 		selectedAttribute,
 		selectedObject,
 		measurements,
+		nameChain,
 	} = SIZECHART_ATTRIBUTES_CHAIN.reduce(
 		reduceAttributesChain,
 		{
@@ -62,6 +63,7 @@ function SizechartForm({
 					object: selectedObject,
 				},
 				measurements,
+				displayName: nameChain.filter(IS_TRUTHY).join(' '),
 			});
 		}
 	}, [selected]);
@@ -71,7 +73,6 @@ function SizechartForm({
 			{Object.values(radioGroups).map(({
 				attribute,
 				members,
-				selectorKey = 'id',
 				getLabel = RETURN_NAME,
 			}) => showAttribute({
 				attribute,
@@ -87,8 +88,8 @@ function SizechartForm({
 								type="radio"
 								label={getLabel(member)}
 								component={RadioLabel}
-								value={[attribute, selectorKey, member[selectorKey]].join(DIVIDER)}
-								key={member[selectorKey]}
+								value={[attribute, member.id].join(DIVIDER)}
+								key={member.id}
 							/>
 						))}
 					</div>

@@ -1,10 +1,11 @@
 import { drawMeasurements } from '../drawing';
 import { calculateSize, shiftCoordinates } from '../geometry';
+import { reduceMeasurementsToObject } from '../reduceMeasurementsToObject';
 import { EMPTY_OBJECT, EMPTY_ARRAY } from '@constants';
 
 export class Garment {
 	constructor(measurements) {
-		this._providedMeasurements = measurements;
+		this._providedMeasurements = reduceMeasurementsToObject(measurements);
 		this._useDefaultMeasurements = !measurements;
 	}
 

@@ -12,6 +12,7 @@ export function GarmentSegmentsView({
 	segments,
 }) {
 	const builder = new Builder();
+	// first segment in list is default selected
 	const [{ propName: defaultSelected }] = segments;
 	const [selectedSegment, setSelectedSegment] = useState(defaultSelected);
 	const { height, width } = builder.size();
@@ -21,12 +22,7 @@ export function GarmentSegmentsView({
 	const measurementStrokes = Object.entries(measurementStrokeMap);
 	const strokeWidth = height / 100; // @TODO
 	const segmentHoverHandler = (event = {}) => {
-		const {
-			target: {
-				dataset: { propname } = {},
-			} = {},
-		} = event;
-		setSelectedSegment(propname);
+		setSelectedSegment(event?.target?.dataset?.propname);
 		event.stopPropagation();
 	};
 	return (

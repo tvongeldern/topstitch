@@ -5,3 +5,4 @@ export * from './hoc';
 export * from './simpleFunctions';
 
 export { getInputErrorState } from './getInputErrorState';
+export { reduceMeasurementsToObject } from './reduceMeasurementsToObject';
