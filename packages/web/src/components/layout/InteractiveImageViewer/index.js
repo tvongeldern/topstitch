@@ -2,7 +2,7 @@ import React from 'react';
 import { } from 'prop-types';
 import styles from './styles.scss';
 
-export function GarmentViewer({
+export function InteractiveImageViewer({
 	textHeader,
 	svgHeader,
 	svg,
@@ -23,4 +23,4 @@ export function GarmentViewer({
 	);
 }
 
-GarmentViewer.propTypes = {};
+InteractiveImageViewer.propTypes = {};

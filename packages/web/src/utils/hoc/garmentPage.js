@@ -1,4 +1,10 @@
-import { Page, GarmentSegmentsView } from '@components';
+import React, { useState } from 'react';
+import {
+	Page,
+	GarmentSegmentsView,
+	InteractiveImageViewer,
+	SegmentsBrowser,
+} from '@components';
 import { getGarment, getGarmentSegments } from '@state/actions';
 import { useSelector } from '@utils/hooks';
 
@@ -21,16 +27,37 @@ export function garmentPage(slug, Component) {
 	const selector = garmentPageSelectorCreator(slug);
 	function GarmentPage() {
 		const { garment, segments } = useSelector(selector);
+		if (!garment || !segments) {
+			return <Page error="Garment not found" />;
+		}
+		// first segment in list is default selected
+		const [{ propName: defaultSelected }] = segments;
+		const [selectedSegment, setSelectedSegment] = useState(defaultSelected);
+		const segmentHoverHandler = (event = {}) => {
+			setSelectedSegment(event?.target?.dataset?.propname);
+			event.stopPropagation();
+		};
+		const svgHeader=garment.name;
+		const textHeader = 'Measurements';
 		return (
-			<Page>
-				{garment && segments ? (
-					<GarmentSegmentsView
-						builder={Component}
-						garment={garment}
-						segments={segments}
-					/>) : (
-						<h2>Garment not found</h2>
-					)}
+			<Page title={garment.name}>
+				<InteractiveImageViewer
+					textHeader={textHeader}
+					svgHeader={svgHeader}
+					svg={
+						<GarmentSegmentsView
+							builder={Component}
+							selectedSegment={selectedSegment}
+						/>
+					}
+					textModule={
+						<SegmentsBrowser
+							onHover={segmentHoverHandler}
+							segments={segments}
+							selectedSegment={selectedSegment}
+						/>
+					}
+				/>
 			</Page>
 		);
 	};

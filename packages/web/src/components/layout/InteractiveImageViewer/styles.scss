@@ -5,6 +5,7 @@ $garment-fill-color: $white;
 .container {
 	display: flex;
 	flex-direction: row;
+	width: 100%;
 
 	.wrapper {
 		max-width: 50%;

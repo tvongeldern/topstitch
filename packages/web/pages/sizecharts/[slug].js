@@ -3,6 +3,7 @@ import { string } from 'prop-types';
 import { Form } from 'react-final-form';
 import {
 	GarmentComparisonView,
+	InteractiveImageViewer,
 	Page,
 	Sizechart,
 } from '@components';
@@ -115,14 +116,22 @@ function SizechartPage({ slug }) {
 	}));
 	return (
 		<Page title={slug}>
-			<Sizechart
-				onChange={addMeasurementSet}
-				sizechart={sizechart}
-				browseMode
-			/>
-			<GarmentComparisonView
-				builder={TShirt}
-				measurementSets={measurementSets}
+			<InteractiveImageViewer
+				textHeader="Sizechart"
+				svgHeader="Compare"
+				svg={
+					<GarmentComparisonView
+						builder={TShirt}
+						measurementSets={measurementSets}
+					/>
+				}
+				textModule={
+					<Sizechart
+						onChange={addMeasurementSet}
+						sizechart={sizechart}
+						browseMode
+					/>
+				}
 			/>
 		</Page>
 	);

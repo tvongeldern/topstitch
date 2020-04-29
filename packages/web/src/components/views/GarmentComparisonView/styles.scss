@@ -2,18 +2,21 @@
 
 .wrapper {
 	g {
+		color: $white;
 		path {
-			stroke: $white;
+			stroke: currentColor;
+		}
+		text {
+			opacity: 0;
+			fill: currentColor;
+			font-size: 6px;
+			transition: opacity 0.4s;
 		}
 		&:nth-child(3n+2) {
-			path {
-				stroke: $theme-color-tertiary;
-			}
+			color: $theme-color-tertiary;
 		}
 		&:nth-child(3n+3) {
-			path {
-				stroke: $theme-color-quaternary;
-			}
+			color: $theme-color-quaternary;
 		}
 	}
 }

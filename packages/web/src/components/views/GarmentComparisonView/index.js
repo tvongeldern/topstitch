@@ -1,13 +1,13 @@
 import React from 'react';
 import { } from 'prop-types';
-import { GarmentViewer } from '@components/layout';
 import { SVG } from '@components/ui';
 import { getViewBox } from '@utils/drawing';
 import styles from './styles.scss';
 
-const DRAW = ({ garment }) => garment.draw();
 const HEIGHT = ({ height }) => height;
 const WIDTH = ({ width }) => width;
+
+const getGarmentStrokes = ({ garment }) => garment.draw();
 
 function getSizes({ garment, ...rest }) {
 	const { width, height } = garment.size();
@@ -23,6 +23,9 @@ export function GarmentComparisonView({
 	builder: Builder,
 	measurementSets,
 }) {
+	if (!measurementSets.length) {
+		return <SVG className={styles.wrapper} />;
+	}
 	const garments = measurementSets.map(({ measurements, ...rest }) => ({
 		garment: new Builder(measurements),
 		...rest,
@@ -41,8 +44,8 @@ export function GarmentComparisonView({
 		y: 0 - (tallestGarmentHeight - height) / 2,
 	}));
 	//
-	const garmentDrawingInstructions = garments.map(DRAW);
-	const svg = (
+	const garmentDrawingInstructions = garments.map(getGarmentStrokes);
+	return (
 		<SVG
 			className={styles.wrapper}
 			viewBox={viewBox}
@@ -56,14 +59,6 @@ export function GarmentComparisonView({
 				</g>
 			))}
 		</SVG>
-	);
-	return (
-		<GarmentViewer
-			svgHeader="Compare"
-			textHeader="Compare"
-			svg={svg}
-			textModule={<div/>}
-		/>
 	);
 }
 

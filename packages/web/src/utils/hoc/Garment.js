@@ -5,7 +5,8 @@ import { EMPTY_OBJECT, EMPTY_ARRAY } from '@constants';
 
 export class Garment {
 	constructor(measurements) {
-		this._providedMeasurements = reduceMeasurementsToObject(measurements);
+
+		this._providedMeasurements = measurements;
 		this._useDefaultMeasurements = !measurements;
 	}
 
@@ -13,7 +14,7 @@ export class Garment {
 		if (!this._measurements) {
 			const providedMeasurements = this._useDefaultMeasurements
 				? this.defaultMeasurements
-				: this._providedMeasurements;
+				: reduceMeasurementsToObject(this._providedMeasurements);
 			const derivedMeasurements = this.components.reduce((measurements, Component) => {
 				if (!Component.deriveMeasurements) {
 					return measurements;
