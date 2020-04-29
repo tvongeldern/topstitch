@@ -15,8 +15,8 @@ const MEASUREMENT_SETS = [
 		measurements: {
 			chestWidth: 690,
 		},
-	}
-]
+	},
+];
 
 export default function Compare() {
 	return (

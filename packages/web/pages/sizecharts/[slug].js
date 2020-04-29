@@ -114,32 +114,39 @@ function sizechartPageSelector({
 function SizechartPage({ slug }) {
 	const [state, setState] = useState(EMPTY_OBJECT);
 	const { view = [], ...measurementSets } = state;
+
 	const stageMeasurementSet = ({
 		displayName,
-		measurements,
+		selectedObject: { measurements },
 	}) => measurements && setState({
 		...state,
 		[displayName]: measurements,
+		view: toggleValue(view, displayName),
 	});
+
 	const viewMeasurementSet = ({
 		target: { dataset: { value } },
 	}) => setState({
 		...state,
 		view: toggleValue(view, value),
 	});
+
 	const { sizecharts } = useSelector(
 		sizechartPageSelector,
 	);
 	// const sizechart = sizecharts[slug];
+
 	if (!sizechart) {
 		return <Page error="Sizechart not found" />;
 	}
+
 	const stagedMeasurementSets = Object.entries(measurementSets)
 		.map(formatMeasurementSetEntry);
 	const viewMeasurementSets = view.map((name) => ({
 		name,
 		measurements: measurementSets[name],
 	}));
+
 	return (
 		<Page title={slug}>
 			<InteractiveImageViewer

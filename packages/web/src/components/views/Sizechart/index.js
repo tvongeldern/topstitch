@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
 import { bool, func, object } from 'prop-types';
-import cn from 'classnames';
 import { Field, Form } from 'react-final-form';
+import {
+	capitalize,
+	RETURN_NULL,
+	IS_TRUTHY,
+} from '@utils';
+import { RadioLabel } from './RadioLabel';
 import {
 	DIVIDER,
 	SIZECHART_ATTRIBUTES_CHAIN,
 	reduceAttributesChain,
 } from './attributesChain';
 import styles from './styles.scss';
-import {
-	capitalize,
-	RETURN_NULL,
-	IS_TRUTHY,
-} from '@utils';
 
 const RETURN_NAME = ({ name }) => name;
 
@@ -24,15 +24,6 @@ function showAttribute({ attribute, browseMode, members }) {
 	return members.length >= minLength;
 }
 
-function RadioLabel({ input, label, meta, ...props }) {
-	return (
-		<label {...props} className={cn({ [styles.selected]: input.checked })}>
-			<span>{label}</span>
-			<input type="radio" {...input} />
-		</label>
-	)
-}
-
 function SizechartForm({
 	onChange,
 	sizechart,
@@ -42,10 +33,13 @@ function SizechartForm({
 	},
 }) {
 	const {
-		radioGroups,
+		radioGroups: {
+			// sizes,
+			// measurements,
+			...radioGroups
+		},
 		selectedAttribute,
 		selectedObject,
-		measurements,
 		nameChain,
 	} = SIZECHART_ATTRIBUTES_CHAIN.reduce(
 		reduceAttributesChain,
@@ -56,14 +50,18 @@ function SizechartForm({
 	);
 
 	useEffect(() => {
-		if (selected) {
+		if (
+			selected
+			// @TODO should not need all these &&s
+			// but this is broken when measurmeents are selected
+			&& nameChain
+			&& selectedAttribute
+			&& selectedObject
+		) {
 			onChange({ 
-				selected: {
-					attribute: selectedAttribute.slice(0, -1),
-					object: selectedObject,
-				},
-				measurements,
 				displayName: nameChain.filter(IS_TRUTHY).join(' '),
+				selectedAttribute: selectedAttribute.slice(0, -1),
+				selectedObject,
 			});
 		}
 	}, [selected]);
@@ -74,13 +72,14 @@ function SizechartForm({
 				attribute,
 				members,
 				getLabel = RETURN_NAME,
+				defaultSelected,
 			}) => showAttribute({
 				attribute,
 				browseMode,
 				members,
 			}) && (
 				<div className={styles.type} key={attribute}>
-					<h3>{capitalize(attribute)}</h3>
+					{!browseMode && <h3>{capitalize(attribute)}</h3>}
 					<div className={styles.list}>
 						{members.map((member) => (
 							<Field
@@ -90,6 +89,7 @@ function SizechartForm({
 								component={RadioLabel}
 								value={[attribute, member.id].join(DIVIDER)}
 								key={member.id}
+								defaultSelected={defaultSelected === member.id}
 							/>
 						))}
 					</div>

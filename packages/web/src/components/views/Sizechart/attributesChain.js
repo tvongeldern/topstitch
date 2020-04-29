@@ -13,7 +13,6 @@ function getSelectedChild({
 
 export function reduceAttributesChain(
 	{
-		measurements,
 		nameChain,
 		radioGroups = {},
 		scopedSizechart,
@@ -25,25 +24,29 @@ export function reduceAttributesChain(
 		...attributePayload
 	}) {
 	const members = scopedSizechart[attribute] || [];
-	const [selectedAttribute, selectedId] = selected.split(DIVIDER);
+	const [
+		selectedAttribute,
+		selectedId
+	] = selected.split(DIVIDER);
 	const selectedChild = getSelectedChild({
 		attribute,
 		members,
 		selectedAttribute,
 		selectedId,
 	});
+	const defaultSelected = !selectedChild && (members[0] || {});
 	return {
 		// pass through
 		selected,
 		selectedAttribute,
 		// reduce
-		measurements: measurements || scopedSizechart.measurements,
 		nameChain: nameChain ? [...nameChain, scopedSizechart.name] : [],
-		scopedSizechart: selectedChild || members[0] || {},
+		scopedSizechart: selectedChild || defaultSelected,
 		selectedObject: selectedChild || selectedObject,
 		radioGroups: {
 			...radioGroups,
 			[attribute]: {
+				defaultSelected: defaultSelected.id,
 				attribute,
 				members,
 				...attributePayload,
