@@ -14,24 +14,21 @@
 			padding: 8px 4px;
 			border-radius: 2px;
 			border: 2px solid $theme-color-primary;
+			background-color: $theme-color-primary;
+			border-color: $theme-color-primary;
+			color: $white;
 
 			label {
 				cursor: pointer;
 			}
 
-			&.viewed {
-				background-color: $theme-color-primary;
-				border-color: $theme-color-primary;
-				color: $white;
-
-				&:nth-child(3n+2) {
-					background-color: $theme-color-tertiary;
-					border-color: $theme-color-tertiary;
-				}
-				&:nth-child(3n+3) {
-					background-color: $theme-color-quaternary;
-					border-color: $theme-color-quaternary;
-				}
+			&:nth-of-type(3n+2) {
+				background-color: $theme-color-tertiary;
+				border-color: $theme-color-tertiary;
+			}
+			&:nth-of-type(3n+3) {
+				background-color: $theme-color-quaternary;
+				border-color: $theme-color-quaternary;
 			}
 		}
 	}

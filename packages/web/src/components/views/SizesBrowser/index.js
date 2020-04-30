@@ -5,16 +5,20 @@ import { Sizechart } from '../Sizechart';
 import styles from './styles.scss';
 
 export function SizesBrowser({
+	// measurementSets,
+	// sizechart,
+	// stageMeasurementSet,
+	// viewMeasurementSet,
+	// view,
 	measurementSets,
 	sizechart,
-	stageMeasurementSet,
 	viewMeasurementSet,
-	view,
+	removeMeasurementSet,
 }) {
 	return (
 		<div className={styles.container}>
 			<Sizechart
-				onChange={stageMeasurementSet}
+				onChange={viewMeasurementSet}
 				sizechart={sizechart}
 				browseMode
 			/>
@@ -22,14 +26,11 @@ export function SizesBrowser({
 			<div className={styles.menu}>
 				{measurementSets.map(({ name }) => (
 					<div
-						className={cn(
-							styles.measurementSet,
-							{ [styles.viewed]: view.includes(name) },
-						)}
+						className={styles.measurementSet}
 						key={name}
 					>
 						<label
-							onClick={viewMeasurementSet}
+							onClick={removeMeasurementSet}
 							data-value={name}
 						>{name}</label>
 					</div>

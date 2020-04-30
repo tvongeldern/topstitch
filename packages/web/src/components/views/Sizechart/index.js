@@ -33,11 +33,7 @@ function SizechartForm({
 	},
 }) {
 	const {
-		radioGroups: {
-			// sizes,
-			// measurements,
-			...radioGroups
-		},
+		radioGroups,
 		selectedAttribute,
 		selectedObject,
 		nameChain,
@@ -50,14 +46,7 @@ function SizechartForm({
 	);
 
 	useEffect(() => {
-		if (
-			selected
-			// @TODO should not need all these &&s
-			// but this is broken when measurmeents are selected
-			&& nameChain
-			&& selectedAttribute
-			&& selectedObject
-		) {
+		if (selected) {
 			onChange({ 
 				displayName: nameChain.filter(IS_TRUTHY).join(' '),
 				selectedAttribute: selectedAttribute.slice(0, -1),
@@ -70,9 +59,10 @@ function SizechartForm({
 		<div className={styles.sizechart}>
 			{Object.values(radioGroups).map(({
 				attribute,
+				baseValue,
 				members,
 				getLabel = RETURN_NAME,
-				defaultSelected,
+				selectedId,
 			}) => showAttribute({
 				attribute,
 				browseMode,
@@ -87,9 +77,9 @@ function SizechartForm({
 								type="radio"
 								label={getLabel(member)}
 								component={RadioLabel}
-								value={[attribute, member.id].join(DIVIDER)}
+								value={[baseValue, member.id].join(DIVIDER)}
 								key={member.id}
-								defaultSelected={defaultSelected === member.id}
+								defaultSelected={selectedId === member.id}
 							/>
 						))}
 					</div>

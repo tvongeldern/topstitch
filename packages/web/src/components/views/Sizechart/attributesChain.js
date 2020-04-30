@@ -1,12 +1,10 @@
 export const DIVIDER = '::::';
 
 function getSelectedChild({
-	attribute,
 	members,
-	selectedAttribute,
 	selectedId,
 }) {
-	if (selectedAttribute === attribute) {
+	if (selectedId) {
 		return members.find(({ id }) => id === selectedId);
 	}
 }
@@ -14,41 +12,46 @@ function getSelectedChild({
 export function reduceAttributesChain(
 	{
 		nameChain,
+		idChain,
 		radioGroups = {},
 		scopedSizechart,
 		selected,
+		selectedAttribute,
 		selectedObject,
 	},
 	{
 		attribute,
 		...attributePayload
-	}) {
+	},
+	index,
+) {
 	const members = scopedSizechart[attribute] || [];
-	const [
-		selectedAttribute,
-		selectedId
-	] = selected.split(DIVIDER);
+	const selectedIds = selected.split(DIVIDER);
+	const selectedId = selectedIds[index];
 	const selectedChild = getSelectedChild({
-		attribute,
 		members,
-		selectedAttribute,
 		selectedId,
 	});
 	const defaultSelected = !selectedChild && (members[0] || {});
+	const nextIterationScope = selectedChild || defaultSelected;
+	const nextIterationIdChain = idChain ? [...idChain, scopedSizechart.id] : [];
+	const nextIterationNameChain = nameChain ? [...nameChain, scopedSizechart.name] : [];
 	return {
 		// pass through
 		selected,
-		selectedAttribute,
+		selectedAttribute: selectedAttribute || (selectedId && attribute),
 		// reduce
-		nameChain: nameChain ? [...nameChain, scopedSizechart.name] : [],
+		nameChain: nextIterationNameChain,
+		idChain: nextIterationIdChain,
 		scopedSizechart: selectedChild || defaultSelected,
 		selectedObject: selectedChild || selectedObject,
 		radioGroups: {
 			...radioGroups,
 			[attribute]: {
-				defaultSelected: defaultSelected.id,
 				attribute,
+				baseValue: nextIterationIdChain.join(DIVIDER),
 				members,
+				selectedId: nextIterationScope.id,
 				...attributePayload,
 			},
 		},
