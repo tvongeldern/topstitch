@@ -9,6 +9,7 @@ export function RadioLabel({
 	...props
 }) {
 	const classNames = {
+		[styles.radioLabel]: true,
 		[styles.selected]: input.checked,
 		[styles.defaultSelected]: defaultSelected,
 	};

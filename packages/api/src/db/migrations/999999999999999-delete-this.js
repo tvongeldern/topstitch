@@ -169,6 +169,152 @@ async function up() {
 					segmentId: chestWidth.id,
 				});
 
+
+
+		/**
+		 * Adidas women
+		 */
+
+		const adidasWomen = await adidas.createCollection({
+			name: 'Women',
+			tag: 'women',
+		});
+		await adidasWomen.addGarment(tshirt.id);
+
+	/**
+	 * Adidas women slim
+	 */
+
+	const adidasWomenSlim = await adidasWomen.createFit({
+		name: 'Slim',
+		tag: 'slim',
+		garmentId: tshirt.id,
+	});
+
+	/**
+	 * Adidas women slim small
+	 */
+
+	const adidasWomenSlimSmall = await adidasWomenSlim.createSize({
+		name: 'Small',
+		tag: 'small',
+	});
+
+	await adidasWomenSlimSmall.createMeasurement({
+		average: 20,
+		segmentId: hipWidth.id,
+	});
+
+	await adidasWomenSlimSmall.createMeasurement({
+		average: 22,
+		segmentId: chestWidth.id,
+	});
+
+	/**
+	 * Adidas women slim medium
+	 */
+
+	const adidasWomenSlimMedium = await adidasWomenSlim.createSize({
+		name: 'Medium',
+		tag: 'medium',
+	});
+
+	await adidasWomenSlimMedium.createMeasurement({
+		average: 22,
+		segmentId: hipWidth.id,
+	});
+
+	await adidasWomenSlimMedium.createMeasurement({
+		average: 24,
+		segmentId: chestWidth.id,
+	});
+
+	/**
+	 * Adidas women slim large
+	 */
+
+	const adidasWomenSlimLarge = await adidasWomenSlim.createSize({
+		name: 'Large',
+		tag: 'large',
+	});
+
+	await adidasWomenSlimLarge.createMeasurement({
+		average: 24,
+		segmentId: hipWidth.id,
+	});
+
+	await adidasWomenSlimLarge.createMeasurement({
+		average: 26,
+		segmentId: chestWidth.id,
+	});
+
+
+	/**
+	 * Adidas women regular
+	 */
+
+	const adidasWomenRegular = await adidasWomen.createFit({
+		name: 'Regular',
+		tag: 'regular',
+		garmentId: tshirt.id,
+	});
+
+	/**
+	 * Adidas women regular small
+	 */
+
+	const adidasWomenRegularSmall = await adidasWomenRegular.createSize({
+		name: 'Small',
+		tag: 'small',
+	});
+
+	await adidasWomenRegularSmall.createMeasurement({
+		average: 24,
+		segmentId: hipWidth.id,
+	});
+
+	await adidasWomenRegularSmall.createMeasurement({
+		average: 24,
+		segmentId: chestWidth.id,
+	});
+
+	/**
+	 * Adidas women regular medium
+	 */
+
+	const adidasWomenRegularMedium = await adidasWomenRegular.createSize({
+		name: 'Medium',
+		tag: 'medium',
+	});
+
+	await adidasWomenRegularMedium.createMeasurement({
+		average: 26,
+		segmentId: hipWidth.id,
+	});
+
+	await adidasWomenRegularMedium.createMeasurement({
+		average: 26,
+		segmentId: chestWidth.id,
+	});
+
+	/**
+	 * Adidas women regular large
+	 */
+
+	const adidasWomenRegularLarge = await adidasWomenRegular.createSize({
+		name: 'Large',
+		tag: 'large',
+	});
+
+	await adidasWomenRegularLarge.createMeasurement({
+		average: 28,
+		segmentId: hipWidth.id,
+	});
+
+	await adidasWomenRegularLarge.createMeasurement({
+		average: 28,
+		segmentId: chestWidth.id,
+	});
 }
 
 export default { up, down: () => ({}) };

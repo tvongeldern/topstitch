@@ -68,7 +68,7 @@ function SizechartForm({
 				browseMode,
 				members,
 			}) && (
-				<div className={styles.type} key={attribute}>
+				<div className={styles.chainAttribute} key={attribute}>
 					{!browseMode && <h3>{capitalize(attribute)}</h3>}
 					<div className={styles.list}>
 						{members.map((member) => (

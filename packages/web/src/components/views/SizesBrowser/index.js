@@ -5,11 +5,6 @@ import { Sizechart } from '../Sizechart';
 import styles from './styles.scss';
 
 export function SizesBrowser({
-	// measurementSets,
-	// sizechart,
-	// stageMeasurementSet,
-	// viewMeasurementSet,
-	// view,
 	measurementSets,
 	sizechart,
 	viewMeasurementSet,

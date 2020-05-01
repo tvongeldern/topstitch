@@ -1,0 +1,342 @@
+{
+  "id": "5b58628e-10eb-487f-9419-831360d01617",
+  "name": "Adidas",
+  "collections": [
+    {
+      "id": "930af55a-38b5-4c74-bd92-6e9dadc9a01e",
+      "name": "Men",
+      "garments": [
+        {
+          "id": "9ec9cb81-4f79-42d9-b283-02a87dcc2827",
+          "name": "T Shirt",
+          "fits": [
+            {
+              "id": "c82cbc4b-1408-4742-b32c-0e560e13b426",
+              "name": "Regular",
+              "sizes": [
+                {
+                  "id": "40b4b17e-e96f-4847-b6d2-30ff64a49262",
+                  "name": "Large",
+                  "measurements": [
+                    {
+                      "average": 34,
+                      "id": "8daf8c2a-1ccc-4a27-9483-5c057f9b2236",
+                      "segment": {
+                        "id": "71e50536-5b21-47cc-a951-c30bc6e2f20a",
+                        "name": "Hip width",
+                        "propName": "hipWidth"
+											}
+										},
+                    {
+                      "average": 34,
+                      "id": "8b7435c0-af34-47df-a65e-b34694dee1a2",
+                      "segment": {
+                        "id": "ac18fd4a-ec78-4873-b2fd-45c3b389639b",
+                        "name": "Chest width",
+                        "propName": "chestWidth"
+											}
+										}
+									]
+								},
+                {
+                  "id": "e4488f7d-1f09-4352-9be6-65bc973b8f1a",
+                  "name": "Medium",
+                  "measurements": [
+                    {
+                      "average": 31,
+                      "id": "13d3cfee-ce2a-41f0-ad4f-a326f4ebe653",
+                      "segment": {
+                        "id": "71e50536-5b21-47cc-a951-c30bc6e2f20a",
+                        "name": "Hip width",
+                        "propName": "hipWidth"
+											}
+										},
+                    {
+                      "average": 31,
+                      "id": "c01b5912-0fe3-4fa6-81b1-d5860009f995",
+                      "segment": {
+                        "id": "ac18fd4a-ec78-4873-b2fd-45c3b389639b",
+                        "name": "Chest width",
+                        "propName": "chestWidth"
+											}
+										}
+									]
+								},
+                {
+                  "id": "26151ed8-2c8c-46c0-882c-fb93a6a67e29",
+                  "name": "Small",
+                  "measurements": [
+                    {
+                      "average": 28,
+                      "id": "e6bfa7eb-5014-4a22-898d-f550bcb9b85b",
+                      "segment": {
+                        "id": "71e50536-5b21-47cc-a951-c30bc6e2f20a",
+                        "name": "Hip width",
+                        "propName": "hipWidth"
+											}
+										},
+                    {
+                      "average": 28,
+                      "id": "971124af-45e6-4f3e-bca5-d35304f5525a",
+                      "segment": {
+                        "id": "ac18fd4a-ec78-4873-b2fd-45c3b389639b",
+                        "name": "Chest width",
+                        "propName": "chestWidth"
+											}
+										}
+									]
+								}
+							]
+						},
+            {
+              "id": "8b30f3a7-b326-4392-9619-f73ba2d205dc",
+              "name": "Slim",
+              "sizes": [
+                {
+                  "id": "cfbe3cf7-763b-4dce-a647-5c5c79532b6c",
+                  "name": "Large",
+                  "measurements": [
+                    {
+                      "average": 30,
+                      "id": "2db6fb0d-1a0a-487e-b41e-fed41ff4c2cc",
+                      "segment": {
+                        "id": "71e50536-5b21-47cc-a951-c30bc6e2f20a",
+                        "name": "Hip width",
+                        "propName": "hipWidth"
+											}
+										},
+                    {
+                      "average": 34,
+                      "id": "98460d9f-acd8-44f5-b4ff-fa36de38a48e",
+                      "segment": {
+                        "id": "ac18fd4a-ec78-4873-b2fd-45c3b389639b",
+                        "name": "Chest width",
+                        "propName": "chestWidth"
+											}
+										}
+									]
+								},
+                {
+                  "id": "f49c46f1-f8b5-4043-b56a-5f5bf87dcca7",
+                  "name": "Medium",
+                  "measurements": [
+                    {
+                      "average": 28,
+                      "id": "bef3dee2-3637-4afc-b8e1-e098337364f6",
+                      "segment": {
+                        "id": "71e50536-5b21-47cc-a951-c30bc6e2f20a",
+                        "name": "Hip width",
+                        "propName": "hipWidth"
+											}
+										},
+                    {
+                      "average": 31,
+                      "id": "52d9615b-0e63-4dcb-a2fb-be8c3fa943ef",
+                      "segment": {
+                        "id": "ac18fd4a-ec78-4873-b2fd-45c3b389639b",
+                        "name": "Chest width",
+                        "propName": "chestWidth"
+											}
+										}
+									]
+								},
+                {
+                  "id": "f1da779a-e5c6-415e-ad98-4f1d8470c72d",
+                  "name": "Small",
+                  "measurements": [
+                    {
+                      "average": 26,
+                      "id": "45f1c1ae-ecb6-47e6-95a3-4a0aa37e6cc8",
+                      "segment": {
+                        "id": "71e50536-5b21-47cc-a951-c30bc6e2f20a",
+                        "name": "Hip width",
+                        "propName": "hipWidth"
+											}
+										},
+                    {
+                      "average": 29,
+                      "id": "1d23a78b-2e88-45fa-8bdc-30523cb8d49f",
+                      "segment": {
+                        "id": "ac18fd4a-ec78-4873-b2fd-45c3b389639b",
+                        "name": "Chest width",
+                        "propName": "chestWidth"
+											}
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+    {
+      "id": "7d5751a4-d1a4-4e90-963d-74109f84d697",
+      "name": "Women",
+      "garments": [
+        {
+          "id": "9ec9cb81-4f79-42d9-b283-02a87dcc2827",
+          "name": "T Shirt",
+          "fits": [
+            {
+              "id": "a3d05304-efbe-4847-9554-33bca169911b",
+              "name": "Regular",
+              "sizes": [
+                {
+                  "id": "429184cd-40b9-4600-b86e-1133baedeb45",
+                  "name": "Large",
+                  "measurements": [
+                    {
+                      "average": 28,
+                      "id": "52ed30db-4b01-43d5-876e-65a34b60b73e",
+                      "segment": {
+                        "id": "71e50536-5b21-47cc-a951-c30bc6e2f20a",
+                        "name": "Hip width",
+                        "propName": "hipWidth"
+											}
+										},
+                    {
+                      "average": 28,
+                      "id": "67c9f757-4b61-4128-a812-c9c44a499257",
+                      "segment": {
+                        "id": "ac18fd4a-ec78-4873-b2fd-45c3b389639b",
+                        "name": "Chest width",
+                        "propName": "chestWidth"
+											}
+										}
+									]
+								},
+                {
+                  "id": "1689b658-8f0c-4352-9768-685520a5ff2f",
+                  "name": "Medium",
+                  "measurements": [
+                    {
+                      "average": 26,
+                      "id": "4b07aac7-3613-43e9-974e-c844ace62656",
+                      "segment": {
+                        "id": "71e50536-5b21-47cc-a951-c30bc6e2f20a",
+                        "name": "Hip width",
+                        "propName": "hipWidth"
+											}
+										},
+                    {
+                      "average": 26,
+                      "id": "96c98932-71c2-4c67-a73a-a7f385344923",
+                      "segment": {
+                        "id": "ac18fd4a-ec78-4873-b2fd-45c3b389639b",
+                        "name": "Chest width",
+                        "propName": "chestWidth"
+											}
+										}
+									]
+								},
+                {
+                  "id": "2dd23572-12ba-4ebc-bfca-0398f2700b97",
+                  "name": "Small",
+                  "measurements": [
+                    {
+                      "average": 24,
+                      "id": "24403582-766f-49d3-9bab-7ac256952325",
+                      "segment": {
+                        "id": "71e50536-5b21-47cc-a951-c30bc6e2f20a",
+                        "name": "Hip width",
+                        "propName": "hipWidth"
+											}
+										},
+                    {
+                      "average": 24,
+                      "id": "a1e033c5-257b-4f0d-b7c8-98fee3fb34cd",
+                      "segment": {
+                        "id": "ac18fd4a-ec78-4873-b2fd-45c3b389639b",
+                        "name": "Chest width",
+                        "propName": "chestWidth"
+											}
+										}
+									]
+								}
+							]
+						},
+            {
+              "id": "ac43916b-9c12-470d-a9fd-bd6d0c407ca5",
+              "name": "Slim",
+              "sizes": [
+                {
+                  "id": "c88f3a69-529d-466b-890c-bb96573d8fe7",
+                  "name": "Large",
+                  "measurements": [
+                    {
+                      "average": 24,
+                      "id": "0e949a55-8ff4-4be7-a79a-c101c1f8040b",
+                      "segment": {
+                        "id": "71e50536-5b21-47cc-a951-c30bc6e2f20a",
+                        "name": "Hip width",
+                        "propName": "hipWidth"
+											}
+										},
+                    {
+                      "average": 26,
+                      "id": "8bb47ea5-90d1-4568-8b26-7a0c462c4e20",
+                      "segment": {
+                        "id": "ac18fd4a-ec78-4873-b2fd-45c3b389639b",
+                        "name": "Chest width",
+                        "propName": "chestWidth"
+											}
+										}
+									]
+								},
+                {
+                  "id": "cecca93f-238a-4ff4-8221-2784e9344523",
+                  "name": "Medium",
+                  "measurements": [
+                    {
+                      "average": 22,
+                      "id": "2b5ea901-f869-4d1f-8dd6-1b5b925170cc",
+                      "segment": {
+                        "id": "71e50536-5b21-47cc-a951-c30bc6e2f20a",
+                        "name": "Hip width",
+                        "propName": "hipWidth"
+											}
+										},
+                    {
+                      "average": 24,
+                      "id": "35eff93d-fc5e-4c4b-be62-6686dcf80eb7",
+                      "segment": {
+                        "id": "ac18fd4a-ec78-4873-b2fd-45c3b389639b",
+                        "name": "Chest width",
+                        "propName": "chestWidth"
+											}
+										}
+									]
+								},
+                {
+                  "id": "306a1eca-e2d9-4896-9420-ae298823e060",
+                  "name": "Small",
+                  "measurements": [
+                    {
+                      "average": 20,
+                      "id": "7ff61e96-b74e-489f-96f7-d7cea30981b0",
+                      "segment": {
+                        "id": "71e50536-5b21-47cc-a951-c30bc6e2f20a",
+                        "name": "Hip width",
+                        "propName": "hipWidth"
+											}
+										},
+                    {
+                      "average": 22,
+                      "id": "4509daec-42c4-4bf9-aa17-6bbdafa4767a",
+                      "segment": {
+                        "id": "ac18fd4a-ec78-4873-b2fd-45c3b389639b",
+                        "name": "Chest width",
+                        "propName": "chestWidth"
+											}
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
