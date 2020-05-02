@@ -11,6 +11,8 @@ $nav-height: 60px;
 	background-color: $theme-color-primary;
 	position: fixed;
 	height: $nav-height;
+	left: 0;
+	right: 0;
 
 	input {
 		background-color: transparent;

@@ -5,67 +5,87 @@ import {
 	GarmentComparisonView,
 	InteractiveImageViewer,
 	Page,
-	SizesBrowser,
+	SizechartSizesComparisonView,
 } from '@components';
 import { TShirt } from '@garment-builders';
 import { getSizechart } from '@state/actions';
 import { useSelector } from '@utils/hooks';
 import { EMPTY_OBJECT } from '@constants';
-import sizechart from './_json.json';
-
-function formatMeasurementSetEntry([name, measurements]) {
-	return {
-		name,
-		measurements,
-	};
-}
+import sizechart from './_sizechart.json';
+import savedSizes from './_mysavedsizes.json';
 
 function sizechartPageSelector({
+	auth: {
+		savedSizes,
+	},
 	sizecharts: {
 		sizecharts
 	},
 }) {
-	return { sizecharts };
+	return {
+		savedSizes,
+		sizecharts,
+	};
 }
 
 function SizechartPage({ slug }) {
 	const [state, setState] = useState(EMPTY_OBJECT);
+	const {
+		sizechartSizesView = [],
+		savedSizesView = [],
+	} = state;
 
-	const viewMeasurementSet = ({
+	const viewSizechartSize = ({
 		displayName,
 		selectedObject: { measurements },
 	}) => measurements && setState({
-		[displayName]: measurements,
+		...state,
+		sizechartSizesView: [
+			{
+				name: displayName,
+				measurements,
+			}
+		],
 	});
 
-	const { sizecharts } = useSelector(
-		sizechartPageSelector,
-	);
+	const toggleSavedSize = ({
+		name,
+		measurements,
+	}) => setState({
+		...state,
+		savedSizesView: savedSizesView[0]?.name === name
+			? []
+			: [{ name, measurements }],
+	});
+
+	// const { savedSizes, sizecharts } = useSelector(
+	// 	sizechartPageSelector,
+	// );
 	// const sizechart = sizecharts[slug];
 
 	if (!sizechart) {
 		return <Page error="Sizechart not found" />;
 	}
 
-	const measurementSets = Object.entries(state)
-		.map(formatMeasurementSetEntry);
-
 	return (
 		<Page title={slug}>
 			<InteractiveImageViewer
-				textHeader="Sizechart"
-				svgHeader="Compare"
 				svg={
 					<GarmentComparisonView
 						builder={TShirt}
-						measurementSets={measurementSets}
+						measurementSets={[
+							...sizechartSizesView,
+							...savedSizesView,
+						]}
 					/>
 				}
 				textModule={
-					<SizesBrowser
-						measurementSets={measurementSets}
+					<SizechartSizesComparisonView
+						onSizechartChange={viewSizechartSize}
 						sizechart={sizechart}
-						viewMeasurementSet={viewMeasurementSet}
+						sizes={savedSizes}
+						sizesHeader="Saved sizes"
+						onSizesChange={toggleSavedSize}
 					/>
 				}
 			/>

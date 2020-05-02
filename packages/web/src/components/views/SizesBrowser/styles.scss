@@ -1,19 +1,11 @@
 @import 'web';
 
 .container {
-	display: flex;
-	width: 100%;
-	justify-content: space-between;
-	flex-wrap: wrap;
-
-	.menu {
-		display: flex;
-		flex-direction: column;
-
-		.measurementSet {
+	.measurementSet {
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			text-align: center;
 			margin: 8px 4px;
 			padding: 8px 4px;
 			border-radius: 2px;
@@ -25,15 +17,5 @@
 			label {
 				cursor: pointer;
 			}
-
-			&:nth-of-type(3n+2) {
-				background-color: $theme-color-tertiary;
-				border-color: $theme-color-tertiary;
-			}
-			&:nth-of-type(3n+3) {
-				background-color: $theme-color-quaternary;
-				border-color: $theme-color-quaternary;
-			}
 		}
-	}
 }

@@ -11,12 +11,12 @@ export function InteractiveImageViewer({
 	return (
 		<div className={styles.container}>
 			<div className={styles.wrapper}>
-				<h2 className={styles.header}>{svgHeader}</h2>
+				{svgHeader && <h2 className={styles.header}>{svgHeader}</h2>}
 				{svg}
 			</div>
 
 			<div className={styles.textModule}>
-				<h2 className={styles.header}>{textHeader}</h2>
+				{textHeader && <h2 className={styles.header}>{textHeader}</h2>}
 				{textModule}
 			</div>
 		</div>

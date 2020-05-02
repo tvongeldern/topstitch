@@ -7,7 +7,10 @@ import styles from './styles.scss';
 const HEIGHT = ({ height }) => height;
 const WIDTH = ({ width }) => width;
 
-const getGarmentStrokes = ({ garment }) => garment.draw();
+const getGarmentStrokes = (measurements) => ({
+	...measurements,
+	strokes: measurements.garment.draw(),
+});
 
 function getSizes({ garment, ...rest }) {
 	const { width, height } = garment.size();
@@ -51,11 +54,17 @@ export function GarmentComparisonView({
 			viewBox={viewBox}
 			strokeWidth={strokeWidth}
 		>
-			{garmentDrawingInstructions.map((strokes, index) => (
-				<g key={index}>
+			{garmentDrawingInstructions.map(({ name, strokes }, index) => (
+				<g key={name}>
 					{strokes.map(({ draw }) => (
 						<path d={draw} key={draw} />
 					))}
+					<text
+						y={(index + 1) * 2}
+						x={'-40%'}
+					>
+						{name}
+					</text>
 				</g>
 			))}
 		</SVG>

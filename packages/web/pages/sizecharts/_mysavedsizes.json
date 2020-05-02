@@ -1,0 +1,50 @@
+[
+	{
+		"id": "3jh8628e-10eb-487f-9419-831360d01c76",
+		"name": "Bonobos Men T Shirt Slim Fit Medium",
+		"measurements": [
+			{
+				"average": 28,
+				"id": "9023cfee-ce2a-41f0-ad4f-a326f4ea9a92",
+				"segment": {
+					"id": "71e50536-5b21-47cc-a951-c30bc6e2f20a",
+					"name": "Hip width",
+					"propName": "hipWidth"
+				}
+			},
+			{
+				"average": 32,
+				"id": "bytb5912-0fe3-4bb6-81b1-d5860009a7hg",
+				"segment": {
+					"id": "ac18fd4a-ec78-4873-b2fd-45c3b389639b",
+					"name": "Chest width",
+					"propName": "chestWidth"
+				}
+			}
+		]
+	},
+	{
+		"id": "hx87628e-10eb-487f-9419-831360d7d6b1",
+		"name": "Hawes & Curtis Mens T Shirt Extra Slim Large",
+		"measurements": [
+			{
+				"average": 29,
+				"id": "a7hgcfee-ce2a-41f0-ad4f-a326f4ea7sve",
+				"segment": {
+					"id": "8fhg0536-5b21-47cc-a951-c30bc6e2b6r4",
+					"name": "Hip width",
+					"propName": "hipWidth"
+				}
+			},
+			{
+				"average": 33,
+				"id": "7f5d5912-0fe3-4bb6-81b1-d58600090c6f",
+				"segment": {
+					"id": "74gf6d4a-ec78-4873-b2fd-45c3b3896hf7",
+					"name": "Chest width",
+					"propName": "chestWidth"
+				}
+			}
+		]
+	}
+]

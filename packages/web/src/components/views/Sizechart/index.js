@@ -32,6 +32,9 @@ function SizechartForm({
 		selected = '',
 	},
 }) {
+
+	const { name: sizechartHeader = 'Sizechart' } = sizechart;
+
 	const {
 		radioGroups,
 		selectedAttribute,
@@ -57,6 +60,8 @@ function SizechartForm({
  
 	return (
 		<div className={styles.sizechart}>
+			<h3>{sizechartHeader}</h3>
+
 			{Object.values(radioGroups).map(({
 				attribute,
 				baseValue,
