@@ -10,7 +10,7 @@ import {
 import { TShirt } from '@garment-builders';
 import { getSizechart } from '@state/actions';
 import { useSelector } from '@utils/hooks';
-import { EMPTY_OBJECT } from '@constants';
+import { EMPTY_ARRAY, EMPTY_OBJECT } from '@constants';
 import sizechart from './_sizechart.json';
 import savedSizes from './_mysavedsizes.json';
 
@@ -29,10 +29,23 @@ function sizechartPageSelector({
 }
 
 function SizechartPage({ slug }) {
-	const [state, setState] = useState(EMPTY_OBJECT);
+	// const { savedSizes, sizecharts } = useSelector(
+	// 	sizechartPageSelector,
+	// );
+	// const sizechart = sizecharts[slug];
+
+	if (!sizechart) {
+		return <Page error="Sizechart not found" />;
+	}
+
+	const [defaultSavedSize] = savedSizes;
+	const [state, setState] = useState({
+		savedSizesView: defaultSavedSize ? [defaultSavedSize] : EMPTY_ARRAY,
+		sizechartSizesView: EMPTY_ARRAY,
+	});
 	const {
-		sizechartSizesView = [],
-		savedSizesView = [],
+		sizechartSizesView,
+		savedSizesView,
 	} = state;
 
 	const viewSizechartSize = ({
@@ -57,15 +70,6 @@ function SizechartPage({ slug }) {
 			? []
 			: [{ name, measurements }],
 	});
-
-	// const { savedSizes, sizecharts } = useSelector(
-	// 	sizechartPageSelector,
-	// );
-	// const sizechart = sizecharts[slug];
-
-	if (!sizechart) {
-		return <Page error="Sizechart not found" />;
-	}
 
 	return (
 		<Page title={slug}>

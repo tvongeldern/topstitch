@@ -14,21 +14,25 @@ export function SizechartSizesComparisonView({
 	return (
 		<div className={styles.container}>
 
-			<div className={styles.sizechart}>
-				<Sizechart
-					onChange={onSizechartChange}
-					sizechart={sizechart}
-					browseMode
-				/>
-			</div>
+			{sizechart && (
+				<div className={styles.sizechart}>
+					<Sizechart
+						onChange={onSizechartChange}
+						sizechart={sizechart}
+						browseMode
+					/>
+				</div>
+			)}
 
-			<div className={styles.sizesBrowser}>
-				<SizesBrowser
-					sizes={sizes}
-					header={sizesHeader}
-					onChange={onSizesChange}
-				/>
-			</div>
+			{sizes && sizes.length > 0 && (
+				<div className={styles.sizesBrowser}>
+					<SizesBrowser
+						sizes={sizes}
+						header={sizesHeader}
+						onChange={onSizesChange}
+					/>
+				</div>
+			)}
 		</div>
 	);
 }

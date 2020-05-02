@@ -30,6 +30,7 @@ export function GarmentComparisonView({
 		return <SVG className={styles.wrapper} />;
 	}
 	const garments = measurementSets.map(({ measurements, ...rest }) => ({
+		measurements,
 		garment: new Builder(measurements),
 		...rest,
 	})).map(getSizes);
