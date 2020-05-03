@@ -1,7 +1,7 @@
-export function getBySlug(Model, { attributes, include } = {}) {
+export function getOne(Model, { attributes, include } = {}) {
 	return async function get(
 		{
-			params: { slug },
+			params,
 		},
 		response,
 		next,
@@ -10,22 +10,18 @@ export function getBySlug(Model, { attributes, include } = {}) {
 			const object = await Model.findOne({
 				attributes,
 				include,
-				where: { slug },
+				where: params,
 			});
 			if (!object) {
 				return next({
 					status: 404,
-					message: `${Model.name} ${slug} not found`,
+					message: `${Model.name} not found`,
 				});
 			}
 			const json = object.toJSON();
 			response.send(json);
 		} catch (error) {
-			return next({
-				error,
-				message: `Invalid ${Model.name} ID`,
-				status: 400,
-			});
+			return next({ error });
 		}
 	}
 }

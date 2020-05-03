@@ -220,6 +220,15 @@ const TABLES = {
       },
     },
   },
+  savedSizes: {
+    columns: {
+      name,
+    },
+    foreignKeys: {
+      sizeId: { model: 'sizes' },
+      accountId: { model: 'accounts' },
+    },
+  },
 };
 
 const TABLE_ENTRIES = Object.entries(TABLES);

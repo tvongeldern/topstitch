@@ -1,5 +1,6 @@
 import React from 'react';
 import { } from 'prop-types';
+import { Button } from '@components/ui';
 import { Sizechart } from '../Sizechart';
 import { SizesBrowser } from '../SizesBrowser'
 import styles from './styles.scss';
@@ -10,6 +11,8 @@ export function SizechartSizesComparisonView({
 	sizes,
 	sizesHeader,
 	onSizesChange,
+	selectedSavedSize,
+	selectedSizechartSize,
 }) {
 	return (
 		<div className={styles.container}>

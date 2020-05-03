@@ -62,7 +62,7 @@ export function GarmentComparisonView({
 					))}
 					<text
 						y={(index + 1) * 2}
-						x={'-40%'}
+						x={'-48%'}
 					>
 						{name}
 					</text>

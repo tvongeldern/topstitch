@@ -6,7 +6,7 @@ import { Logger } from '@utils';
 
 // https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html
 
-const middlewareLogger = new Logger().context('auth middleware');
+const middlewareLogger = new Logger().context('JWT middleware');
 let verifyToken;
 
 async function getTokenVerifier() {
@@ -38,12 +38,12 @@ export async function jwtMiddleware(
 	response,
 	next,
 ) {
-	if (!verifyToken) {
-		return response.status(500).send({ message: 'No way to decode auth tokens' });
-	}
 	const { authorization } = request.headers;
 	if (!authorization) {
 		return next();
+	}
+	if (!verifyToken) {
+		return response.status(500).send({ message: 'No way to decode auth tokens' });
 	}
 	const [src, token] = authorization.split(' ');
 	try {

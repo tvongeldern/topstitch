@@ -1,23 +1,15 @@
 import { Router } from 'express';
 import { genericEndpointError } from '@middleware';
-import accounts from './accounts';
 import brands from './brands';
-import fits from './fits';
 import garments from './garments';
-import collections from './collections';
-import sizes from './sizes';
-import measurements from './measurements';
+import me from './me';
 import sizecharts from './sizecharts';
 
 const router = new Router();
 
-router.use('/accounts', accounts);
 router.use('/brands', brands);
-router.use('/collections', collections);
 router.use('/garments', garments);
-router.use('/fits', fits);
-router.use('/sizes', sizes);
-router.use('/measurements', measurements);
+router.use('/me', me);
 router.use('/sizecharts', sizecharts);
 
 router.use('*', genericEndpointError); // Must be very last route defined!

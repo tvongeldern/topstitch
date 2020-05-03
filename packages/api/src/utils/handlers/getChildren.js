@@ -1,15 +1,9 @@
-import { Sequelize } from 'sequelize';
-import { getJSON } from '../getJSON';
-
 const NO_ATTRIBUTES = [];
-const { iLike } = Sequelize.Op;
 
-export function getChildren(ParentModel, ChildModel, options = {}) {
-	return async function searchTable(
+export function getChildren(ParentModel, ChildModel, childOptions = {}) {
+	return async function getChildrenOdParent(
 		{
-			logger,
-			params: { slug },
-			query: { search, ...query },
+			params,
 		},
 		response,
 		next,
@@ -19,9 +13,9 @@ export function getChildren(ParentModel, ChildModel, options = {}) {
 				attributes: NO_ATTRIBUTES,
 				include: [{
 					model: ChildModel,
-					...options,
+					...childOptions,
 				}],
-				where: { slug },
+				where: params,
 			});
 			if (!parent) {
 				return next({

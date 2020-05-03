@@ -39,7 +39,7 @@ export const email = {
 
 export const uuid = {
 	type: DataTypes.UUID,
-	defaultValue: Sequelize.UUIDV4,
+	unique: true,
 };
 
 // Unique object identifier
@@ -47,7 +47,7 @@ export const id = {
 	...uuid,
 	primaryKey: true,
 	allowNull: false,
-	unique: true,
+	defaultValue: Sequelize.UUIDV4,
 };
 
 // Measurements are always stored in mm

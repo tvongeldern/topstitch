@@ -1,7 +1,7 @@
 const types = {
-	start: 'seamstress.accounts.createAccount.start',
-	success: 'seamstress.accounts.createAccount.success',
-	fail: 'seamstress.accounts.createAccount.fail',
+	start: 'seamstress.auth.createAccount.start',
+	success: 'seamstress.auth.createAccount.success',
+	fail: 'seamstress.auth.createAccount.fail',
 };
 
 export const createAccountReducer = {
@@ -18,5 +18,5 @@ export const createAccountReducer = {
 
 export const createAccount = () => ({
 	types: [types.start, types.success, types.fail],
-	promise: ({ api }) => api.post(`/accounts/me`),
+	promise: ({ api }) => api.post(`/me/`),
 });

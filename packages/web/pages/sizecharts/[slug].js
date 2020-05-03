@@ -88,8 +88,11 @@ function SizechartPage({ slug }) {
 						onSizechartChange={viewSizechartSize}
 						sizechart={sizechart}
 						sizes={savedSizes}
-						sizesHeader="Saved sizes"
+						sizesHeader="My saved sizes"
 						onSizesChange={toggleSavedSize}
+						//
+						selectedSavedSize={savedSizesView[0]}
+						selectedSizechartSize={sizechartSizesView[0]}
 					/>
 				}
 			/>
