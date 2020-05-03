@@ -186,8 +186,8 @@ async function up() {
 	 */
 
 	const adidasWomenSlim = await adidasWomen.createFit({
-		name: 'Slim',
-		tag: 'slim',
+		name: 'Petite',
+		tag: 'petite',
 		garmentId: tshirt.id,
 	});
 

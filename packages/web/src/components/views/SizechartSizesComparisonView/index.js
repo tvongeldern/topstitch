@@ -5,6 +5,22 @@ import { Sizechart } from '../Sizechart';
 import { SizesBrowser } from '../SizesBrowser'
 import styles from './styles.scss';
 
+function TextSize({ name, measurements }) {
+	return (
+		<div className={styles.textSize}>
+			<h5>{name}</h5>
+			<div className={styles.measurements}>
+				{measurements.map(({ average, id, segment }) => (
+					<div className={styles.measurement} key={id}>
+						<b>{segment.name}</b>
+						<span>{average}</span>
+					</div>
+				))}
+			</div>
+		</div>
+	)
+}
+
 export function SizechartSizesComparisonView({
 	onSizechartChange,
 	sizechart,
@@ -34,6 +50,18 @@ export function SizechartSizesComparisonView({
 						header={sizesHeader}
 						onChange={onSizesChange}
 					/>
+				</div>
+			)}
+
+			{(selectedSavedSize || selectedSizechartSize) && (
+				<div className={styles.comparison}>
+					<h3>Measurements</h3>
+					{selectedSavedSize && (
+						<TextSize {...selectedSavedSize} />
+					)}
+					{selectedSizechartSize && (
+						<TextSize {...selectedSizechartSize} />
+					)}
 				</div>
 			)}
 		</div>

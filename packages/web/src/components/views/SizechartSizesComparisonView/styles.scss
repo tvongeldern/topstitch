@@ -1,3 +1,19 @@
 @import 'web';
 
-.container {}
+.container {
+	.comparison {
+		margin-top: 12px;
+
+		.textSize {
+			margin-bottom: 8px;
+
+			.measurements {
+				.measurement {
+					b {
+						margin-right: 8px;
+					}
+				}
+			}
+		}
+	}
+}

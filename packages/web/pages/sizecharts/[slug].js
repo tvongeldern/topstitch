@@ -50,25 +50,27 @@ function SizechartPage({ slug }) {
 
 	const viewSizechartSize = ({
 		displayName,
-		selectedObject: { measurements },
+		selectedObject: { id, measurements },
 	}) => measurements && setState({
 		...state,
 		sizechartSizesView: [
 			{
-				name: displayName,
+				id,
 				measurements,
-			}
+				name: displayName,
+			},
 		],
 	});
 
 	const toggleSavedSize = ({
+		id,
 		name,
 		measurements,
 	}) => setState({
 		...state,
 		savedSizesView: savedSizesView[0]?.name === name
 			? []
-			: [{ name, measurements }],
+			: [{ id, measurements, name }],
 	});
 
 	return (
