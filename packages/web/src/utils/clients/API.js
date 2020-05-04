@@ -1,15 +1,11 @@
 import axios from 'axios';
-import Cookies from 'universal-cookie';
 import {
-	AUTH_TOKEN_COOKIE_NAME,
+	AUTH_COOKIE_PATTERN,
 	EMPTY_OBJECT,
 	config,
 } from '@constants';
 
-const {
-	CLIENT_API_HOST,
-	DOCKER_API_HOST,
-} = config;
+const { CLIENT_API_HOST, DOCKER_API_HOST } = config;
 
 const headers = {
 	Accept: 'application/json',
@@ -28,20 +24,50 @@ function parseErrorResponse(error = '') {
 	return Promise.reject(errorString);
 }
 
-export function API({ req }) {
+function findAuthCookie(cookieName) {
+	return AUTH_COOKIE_PATTERN.test(cookieName);
+}
+
+function getAuthHeader(cookies) {
+	const authCookie = Object.keys(cookies.getAll())
+		.find(findAuthCookie);
+	return `Bearer ${cookies.get(authCookie)}`;
+}
+
+function authHeaderInterceptor({ cookies }) {
+	return function authInterceptor(requestConfig) {
+		return {
+			...requestConfig,
+			headers: {
+				...requestConfig.headers,
+				Authorization: getAuthHeader(cookies),
+			},
+		};
+	};
+}
+
+function refreshTokenInterceptor({ auth }) {
+	if (auth) {
+		return async function refreshInterceptor(requestConfig) {
+			await auth.refresh();
+			return requestConfig;
+		};
+	}
+	return (requestConfig) => requestConfig;
+}
+
+export function API({ auth, cookies, isClient }) {
+	// Apply base Axios settings
 	const instance = axios.create({
 		headers,
 		timeout: 30000,
-		baseURL: req ? DOCKER_API_HOST : CLIENT_API_HOST,
+		baseURL: isClient ? CLIENT_API_HOST : DOCKER_API_HOST,
 	});
+	// Format responses
 	instance.interceptors.response.use(parseSuccessResponse, parseErrorResponse);
-	const cookies = req ? new Cookies(req.headers.cookie) : new Cookies();
-	instance.interceptors.request.use((requestConfig) => ({
-		...requestConfig,
-		headers: {
-			...requestConfig.headers,
-			Authorization: `Bearer ${cookies.get(AUTH_TOKEN_COOKIE_NAME)}`,
-		},
-	}));
+	// Get token from cookies if present, and attach as auth header
+	instance.interceptors.request.use(authHeaderInterceptor({ cookies }));
+	// Refresh token if expired
+	instance.interceptors.request.use(refreshTokenInterceptor({ auth }));
 	return instance;
 }

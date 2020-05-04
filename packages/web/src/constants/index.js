@@ -1,6 +1,6 @@
 export { default as config } from './config';
 
-export const AUTH_TOKEN_COOKIE_NAME = '_st_';
+export const AUTH_COOKIE_PATTERN = /^CognitoIdentityServiceProvider\.[a-z0-9]{20,30}\.[^\s]+?@[^\s]+?\.[^\s]+?\.idToken$/;
 
 export const EMPTY_ARRAY = Object.freeze([]);
 

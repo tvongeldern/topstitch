@@ -1,28 +1,41 @@
-import Amplify, { Auth as AmplifyAuth, Cache } from 'aws-amplify';
-import Cookies from 'universal-cookie';
-import { AUTH_TOKEN_COOKIE_NAME, config } from '@constants';
+import Amplify, { Auth as AmplifyAuth } from 'aws-amplify';
+import { config } from '@constants';
 
-Amplify.configure({ Auth: config.cognito });
+function CookiesStorage({ cookies }) {
+	this.setItem = (...args) => {
+		cookies.set(...args, config.cookies);
+	};
 
-export function Auth({ req } = {}) {
+	this.getItem = (...args) => cookies.get(...args);
+
+	this.removeItem = (...args) => {
+		cookies.remove(...args);
+	};
+
+	this.clear = () => {
+		Object.keys(cookies.getAll()).forEach(this.removeItem);
+	}
+}
+
+export function Auth({ cookies } = {}) {
 	const client = this;
-	const cookies = req ? new Cookies(req.headers.cookie) : new Cookies();
+	this.storage = new CookiesStorage({ cookies });
+	this.config = Amplify.configure({
+		Auth: {
+			...config.cognito,
+			storage: client.storage,
+		},
+	});
 
 	this.logIn = async function login({ email, password }) {
 		const data = await AmplifyAuth.signIn(email, password);
-		const jwtToken = data?.signInUserSession?.idToken?.jwtToken;
-		if (!jwtToken) {
-			throw new Error('Authentication not completed'); // Shows in login form when thrown
-		}
-		cookies.set(AUTH_TOKEN_COOKIE_NAME, jwtToken, config.cookies);
 		return { data };
 	};
 
 	this.logout = async function logout() {
-		cookies.remove(AUTH_TOKEN_COOKIE_NAME, config.cookies);
-		cookies.remove(AUTH_TOKEN_COOKIE_NAME);
-		Cache.clear();
 		const data = await AmplifyAuth.signOut({ global: true });
+		storage.clear();
+		return { data };
 	};
 
 	this.signUp = async function signUp({ email, password }) {
@@ -45,8 +58,8 @@ export function Auth({ req } = {}) {
 		return { data };
 	};
 
-	this.resendSignUp = async function resendSignUp(username) {
-		const data = await AmplifyAuth.resendSignUp(username);
+	this.refresh = async function resendSignUp() {
+		const data = await AmplifyAuth.currentSession();
 		return { data };
 	};
 }

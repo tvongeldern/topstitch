@@ -17,28 +17,30 @@ function QueryProvider(query) {
 	};
 }
 
-export function populatePage(Container, context) {
-	const { populate, provide = {} } = Container;
-	if (!populate) {
-		Container.getInitialProps = Container.getInitialProps || placeholderGetInitialProps;
-		return Container;
-	}
-	function _populateFromActions(...actionCreators) {
-		const { getInitialProps = placeholderGetInitialProps } = Container;
-		return async function _getInitialProps(providedProps) {
-			const { query, store: { dispatch } } = providedProps;
-			const provideQuery = QueryProvider({
-				...provide,
-				...query,
-			});
-			await Promise.all(
-				actionCreators
-					.map(provideQuery)
-					.map(dispatch),
-			);
-			return getInitialProps(providedProps);
-		};
-	}
-	Container.getInitialProps = _populateFromActions(...populate);
+export function populatePage(Container) {
+	const {
+		populate = [],
+		provide = {}
+	} = Container;
+
+	const { getInitialProps = placeholderGetInitialProps } = Container;
+
+	Container.getInitialProps = async function _getInitialProps(providedProps) {
+		const {
+			query,
+			store: { dispatch },
+		} = providedProps;
+		const provideQuery = QueryProvider({
+			...provide,
+			...query,
+		});
+		await Promise.all(
+			populate
+				.map(provideQuery)
+				.map(dispatch),
+		);
+		return getInitialProps(providedProps);
+	};;
+
 	return Container;
 }

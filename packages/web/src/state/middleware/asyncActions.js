@@ -1,13 +1,17 @@
+import Cookies from 'universal-cookie';
 import { Auth, API } from '@utils/clients';
 
 /*
 * Redux middleware to handle async actions
 */
 export function asyncActions({ req } = {}) {
+	const cookies = req ? new Cookies(req.headers.cookie) : new Cookies();
+	const isClient = !req;
 	// Object provided to async action creators
+	const auth = new Auth({ cookies });
 	const providedPromiseObject = {
-		api: API({ req }),
-		auth: new Auth({ req }),
+		auth,
+		api: API({ auth, cookies, isClient }),
 	};
 	return () => (next) => (action) => {
 		const {

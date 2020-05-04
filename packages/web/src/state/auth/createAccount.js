@@ -18,5 +18,5 @@ export const createAccountReducer = {
 
 export const createAccount = () => ({
 	types: [types.start, types.success, types.fail],
-	promise: ({ api }) => api.post(`/me/`),
+	promise: ({ api }) => api.post('/me/'),
 });

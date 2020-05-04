@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form } from 'react-final-form';
 import { Page } from '@components';
 import { LoginForm } from '@forms';
 import { logIn } from '@state/actions';
-import { useSubmit } from '@utils/hooks';
+import { useSelector, useSubmit } from '@utils/hooks';
 
-function fakeSubmit() {
-	return new Promise((resolve) => setTimeout(resolve, 3000));
+function loginPageSelector({ auth: { me } }) {
+	return { me };
 }
 
 export default function LoginPage() {
@@ -15,7 +15,7 @@ export default function LoginPage() {
 		<Page title="Log in">
 			<Form
 				component={LoginForm}
-				onSubmit={fakeSubmit}
+				onSubmit={submitLogIn}
 			/>
 		</Page>
 	);

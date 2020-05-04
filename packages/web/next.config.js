@@ -14,6 +14,9 @@ const config = {
 			userPoolId: process.env.COGNITO_POOL_ID,
 			userPoolWebClientId: process.env.COGNITO_APP_CLIENT_ID,
 		},
+		cookies: {
+			maxAge: 1000 * 60 * 60 * 24 * 365, // 1 year
+		},
 	},
 };
 
