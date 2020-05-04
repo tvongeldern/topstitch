@@ -1,21 +1,14 @@
 @import 'web';
 
 .container {
-	.measurementSet {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			text-align: center;
-			margin: 8px 4px;
-			padding: 8px 4px;
-			border-radius: 2px;
-			border: 2px solid $theme-color-primary;
-			background-color: $theme-color-primary;
-			border-color: $theme-color-primary;
-			color: $white;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	margin: 8px 4px;
+	padding: 8px 4px;
 
-			label {
-				cursor: pointer;
-			}
-		}
+	> label {
+		margin-bottom: 8px;
+	}
 }

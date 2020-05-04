@@ -1,0 +1,30 @@
+@import 'web';
+
+.radioLabel {
+		cursor: pointer;
+		background-color: $theme-color-primary;
+		color: $white;
+		border-radius: 2px;
+		border: 2px solid $theme-color-primary;
+		padding: 8px 16px;
+		margin-right: 8px;
+		opacity: 0.6;
+		transition: box-shadow 0.2s, opacity 0.4s;
+
+		&.measurements {
+			margin-top: 16px;
+		}
+
+		&.selected {
+			opacity: 1;
+			box-shadow: 0px 0px 4px 2px $theme-color-quaternary;
+		}
+
+		&.defaultSelected {
+			opacity: 1;
+		}
+
+		input {
+			display: none;
+		}
+	}

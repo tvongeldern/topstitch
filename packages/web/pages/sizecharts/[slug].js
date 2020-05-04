@@ -38,17 +38,13 @@ function SizechartPage({ slug }) {
 		return <Page error="Sizechart not found" />;
 	}
 
-	const [defaultSavedSize] = savedSizes;
-	const [state, setState] = useState({
-		savedSizesView: defaultSavedSize ? [defaultSavedSize] : EMPTY_ARRAY,
-		sizechartSizesView: EMPTY_ARRAY,
-	});
+	const [state, setState] = useState(EMPTY_OBJECT);
 	const {
-		sizechartSizesView,
-		savedSizesView,
+		sizechartSizesView = EMPTY_ARRAY,
+		savedSizesView = EMPTY_ARRAY,
 	} = state;
 
-	const viewSizechartSize = ({
+	const sizechartChangeHandler = ({
 		displayName,
 		selectedObject: { id, measurements },
 	}) => measurements && setState({
@@ -62,7 +58,7 @@ function SizechartPage({ slug }) {
 		],
 	});
 
-	const toggleSavedSize = ({
+	const sizeChangeHandler = ({
 		id,
 		name,
 		measurements,
@@ -87,11 +83,11 @@ function SizechartPage({ slug }) {
 				}
 				textModule={
 					<SizechartSizesComparisonView
-						onSizechartChange={viewSizechartSize}
+						sizesHeader="My saved sizes"
 						sizechart={sizechart}
 						sizes={savedSizes}
-						sizesHeader="My saved sizes"
-						onSizesChange={toggleSavedSize}
+						onSizechartChange={sizechartChangeHandler}
+						onSizesChange={sizeChangeHandler}
 						//
 						selectedSavedSize={savedSizesView[0]}
 						selectedSizechartSize={sizechartSizesView[0]}

@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { bool, func, object } from 'prop-types';
 import { Field, Form } from 'react-final-form';
+import { RadioLabel } from '@components/inputs';
 import {
 	capitalize,
 	RETURN_NULL,
 	IS_TRUTHY,
 } from '@utils';
-import { RadioLabel } from './RadioLabel';
 import {
 	DIVIDER,
 	SIZECHART_ATTRIBUTES_CHAIN,

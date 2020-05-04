@@ -1,3 +1,5 @@
+import React from 'react';
+import { bool, object, string } from 'prop-types';
 import cn from 'classnames';
 import styles from './styles.scss';
 
@@ -22,3 +24,14 @@ export function RadioLabel({
 		</label>
 	)
 }
+
+
+RadioLabel.propTypes = {
+	defaultSelected: bool,
+	input: object.isRequired,
+	label: string.isRequired,
+};
+
+RadioLabel.defaultProps = {
+	defaultSelected: false,
+};

@@ -53,15 +53,13 @@ export function SizechartSizesComparisonView({
 				</div>
 			)}
 
-			{(selectedSavedSize || selectedSizechartSize) && (
+			{selectedSavedSize && (
 				<div className={styles.comparison}>
 					<h3>Measurements</h3>
-					{selectedSavedSize && (
-						<TextSize {...selectedSavedSize} />
-					)}
 					{selectedSizechartSize && (
 						<TextSize {...selectedSizechartSize} />
 					)}
+					<TextSize {...selectedSavedSize} />
 				</div>
 			)}
 		</div>
