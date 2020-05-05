@@ -1,3 +1,13 @@
+import Router from 'next/router';
+import { getMe } from '@state/auth';
+import qs from 'qs'; // deeply nested dependency...
+
+const LOGIN_PATH = '/login';
+
+function returnError(error) {
+	return { error };
+}
+
 function placeholderGetInitialProps(props) {
 	const {
 		asPath,
@@ -17,10 +27,34 @@ function QueryProvider(query) {
 	};
 }
 
+function redirect({
+	query,
+	asPath,
+	pathname,
+	res,
+}) {
+	const redirectQuery = {
+		...query,
+		asPath,
+		pathname,
+	};
+
+	if (res) {
+		return res.writeHead(302,{
+			Location: `${LOGIN_PATH}?${qs.stringify(redirectQuery)}`,
+		}).end();
+	}
+
+	return Router.push({
+		pathname: LOGIN_PATH,
+		query: redirectQuery,
+	});
+}
+
 export function populatePage(Container) {
 	const {
 		populate = [],
-		provide = {}
+		provide = {},
 	} = Container;
 
 	const { getInitialProps = placeholderGetInitialProps } = Container;
@@ -29,7 +63,23 @@ export function populatePage(Container) {
 		const {
 			query,
 			store: { dispatch },
+			res,
+			pathname,
+			asPath,
 		} = providedProps;
+		// Redirect for private routes
+		if (Container.private) {
+			const { error } = await dispatch(getMe()).catch(returnError);
+			if (error) {
+				return redirect({
+					query,
+					asPath,
+					pathname,
+					res,
+				});
+			}
+		}
+		//
 		const provideQuery = QueryProvider({
 			...provide,
 			...query,

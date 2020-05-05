@@ -1,9 +1,9 @@
 import { reduceObjectsToMap } from '@utils';
 
 const types = {
-	start: 'topstitch.sizecharts.getSizechart.start',
-	success: 'topstitch.sizecharts.getSizechart.success',
-	fail: 'topstitch.sizecharts.getSizechart.fail',
+	start: 'seamstress.sizecharts.getSizechart.start',
+	success: 'seamstress.sizecharts.getSizechart.success',
+	fail: 'seamstress.sizecharts.getSizechart.fail',
 };
 
 export const getSizechartReducer = {

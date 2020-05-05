@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { string } from 'prop-types';
 import { Form } from 'react-final-form';
 import { Page, Sizechart } from '@components';
 import { BrandCreateForm } from '@forms';
-import { useSelector, useSubmit } from '@utils/hooks';
 import { 
 	createBrand,
 } from '@state/actions';
+import { useSelector, useSubmit } from '@utils/hooks';
+import { EMPTY_OBJECT } from '@constants';
 
 function addSizechartSelector({
 	brands: {
@@ -20,6 +21,7 @@ function addSizechartSelector({
 }
 
 export default function AddSizechartPage() {
+	const [{ selectedAttribute }, setState] = useState(EMPTY_OBJECT);
 	const [
 		submitBrand,
 	] = useSubmit(
@@ -30,15 +32,17 @@ export default function AddSizechartPage() {
 	);
 	return (
 		<Page title="Add sizechart">
-			<Form
-				component={BrandCreateForm}
-				onSubmit={submitBrand}
-			/>
+			{(!selectedAttribute || selectedAttribute === 'brand') && (
+				<Form
+					component={BrandCreateForm}
+					onSubmit={submitBrand}
+				/>
+			)}
 
 			{brand && (
 				<Sizechart
 					sizechart={brand}
-					onChange={console.log}
+					onChange={setState}
 				/>
 			)}
 		</Page>

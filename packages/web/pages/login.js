@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { string } from 'prop-types';
+import Router from 'next/router';
 import { Form } from 'react-final-form';
 import { Page } from '@components';
 import { LoginForm } from '@forms';
@@ -9,8 +11,14 @@ function loginPageSelector({ auth: { me } }) {
 	return { me };
 }
 
-export default function LoginPage() {
+export default function LoginPage({ ...redirect }) {
 	const [submitLogIn] = useSubmit(logIn);
+	const { me } = useSelector(loginPageSelector);
+	useEffect(() => {
+		if (me) {
+			Router.push(redirect);
+		}
+	}, [!me])
 	return (
 		<Page title="Log in">
 			<Form
@@ -20,3 +28,11 @@ export default function LoginPage() {
 		</Page>
 	);
 }
+
+LoginPage.propTypes = {
+	pathname: string,
+};
+
+LoginPage.defaultProps = {
+	pathname: '/',
+};

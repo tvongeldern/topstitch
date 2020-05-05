@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { string } from 'prop-types';
-import { Form } from 'react-final-form';
 import {
 	GarmentComparisonView,
 	InteractiveImageViewer,
@@ -11,8 +10,6 @@ import { TShirt } from '@garment-builders';
 import { getSizechart } from '@state/actions';
 import { useSelector } from '@utils/hooks';
 import { EMPTY_ARRAY, EMPTY_OBJECT } from '@constants';
-import sizechart from './_sizechart.json';
-import savedSizes from './_mysavedsizes.json';
 
 function sizechartPageSelector({
 	auth: {
@@ -28,11 +25,11 @@ function sizechartPageSelector({
 	};
 }
 
-function SizechartPage({ slug }) {
-	// const { savedSizes, sizecharts } = useSelector(
-	// 	sizechartPageSelector,
-	// );
-	// const sizechart = sizecharts[slug];
+function EditSizechartPage({ slug }) {
+	const { savedSizes, sizecharts } = useSelector(
+		sizechartPageSelector,
+	);
+	const sizechart = sizecharts[slug];
 
 	if (!sizechart) {
 		return <Page error="Sizechart not found" />;
@@ -98,6 +95,10 @@ function SizechartPage({ slug }) {
 	);
 }
 
-SizechartPage.populate = [getSizechart];
+EditSizechartPage.populate = [getSizechart];
 
-export default SizechartPage;
+EditSizechartPage.propTypes = {
+	slug: string.isRequired,
+};
+
+export default EditSizechartPage;

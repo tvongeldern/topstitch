@@ -4,7 +4,10 @@ import { Field } from 'react-final-form';
 import { Button, TextInput } from '@components';
 import styles from './styles.scss';
 
-export function BrandCreateForm({ handleSubmit }) {
+export function BrandCreateForm({
+	handleSubmit,
+	submitError,
+}) {
 	return (
 		<form onSubmit={handleSubmit}>
 
@@ -21,6 +24,8 @@ export function BrandCreateForm({ handleSubmit }) {
 				name="slug"
 				label="Slug"
 			/>
+
+			<p className={styles.error}>{submitError}</p>
 
 			<Button type="submit">Submit brand</Button>
 

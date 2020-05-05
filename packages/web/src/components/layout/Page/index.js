@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { NavBar } from '../NavBar';
 import styles from './styles.scss';
 
-const BASE_TITLE = 'TailorStand';
+const BASE_TITLE = 'Topstitch';
 const IS_TRUTHY = (v) => v;
 
 export function Page({

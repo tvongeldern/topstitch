@@ -18,7 +18,7 @@ export const getMeReducer = {
 	}),
 };
 
-export const getMe = ({  }) => ({
+export const getMe = () => ({
 	types: [types.start, types.success, types.fail],
 	promise: ({ api }) => api.get('/me/'),
 });

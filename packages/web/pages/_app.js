@@ -4,8 +4,8 @@ import { Provider } from 'react-redux';
 import { provideStore } from '@state/store';
 import { populatePage } from '@utils/hoc';
 
-class TailorStand extends App {
-	static async getInitialProps({ Component, router, ctx }) {
+class Topstitch extends App {
+	static async getInitialProps({ Component, ctx }) {
 		const Container = populatePage(Component);
 		const initialProps = await Container.getInitialProps(ctx);
 		return { initialProps };
@@ -20,4 +20,4 @@ class TailorStand extends App {
 	}
 }
 
-export default provideStore(TailorStand);
+export default provideStore(Topstitch);
