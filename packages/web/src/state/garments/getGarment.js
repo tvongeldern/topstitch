@@ -1,7 +1,7 @@
 const types = {
-	start: 'seamstress.garments.getGarment.start',
-	success: 'seamstress.garments.getGarment.success',
-	fail: 'seamstress.garments.getGarment.fail',
+	start: 'topstitch.garments.getGarment.start',
+	success: 'topstitch.garments.getGarment.success',
+	fail: 'topstitch.garments.getGarment.fail',
 };
 
 export const getGarmentReducer = {

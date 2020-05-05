@@ -1,7 +1,7 @@
 const types = {
-	start: 'seamstress.auth.createAccount.start',
-	success: 'seamstress.auth.createAccount.success',
-	fail: 'seamstress.auth.createAccount.fail',
+	start: 'topstitch.auth.createAccount.start',
+	success: 'topstitch.auth.createAccount.success',
+	fail: 'topstitch.auth.createAccount.fail',
 };
 
 export const createAccountReducer = {

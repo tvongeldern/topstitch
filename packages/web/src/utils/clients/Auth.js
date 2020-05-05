@@ -1,4 +1,5 @@
 import Amplify, { Auth as AmplifyAuth } from 'aws-amplify';
+import { EMPTY_FUNCTION } from '@utils';
 import { config } from '@constants';
 
 function CookiesStorage({ cookies }) {
@@ -58,8 +59,8 @@ export function Auth({ cookies } = {}) {
 		return { data };
 	};
 
-	this.refresh = async function resendSignUp() {
-		const data = await AmplifyAuth.currentSession();
+	this.refresh = async function refreshAuth() {
+		const data = await AmplifyAuth.currentSession().catch(EMPTY_FUNCTION);
 		return { data };
 	};
 }

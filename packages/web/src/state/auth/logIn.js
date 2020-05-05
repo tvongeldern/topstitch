@@ -1,7 +1,7 @@
 const types = {
-	start: 'seamstress.auth.logIn.start',
-	success: 'seamstress.auth.logIn.success',
-	fail: 'seamstress.auth.logIn.fail',
+	start: 'topstitch.auth.logIn.start',
+	success: 'topstitch.auth.logIn.success',
+	fail: 'topstitch.auth.logIn.fail',
 };
 
 export const logInReducer = {

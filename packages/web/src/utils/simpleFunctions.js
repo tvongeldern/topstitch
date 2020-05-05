@@ -12,6 +12,8 @@ export const RETURN_EMPTY_OBJECT = () => EMPTY_OBJECT;
 
 export const RETURN_NULL = () => null;
 
+export const EMPTY_FUNCTION = () => {};
+
 export function capitalize(value = '') {
 	return value.charAt(0).toUpperCase() + value.slice(1);
 }

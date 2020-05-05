@@ -1,9 +1,9 @@
 import { reduceObjectsToMap } from '@utils';
 
 const types = {
-	start: 'seamstress.segments.getGarmentSegments.start',
-	success: 'seamstress.segments.getGarmentSegments.success',
-	fail: 'seamstress.segments.getGarmentSegments.fail',
+	start: 'topstitch.segments.getGarmentSegments.start',
+	success: 'topstitch.segments.getGarmentSegments.success',
+	fail: 'topstitch.segments.getGarmentSegments.fail',
 };
 
 export const getGarmentSegmentsReducer = {

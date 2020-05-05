@@ -1,9 +1,9 @@
 import { reduceObjectsToMap } from '@utils';
 
 const types = {
-	start: 'seamstress.brands.searchBrands.start',
-	success: 'seamstress.brands.searchBrands.success',
-	fail: 'seamstress.brands.searchBrands.fail',
+	start: 'topstitch.brands.searchBrands.start',
+	success: 'topstitch.brands.searchBrands.success',
+	fail: 'topstitch.brands.searchBrands.fail',
 };
 
 export const searchBrandsReducer = {

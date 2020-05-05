@@ -1,9 +1,9 @@
 import { reduceObjectsToMap } from '@utils';
 
 const types = {
-	start: 'seamstress.auth.getMe.start',
-	success: 'seamstress.auth.getMe.success',
-	fail: 'seamstress.auth.getMe.fail',
+	start: 'topstitch.auth.getMe.start',
+	success: 'topstitch.auth.getMe.success',
+	fail: 'topstitch.auth.getMe.fail',
 };
 
 export const getMeReducer = {
