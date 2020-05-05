@@ -10,6 +10,8 @@ import { TShirt } from '@garment-builders';
 import { getSizechart } from '@state/actions';
 import { useSelector } from '@utils/hooks';
 import { EMPTY_ARRAY, EMPTY_OBJECT } from '@constants';
+import savedSizes from '../../dev/mocks/_mysavedsizes.json';
+import sizechart from '../../dev/mocks/_sizechart.json';
 
 function sizechartPageSelector({
 	auth: {
@@ -25,11 +27,11 @@ function sizechartPageSelector({
 	};
 }
 
-function EditSizechartPage({ slug }) {
-	const { savedSizes, sizecharts } = useSelector(
-		sizechartPageSelector,
-	);
-	const sizechart = sizecharts[slug];
+function SizechartPage({ slug }) {
+	// const { savedSizes, sizecharts } = useSelector(
+	// 	sizechartPageSelector,
+	// );
+	// const sizechart = sizecharts[slug];
 
 	if (!sizechart) {
 		return <Page error="Sizechart not found" />;
@@ -95,10 +97,10 @@ function EditSizechartPage({ slug }) {
 	);
 }
 
-EditSizechartPage.populate = [getSizechart];
+SizechartPage.populate = [getSizechart];
 
-EditSizechartPage.propTypes = {
+SizechartPage.propTypes = {
 	slug: string.isRequired,
 };
 
-export default EditSizechartPage;
+export default SizechartPage;

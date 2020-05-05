@@ -36,10 +36,10 @@ function SizechartForm({
 	const { name: sizechartHeader = 'Sizechart' } = sizechart;
 
 	const {
+		displayName,
 		radioGroups,
 		selectedAttribute,
 		selectedObject,
-		nameChain,
 	} = SIZECHART_ATTRIBUTES_CHAIN.reduce(
 		reduceAttributesChain,
 		{
@@ -51,8 +51,8 @@ function SizechartForm({
 	useEffect(() => {
 		if (selected) {
 			onChange({ 
-				displayName: nameChain.filter(IS_TRUTHY).join(' '),
 				selectedAttribute: selectedAttribute.slice(0, -1),
+				displayName,
 				selectedObject,
 			});
 		}

@@ -30,7 +30,6 @@ async function up() {
 
 		const adidasMen = await adidas.createCollection({
 			name: 'Men',
-			tag: 'men',
 		});
 		await adidasMen.addGarment(tshirt.id);
 
@@ -40,7 +39,6 @@ async function up() {
 
 			const adidasMenSlim = await adidasMen.createFit({
 				name: 'Slim',
-				tag: 'slim',
 				garmentId: tshirt.id,
 			});
 
@@ -50,7 +48,6 @@ async function up() {
 
 				const adidasMenSlimSmall = await adidasMenSlim.createSize({
 					name: 'Small',
-					tag: 'small',
 				});
 
 					await adidasMenSlimSmall.createMeasurement({
@@ -69,7 +66,6 @@ async function up() {
 
 				const adidasMenSlimMedium = await adidasMenSlim.createSize({
 					name: 'Medium',
-					tag: 'medium',
 				});
 
 				await adidasMenSlimMedium.createMeasurement({
@@ -88,7 +84,6 @@ async function up() {
 
 				const adidasMenSlimLarge = await adidasMenSlim.createSize({
 					name: 'Large',
-					tag: 'large',
 				});
 
 				await adidasMenSlimLarge.createMeasurement({
@@ -108,7 +103,6 @@ async function up() {
 
 			const adidasMenRegular = await adidasMen.createFit({
 				name: 'Regular',
-				tag: 'regular',
 				garmentId: tshirt.id,
 			});
 
@@ -118,7 +112,6 @@ async function up() {
 
 				const adidasMenRegularSmall = await adidasMenRegular.createSize({
 					name: 'Small',
-					tag: 'small',
 				});
 
 				await adidasMenRegularSmall.createMeasurement({
@@ -137,7 +130,6 @@ async function up() {
 
 				const adidasMenRegularMedium = await adidasMenRegular.createSize({
 					name: 'Medium',
-					tag: 'medium',
 				});
 
 				await adidasMenRegularMedium.createMeasurement({
@@ -156,7 +148,6 @@ async function up() {
 
 				const adidasMenRegularLarge = await adidasMenRegular.createSize({
 					name: 'Large',
-					tag: 'large',
 				});
 
 				await adidasMenRegularLarge.createMeasurement({
@@ -177,7 +168,6 @@ async function up() {
 
 		const adidasWomen = await adidas.createCollection({
 			name: 'Women',
-			tag: 'women',
 		});
 		await adidasWomen.addGarment(tshirt.id);
 
@@ -187,7 +177,6 @@ async function up() {
 
 	const adidasWomenSlim = await adidasWomen.createFit({
 		name: 'Petite',
-		tag: 'petite',
 		garmentId: tshirt.id,
 	});
 
@@ -197,7 +186,6 @@ async function up() {
 
 	const adidasWomenSlimSmall = await adidasWomenSlim.createSize({
 		name: 'Small',
-		tag: 'small',
 	});
 
 	await adidasWomenSlimSmall.createMeasurement({
@@ -216,7 +204,6 @@ async function up() {
 
 	const adidasWomenSlimMedium = await adidasWomenSlim.createSize({
 		name: 'Medium',
-		tag: 'medium',
 	});
 
 	await adidasWomenSlimMedium.createMeasurement({
@@ -235,7 +222,6 @@ async function up() {
 
 	const adidasWomenSlimLarge = await adidasWomenSlim.createSize({
 		name: 'Large',
-		tag: 'large',
 	});
 
 	await adidasWomenSlimLarge.createMeasurement({
@@ -255,7 +241,6 @@ async function up() {
 
 	const adidasWomenRegular = await adidasWomen.createFit({
 		name: 'Regular',
-		tag: 'regular',
 		garmentId: tshirt.id,
 	});
 
@@ -265,7 +250,6 @@ async function up() {
 
 	const adidasWomenRegularSmall = await adidasWomenRegular.createSize({
 		name: 'Small',
-		tag: 'small',
 	});
 
 	await adidasWomenRegularSmall.createMeasurement({
@@ -284,7 +268,6 @@ async function up() {
 
 	const adidasWomenRegularMedium = await adidasWomenRegular.createSize({
 		name: 'Medium',
-		tag: 'medium',
 	});
 
 	await adidasWomenRegularMedium.createMeasurement({
@@ -303,7 +286,6 @@ async function up() {
 
 	const adidasWomenRegularLarge = await adidasWomenRegular.createSize({
 		name: 'Large',
-		tag: 'large',
 	});
 
 	await adidasWomenRegularLarge.createMeasurement({

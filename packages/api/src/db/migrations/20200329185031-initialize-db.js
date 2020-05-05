@@ -104,15 +104,6 @@ const slug = {
   },
 };
 
-const tag = {
-  type: DataTypes.STRING,
-  allowNull: false,
-  validate: {
-    is: SLUG,
-    len: [2, 32],
-  },
-};
-
 const TABLES = {
   accounts: {
     columns: {
@@ -137,10 +128,9 @@ const TABLES = {
     foreignKeys: {
       brandId: {
         model: 'brands',
-        unique: ['name', 'tag'],
       },
     },
-    columns: { name, tag },
+    columns: { name },
   },
   collectionGarments: {
     foreignKeys: {
@@ -156,13 +146,13 @@ const TABLES = {
     foreignKeys: {
       collectionId: {
         model: 'collections',
-        unique: ['name', 'tag'],
+        unique: ['name'],
       },
       garmentId: {
         model: 'garments',
       }
     },
-    columns: { name, tag },
+    columns: { name },
   },
   garments: {
     columns: {
@@ -205,10 +195,10 @@ const TABLES = {
     foreignKeys: {
       fitId: {
         model: 'fits',
-        unique: ['name', 'tag'],
+        unique: ['name'],
       },
     },
-    columns: { name, tag },
+    columns: { name },
   },
   sizeSegments: {
     foreignKeys: {

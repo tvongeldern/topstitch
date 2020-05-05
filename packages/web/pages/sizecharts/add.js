@@ -1,33 +1,53 @@
 import React, { useEffect, useState } from 'react';
-import { string } from 'prop-types';
 import { Form } from 'react-final-form';
 import { Page, Sizechart } from '@components';
-import { BrandCreateForm } from '@forms';
+import {
+	BrandCreateForm,
+	CollectionCreateForm,
+} from '@forms';
 import { 
 	createBrand,
+	createCollection,
 } from '@state/actions';
 import { useSelector, useSubmit } from '@utils/hooks';
 import { EMPTY_OBJECT } from '@constants';
+
+function reduceSizechart(sizchart, [attributeName, store]) {
+	return {
+		...sizchart,
+		[attributeName]: Object.values(store),
+	};
+}
 
 function addSizechartSelector({
 	brands: {
 		brands,
 		created: createdBrand,
 	},
+	collections: {
+		collections,
+	},
 }) {
-	return {
-		brand: brands[createdBrand],
-	};
+	const brand = brands[createdBrand];
+	const sizechart = Object.entries({
+		collections,
+	}).reduce(reduceSizechart, brand);
+	return { sizechart };
 }
 
 export default function AddSizechartPage() {
-	const [{ selectedAttribute }, setState] = useState(EMPTY_OBJECT);
+	const [{
+		selectedAttribute,
+		selectedObject,
+	}, setState] = useState(EMPTY_OBJECT);
 	const [
 		submitBrand,
+		submitCollection,
 	] = useSubmit(
 		createBrand,
+		createCollection,
 	);
-	const { brand } = useSelector(
+	const { sizechart } = useSelector(
 		addSizechartSelector,
 	);
 	return (
@@ -39,9 +59,17 @@ export default function AddSizechartPage() {
 				/>
 			)}
 
-			{brand && (
+			{selectedAttribute === 'collection' && (
+				<Form
+					component={CollectionCreateForm}
+					onSubmit={submitCollection}
+					// initialValues={{ brandId: selectedObject.id }}
+				/>
+			)}
+
+			{sizechart && (
 				<Sizechart
-					sizechart={brand}
+					sizechart={sizechart}
 					onChange={setState}
 				/>
 			)}

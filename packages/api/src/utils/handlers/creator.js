@@ -1,5 +1,5 @@
-export function creator(ParentModel, childModelName) {
-	if (!childModelName) {
+export function creator(ParentModel, methodName) {
+	if (!methodName) {
 		return async function create({ body }, response, next) {
 			try {
 				const object = new ParentModel(body);
@@ -23,21 +23,20 @@ export function creator(ParentModel, childModelName) {
 		response,
 		next,
 	) {
-		const method = `create${childModelName}`;
 		try {
 			const parent = await ParentModel.findByPk(id);
 			if (!parent) {
 				next({ status: 404, message: `No ${ParentModel.name} found with ID "${id}"` });
 			}
 			try {
-				const child = await parent[method](body);
+				const child = await parent[methodName](body);
 				const json = child.toJSON();
 				return response.send(json);
 			} catch (error) {
 				return next({
 					error,
 					status: 400,
-					message: `Error creating ${childModelName}`,
+					message: 'Could not create record',
 				})
 			}
 		} catch (error) {

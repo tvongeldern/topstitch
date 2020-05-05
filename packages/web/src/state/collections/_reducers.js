@@ -1,0 +1,1 @@
+export { createCollectionReducer } from './createCollection';

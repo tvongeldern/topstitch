@@ -85,15 +85,3 @@ export const slug = {
 		len: [2, 32],
 	},
 };
-
-// Similar to a slug,
-// but is only unique amongst children of its parent object
-export const tag = {
-	type: DataTypes.STRING,
-	allowNull: false,
-	unique: true,
-	validate: {
-		is: SLUG,
-		len: [2, 32],
-	},
-};

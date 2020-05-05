@@ -7,9 +7,11 @@ const SEARCH_ATTRIBUTES = ['id', 'name', 'slug'];
 const brands = new Router();
 
 brands.post('/', creator(Brand));
+brands.get('/', search(Brand, SEARCH_ATTRIBUTES))
 
 brands.get('/:slug', getOne(Brand));
 
-brands.get('/', search(Brand, SEARCH_ATTRIBUTES))
+brands.post('/:id/collections/', creator(Brand, 'createCollection'));
+
 
 export default brands;

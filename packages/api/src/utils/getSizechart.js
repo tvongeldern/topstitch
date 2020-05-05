@@ -169,18 +169,15 @@ export async function getSizechart({
 
 // 	const collection = await brand.createCollection({
 // 		name: 'Collection',
-// 		tag: 'collection',
 // 	});
 // 	await collection.addGarment(shirt.id);
 // 	const fit = await collection.createFit({
 // 		name: 'Fit',
-// 		tag: 'fit',
 // 		garmentId: shirt.id,
 // 	});
 // 	// await fit.setGarment(shirt.id);
 // 	const medium = await fit.createSize({
 // 		name: 'Medium',
-// 		tag: 'med',
 // 	});
 // 	const measurement = await medium.createMeasurement({
 // 		average: 42,
