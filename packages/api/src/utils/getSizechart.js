@@ -144,7 +144,6 @@ export async function getSizechart({
 		const json = getJSON(parent);
 		return formatSizechart(json);
 	} catch (error) {
-		console.log(error);
 		throw new Error(`Invalid ${type} ID`);
 	}
 }
