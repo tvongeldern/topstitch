@@ -5,14 +5,14 @@ import { NavBar } from '../NavBar';
 import styles from './styles.scss';
 
 const BASE_TITLE = 'Topstitch';
-const IS_TRUTHY = (v) => v;
+const RETURN_SELF = (v) => v;
 
 export function Page({
 	children,
 	error,
 	title,
 }) {
-	const pageTitle = [BASE_TITLE, title].filter(IS_TRUTHY).join(' | ');
+	const pageTitle = [BASE_TITLE, title].filter(RETURN_SELF).join(' | ');
 	return (
 		<div className={styles.container}>
 			<Head>

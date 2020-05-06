@@ -2,7 +2,7 @@ import React from 'react';
 import { func } from 'prop-types';
 import { Field } from 'react-final-form';
 import { Button, TextInput } from '@components';
-import { IS_TRUTHY } from '@utils';
+import { RETURN_SELF } from '@utils';
 import {
 	composeValidators,
 	validateEmail,
@@ -23,7 +23,7 @@ export function SignupForm({
 	hasValidationErrors,
 	submitting,
 }) {
-	const hasTouchedField = Object.values(touched).find(IS_TRUTHY);
+	const hasTouchedField = Object.values(touched).find(RETURN_SELF);
 	const hasError = hasTouchedField && (hasSubmitErrors || hasValidationErrors);
 	return (
 		<form onSubmit={handleSubmit} noValidate>

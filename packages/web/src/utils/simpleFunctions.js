@@ -1,6 +1,6 @@
 import { EMPTY_OBJECT } from '@constants';
 
-export const IS_TRUTHY = (v) => v;
+export const RETURN_SELF = (v) => v;
 
 export const IS_FALSEY = (v) => !v;
 

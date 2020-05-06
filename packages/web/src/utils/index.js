@@ -5,4 +5,5 @@ export * from './hoc';
 export * from './simpleFunctions';
 
 export { getInputErrorState } from './getInputErrorState';
+export { getSizechartFromStore } from './getSizechartFromStore';
 export { reduceMeasurementsToObject } from './reduceMeasurementsToObject';

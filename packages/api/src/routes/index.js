@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { genericEndpointError } from '@middleware';
 import brands from './brands';
+import collections from './collections';
 import garments from './garments';
 import me from './me';
 import sizecharts from './sizecharts';
@@ -8,6 +9,7 @@ import sizecharts from './sizecharts';
 const router = new Router();
 
 router.use('/brands', brands);
+router.use('/collections', collections);
 router.use('/garments', garments);
 router.use('/me', me);
 router.use('/sizecharts', sizecharts);

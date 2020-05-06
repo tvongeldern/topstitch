@@ -1,13 +1,13 @@
-export function addExisting(ParentModel, childModelName) {
+export function addExisting(ParentModel, methodName) {
 	return async function add(
 		{
 			logger,
-			params: { childId, id },
+			params: { id },
+			body: { id: childId },
 		},
 		response,
 		errorHandler,
 	) {
-		const method = `add${childModelName}`
 		try {
 			const parent = await ParentModel.findByPk(id);
 			if (!parent) {
@@ -16,16 +16,12 @@ export function addExisting(ParentModel, childModelName) {
 					message: `No ${ParentModel.name} found with ID ${id}`,
 				});
 			}
-			const updated = await parent[method](childId);
-			const json = updated.toJSON();
-			response.send(json);
+			const updated = await parent[methodName](childId);
+			// const json = updated.toJSON();
+			response.send(updated);
 		} catch (error) {
 			logger.error(error);
-			return errorHandler({
-				error,
-				status: 400,
-				message: 'Invalid ID provided',
-			});
+			return errorHandler({ error });
 		}
 	}
 }

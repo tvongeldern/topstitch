@@ -90,7 +90,9 @@ function formatCollection({ id, name, fits }) {
 	return formatSizechart({
 		id,
 		name,
-		garments: Object.values(fits.reduce(reduceFitsToMap, EMPTY_OBJECT)),
+		garments: Object.values(
+			fits.reduce(reduceFitsToMap, EMPTY_OBJECT),
+		),
 	});
 }
 
@@ -146,59 +148,3 @@ export async function getSizechart({
 		throw new Error(`Invalid ${type} ID`);
 	}
 }
-
-
-// const asyncPause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-// const now = Date.now();
-
-// async function test() {
-// 	await asyncPause(2000);
-// 	console.log('Starting...');
-// 	const shirt = await new Garment({
-// 		name: `Shirt ${now}`,
-// 		slug: `shirt-${now}`,
-// 	}).save();
-// 	const hip = await shirt.createSegment({
-// 		name: 'Hip',
-// 		propName: 'hip',
-// 	});
-// 	const brand = await new Brand({
-// 		name: `Brand ${now}`,
-// 		slug: `brand-${now}`,
-// 	}).save();
-
-// 	const collection = await brand.createCollection({
-// 		name: 'Collection',
-// 	});
-// 	await collection.addGarment(shirt.id);
-// 	const fit = await collection.createFit({
-// 		name: 'Fit',
-// 		garmentId: shirt.id,
-// 	});
-// 	// await fit.setGarment(shirt.id);
-// 	const medium = await fit.createSize({
-// 		name: 'Medium',
-// 	});
-// 	const measurement = await medium.createMeasurement({
-// 		average: 42,
-// 		segmentId: hip.id,
-// 	});
-// 	// await measurement.setSegment(hip.id);
-// 	// const measurement2 = await medium.createMeasurement({
-// 	// 	average: 48,
-// 	// });
-// 	// await measurement2.setSegment(hip.id);
-// 	const sizechart = await getSizechart({
-// 		type: 'brand',
-// 		id: brand.id,
-// 	});
-// 	console.log(
-// 		JSON.stringify(
-// 			sizechart,
-// 			null,
-// 			2,
-// 		),
-// 	);
-// }
-
-// test();

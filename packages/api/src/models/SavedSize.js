@@ -4,4 +4,7 @@ import {
 	name,
 } from './_fields';
 
-export const SavedSize = db.define('savedSize', { id, name });
+export const SavedSize = db.define(
+	'savedSize',
+	{ id, name },
+);

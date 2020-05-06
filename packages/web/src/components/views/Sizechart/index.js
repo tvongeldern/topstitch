@@ -5,7 +5,7 @@ import { RadioLabel } from '@components/inputs';
 import {
 	capitalize,
 	RETURN_NULL,
-	IS_TRUTHY,
+	RETURN_SELF,
 } from '@utils';
 import {
 	DIVIDER,
@@ -43,7 +43,7 @@ function SizechartForm({
 	} = SIZECHART_ATTRIBUTES_CHAIN.reduce(
 		reduceAttributesChain,
 		{
-			scopedSizechart: { brands: [sizechart] },
+			scope: { brands: [sizechart] },
 			selected,
 		},
 	);
@@ -51,7 +51,7 @@ function SizechartForm({
 	useEffect(() => {
 		if (selected) {
 			onChange({ 
-				selectedAttribute: selectedAttribute.slice(0, -1),
+				selectedAttribute,
 				displayName,
 				selectedObject,
 			});
@@ -82,7 +82,7 @@ function SizechartForm({
 								type="radio"
 								label={getLabel(member)}
 								component={RadioLabel}
-								value={[baseValue, member.id].join(DIVIDER)}
+								value={baseValue ? [baseValue, member.id].join(DIVIDER) : member.id}
 								key={member.id}
 								defaultSelected={selectedId === member.id}
 							/>

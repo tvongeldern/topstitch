@@ -1,0 +1,1 @@
+export { createFitReducer } from './createFit';

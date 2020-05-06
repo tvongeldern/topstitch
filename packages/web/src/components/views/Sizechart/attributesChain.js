@@ -13,12 +13,12 @@ export function reduceAttributesChain(
 	{
 		// in
 		selected,
-		scopedSizechart,
+		scope,
 		// transitory
 		selectedIds = selected.split(DIVIDER),
 		trailingNameChain,
 		// out
-		idChain,
+		trailingIdChain = [],
 		displayName,
 		radioGroups = {},
 		selectedAttribute,
@@ -30,7 +30,7 @@ export function reduceAttributesChain(
 	},
 	index,
 ) {
-	const members = scopedSizechart[attribute] || [];
+	const members = scope[attribute] || [];
 	const selectedId = selectedIds[index];
 	const selectedChild = getSelectedChild({
 		members,
@@ -38,24 +38,24 @@ export function reduceAttributesChain(
 	});
 	const defaultSelected = !selectedChild && (members[0] || {});
 	const nextIterationScope = selectedChild || defaultSelected;
-	const nextIterationIdChain = idChain ? [...idChain, scopedSizechart.id] : [];
-	const nameChain = !trailingNameChain ? [] : trailingNameChain.concat(scopedSizechart.name);
+	const idChain = scope.id ? trailingIdChain.concat(scope.id) : trailingIdChain;
+	const nameChain = !trailingNameChain ? [] : trailingNameChain.concat(scope.name);
 	return {
 		// pass through
 		selectedIds,
 		// reduce
 		trailingNameChain: nameChain,
-		idChain: nextIterationIdChain,
-		scopedSizechart: selectedChild || defaultSelected,
+		trailingIdChain: idChain,
+		scope: selectedChild || defaultSelected,
 		// out
 		displayName: !selectedId && !displayName ? nameChain.join(' ') : displayName,
-		selectedAttribute: selectedChild ? attribute : selectedAttribute,
+		selectedAttribute: selectedId ? attribute.slice(0, -1) : selectedAttribute,
 		selectedObject: selectedChild || selectedObject,
 		radioGroups: {
 			...radioGroups,
 			[attribute]: {
 				attribute,
-				baseValue: nextIterationIdChain.join(DIVIDER),
+				baseValue: idChain.join(DIVIDER),
 				members,
 				selectedId: nextIterationScope.id,
 				...attributePayload,

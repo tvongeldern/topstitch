@@ -141,6 +141,9 @@ const TABLES = {
         model: 'garments',
       },
     },
+    uniqueIndexes: [
+      ['garmentId', 'collectionId'],
+    ],
   },
   fits: {
     foreignKeys: {
@@ -181,6 +184,9 @@ const TABLES = {
         allowNull: false,
       },
     },
+    uniqueIndexes: [
+      ['segmentId', 'sizeId'],
+    ],
   },
   segments: {
     foreignKeys: {
@@ -209,6 +215,9 @@ const TABLES = {
         model: 'segments',
       },
     },
+    uniqueIndexes: [
+      ['segmentId', 'sizeId'],
+    ],
   },
   savedSizes: {
     columns: {
@@ -245,6 +254,16 @@ const tableForeignKeys = TABLE_ENTRIES
     ], [])
   ], []);
 
+const tableUniqueIndexes = TABLE_ENTRIES
+  .filter(([name, { uniqueIndexes }]) => uniqueIndexes)
+  .reduce((indexes, [name, { uniqueIndexes }]) => [
+    ...indexes,
+    ...uniqueIndexes.map((index) => ({
+      table: name,
+      keys: index,
+    })),
+  ], []);
+
 async function up(queryInterface) {
   await queryInterface.sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
   await Promise.all(
@@ -259,10 +278,12 @@ async function up(queryInterface) {
       ),
     ),
   );
-  await queryInterface.addIndex(
-    'measurements',
-    ['segmentId', 'sizeId'],
-    { unique: true },
+  await Promise.all(
+    tableUniqueIndexes.map(({ table, keys }) => queryInterface.addIndex(
+      table,
+      keys,
+      { unique: true },
+    )),
   );
 }
 
