@@ -297,6 +297,17 @@ async function up() {
 		average: 28,
 		segmentId: chestWidth.id,
 	});
+
+
+	/**
+	 * Semi-created brand
+	 */
+	const semiBrand = await new Brand({ name: 'Semi', slug: 'semi' }).save();
+
+	const semiMen = await semiBrand.createCollection({
+		name: 'Semi Men',
+	});
+	await semiMen.addGarment(tshirt.id);
 }
 
 export default { up, down: () => ({}) };

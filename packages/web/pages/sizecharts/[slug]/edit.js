@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Form } from 'react-final-form';
 import { Page, Sizechart } from '@components';
 import {
-	BrandCreateForm,
 	CollectionCreateForm,
 	CollectionGarmentForm,
 	FitCreateForm,
@@ -18,6 +17,7 @@ import {
 	createMeasurement,
 	getAllGarments,
 	getSizechart,
+	getGarmentSegments,
 } from '@state/actions';
 import {
 	useActionCreators,
@@ -26,22 +26,33 @@ import {
 } from '@utils/hooks';
 import { EMPTY_OBJECT } from '@constants';
 
+function GarmentFilter({
+	collection, // selected fit id
+	collections, // fits store
+}) {
+	const { garments = [] } = collections[collection];
+	return function filterGarment(garment) {
+		return !garments.includes(garment.id);
+	}
+}
+
 function addSizechartSelector({
-	brands: {
-		brands,
-		created: createdBrand,
-	},
 	collections: { collections },
 	garments: { garments },
+	fits: { fits },
+	sizes: { sizes },
+	measurements: { measurements },
+	segments: { segments },
 	sizecharts: { sizecharts },
 }) {
 	return {
-		brands,
 		collections,
 		garments,
-		//
-		createdBrand,
-		sizechart: sizecharts[createdBrand] || brands[createdBrand],
+		fits,
+		sizes,
+		measurements,
+		segments,
+		sizecharts,
 	};
 }
 
@@ -59,51 +70,66 @@ function stateUpdater([state, setState]) {
 	];
 }
 
-export default function AddSizechartPage() {
+export default function AddSizechartPage({ slug }) {
 	const [
-		{ selectedAttribute, selectedObject },
+		{
+			selectedAttribute,
+			selectedObject,
+			...state
+		},
 		updateState,
 	] = stateUpdater(
 		useState(EMPTY_OBJECT),
 	);
-	const [dispatchGetSizechart] = useActionCreators(getSizechart);
+
 	const [
-		submitBrand,
+		dispatchGetSizechart,
+		dispatchGetGarmentSegments,
+	] = useActionCreators(
+		getSizechart,
+		getGarmentSegments,
+	);
+	const [
 		submitCollection,
 		submitGarment,
 		submitFit,
 		submitSize,
 		submitMeasurement,
 	] = useSubmit(
-		createBrand,
 		createCollection,
 		addGarmentToCollection,
 		createFit,
 		createSize,
 		createMeasurement,
 	);
+
 	const {
-		brands,
 		collections,
 		garments,
-		sizechart,
-		createdBrand,
+		fits,
+		sizes,
+		measurements,
+		segments,
+		//
+		sizecharts,
 	} = useSelector(
 		addSizechartSelector,
 	);
+	const sizechart = sizecharts[slug];
+
 	useEffect(() => {
-		if (createdBrand) {
-			dispatchGetSizechart({ id: createdBrand });
+		dispatchGetSizechart({ slug });
+	}, [collections, fits, garments, sizes, measurements, segments]);
+
+	useEffect(() => {
+		if (selectedAttribute === 'garment') {
+			const { slug } = garments[state.garment];
+			dispatchGetGarmentSegments({ slug });
 		}
-	},[brands, collections, garments]);
+	}, [selectedAttribute]);
+
 	return (
 		<Page title="Add sizechart">
-			{(!selectedAttribute) && (
-				<Form
-					component={BrandCreateForm}
-					onSubmit={submitBrand}
-				/>
-			)}
 
 			{selectedAttribute === 'brand' && (
 				<Form
@@ -117,8 +143,11 @@ export default function AddSizechartPage() {
 				<Form
 					component={CollectionGarmentForm}
 					onSubmit={submitGarment}
-					garments={Object.values(garments)}
 					initialValues={{ id: selectedObject.id }}
+					garments={Object.values(garments).filter(GarmentFilter({
+						collections,
+						collection: state.collection,
+					}))}
 				/>
 			)}
 
@@ -126,6 +155,10 @@ export default function AddSizechartPage() {
 				<Form
 					component={FitCreateForm}
 					onSubmit={submitFit}
+					initialValues={{
+						garmentId: selectedObject.id,
+						collectionId: state.collection,
+					}}
 				/>
 			)}
 
@@ -133,6 +166,7 @@ export default function AddSizechartPage() {
 				<Form
 					component={SizeCreateForm}
 					onSubmit={submitSize}
+					initialValues={{ fitId: selectedObject.id }}
 				/>
 			)}
 
@@ -140,6 +174,8 @@ export default function AddSizechartPage() {
 				<Form
 					component={MeasurementCreateForm}
 					onSubmit={submitMeasurement}
+					segments={Object.values(segments)}
+					initialValues={{ sizeId: selectedObject.id }}
 				/>
 			)}
 

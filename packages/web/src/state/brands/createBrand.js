@@ -12,7 +12,7 @@ export const createBrandReducer = {
 			...state.brands,
 			[response.id]: response,
 		},
-		created: response.id,
+		created: response.slug,
 	}),
 	[types.fail]: (state, { error }) => ({
 		...state,

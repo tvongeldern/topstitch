@@ -5,7 +5,9 @@ import { getSizechart } from '@utils';
 const type = 'brand';
 const attributes = ['id'];
 
-export async function getByBrand({ params: { slugOrId } }, response, next) {
+export async function getByBrand({
+	params: { slugOrId },
+}, response, next) {
 	try {
 		const isId = UUID.test(slugOrId);
 		if (isId) {

@@ -6,8 +6,18 @@ const types = {
 
 export const addGarmentToCollectionReducer = {
 	[types.start]: (state) => state,
-	[types.success]: (state, { response }) => ({
+	[types.success]: (state, { garmentId, id }) => ({
 		...state,
+		collections: {
+			...state.collections,
+			[id]: {
+				...state.collections[id],
+				garments: [
+					...(state.collections[id].garments || []),
+					garmentId,
+				],
+			},
+		},
 	}),
 	[types.fail]: (state, { error }) => ({
 		...state,
@@ -16,10 +26,11 @@ export const addGarmentToCollectionReducer = {
 };
 
 export const addGarmentToCollection = ({ id, garmentId }) => ({
+	id,
+	garmentId,
 	types: [types.start, types.success, types.fail],
 	promise: ({ api }) => api.post(
 		`/collections/${id}/garments/`,
 		{ id: garmentId },
 	),
-	test: console.log({ id, garmentId }),
 });

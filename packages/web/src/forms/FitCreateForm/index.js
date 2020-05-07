@@ -4,7 +4,7 @@ import { Field } from 'react-final-form';
 import { Button, TextInput } from '@components';
 import styles from './styles.scss';
 
-export function FitCreateForm({ handleSubmit }) {
+export function FitCreateForm({ handleSubmit, values }) {
 	return (
 		<form onSubmit={handleSubmit}>
 

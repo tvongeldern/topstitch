@@ -2,19 +2,13 @@ import React from 'react';
 import { arrayOf, func, object } from 'prop-types';
 import { Field } from 'react-final-form';
 import { Button, Dropdown } from '@components';
+import { formatDropdownOption } from '@utils';
 import styles from './styles.scss';
-
-function dropdownOption({ id, name }) {
-	return {
-		children: name,
-		value: id,
-	};
-}
 
 export function CollectionGarmentForm({
 	handleSubmit,
 	garments,
-	values,
+	submitSucceeded,
 }) {
 	return (
 		<form onSubmit={handleSubmit}>
@@ -22,7 +16,8 @@ export function CollectionGarmentForm({
 			<Field
 				name="garmentId"
 				component={Dropdown}
-				options={garments.map(dropdownOption)}
+				placeholder="Select one"
+				options={garments.map(formatDropdownOption)}
 			/>
 
 			<Button type="submit">Submit</Button>

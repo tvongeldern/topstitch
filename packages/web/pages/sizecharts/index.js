@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Router from 'next/router';
 import { Form } from 'react-final-form';
-import { Page, Sizechart } from '@components';
-import { SearchForm } from '@forms';
-import { searchBrands } from '@state/actions';
+import { Page } from '@components';
+import { BrandCreateForm, SearchForm } from '@forms';
+import { createBrand, searchBrands } from '@state/actions';
 import {
 	useActionCreators,
 	useSelector,
@@ -11,9 +11,9 @@ import {
 } from '@utils/hooks';
 
 function sizechartsPageSelector({
-	brands: { brands },
+	brands: { brands, created },
 }) {
-	return { brands };
+	return { brands, created };
 }
 
 function navigate({ q }) {
@@ -25,11 +25,22 @@ function navigate({ q }) {
 
 export default function SizechartsPage() {
 	const [dispatchSearch] = useActionCreators(
-		searchBrands
+		searchBrands,
 	);
-	const { brands } = useSelector(
+	const [submitBrand] = useSubmit(
+		createBrand,
+	);
+	const { brands, created } = useSelector(
 		sizechartsPageSelector,
 	);
+	useEffect(() => {
+		if (created) {
+			Router.push(
+				'/sizecharts/[slug]/edit',
+				`/sizecharts/${created}/edit`,
+			);
+		}
+	}, [created]);
 	return (
 		<Page title="Sizecharts">
 			<Form
@@ -38,7 +49,11 @@ export default function SizechartsPage() {
 				search={dispatchSearch}
 				brands={brands}
 			/>
-			{/* <Sizechart onChange={console.log} sizechart={sizechart} /> */}
+			
+			<Form
+				component={BrandCreateForm}
+				onSubmit={submitBrand}
+			/>
 		</Page>
 	);
 }

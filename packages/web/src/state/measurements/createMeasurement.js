@@ -1,5 +1,3 @@
-import { reduceObjectsToMap } from '@utils';
-
 const types = {
 	start: 'topstitch.measurements.createMeasurement.start',
 	success: 'topstitch.measurements.createMeasurement.success',
@@ -10,6 +8,10 @@ export const createMeasurementReducer = {
 	[types.start]: (state) => state,
 	[types.success]: (state, { response }) => ({
 		...state,
+		measurements: {
+			...state.measurements,
+			[response.id]: response,
+		},
 	}),
 	[types.fail]: (state, { error }) => ({
 		...state,
@@ -17,7 +19,10 @@ export const createMeasurementReducer = {
 	}),
 };
 
-export const createMeasurement = ({  }) => ({
+export const createMeasurement = ({ sizeId, segmentId, average }) => ({
 	types: [types.start, types.success, types.fail],
-	promise: ({ api }) => api.get(`/`),
+	promise: ({ api }) => api.post(
+		`/sizes/${sizeId}/measurements/`,
+		{ segmentId, average },
+	),
 });

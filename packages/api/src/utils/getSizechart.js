@@ -9,6 +9,13 @@ import {
 } from '@models';
 import { getJSON } from './getJSON';
 
+function reduceObjectsToMap(map, object) {
+	return {
+		...map,
+		[object.id]: object,
+	};
+}
+
 const EMPTY_OBJECT = {};
 
 const modelsMap = [
@@ -24,20 +31,20 @@ const modelsMap = [
 	[model.name]: model,
 }), {});
 
+const segment = {
+	model: Segment,
+	attributes: ['id', 'name', 'propName'],
+};
+
 const measurement = {
 	model: Measurement,
 	attributes: ['average', 'id'],
-	include: [
-		{
-			model: Segment,
-			attributes: ['id', 'name', 'propName'],
-		},
-	],
+	include: [segment],
 };
 
 const garment = {
 	model: Garment,
-	attributes: ['id', 'name'],
+	attributes: ['id', 'name', 'slug'],
 };
 
 const size = {
@@ -48,14 +55,14 @@ const size = {
 
 const fit = {
 	model: Fit,
-	attributes: ['id', 'name'],
-	include: [size, garment],
+	attributes: ['id', 'name', 'garmentId'],
+	include: [size],
 };
 
 const collection = {
 	model: Collection,
 	attributes: ['id', 'name'],
-	include: [fit],
+	include: [fit, garment],
 };
 
 const brand = {
@@ -70,28 +77,32 @@ const queryOptionsMap = {
 	size,
 };
 
-function reduceFitsToMap(garments, { garment, ...fit }) {
-	const { id } = garment || {};
-	const existing = garments[id] || {};
+function assignFitsToGarments(garments, { garmentId, ...fit }) {
+	const {
+		collectionGarment,
+		fits = [],
+		...garment
+	} = garments[garmentId];
 	return {
 		...garments,
-		[id]: {
-			...existing,
+		[garmentId]: {
 			...garment,
 			fits: [
-				...(existing.fits || []),
+				...fits,
 				fit,
 			],
 		},
 	};
 }
 
-function formatCollection({ id, name, fits }) {
+function formatCollection({ id, name, fits, garments }) {
+	const fitMap = fits.reduce(reduceObjectsToMap, EMPTY_OBJECT);
+	const garmentMap = garments.reduce(reduceObjectsToMap, EMPTY_OBJECT);
 	return formatSizechart({
 		id,
 		name,
 		garments: Object.values(
-			fits.reduce(reduceFitsToMap, EMPTY_OBJECT),
+			fits.reduce(assignFitsToGarments, garmentMap),
 		),
 	});
 }
@@ -136,14 +147,10 @@ export async function getSizechart({
 	if (!model || !queryOptions) {
 		throw new Error(`Type "${type}" is not valid`);
 	}
-	try {
-		const parent = await model.findByPk(id, queryOptions);
-		if (!parent) {
-			throw new Error(`No ${type} found with ID ${id}`);
-		}
-		const json = getJSON(parent);
-		return formatSizechart(json);
-	} catch (error) {
-		throw new Error(`Invalid ${type} ID`);
+	const parent = await model.findByPk(id, queryOptions);
+	if (!parent) {
+		throw new Error(`No ${type} found with ID ${id}`);
 	}
+	const json = getJSON(parent);
+	return formatSizechart(json);
 }
