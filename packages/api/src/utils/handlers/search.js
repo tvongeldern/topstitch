@@ -7,7 +7,6 @@ export function search(Model, attributes = DEFAULT_ATTRIBUTES) {
 	return async function searchEndpoint({ query }, response, next) {
 		try {
 			const { q } = query;
-			console.log({ q });
 			const matches = await Model.findAll({
 				attributes,
 				where: {

@@ -1,4 +1,3 @@
-@import 'theme';
 @import 'web';
 
 $nav-height: 60px;
@@ -14,16 +13,6 @@ $nav-height: 60px;
 	left: 0;
 	right: 0;
 
-	input {
-		background-color: transparent;
-		border-color: $white;
-		color: $white;
-
-		&::placeholder {
-			color: $white;
-		}
-	}
-
 	.content {
 		display: flex;
 		flex-direction: row;
@@ -31,7 +20,18 @@ $nav-height: 60px;
 		align-items: center;
 		width: 100%;
 		max-width: $content-max-width;
-		padding: 8px 24px;
+		padding: 8px 16px;
+
+		.logo {
+			display: flex;
+
+			svg {
+				width: 48px;
+				height: 48px;
+				fill: $white;
+				margin-left: -8px;
+			}
+		}
 
 		.links {
 			a {

@@ -1,3 +1,7 @@
 @import 'web';
 
-.container {}
+.loading {
+	path {
+		stroke: $theme-color-primary;
+	}
+}

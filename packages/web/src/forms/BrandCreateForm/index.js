@@ -7,6 +7,8 @@ import styles from './styles.scss';
 export function BrandCreateForm({
 	handleSubmit,
 	submitError,
+	submitting,
+	submitSuceeded,
 }) {
 	return (
 		<form onSubmit={handleSubmit}>
@@ -21,13 +23,18 @@ export function BrandCreateForm({
 
 			<Field
 				component={TextInput}
-				name="slug"
-				label="Slug"
+				name="website"
+				label="Website (optional)"
 			/>
 
 			<p className={styles.error}>{submitError}</p>
 
-			<Button type="submit">Submit brand</Button>
+			<Button
+				type="submit"
+				loading={submitting || submitSuceeded}
+			>
+				Submit brand
+			</Button>
 
 		</form>
 	);

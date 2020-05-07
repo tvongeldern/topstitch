@@ -1,4 +1,4 @@
-import { reduceObjectsToMap } from '@utils';
+import { RETURN_SELF, reduceObjectsToMap } from '@utils';
 
 const types = {
 	start: 'topstitch.{{location}}.{{name}}.start',
@@ -7,7 +7,7 @@ const types = {
 };
 
 export const {{name}}Reducer = {
-	[types.start]: (state) => state,
+	[types.start]: RETURN_SELF,
 	[types.success]: (state, { response }) => ({
 		...state,
 	}),

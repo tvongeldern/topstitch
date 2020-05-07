@@ -1,30 +1,36 @@
 import React, { useEffect } from 'react';
 import { func } from 'prop-types';
 import { Field } from 'react-final-form';
-import { Typeahead } from '@components';
+import { Loading, Typeahead } from '@components';
 import styles from './styles.scss';
 
 export function SearchForm({
 	brands,
 	handleSubmit,
 	search,
-	values: { q },
+	values: { name },
+	addSizechart,
 }) {
 	useEffect(() => {
-		if (q) {
+		if (name) {
 			handleSubmit();
 		}
-	}, [q]);
+	}, [name]);
 	return (
 		<form onSubmit={handleSubmit}>
+
 			<Field
-				name="q"
+				name="name"
 				label="Search"
 				component={Typeahead}
 				search={search}
 				options={Object.values(brands)}
 				outputField="slug"
+				renderPinnedOption={(name) => <a onClick={() => addSizechart({ name })}>Add sizechart for {name}</a>}
 			/>
+
+			{name && <Loading className={styles.loading} />}
+
 		</form>
 	);
 }

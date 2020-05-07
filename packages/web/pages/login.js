@@ -4,21 +4,42 @@ import Router from 'next/router';
 import { Form } from 'react-final-form';
 import { Page } from '@components';
 import { LoginForm } from '@forms';
-import { logIn } from '@state/actions';
-import { useSelector, useSubmit } from '@utils/hooks';
+import { getMe, logIn } from '@state/actions';
+import {
+	useActionCreators,
+	useSelector,
+	useSubmit,
+} from '@utils/hooks';
 
-function loginPageSelector({ auth: { me } }) {
-	return { me };
+function loginPageSelector({
+	auth: {
+		cognitoUser,
+		me,
+	},
+}) {
+	return {
+		cognitoUser,
+		me,
+	};
 }
 
 export default function LoginPage({ ...redirect }) {
+	const [dispatchGetMe] = useActionCreators(getMe);
 	const [submitLogIn] = useSubmit(logIn);
-	const { me } = useSelector(loginPageSelector);
+	const { cognitoUser, me } = useSelector(loginPageSelector);
+
 	useEffect(() => {
 		if (me) {
 			Router.push(redirect);
 		}
-	}, [!me])
+	}, [!me]);
+
+	useEffect(() => {
+		if (cognitoUser) {
+			dispatchGetMe();
+		}
+	}, [cognitoUser]);
+
 	return (
 		<Page title="Log in">
 			<Form

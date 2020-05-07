@@ -8,9 +8,9 @@ const types = {
 
 export const getMeReducer = {
 	[types.start]: (state) => state,
-	[types.success]: (state, { response: me }) => ({
+	[types.success]: (state, { response }) => ({
 		...state,
-		me,
+		me: response,
 	}),
 	[types.fail]: (state, { error }) => ({
 		...state,

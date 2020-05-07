@@ -6,9 +6,9 @@ const types = {
 
 export const logInReducer = {
 	[types.start]: (state) => state,
-	[types.success]: (state, { response: me }) => ({
+	[types.success]: (state, { response }) => ({
 		...state,
-		me,
+		cognitoUser: response,
 	}),
 	[types.fail]: (state, { error }) => ({
 		...state,

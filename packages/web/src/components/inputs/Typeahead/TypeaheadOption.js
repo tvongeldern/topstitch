@@ -1,8 +1,9 @@
 import React from 'react';
 import { func, object, number, bool } from 'prop-types';
+import cn from 'classnames';
 import typeaheadStyles from './styles.scss';
 
-const { dropdownOption } = typeaheadStyles;
+const { dropdownOption, focused } = typeaheadStyles;
 
 export function TypeaheadOption({
 	isFocused,
@@ -20,7 +21,7 @@ export function TypeaheadOption({
 	};
 	return (
 		<div
-			className={dropdownOption}
+			className={cn(dropdownOption, { [focused]: isFocused })}
 			onClick={clickHandler}
 			onMouseOver={hoverHandler}
 			onFocus={hoverHandler}

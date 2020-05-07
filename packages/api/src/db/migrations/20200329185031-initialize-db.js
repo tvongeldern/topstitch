@@ -104,6 +104,16 @@ const slug = {
   },
 };
 
+const website = {
+  type: DataTypes.STRING,
+  validate: {
+    isUrl: {
+      msg: 'Invalid URL',
+      require_protocol: false,
+    },
+  },
+};
+
 const TABLES = {
   accounts: {
     columns: {
@@ -122,6 +132,7 @@ const TABLES = {
     columns: {
       name: { ...name, unique: true },
       slug,
+      website,
     },
   },
   collections: {

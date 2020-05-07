@@ -8,11 +8,16 @@
   p,
   input {
     align-self: stretch;
+    &:focus {
+      & + .dropdownContainer {
+        display: flex;
+      }
+    }
   }
 
   .dropdownContainer {
     position: absolute;
-    // display: none;
+    display: none;
     flex-direction: column;
     top: 100%;
     background-color: $white;
@@ -29,15 +34,17 @@
       cursor: pointer;
       padding: 8px;
 
-      &:hover {
+      &:hover,
+      &.focused {
         background-color: $theme-color-tertiary;
         color: $white;
       }
     }
 
-    .noResults {
+    .pinnedOption {
       display: flex;
       justify-content: center;
+      padding: 8px;
     }
 
     &:active {

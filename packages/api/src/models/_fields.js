@@ -85,3 +85,13 @@ export const slug = {
 		len: [2, 32],
 	},
 };
+
+export const website = {
+	type: DataTypes.STRING,
+	validate: {
+		isUrl: {
+			msg: 'Invalid URL',
+			require_protocol: false,
+		},
+	},
+};

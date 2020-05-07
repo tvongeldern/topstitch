@@ -1,5 +1,5 @@
 import { db } from '@db';
-import { id, name, slug } from './_fields';
+import { id, name, slug, website } from './_fields';
 
 export const Brand = db.define('brand', {
 	id,
@@ -8,4 +8,5 @@ export const Brand = db.define('brand', {
 		unique: true,
 	},
 	slug,
+	website,
 });

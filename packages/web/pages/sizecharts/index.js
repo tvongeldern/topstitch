@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Router from 'next/router';
 import { Form } from 'react-final-form';
 import { Page } from '@components';
@@ -9,6 +9,7 @@ import {
 	useSelector,
 	useSubmit,
 } from '@utils/hooks';
+import { EMPTY_OBJECT } from '@constants';
 
 function sizechartsPageSelector({
 	brands: { brands, created },
@@ -16,14 +17,15 @@ function sizechartsPageSelector({
 	return { brands, created };
 }
 
-function navigate({ q }) {
+function navigate({ name }) {
 	Router.push(
 		'/sizecharts/[slug]',
-		`/sizecharts/${q}`,
+		`/sizecharts/${name}`,
 	);
 }
 
 export default function SizechartsPage() {
+	const [state, setState] = useState(EMPTY_OBJECT);
 	const [dispatchSearch] = useActionCreators(
 		searchBrands,
 	);
@@ -48,12 +50,16 @@ export default function SizechartsPage() {
 				onSubmit={navigate}
 				search={dispatchSearch}
 				brands={brands}
+				addSizechart={setState}
 			/>
 			
-			<Form
-				component={BrandCreateForm}
-				onSubmit={submitBrand}
-			/>
+			{state.name && (
+				<Form
+					component={BrandCreateForm}
+					onSubmit={submitBrand}
+					initialValues={state}
+				/>
+			)}
 		</Page>
 	);
 }

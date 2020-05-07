@@ -1,19 +1,30 @@
 import React, { useState } from 'react';
-import { arrayOf, func, object, string, number } from 'prop-types';
+import {
+	arrayOf,
+	func,
+	node,
+	number,
+	object,
+	string,
+} from 'prop-types';
 import cn from 'classnames';
 import { XOut } from '@components/icons';
 import { TypeaheadOption } from './TypeaheadOption';
+import { Option } from './Option';
 import styles from './styles.scss';
 
 const {
 	dropdownContainer,
 	errorText,
 	inputContainer,
-	noResults,
 	selectedOptionField,
+	pinnedOption,
 } = styles;
 
 const INITIAL_STATE = { textInputValue: '', focusedOptionIndex: 0 };
+const UP_ARROW_KEYS = [40, 9];
+const ENTER_KEY = 13;
+const DOWN_ARROW_KEY = 38;
 
 function matchFormat(str = '') {
 	return String(str).toLowerCase();
@@ -63,6 +74,7 @@ export function Typeahead({
 	searchFields,
 	selectedDisplayField,
 	className,
+	renderPinnedOption,
 	...rest
 }) {
 	const [state, setState] = useState(INITIAL_STATE);
@@ -78,13 +90,24 @@ export function Typeahead({
 		} = state;
 		setState(newState);
 	}
+
 	const elementId = `typeahead-${name}`;
-	const renderOption = optionComponent || ((option) => option[selectedDisplayField]);
+
 	const filteredOptions = options
-	.filter(filterFunction({ exactMatchFields, searchFields, textInputValue }));
-	const showDropdown = textInputValue && textInputValue.length >= minLength;
-	const showErrorMessage = error && !showDropdown
+		.filter(
+			filterFunction({
+				exactMatchFields,
+				searchFields,
+				textInputValue,
+			}),
+		);
+
+	const showDropdown = textInputValue
+		&& textInputValue.length >= minLength;
+	const showErrorMessage = error
+		&& !showDropdown
 		&& ((touched && modified) || submitFailed || initial);
+
 	const setFocusIndex = (index) => {
 		setState({
 			...state,
@@ -99,23 +122,6 @@ export function Typeahead({
 			selectedOption: option,
 		});
 	};
-	const clearSelectedOption = () => {
-		onChange(null);
-		setState({
-			...state,
-			textInputValue: '',
-			selectedOption: null,
-		});
-	};
-	const keyPressHandler = ({ keyCode }) => {
-		if ([40, 9].includes(keyCode)) {
-			setFocusIndex(focusedOptionIndex + 1);
-		} else if ([38].includes(keyCode)) {
-			setFocusIndex(focusedOptionIndex - 1);
-		} else if ([13].includes(keyCode)) {
-			setSelectedOption(filteredOptions[focusedOptionIndex]);
-		}
-	};
 	return (
 		<div className={cn(inputContainer, className)}>
 			{label && <label htmlFor={elementId}>{label}</label>}
@@ -129,7 +135,15 @@ export function Typeahead({
 							value={textInputValue}
 							onChange={changeHandler({ minLength, search, setState, state })}
 							autoComplete="off"
-							onKeyDown={keyPressHandler}
+							onKeyDown={({ keyCode }) => {
+								if (UP_ARROW_KEYS.includes(keyCode)) {
+									setFocusIndex(focusedOptionIndex + 1);
+								} else if (keyCode === DOWN_ARROW_KEY) {
+									setFocusIndex(focusedOptionIndex - 1);
+								} else if (keyCode === ENTER_KEY) {
+									setSelectedOption(filteredOptions[focusedOptionIndex]);
+								}
+							}}
 						/>
 						{showErrorMessage && <p className={errorText}>{error}</p>}
 						{showDropdown && (
@@ -138,7 +152,7 @@ export function Typeahead({
 									<TypeaheadOption
 										key={option[outputField]}
 										option={option}
-										optionComponent={renderOption}
+										optionComponent={optionComponent}
 										resultsIndex={index}
 										focusOption={setFocusIndex}
 										selectOption={setSelectedOption}
@@ -146,15 +160,30 @@ export function Typeahead({
 									/>
 								))}
 								{filteredOptions.length === 0 && (
-									<div className={noResults}>
+									<div className={pinnedOption}>
 										<span>{`No matches found for ${textInputValue}`}</span>
+									</div>
+								)}
+								{renderPinnedOption && (
+									<div className={pinnedOption}>
+										{renderPinnedOption(textInputValue)}
 									</div>
 								)}
 							</div>
 						)}
 					</>
 				) : (
-						<div className={selectedOptionField} onClick={clearSelectedOption}>
+						<div
+							className={selectedOptionField}
+							onClick={() => {
+								onChange(null);
+								setState({
+									...state,
+									textInputValue: '',
+									selectedOption: null,
+								});
+							}}
+						>
 							<XOut size={16} />
 							<span>{selectedOption[selectedDisplayField]}</span>
 						</div>
@@ -171,6 +200,7 @@ Typeahead.propTypes = {
 	label: string, // input label
 	search: func, // function to that requests matches for input value
 	optionComponent: func, // render instructions for each option
+	renderPinnedOption: node, // component that is 
 	minLength: number, // minimum number of input characters before requesting results
 	searchFields: arrayOf(string), // partial match fields to search by
 	exactMatchFields: arrayOf(string), // search fields that must match exactly
@@ -184,9 +214,10 @@ Typeahead.defaultProps = {
 	label: null,
 	minLength: 3,
 	outputField: 'id',
-	optionComponent: null,
+	optionComponent: Option,
 	search: null,
 	searchFields: ['name'],
 	selectedDisplayField: 'name',
 	className: null,
+	renderPinnedOption: null,
 };
