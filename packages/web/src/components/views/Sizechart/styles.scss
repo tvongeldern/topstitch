@@ -4,15 +4,11 @@
 	display: flex;
 	flex-direction: column;
 	width: 100%;
+	margin: 8px 0;
 
-	.chainAttribute {
+	.list {
 		margin-bottom: 8px;
 		display: flex;
-		flex-direction: column;
-
-		.list {
-			display: flex;
-			flex-direction: row;
-		}
+		flex-direction: row;
 	}
 }

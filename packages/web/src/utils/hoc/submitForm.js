@@ -5,7 +5,7 @@ const DEFAULT_MESSAGE = 'Submit failed';
 const getError = ({ error }) => error;
 const getMessage = (error) => !error
 	? DEFAULT_MESSAGE
-	: error.message || error.error || DEFAULT_MESSAGE;
+	: error.message || error.error || error;
 
 function isErrorFieldSpecific(error, form) {
 	const formKeys = Object.keys(form || {});

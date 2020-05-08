@@ -57,9 +57,17 @@ function addSizechartSelector({
 function stateUpdater([state, setState]) {
 	return [
 		state,
-		function updateState({ selectedAttribute, selectedObject }) {
+		function updateState({
+			parents: [brand, collection, garment, fit, size],
+			selectedAttribute,
+			selectedObject,
+		}) {
 			setState({
-				...state,
+				brand,
+				collection,
+				garment,
+				fit,
+				size,
 				selectedAttribute,
 				selectedObject,
 				[selectedAttribute]: selectedObject.id,
@@ -115,10 +123,12 @@ export default function AddSizechartPage({ slug }) {
 	);
 	const sizechart = sizecharts[slug];
 
+	// Refresh sizechart whenever a store is updated
 	useEffect(() => {
 		dispatchGetSizechart({ slug });
 	}, [collections, fits, garments, sizes, measurements, segments]);
 
+	// Fetch all garment segments when it is time to do so
 	useEffect(() => {
 		if (selectedAttribute === 'garment') {
 			const { slug } = garments[state.garment];
@@ -184,7 +194,6 @@ export default function AddSizechartPage({ slug }) {
 					sizechart={sizechart}
 					onChange={updateState}
 					initialValues={{ selected: sizechart.id }}
-					hideRows={['brands']}
 				/>
 			)}
 

@@ -139,6 +139,7 @@ const TABLES = {
     foreignKeys: {
       brandId: {
         model: 'brands',
+        unique: ['name'],
       },
     },
     columns: { name },

@@ -13,7 +13,7 @@ export const addGarmentToCollectionReducer = {
 			[id]: {
 				...state.collections[id],
 				garments: [
-					...state.collections[id]?.garments,
+					...(state.collections[id]?.garments || []),
 					garmentId,
 				],
 			},

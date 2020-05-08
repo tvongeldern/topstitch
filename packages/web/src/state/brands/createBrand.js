@@ -1,7 +1,4 @@
-import {
-	HTTP_WWW_PATTERN,
-	NON_ALPHANUMERIC_GLOBAL_PATTERN,
-} from '@constants';
+import { NON_ALPHANUMERIC_GLOBAL_PATTERN } from '@constants';
 
 const types = {
 	start: 'topstitch.brands.createBrand.start',
@@ -25,8 +22,11 @@ export const createBrandReducer = {
 	}),
 };
 
+const HTTP_WWW = /(http|www)/;
+const SLASH_DOT = /[./]/;
+
 function filterUrlJunk(segment) {
-	return !HTTP_WWW_PATTERN.test(segment);
+	return segment && !HTTP_WWW.test(segment);
 }
 
 function slugFromName(name) {
@@ -39,7 +39,7 @@ function slugFromName(name) {
 function generateSlug({ name, website }) {
 	const [
 		slugFromWebsite = slugFromName(name),
-	] = website.split('.').filter(filterUrlJunk);
+	] = website.split(SLASH_DOT).filter(filterUrlJunk);
 	return slugFromWebsite;
 }
 

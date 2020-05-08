@@ -5,7 +5,10 @@ export const Brand = db.define('brand', {
 	id,
 	name: {
 		...name,
-		unique: true,
+		unique: {
+			args: true,
+			msg: 'Brand name must be unique.',
+		},
 	},
 	slug,
 	website,

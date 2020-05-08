@@ -7,11 +7,7 @@ export function creator(ParentModel, methodName) {
 				const json = saved.toJSON();
 				response.send(json);
 			} catch (error) {
-				return next({
-					error,
-					status: 400,
-					message: `Error creating ${ParentModel.name}`,
-				});
+				return next({ error });
 			}
 		}
 	}
@@ -33,14 +29,10 @@ export function creator(ParentModel, methodName) {
 				const json = child.toJSON();
 				return response.send(json);
 			} catch (error) {
-				return next({
-					error,
-					status: 400,
-					message: 'Could not create record',
-				})
+				return next({ error })
 			}
 		} catch (error) {
-			return next({ status: 400, message: `Invalid ${ParentModel.name} ID` });
+			return next({ error });
 		}
 	}
 }

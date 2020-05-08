@@ -17,6 +17,7 @@ function parseSuccessResponse({ data } = EMPTY_OBJECT) {
 }
 
 function parseErrorResponse(error = '') {
+	console.log({ error });
 	const errorString = (error.response && error.response.data && error.response.data.message)
 		|| error.message
 		|| error.code

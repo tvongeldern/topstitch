@@ -17,9 +17,10 @@ export function reduceAttributesChain(
 		// transitory
 		selectedIds = selected.split(DIVIDER),
 		trailingNameChain,
-		// out
 		trailingIdChain = [],
+		// out
 		displayName,
+		parents,
 		radioGroups = {},
 		selectedAttribute,
 		selectedObject,
@@ -51,6 +52,7 @@ export function reduceAttributesChain(
 		displayName: !selectedId && !displayName ? nameChain.join(' ') : displayName,
 		selectedAttribute: selectedId ? attribute.slice(0, -1) : selectedAttribute,
 		selectedObject: selectedChild || selectedObject,
+		parents: selectedId ? idChain : parents,
 		radioGroups: {
 			...radioGroups,
 			[attribute]: {
