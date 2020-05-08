@@ -36,6 +36,7 @@ export function SizechartSizesComparisonView({
 			{sizechart && (
 				<div className={styles.sizechart}>
 					<Sizechart
+						header={sizechart.name}
 						onChange={onSizechartChange}
 						sizechart={sizechart}
 						browseMode

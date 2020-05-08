@@ -38,8 +38,8 @@ export default function SizechartsPage() {
 	useEffect(() => {
 		if (created) {
 			Router.push(
-				'/sizecharts/[slug]/edit',
-				`/sizecharts/${created}/edit`,
+				'/sizecharts/[slug]/add',
+				`/sizecharts/${created}/add`,
 			);
 		}
 	}, [created]);

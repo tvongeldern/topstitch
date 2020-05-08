@@ -7,16 +7,19 @@ import styles from './styles.scss';
 export function CollectionCreateForm({
 	handleSubmit,
 	submitError,
+	values: { brand },
 }) {
 	return (
 		<form onSubmit={handleSubmit}>
 
-			<h3>Collection</h3>
+			<p>{`Add a collection to the ${brand.name} sizechart.`}</p>
+
+			<p>Common collections for a brand to have include Mens, Womens, Unisex, Children.</p>
 
 			<Field
 				component={TextInput}
 				name="name"
-				label="Name"
+				label="Collection name"
 			/>
 
 			<p className={styles.error}>{submitError}</p>

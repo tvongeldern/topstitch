@@ -21,10 +21,10 @@ export const createCollectionReducer = {
 	}),
 };
 
-export const createCollection = ({ brandId, name }) => ({
+export const createCollection = ({ brand, ...collection }) => ({
 	types: [types.start, types.success, types.fail],
 	promise: ({ api }) => api.post(
-		`/brands/${brandId}/collections/`,
-		{ name },
+		`/brands/${brand.id}/collections/`,
+		collection,
 	),
 });

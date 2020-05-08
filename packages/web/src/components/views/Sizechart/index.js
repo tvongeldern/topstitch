@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { bool, func, object } from 'prop-types';
+import { arrayOf, bool, func, object, string } from 'prop-types';
 import { Field, Form } from 'react-final-form';
 import { RadioLabel } from '@components/inputs';
 import {
 	capitalize,
 	RETURN_NULL,
-	RETURN_SELF,
 } from '@utils';
+import { EMPTY_ARRAY } from '@constants';
 import {
 	DIVIDER,
 	SIZECHART_ATTRIBUTES_CHAIN,
@@ -16,7 +16,15 @@ import styles from './styles.scss';
 
 const RETURN_NAME = ({ name }) => name;
 
-function showAttribute({ attribute, browseMode, members }) {
+function showAttribute({
+	attribute,
+	browseMode,
+	hideRows,
+	members,
+}) {
+	if (hideRows.includes(attribute)) {
+		return false;
+	}
 	if (!browseMode) {
 		return true;
 	}
@@ -28,12 +36,12 @@ function SizechartForm({
 	onChange,
 	sizechart,
 	browseMode,
+	header,
+	hideRows,
 	values: {
 		selected = '',
 	},
 }) {
-
-	const { name: sizechartHeader = 'Sizechart' } = sizechart;
 
 	const {
 		displayName,
@@ -60,7 +68,7 @@ function SizechartForm({
  
 	return (
 		<div className={styles.sizechart}>
-			<h3>{sizechartHeader}</h3>
+			{header && <h3>{header}</h3>}
 
 			{Object.values(radioGroups).map(({
 				attribute,
@@ -71,6 +79,7 @@ function SizechartForm({
 			}) => showAttribute({
 				attribute,
 				browseMode,
+				hideRows,
 				members,
 			}) && (
 				<div className={styles.chainAttribute} key={attribute}>
@@ -96,12 +105,14 @@ function SizechartForm({
 
 SizechartForm.propTypes = {
 	browseMode: bool,
+	hideRows: arrayOf(string),
 	onChange: func,
 	sizechart: object.isRequired,
 };
 
 SizechartForm.defaultProps = {
 	browseMode: false,
+	hideRows: EMPTY_ARRAY,
 	onChange: RETURN_NULL,
 };
 

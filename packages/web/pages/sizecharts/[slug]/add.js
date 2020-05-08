@@ -10,7 +10,6 @@ import {
 } from '@forms';
 import { 
 	addGarmentToCollection,
-	createBrand,
 	createCollection,
 	createFit,
 	createSize,
@@ -26,13 +25,12 @@ import {
 } from '@utils/hooks';
 import { EMPTY_OBJECT } from '@constants';
 
-function GarmentFilter({
-	collection, // selected fit id
-	collections, // fits store
-}) {
-	const { garments = [] } = collections[collection];
+const getId = ({ id }) => id;
+
+function GarmentFilter({ garments = [] } = {}) {
+	const garmentIds = garments.map(getId);
 	return function filterGarment(garment) {
-		return !garments.includes(garment.id);
+		return !garmentIds.includes(garment.id);
 	}
 }
 
@@ -135,7 +133,7 @@ export default function AddSizechartPage({ slug }) {
 				<Form
 					component={CollectionCreateForm}
 					onSubmit={submitCollection}
-					initialValues={{ brandId: selectedObject.id }}
+					initialValues={{ brand: selectedObject }}
 				/>
 			)}
 
@@ -143,11 +141,13 @@ export default function AddSizechartPage({ slug }) {
 				<Form
 					component={CollectionGarmentForm}
 					onSubmit={submitGarment}
-					initialValues={{ id: selectedObject.id }}
-					garments={Object.values(garments).filter(GarmentFilter({
-						collections,
-						collection: state.collection,
-					}))}
+					initialValues={{ collection: selectedObject }}
+					garments={Object.values(garments)
+						.filter(
+							GarmentFilter(
+								selectedObject,
+							),
+					)}
 				/>
 			)}
 
@@ -156,7 +156,7 @@ export default function AddSizechartPage({ slug }) {
 					component={FitCreateForm}
 					onSubmit={submitFit}
 					initialValues={{
-						garmentId: selectedObject.id,
+						garment: selectedObject,
 						collectionId: state.collection,
 					}}
 				/>
@@ -183,8 +183,11 @@ export default function AddSizechartPage({ slug }) {
 				<Sizechart
 					sizechart={sizechart}
 					onChange={updateState}
+					initialValues={{ selected: sizechart.id }}
+					hideRows={['brands']}
 				/>
 			)}
+
 		</Page>
 	);
 }

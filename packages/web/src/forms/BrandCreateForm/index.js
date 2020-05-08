@@ -11,9 +11,13 @@ export function BrandCreateForm({
 	submitSuceeded,
 }) {
 	return (
-		<form onSubmit={handleSubmit}>
+		<form onSubmit={handleSubmit} className={styles.container}>
 
-			<h3>Brand</h3>
+			<p>Thank you for adding a new sizechart!</p>
+
+			<p>The name of the clothing brand should be as it appears on the label.</p>
+
+			<p>The link should be to where you found the sizechart, if possible, otherwise the company's website is fine.</p>
 
 			<Field
 				component={TextInput}

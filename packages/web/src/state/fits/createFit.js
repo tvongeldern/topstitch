@@ -19,10 +19,17 @@ export const createFitReducer = {
 	}),
 };
 
-export const createFit = ({ collectionId, garmentId, name }) => ({
+export const createFit = ({
+	collectionId,
+	garment: { id: garmentId  },
+	name,
+}) => ({
 	types: [types.start, types.success, types.fail],
 	promise: ({ api }) => api.post(
 		`/collections/${collectionId}/fits/`,
-		{ garmentId, name },
+		{
+			garmentId,
+			name,
+		},
 	),
 });
