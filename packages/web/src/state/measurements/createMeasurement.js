@@ -19,7 +19,11 @@ export const createMeasurementReducer = {
 	}),
 };
 
-export const createMeasurement = ({ sizeId, segmentId, average }) => ({
+export const createMeasurement = ({
+	sizeId,
+	segmentId,
+	average,
+}) => ({
 	types: [types.start, types.success, types.fail],
 	promise: ({ api }) => api.post(
 		`/sizes/${sizeId}/measurements/`,

@@ -11,7 +11,7 @@ function deriveErrorStatus({ error }) {
 		return 400;
 	}
 	if (error.name === 'SequelizeUniqueConstraintError') {
-		return 401;
+		return 409;
 	}
 	return 500;
 }

@@ -1,4 +1,4 @@
-import { reduceObjectsToMap } from '@utils';
+import { REDUCE_TO_MAP } from '@utils';
 
 const types = {
 	start: 'topstitch.collections.createCollection.start',

@@ -1,18 +1,39 @@
 import React from 'react';
 import { func } from 'prop-types';
 import { Field } from 'react-final-form';
-import { Button, TextInput } from '@components';
+import {
+	Button,
+	SuggestionGroup,
+	TextInput,
+} from '@components';
+import styles from './styles.scss';
+
+const COMMON_FITS = [
+	'Petite',
+	'Regular',
+	'Slim',
+];
 
 export function FitCreateForm({
+	collections,
+	dirtySinceLastSubmit,
 	handleSubmit,
-	values,
+	submitError,
+	values: { collectionId }
 }) {
+	const collection = collections[collectionId];
+	const CTA = collection
+		? `Add a fit to the ${collection.name} collection`
+		: 'Add a fit to this collection';
 	return (
 		<form onSubmit={handleSubmit}>
 
-			<p>Some sizecharts have different fits for certain types of clothing. A fit is a collection of sizes.</p>
+			<p>{`${CTA}. A fit is a collection of sizes designed for a certain body shape.`}</p>
 
-			<p>{`Examples of common fits include Slim Fit, Petite, or Big & Tall.`}</p>
+			<SuggestionGroup
+				suggestions={COMMON_FITS}
+				existing={collection && collection.fits}
+			/>
 
 			<Field
 				name="name"
@@ -20,7 +41,11 @@ export function FitCreateForm({
 				component={TextInput}
 			/>
 
-			<Button type="submit">Submit</Button>
+			{submitError && !dirtySinceLastSubmit && (
+				<p className={styles.error}>{submitError}</p>
+			)}
+
+			<Button type="submit">Add fit</Button>
 
 		</form>
 	);

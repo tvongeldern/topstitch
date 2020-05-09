@@ -22,35 +22,19 @@ export const createBrandReducer = {
 	}),
 };
 
-const HTTP_WWW = /(http|www)/;
-const SLASH_DOT = /[./]/;
-
-function filterUrlJunk(segment) {
-	return segment && !HTTP_WWW.test(segment);
-}
-
 function slugFromName(name) {
 	return name
-		.split(' ')[0]
 		.toLowerCase()
 		.replace(NON_ALPHANUMERIC_GLOBAL_PATTERN, '');
 }
 
-function generateSlug({ name, website }) {
-	const [
-		slugFromWebsite = slugFromName(name),
-	] = website.split(SLASH_DOT).filter(filterUrlJunk);
-	return slugFromWebsite;
-}
-
 export const createBrand = ({
 	name,
-	website = '',
-	slug = generateSlug({ name, website }),
+	slug = slugFromName(name),
 }) => ({
 	types: [types.start, types.success, types.fail],
 	promise: ({ api }) => api.post(
 		'/brands/',
-		{ name, slug, website },
+		{ name, slug },
 	),
 });

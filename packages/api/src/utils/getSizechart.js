@@ -9,7 +9,7 @@ import {
 } from '@models';
 import { getJSON } from './getJSON';
 
-function reduceObjectsToMap(map, object) {
+function REDUCE_TO_MAP(map, object) {
 	return {
 		...map,
 		[object.id]: object,
@@ -96,8 +96,8 @@ function assignFitsToGarments(garments, { garmentId, ...fit }) {
 }
 
 function formatCollection({ id, name, fits, garments }) {
-	const fitMap = fits.reduce(reduceObjectsToMap, EMPTY_OBJECT);
-	const garmentMap = garments.reduce(reduceObjectsToMap, EMPTY_OBJECT);
+	const fitMap = fits.reduce(REDUCE_TO_MAP, EMPTY_OBJECT);
+	const garmentMap = garments.reduce(REDUCE_TO_MAP, EMPTY_OBJECT);
 	return formatSizechart({
 		id,
 		name,

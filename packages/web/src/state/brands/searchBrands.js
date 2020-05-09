@@ -1,4 +1,4 @@
-import { reduceObjectsToMap } from '@utils';
+import { REDUCE_TO_MAP } from '@utils';
 
 const types = {
 	start: 'topstitch.brands.searchBrands.start',
@@ -10,7 +10,7 @@ export const searchBrandsReducer = {
 	[types.start]: (state) => state,
 	[types.success]: (state, { response }) => ({
 		...state,
-		brands: reduceObjectsToMap(
+		brands: REDUCE_TO_MAP(
 			response,
 			state.brands,
 		),

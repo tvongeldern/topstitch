@@ -130,9 +130,10 @@ export default function AddSizechartPage({ slug }) {
 
 	// Fetch all garment segments when it is time to do so
 	useEffect(() => {
-		if (selectedAttribute === 'garment') {
-			const { slug } = garments[state.garment];
-			dispatchGetGarmentSegments({ slug });
+		if (selectedAttribute === 'size') {
+			dispatchGetGarmentSegments(
+				garments[state.garment],
+			);
 		}
 	}, [selectedAttribute]);
 
@@ -165,6 +166,7 @@ export default function AddSizechartPage({ slug }) {
 				<Form
 					component={FitCreateForm}
 					onSubmit={submitFit}
+					collections={collections}
 					initialValues={{
 						garment: selectedObject,
 						collectionId: state.collection,
@@ -176,6 +178,7 @@ export default function AddSizechartPage({ slug }) {
 				<Form
 					component={SizeCreateForm}
 					onSubmit={submitSize}
+					existing={selectedObject.sizes}
 					initialValues={{ fitId: selectedObject.id }}
 				/>
 			)}
@@ -185,6 +188,7 @@ export default function AddSizechartPage({ slug }) {
 					component={MeasurementCreateForm}
 					onSubmit={submitMeasurement}
 					segments={Object.values(segments)}
+					garment={garments[state.garment]}
 					initialValues={{ sizeId: selectedObject.id }}
 				/>
 			)}

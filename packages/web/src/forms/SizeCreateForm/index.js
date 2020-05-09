@@ -1,26 +1,47 @@
 import React from 'react';
-import { func } from 'prop-types';
+import { arrayOf, func, object } from 'prop-types';
 import { Field } from 'react-final-form';
-import { Button, TextInput } from '@components';
-import styles from './styles.scss';
+import { Button, SuggestionGroup, TextInput } from '@components';
+import { EMPTY_ARRAY } from '@constants';
 
-export function SizeCreateForm({ handleSubmit }) {
+const COMMON_SIZES = [
+	'Small',
+	'Medium',
+	'Large',
+	'XL',
+	'XXL',
+	'XS',
+];
+
+export function SizeCreateForm({
+	existing,
+	handleSubmit,
+}) {
 	return (
 		<form onSubmit={handleSubmit}>
 
-			<h3>Size</h3>
+			<SuggestionGroup
+				suggestions={COMMON_SIZES}
+				existing={existing}
+			/>
 
 			<Field
 				name="name"
+				label="Size name"
 				component={TextInput}
 			/>
 
-			<Button type="submit">Submit</Button>
+			<Button type="submit">Add size</Button>
 
 		</form>
 	);
 }
 
 SizeCreateForm.propTypes = {
+	existing: arrayOf(object),
 	handleSubmit: func.isRequired,
+};
+
+SizeCreateForm.defaultProps = {
+	existing: EMPTY_ARRAY,
 };

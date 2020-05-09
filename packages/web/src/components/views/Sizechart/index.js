@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { arrayOf, bool, func, object, string } from 'prop-types';
 import { Field, Form } from 'react-final-form';
 import { RadioLabel } from '@components/inputs';
-import { RETURN_NULL } from '@utils';
+import { RETURN_NAME, RETURN_NULL } from '@utils';
 import { EMPTY_ARRAY } from '@constants';
 import {
 	DIVIDER,
@@ -10,8 +10,6 @@ import {
 	reduceAttributesChain,
 } from './attributesChain';
 import styles from './styles.scss';
-
-const RETURN_NAME = ({ name }) => name;
 
 function showAttribute({
 	attribute,
@@ -58,7 +56,7 @@ function SizechartForm({
 				selectedObject,
 			});
 		}
-	}, [selected]);
+	}, [selected, sizechart]);
  
 	return (
 		<div className={styles.sizechart}>

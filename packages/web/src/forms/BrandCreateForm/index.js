@@ -15,20 +15,10 @@ export function BrandCreateForm({
 
 			<p>Thank you for adding a new sizechart!</p>
 
-			<p>The name of the clothing brand should be as it appears on the label.</p>
-
-			<p>The link should be to where you found the sizechart, if possible, otherwise the company's website is fine.</p>
-
 			<Field
 				component={TextInput}
 				name="name"
-				label="Name"
-			/>
-
-			<Field
-				component={TextInput}
-				name="website"
-				label="Website (optional)"
+				label="Brand name"
 			/>
 
 			<p className={styles.error}>{submitError}</p>
@@ -37,7 +27,7 @@ export function BrandCreateForm({
 				type="submit"
 				loading={submitting || submitSuceeded}
 			>
-				Submit brand
+				Add sizechart
 			</Button>
 
 		</form>

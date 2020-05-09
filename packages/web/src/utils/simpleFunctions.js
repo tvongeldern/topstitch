@@ -1,20 +1,52 @@
-import { EMPTY_OBJECT } from '@constants';
+/**
+ * Adds the absolute value of provided numbers
+ * @param  {...number} args
+ */
+export function ADD_ABS(...args){
+	return args.reduce((sum, num) => sum + Math.abs(num), 0);
+}
 
-export const RETURN_SELF = (v) => v;
+/**
+ * Empty placeholder function
+ */
+export function EMPTY_FUNCTION(){};
 
-export const IS_FALSEY = (v) => !v;
+/**
+ * Returns true if provided vaue is falsey
+ * @param {any} value
+ */
+export function IS_FALSEY(v) {
+	return !v;
+}
 
-export const NEAREST_EVEN = (n) => 2 * Math.round(n / 2);
+/**
+ * Returns name of provided object
+ * @param {obj} { name } 
+ */
+export function RETURN_NAME({ name }) {
+	return name;
+};
 
-export const ADD_ABS = (...args) => args.reduce((sum, num) => sum + Math.abs(num), 0);
+/**
+ * Returns null
+ */
+export function RETURN_NULL() {
+	return null;
+}
 
-export const RETURN_EMPTY_OBJECT = () => EMPTY_OBJECT;
+/**
+ * Returns provided value
+ * @param {any} value
+ */
+export function RETURN_SELF(value) {
+	return value;
+}
 
-export const RETURN_NULL = () => null;
-
-export const EMPTY_FUNCTION = () => {};
-
-export function capitalize(value = '') {
+/**
+ * Capitalizes first character of a string
+ * @param {string} value
+ */
+export function CAPITALIZE(value = '') {
 	return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
@@ -25,7 +57,7 @@ export function capitalize(value = '') {
  * @param {object} baseMap 
  * @param {string} mappingKey 
  */
-export function reduceObjectsToMap(
+export function REDUCE_TO_MAP(
 	objects,
 	baseMap = {},
 	mappingKey = 'id',
@@ -34,15 +66,4 @@ export function reduceObjectsToMap(
 		...mapped,
 		[obj[mappingKey]]: obj,
 	}), baseMap);
-}
-
-function _sortByAbs(a, b) {
-	return Math.abs(b) - Math.abs(a);
-}
-/**
- * Returns argument with highest absolute value
- * @param  {...number}
- */
-export function greatestAbsoluteValue(...numbers) {
-	return numbers.sort(_sortByAbs)[0];
 }
