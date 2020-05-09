@@ -20,6 +20,14 @@ export function IS_FALSEY(v) {
 }
 
 /**
+ * Returns id of provided object
+ * @param {obj} { name } 
+ */
+export function RETURN_ID({ id }) {
+	return id;
+};
+
+/**
  * Returns name of provided object
  * @param {obj} { name } 
  */

@@ -7,4 +7,3 @@ export * from './simpleFunctions';
 export { formatDropdownOption } from './formatDropdownOption';
 export { getInputErrorState } from './getInputErrorState';
 export { getSizechartFromStore } from './getSizechartFromStore';
-export { reduceMeasurementsToObject } from './reduceMeasurementsToObject';

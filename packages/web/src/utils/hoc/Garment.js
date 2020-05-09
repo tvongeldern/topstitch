@@ -1,7 +1,13 @@
+import { EMPTY_OBJECT, EMPTY_ARRAY } from '@constants';
 import { drawMeasurements } from '../drawing';
 import { calculateSize, shiftCoordinates } from '../geometry';
-import { reduceMeasurementsToObject } from '../reduceMeasurementsToObject';
-import { EMPTY_OBJECT, EMPTY_ARRAY } from '@constants';
+
+function reduceMeasurementsToObject(measurementsArray) {
+	return measurementsArray.reduce((measurementsObject, { average, segment }) => ({
+		...measurementsObject,
+		[segment.propName]: average,
+	}), EMPTY_OBJECT);
+}
 
 export class Garment {
 	constructor(measurements) {

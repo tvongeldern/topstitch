@@ -111,3 +111,5 @@ export function Sizechart(props) {
 		/>
 	);
 }
+
+Sizechart.DIVIDER = DIVIDER;
