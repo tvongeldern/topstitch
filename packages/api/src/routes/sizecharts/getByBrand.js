@@ -14,13 +14,22 @@ export async function getByBrand({
 			const sizechart = await getSizechart({ type, id: slugOrId });
 			return response.send(sizechart);
 		}
-		const { id } = await Brand.findOne({
+		const brand = await Brand.findOne({
 			attributes,
 			where: { slug: slugOrId },
 		});
-		const sizechart = await getSizechart({ type, id });
+		if (!brand) {
+			return next({
+				status: 404,
+				message: 'Sizechart not found',
+			});
+		}
+		const sizechart = await getSizechart({
+			type,
+			id: brand.id,
+		});
 		return response.send(sizechart);
 	} catch (error) {
-		return next(error);
+		return next({ error });
 	}
 }
