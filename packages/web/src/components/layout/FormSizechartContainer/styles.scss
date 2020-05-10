@@ -1,0 +1,24 @@
+@import 'web';
+
+.container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;
+	justify-content: space-around;
+
+	> :last-child {
+		width: auto;
+	}
+}
+
+@include mobile {
+	.container {
+		flex-direction: column;
+		justify-content: space-between;
+
+		form {
+			min-height: calc((98vh - 32px - #{$nav-height}) / 2);
+		}
+	}
+}

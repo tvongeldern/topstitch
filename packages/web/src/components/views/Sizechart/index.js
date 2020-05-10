@@ -34,6 +34,7 @@ function SizechartForm({
 }) {
 
 	const {
+		defaultSelected,
 		displayName,
 		parents,
 		radioGroups,
@@ -50,6 +51,7 @@ function SizechartForm({
 	useEffect(() => {
 		if (selected) {
 			onChange({ 
+				defaultSelected,
 				displayName,
 				parents,
 				selectedAttribute,

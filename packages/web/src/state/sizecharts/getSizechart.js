@@ -1,5 +1,3 @@
-import { REDUCE_TO_MAP } from '@utils';
-
 const types = {
 	start: 'seamstress.sizecharts.getSizechart.start',
 	success: 'seamstress.sizecharts.getSizechart.success',

@@ -1,3 +1,5 @@
+import { EMPTY_ARRAY, EMPTY_OBJECT } from '@constants';
+
 export const DIVIDER = '::::';
 
 function getSelectedChild({
@@ -17,11 +19,11 @@ export function reduceAttributesChain(
 		// transitory
 		selectedIds = selected.split(DIVIDER),
 		trailingNameChain,
-		trailingIdChain = [],
+		trailingIdChain = EMPTY_ARRAY,
 		// out
 		displayName,
 		parents,
-		radioGroups = {},
+		radioGroups = EMPTY_OBJECT,
 		selectedAttribute,
 		selectedObject,
 	},
@@ -37,7 +39,7 @@ export function reduceAttributesChain(
 		members,
 		selectedId,
 	});
-	const defaultSelected = !selectedChild && (members[0] || {});
+	const defaultSelected = !selectedChild && (members[0] || EMPTY_OBJECT);
 	const nextIterationScope = selectedChild || defaultSelected;
 	const idChain = scope.id ? trailingIdChain.concat(scope.id) : trailingIdChain;
 	const nameChain = !trailingNameChain ? [] : trailingNameChain.concat(scope.name);
@@ -53,6 +55,7 @@ export function reduceAttributesChain(
 		selectedAttribute: selectedId ? attribute.slice(0, -1) : selectedAttribute,
 		selectedObject: selectedChild || selectedObject,
 		parents: selectedId ? idChain : parents,
+		defaultSelected: idChain,
 		radioGroups: {
 			...radioGroups,
 			[attribute]: {

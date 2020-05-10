@@ -29,7 +29,7 @@ module.exports = compose([
 			sassLoaderOptions: {
 				includePaths: [
 					'src/constants/styles',
-					'assets',
+					'src/components',
 				],
 			},
 		},

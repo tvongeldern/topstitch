@@ -3,7 +3,11 @@ import Router from 'next/router';
 import { Form } from 'react-final-form';
 import { Page } from '@components';
 import { BrandCreateForm, SearchForm } from '@forms';
-import { createBrand, searchBrands } from '@state/actions';
+import {
+	clearCreatedBrand,
+	createBrand,
+	searchBrands,
+} from '@state/actions';
 import {
 	useActionCreators,
 	useSelector,
@@ -26,7 +30,8 @@ function navigate({ name }) {
 
 export default function SizechartsPage() {
 	const [state, setState] = useState(EMPTY_OBJECT);
-	const [dispatchSearch] = useActionCreators(
+	const [dispatchClearCreated, dispatchSearch] = useActionCreators(
+		clearCreatedBrand,
 		searchBrands,
 	);
 	const [submitBrand] = useSubmit(
@@ -41,6 +46,7 @@ export default function SizechartsPage() {
 				'/sizecharts/[slug]/add',
 				`/sizecharts/${created}/add`,
 			);
+			dispatchClearCreated();
 		}
 	}, [created]);
 	return (
