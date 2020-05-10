@@ -13,9 +13,9 @@ function foreignKey(model) {
 }
 
 function addForeignKeyColumns(foreignKeys = {}) {
-  return Object.entries(foreignKeys).reduce((columns, [key, { model }]) => ({
+  return Object.entries(foreignKeys).reduce((columns, [key, table]) => ({
     ...columns,
-    [key]: foreignKey(model),
+    [key]: foreignKey(table),
   }), {});
 }
 
@@ -137,21 +137,17 @@ const TABLES = {
   },
   collections: {
     foreignKeys: {
-      brandId: {
-        model: 'brands',
-        unique: ['name'],
-      },
+      brandId: 'brands',
     },
     columns: { name },
+    uniqueIndexes: [
+      ['brandId', 'name'],
+    ],
   },
   collectionGarments: {
     foreignKeys: {
-      collectionId: {
-        model: 'collections',
-      },
-      garmentId: {
-        model: 'garments',
-      },
+      collectionId: 'collections',
+      garmentId: 'garments',
     },
     uniqueIndexes: [
       ['garmentId', 'collectionId'],
@@ -159,15 +155,13 @@ const TABLES = {
   },
   fits: {
     foreignKeys: {
-      collectionId: {
-        model: 'collections',
-        unique: ['name'],
-      },
-      garmentId: {
-        model: 'garments',
-      }
+      collectionId: 'collections',
+      garmentId: 'garments',
     },
     columns: { name },
+    uniqueIndexes: [
+      ['collectionId', 'name'],
+    ],
   },
   garments: {
     columns: {
@@ -183,12 +177,8 @@ const TABLES = {
   },
   measurements: {
     foreignKeys: {
-      sizeId: {
-        model: 'sizes',
-      },
-      segmentId: {
-        model: 'segments',
-      },
+      sizeId: 'sizes',
+      segmentId: 'segments',
     },
     columns: {
       average: {
@@ -202,30 +192,27 @@ const TABLES = {
   },
   segments: {
     foreignKeys: {
-      garmentId: {
-        model: 'garments',
-        unique: ['name', 'propName'],
-      },
+      garmentId: 'garments',
     },
     columns: { name, propName, description: paragraph },
+    uniqueIndexes: [
+      ['garmentId', 'name'],
+      ['garmentId', 'propName'],
+    ],
   },
   sizes: {
     foreignKeys: {
-      fitId: {
-        model: 'fits',
-        unique: ['name'],
-      },
+      fitId: 'fits',
     },
     columns: { name },
+    uniqueIndexes: [
+      ['fitId', 'name'],
+    ]
   },
   sizeSegments: {
     foreignKeys: {
-      sizeId: {
-        model: 'sizes',
-      },
-      segmentId: {
-        model: 'segments',
-      },
+      sizeId: 'sizes',
+      segmentId: 'segments',
     },
     uniqueIndexes: [
       ['segmentId', 'sizeId'],
@@ -236,8 +223,8 @@ const TABLES = {
       name,
     },
     foreignKeys: {
-      sizeId: { model: 'sizes' },
-      accountId: { model: 'accounts' },
+      sizeId: 'sizes',
+      accountId: 'accounts',
     },
   },
 };
@@ -257,12 +244,13 @@ const tableForeignKeys = TABLE_ENTRIES
   .filter(([name, { foreignKeys }]) => foreignKeys)
   .reduce((tfk, [table, { foreignKeys }]) => [
     ...tfk,
-    ...Object.entries(foreignKeys).reduce((fk, [key, { unique = [] }]) => [
+    ...Object.entries(foreignKeys).reduce((fk, [key, reference]) => [
       ...fk,
-      ...unique.reduce((k, uniqueKey) => [
-        ...k,
-        { table, key, uniqueKey },
-      ], []),
+      {
+        table,
+        key,
+        reference,
+      },
     ], [])
   ], []);
 
@@ -283,10 +271,17 @@ async function up(queryInterface) {
   );
   await Promise.all(
     tableForeignKeys.map(
-      ({ table, key, uniqueKey }) => queryInterface.addIndex(
+      ({ table, key, reference }) => queryInterface.addConstraint(
         table,
-        [key, uniqueKey],
-        { unique: true },
+        [key],
+        {
+          references: {
+            table: reference,
+            field: 'id',
+          },
+          onDelete: 'cascade',
+          type: 'foreign key',
+        },
       ),
     ),
   );

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Form } from 'react-final-form';
+import Router from 'next/router';
 import {
 	FormSizechartContainer,
+	Loading,
 	Page,
 	Sizechart,
 } from '@components';
@@ -18,6 +20,7 @@ import {
 	createFit,
 	createSize,
 	createMeasurement,
+	deleteBrand,
 	getAllGarments,
 	getSizechart,
 	getGarmentSegments,
@@ -37,6 +40,7 @@ function GarmentFilter({ garments = [] } = {}) {
 }
 
 function addSizechartSelector({
+	brands: { brands },
 	collections: { collections },
 	garments: { garments },
 	fits: { fits },
@@ -46,6 +50,7 @@ function addSizechartSelector({
 	sizecharts: { sizecharts },
 }) {
 	return {
+		brands,
 		collections,
 		garments,
 		fits,
@@ -82,6 +87,7 @@ function stateUpdater([state, setState]) {
 
 export default function AddSizechartPage({ slug }) {
 	const {
+		brands,
 		collections,
 		garments,
 		fits,
@@ -104,13 +110,15 @@ export default function AddSizechartPage({ slug }) {
 		},
 		updateState,
 	] = stateUpdater(
-		useState({ selected: sizechart.id, }),
+		useState({ selected: sizechart?.id, }),
 	);
 
 	const [
+		dispatchDeleteBrand,
 		dispatchGetSizechart,
 		dispatchGetGarmentSegments,
 	] = useActionCreators(
+		deleteBrand,
 		getSizechart,
 		getGarmentSegments,
 	);
@@ -131,7 +139,14 @@ export default function AddSizechartPage({ slug }) {
 	// Refresh sizechart whenever a store is updated
 	useEffect(() => {
 		dispatchGetSizechart({ slug });
-	}, [collections, fits, garments, sizes, measurements, segments]);
+	}, [brands, collections, fits, garments, sizes, measurements, segments]);
+
+	// Go back to sizecharts browser if no sizechart is present
+	useEffect(() => {
+		if (!sizechart) {
+			Router.push('/sizecharts');
+		}
+	}, [sizechart]);
 
 	// Fetch all garment segments when it is time to do so
 	useEffect(() => {
@@ -141,6 +156,14 @@ export default function AddSizechartPage({ slug }) {
 			);
 		}
 	}, [selectedAttribute]);
+
+	if (!sizechart) {
+		return (
+			<Page title="Loading">
+				<Loading size={200} />
+			</Page>
+		);
+	}
 
 	return (
 		<Page title="Add sizechart">
@@ -153,6 +176,7 @@ export default function AddSizechartPage({ slug }) {
 							component={CollectionCreateForm}
 							onSubmit={submitCollection}
 							initialValues={{ brand: selectedObject }}
+							deleteBrand={dispatchDeleteBrand}
 						/>
 					)}
 

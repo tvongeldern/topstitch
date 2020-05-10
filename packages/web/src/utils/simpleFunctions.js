@@ -75,3 +75,15 @@ export function REDUCE_TO_MAP(
 		[obj[mappingKey]]: obj,
 	}), baseMap);
 }
+
+/**
+ * Removes [key] from object
+ * @param {string} key 
+ * @param {object} object
+ */
+export function REMOVE_KEY(
+	key,
+	{ [key]: removed, ...object },
+) {
+	return object;
+}

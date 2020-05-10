@@ -1,3 +1,5 @@
+import { REMOVE_KEY, RETURN_SELF } from '@utils';
+
 const types = {
 	start: 'seamstress.sizecharts.getSizechart.start',
 	success: 'seamstress.sizecharts.getSizechart.success',
@@ -5,7 +7,7 @@ const types = {
 };
 
 export const getSizechartReducer = {
-	[types.start]: (state) => state,
+	[types.start]: RETURN_SELF,
 	[types.success]: (state, { response, id }) => ({
 		...state,
 		sizecharts: {
@@ -13,9 +15,9 @@ export const getSizechartReducer = {
 			[id]: response,
 		},
 	}),
-	[types.fail]: (state, { error }) => ({
+	[types.fail]: (state, { error, id }) => ({
 		...state,
-		error,
+		sizecharts: REMOVE_KEY(id, state.sizecharts),
 	}),
 };
 

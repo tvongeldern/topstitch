@@ -7,7 +7,6 @@ import {
 	TextInput,
 } from '@components';
 import { validateRequired } from '@forms/validators';
-import { EMPTY_ARRAY } from '@constants';
 import styles from './styles.scss';
 
 const COMMON_COLLECTIONS = [
@@ -19,6 +18,7 @@ const COMMON_COLLECTIONS = [
 ];
 
 export function CollectionCreateForm({
+	deleteBrand,
 	dirtySinceLastSubmit,
 	handleSubmit,
 	submitError,
@@ -46,6 +46,10 @@ export function CollectionCreateForm({
 			)}
 
 			<Button type="submit">Add collection</Button>
+
+			<a onClick={() => deleteBrand(brand)} className={styles.delete}>
+				{`Delete ${brand.name}`}
+			</a>
 
 		</form>
 	);
