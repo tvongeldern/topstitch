@@ -1,5 +1,5 @@
 import { Garment } from '@models';
-import { getJSON } from '@utils';
+import { errorActionReducer, getJSON  } from '@utils';
 
 export async function getAllGarments(request, response, next) {
 	try {

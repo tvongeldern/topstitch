@@ -1,4 +1,4 @@
-import { symmetricalCoordinates } from '@utils';
+import { errorActionReducer, symmetricalCoordinates  } from '@utils';
 
 export function deriveCoordinates({
 	coordinates: {

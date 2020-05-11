@@ -1,4 +1,4 @@
-import { RETURN_SELF } from '@utils';
+import { errorActionReducer, RETURN_SELF  } from '@utils';
 import { NON_ALPHANUMERIC_GLOBAL_PATTERN } from '@constants';
 
 const types = {
@@ -17,10 +17,7 @@ export const createBrandReducer = {
 		},
 		created: response.slug,
 	}),
-	[types.fail]: (state, { error }) => ({
-		...state,
-		error,
-	}),
+	[types.fail]: errorActionReducer,
 };
 
 function slugFromName(name) {

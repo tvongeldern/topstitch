@@ -2,7 +2,7 @@ import React from 'react';
 import { func } from 'prop-types';
 import { Field } from 'react-final-form';
 import { Button, TextInput } from '@components';
-import { RETURN_SELF } from '@utils';
+import { errorActionReducer, RETURN_SELF  } from '@utils';
 import {
 	composeValidators,
 	validateEmail,

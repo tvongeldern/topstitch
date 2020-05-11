@@ -1,4 +1,4 @@
-import { RETURN_SELF, REMOVE_KEY } from '@utils';
+import { errorActionReducer, RETURN_SELF, REMOVE_KEY  } from '@utils';
 
 const types = {
 	start: 'topstitch.fits.deleteFit.start',
@@ -12,10 +12,7 @@ export const deleteFitReducer = {
 		...state,
 		fits: REMOVE_KEY(id, state.fits),
 	}),
-	[types.fail]: (state, { error }) => ({
-		...state,
-		error,
-	}),
+	[types.fail]: errorActionReducer,
 };
 
 export const deleteFit = ({ id }) => ({

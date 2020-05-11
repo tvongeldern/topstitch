@@ -1,4 +1,4 @@
-import { REDUCE_TO_MAP, RETURN_SELF } from '@utils';
+import { errorActionReducer, REDUCE_TO_MAP, RETURN_SELF  } from '@utils';
 
 const types = {
 	start: 'topstitch.brands.searchBrands.start',
@@ -15,10 +15,7 @@ export const searchBrandsReducer = {
 			state.brands,
 		),
 	}),
-	[types.fail]: (state, { error }) => ({
-		...state,
-		error,
-	}),
+	[types.fail]: errorActionReducer,
 };
 
 export const searchBrands = (q) => ({

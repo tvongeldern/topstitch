@@ -1,4 +1,4 @@
-import { RETURN_SELF } from '@utils';
+import { errorActionReducer, RETURN_SELF  } from '@utils';
 
 const types = {
 	start: 'topstitch.fits.createFit.start',
@@ -15,10 +15,7 @@ export const createFitReducer = {
 			[response.id]: response,
 		},
 	}),
-	[types.fail]: (state, { error }) => ({
-		...state,
-		error,
-	}),
+	[types.fail]: errorActionReducer,
 };
 
 export const createFit = ({

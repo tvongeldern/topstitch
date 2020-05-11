@@ -1,3 +1,5 @@
+import { errorActionReducer } from '@utils/redux';
+
 const types = {
 	start: 'topstitch.auth.createAccount.start',
 	success: 'topstitch.auth.createAccount.success',
@@ -10,10 +12,7 @@ export const createAccountReducer = {
 		...state,
 		me,
 	}),
-	[types.fail]: (state, { error }) => ({
-		...state,
-		error,
-	}),
+	[types.fail]: errorActionReducer,
 };
 
 export const createAccount = () => ({

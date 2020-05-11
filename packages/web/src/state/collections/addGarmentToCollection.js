@@ -1,4 +1,4 @@
-import { RETURN_SELF } from '@utils';
+import { errorActionReducer, RETURN_SELF  } from '@utils';
 
 const types = {
 	start: 'topstitch.collections.addGarmentToCollection.start',
@@ -21,10 +21,7 @@ export const addGarmentToCollectionReducer = {
 			},
 		},
 	}),
-	[types.fail]: (state, { error }) => ({
-		...state,
-		error,
-	}),
+	[types.fail]: errorActionReducer,
 };
 
 export const addGarmentToCollection = ({

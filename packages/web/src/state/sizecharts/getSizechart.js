@@ -1,4 +1,4 @@
-import { REMOVE_KEY, RETURN_SELF } from '@utils';
+import { errorActionReducer, REMOVE_KEY, RETURN_SELF  } from '@utils';
 
 const types = {
 	start: 'seamstress.sizecharts.getSizechart.start',

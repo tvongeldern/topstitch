@@ -1,4 +1,4 @@
-import { RETURN_SELF, REMOVE_KEY } from '@utils';
+import { errorActionReducer, RETURN_SELF, REMOVE_KEY  } from '@utils';
 
 const types = {
 	start: 'topstitch.collections.deleteCollection.start',
@@ -12,10 +12,7 @@ export const deleteCollectionReducer = {
 		...state,
 		collections: REMOVE_KEY(id, state.collections),
 	}),
-	[types.fail]: (state, { error }) => ({
-		...state,
-		error,
-	}),
+	[types.fail]: errorActionReducer,
 };
 
 export const deleteCollection = ({ id }) => ({

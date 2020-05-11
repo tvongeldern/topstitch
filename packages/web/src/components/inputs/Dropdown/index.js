@@ -1,6 +1,6 @@
 import React from 'react';
 import { arrayOf, object, oneOf, string } from 'prop-types';
-import { getInputErrorState } from '@utils';
+import { errorActionReducer, getInputErrorState  } from '@utils';
 import styles from './styles.scss';
 
 function renderOption(props) {

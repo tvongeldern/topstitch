@@ -1,4 +1,4 @@
-import { REDUCE_TO_MAP, RETURN_SELF } from '@utils';
+import { errorActionReducer, REDUCE_TO_MAP, RETURN_SELF  } from '@utils';
 
 const types = {
 	start: 'topstitch.garments.getAllGarments.start',
@@ -12,10 +12,7 @@ export const getAllGarmentsReducer = {
 		...state,
 		garments: REDUCE_TO_MAP(response),
 	}),
-	[types.fail]: (state, { error }) => ({
-		...state,
-		error,
-	}),
+	[types.fail]: errorActionReducer,
 };
 
 export const getAllGarments = ({  }) => ({

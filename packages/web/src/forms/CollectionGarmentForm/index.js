@@ -2,7 +2,7 @@ import React from 'react';
 import { arrayOf, func, object } from 'prop-types';
 import { Field } from 'react-final-form';
 import { Button, Dropdown } from '@components';
-import { formatDropdownOption } from '@utils';
+import { errorActionReducer, formatDropdownOption  } from '@utils';
 import styles from './styles.scss';
 
 export function CollectionGarmentForm({

@@ -1,6 +1,6 @@
 import React from 'react';
 import { oneOf } from 'prop-types';
-import { getInputErrorState } from '@utils';
+import { errorActionReducer, getInputErrorState  } from '@utils';
 import styles from './styles.scss';
 
 export function TextInput({

@@ -1,4 +1,4 @@
-import { RETURN_SELF } from '@utils';
+import { errorActionReducer, RETURN_SELF  } from '@utils';
 
 const types = {
 	start: 'topstitch.auth.signUp.start',
@@ -12,10 +12,7 @@ export const signUpReducer = {
 		...state,
 		cognitoUser,
 	}),
-	[types.fail]: (state, { error }) => ({
-		...state,
-		error,
-	}),
+	[types.fail]: errorActionReducer,
 };
 
 export const signUp = ({ email, password, confirm }) => ({
