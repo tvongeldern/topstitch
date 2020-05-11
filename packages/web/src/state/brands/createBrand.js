@@ -1,3 +1,4 @@
+import { RETURN_SELF } from '@utils';
 import { NON_ALPHANUMERIC_GLOBAL_PATTERN } from '@constants';
 
 const types = {
@@ -7,7 +8,7 @@ const types = {
 };
 
 export const createBrandReducer = {
-	[types.start]: (state) => state,
+	[types.start]: RETURN_SELF,
 	[types.success]: (state, { response }) => ({
 		...state,
 		brands: {

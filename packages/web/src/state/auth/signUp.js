@@ -1,3 +1,5 @@
+import { RETURN_SELF } from '@utils';
+
 const types = {
 	start: 'topstitch.auth.signUp.start',
 	success: 'topstitch.auth.signUp.success',
@@ -5,7 +7,7 @@ const types = {
 };
 
 export const signUpReducer = {
-	[types.start]: (state) => state,
+	[types.start]: RETURN_SELF,
 	[types.success]: (state, { response: cognitoUser }) => ({
 		...state,
 		cognitoUser,

@@ -1,3 +1,5 @@
+import { RETURN_SELF } from '@utils';
+
 const types = {
 	start: 'topstitch.collections.addGarmentToCollection.start',
 	success: 'topstitch.collections.addGarmentToCollection.success',
@@ -5,7 +7,7 @@ const types = {
 };
 
 export const addGarmentToCollectionReducer = {
-	[types.start]: (state) => state,
+	[types.start]: RETURN_SELF,
 	[types.success]: (state, { garmentId, id }) => ({
 		...state,
 		collections: {

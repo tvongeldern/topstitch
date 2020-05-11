@@ -1,3 +1,5 @@
+import { RETURN_SELF } from '@utils';
+
 const types = {
 	start: 'topstitch.measurements.createMeasurement.start',
 	success: 'topstitch.measurements.createMeasurement.success',
@@ -5,7 +7,7 @@ const types = {
 };
 
 export const createMeasurementReducer = {
-	[types.start]: (state) => state,
+	[types.start]: RETURN_SELF,
 	[types.success]: (state, { response }) => ({
 		...state,
 		measurements: {

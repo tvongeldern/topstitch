@@ -1,4 +1,4 @@
-import { REDUCE_TO_MAP } from '@utils';
+import { RETURN_SELF } from '@utils';
 
 const types = {
 	start: 'topstitch.auth.getMe.start',
@@ -7,7 +7,7 @@ const types = {
 };
 
 export const getMeReducer = {
-	[types.start]: (state) => state,
+	[types.start]: RETURN_SELF,
 	[types.success]: (state, { response }) => ({
 		...state,
 		me: response,

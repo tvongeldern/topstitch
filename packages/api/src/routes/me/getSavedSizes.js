@@ -1,13 +1,13 @@
 import { SavedSize } from '@models';
 
 export async function getSavedSizes(
-	{ account },
+	{ me },
 	response,
 	errorHandler,
 ) {
 	try {
 		const savedSizes = await SavedSize.findAll({
-			accountId: account.id,
+			accountId: me.id,
 		});
 		const json = savedSizes.toJSON();
 		return response.send(json);

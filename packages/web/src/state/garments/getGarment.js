@@ -1,3 +1,5 @@
+import { RETURN_SELF } from '@utils';
+
 const types = {
 	start: 'topstitch.garments.getGarment.start',
 	success: 'topstitch.garments.getGarment.success',
@@ -5,7 +7,7 @@ const types = {
 };
 
 export const getGarmentReducer = {
-	[types.start]: (state) => state,
+	[types.start]: RETURN_SELF,
 	[types.success]: (state, { response }) => ({
 		...state,
 		slugs: {

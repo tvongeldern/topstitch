@@ -7,9 +7,9 @@ export async function authMiddleware(request, response, next) {
 	if (!token) {
 		return next();
 	}
-	const account = await MyAccount.findOne({
+	const me = await MyAccount.findOne({
 		where: { cognitoId: token.sub },
 	});
-	request.account = account;
+	request.me = me;
 	next();
 }

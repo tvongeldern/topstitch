@@ -1,3 +1,5 @@
+import { RETURN_SELF } from '@utils';
+
 const types = {
 	start: 'topstitch.fits.createFit.start',
 	success: 'topstitch.fits.createFit.success',
@@ -5,7 +7,7 @@ const types = {
 };
 
 export const createFitReducer = {
-	[types.start]: (state) => state,
+	[types.start]: RETURN_SELF,
 	[types.success]: (state, { response }) => ({
 		...state,
 		fits: {
