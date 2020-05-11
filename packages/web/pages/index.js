@@ -8,6 +8,7 @@ import {
 	useActionCreators,
 	useSelector,
 } from '@utils/hooks';
+import { EMPTY_OBJECT } from '@constants';
 
 function hompeageSelector({
 	brands: { brands },
@@ -20,16 +21,16 @@ export default function Homepage() {
 		searchBrands,
 	);
 	const { brands } = useSelector(hompeageSelector);
-	const [state, setState] = useState(null);
+	const [{ slug }, setState] = useState(EMPTY_OBJECT);
 
 	useEffect(() => {
-		if (state?.slug) {
+		if (slug) {
 			Router.push(
 				'/sizecharts/[slug]',
-				`/sizecharts/${state.slug}`,
+				`/sizecharts/${slug}`,
 			);
 		}
-	}, [state]);
+	}, [slug]);
 
 	return (
 		<Page>

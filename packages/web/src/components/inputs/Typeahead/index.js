@@ -199,7 +199,7 @@ Typeahead.propTypes = {
 	label: string, // input label
 	search: func, // function to that requests matches for input value
 	optionComponent: func, // render instructions for each option
-	renderPinnedOption: func, // component that is 
+	renderPinnedOption: func, // component that is pinned to bottom of options
 	minLength: number, // minimum number of input characters before requesting results
 	searchFields: arrayOf(string), // partial match fields to search by
 	exactMatchFields: arrayOf(string), // search fields that must match exactly

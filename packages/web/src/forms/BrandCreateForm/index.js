@@ -13,7 +13,7 @@ export function BrandCreateForm({
 	return (
 		<form onSubmit={handleSubmit} className={styles.container}>
 
-			<p>Thank you for adding a new sizechart!</p>
+			<p>Thank you for contributing to the community!</p>
 
 			<Field
 				component={TextInput}

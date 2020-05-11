@@ -32,6 +32,7 @@ export function MeasurementCreateForm({
 			/>
 
 			<Field
+				type="tel"
 				name="average"
 				label="Length"
 				component={TextInput}

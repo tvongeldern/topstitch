@@ -26,10 +26,11 @@ export function HomepageHero({
 				<form>
 					<Field
 						name="slug"
+						outputField="slug"
+						placeholder="Search clothing brands"
+						search={search}
 						component={Typeahead}
 						options={Object.values(brands)}
-						search={search}
-						placeholder="Search clothing brands"
 					/>
 				</form>
 			</div>

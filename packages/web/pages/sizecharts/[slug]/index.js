@@ -39,20 +39,25 @@ function SizechartPage({ slug }) {
 	const {
 		sizechartSizesView = EMPTY_ARRAY,
 		savedSizesView = EMPTY_ARRAY,
+		defaultSelected = [sizechart.id],
 	} = state;
 
 	const sizechartChangeHandler = ({
+		defaultSelected,
 		displayName,
 		selectedObject: { id, measurements },
-	}) => measurements && setState({
+	}) => setState({
 		...state,
-		sizechartSizesView: [
-			{
-				id,
-				measurements,
-				name: displayName,
-			},
-		],
+		defaultSelected,
+		sizechartSizesView: measurements
+		? [
+				{
+					id,
+					measurements,
+					name: displayName,
+				},
+			]
+		: state.sizechartSizesView,
 	});
 
 	const sizeChangeHandler = ({
@@ -85,6 +90,7 @@ function SizechartPage({ slug }) {
 						sizes={savedSizes}
 						onSizechartChange={sizechartChangeHandler}
 						onSizesChange={sizeChangeHandler}
+						defaultSelected={defaultSelected}
 						//
 						selectedSavedSize={savedSizesView[0]}
 						selectedSizechartSize={sizechartSizesView[0]}

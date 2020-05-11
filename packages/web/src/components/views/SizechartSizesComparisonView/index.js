@@ -1,6 +1,5 @@
 import React from 'react';
 import { } from 'prop-types';
-import { Button } from '@components/ui';
 import { Sizechart } from '../Sizechart';
 import { SizesBrowser } from '../SizesBrowser'
 import styles from './styles.scss';
@@ -22,6 +21,7 @@ function TextSize({ name, measurements }) {
 }
 
 export function SizechartSizesComparisonView({
+	defaultSelected,
 	onSizechartChange,
 	sizechart,
 	sizes,
@@ -39,6 +39,9 @@ export function SizechartSizesComparisonView({
 						header={sizechart.name}
 						onChange={onSizechartChange}
 						sizechart={sizechart}
+						initialValues={{
+							selected: defaultSelected.join(Sizechart.DIVIDER),
+						}}
 						browseMode
 					/>
 				</div>
