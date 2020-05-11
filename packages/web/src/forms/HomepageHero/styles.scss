@@ -1,0 +1,69 @@
+@import 'web';
+
+// https://pixabay.com/photos/jeans-tape-measure-fabric-scissors-2406521/
+
+.container {
+	.pinned {
+		position: fixed;
+		width: 100%;
+		height: 90%;
+		left: 0;
+		top: 0;
+	}
+
+	.hero {
+		z-index: -2;
+		background-image: url('/images/hero-desktop.jpg');
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+	.shade {
+		z-index: -1;
+		background-color: $dark-gray;
+		opacity: 0.4;
+	}
+
+	.content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		box-sizing: border-box;
+
+		h1 {
+			color: $white;
+			font-size: 64px;
+			margin-bottom: 8px;
+		}
+
+		h4 {
+			color: $white;
+			margin-top: 0;
+			margin-bottom: 16px;
+		}
+
+		input {
+			background-color: transparent;
+			border-color: $white;
+			color: $white;
+	
+			&::placeholder {
+				color: $white;
+			}
+		}
+	}
+	
+}
+
+@include mobile {
+	.container {
+		.hero {
+			background-image: url('/images/hero-mobile.jpg');
+		}
+
+		.content {
+			padding: 8px;
+		}
+	}
+}

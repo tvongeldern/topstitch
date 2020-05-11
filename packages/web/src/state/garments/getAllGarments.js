@@ -1,4 +1,8 @@
-import { errorActionReducer, REDUCE_TO_MAP, RETURN_SELF  } from '@utils';
+import {
+	errorActionReducer,
+	REDUCE_TO_MAP,
+	RETURN_SELF,
+} from '@utils';
 
 const types = {
 	start: 'topstitch.garments.getAllGarments.start',
