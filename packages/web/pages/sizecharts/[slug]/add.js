@@ -21,6 +21,10 @@ import {
 	createSize,
 	createMeasurement,
 	deleteBrand,
+	deleteCollection,
+	deleteFit,
+	deleteSize,
+	deleteMeasurement,
 	getAllGarments,
 	getSizechart,
 	getGarmentSegments,
@@ -115,10 +119,18 @@ export default function AddSizechartPage({ slug }) {
 
 	const [
 		dispatchDeleteBrand,
+		dispatchDeleteCollection,
+		dispatchDeleteFit,
+		dispatchDeleteSize,
+		dispatchDeleteMeasurement,
 		dispatchGetSizechart,
 		dispatchGetGarmentSegments,
 	] = useActionCreators(
 		deleteBrand,
+		deleteCollection,
+		deleteFit,
+		deleteSize,
+		deleteMeasurement,
 		getSizechart,
 		getGarmentSegments,
 	);
@@ -185,6 +197,7 @@ export default function AddSizechartPage({ slug }) {
 							component={CollectionGarmentForm}
 							onSubmit={submitGarment}
 							initialValues={{ collection: selectedObject }}
+							deleteCollection={dispatchDeleteCollection}
 							garments={Object.values(garments)
 								.filter(
 									GarmentFilter(
@@ -210,8 +223,9 @@ export default function AddSizechartPage({ slug }) {
 						<Form
 							component={SizeCreateForm}
 							onSubmit={submitSize}
+							deleteFit={dispatchDeleteFit}
 							existing={selectedObject.sizes}
-							initialValues={{ fitId: selectedObject.id }}
+							initialValues={{ fit: selectedObject }}
 						/>
 					)}
 
@@ -219,10 +233,21 @@ export default function AddSizechartPage({ slug }) {
 						<Form
 							component={MeasurementCreateForm}
 							onSubmit={submitMeasurement}
+							deleteSize={dispatchDeleteSize}
 							segments={Object.values(segments)}
 							garment={garments[state.garment]}
-							initialValues={{ sizeId: selectedObject.id }}
+							initialValues={{ size: selectedObject }}
 						/>
+					)}
+
+					{selectedAttribute === 'measurement' && (
+						<form>
+							{selectedObject?.segment && (
+								<a onClick={() => dispatchDeleteMeasurement(selectedObject)}>
+									{`Delete ${selectedObject.segment.name} measurement`}
+								</a>
+							)}
+						</form>
 					)}
 
 					<Sizechart

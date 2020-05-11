@@ -10,9 +10,11 @@ import {
 import { formatDropdownOption } from '@utils';
 
 export function MeasurementCreateForm({
+	deleteSize,
 	garment,
 	handleSubmit,
 	segments,
+	values: { size },
 }) {
 	return (
 		<form onSubmit={handleSubmit}>
@@ -36,6 +38,10 @@ export function MeasurementCreateForm({
 			/>
 
 			<Button type="submit">Add measurement</Button>
+
+			<a onClick={() => deleteSize(size)}>
+				{`Delete ${size.name} size`}
+			</a>
 
 		</form>
 	);

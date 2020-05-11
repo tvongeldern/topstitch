@@ -4,6 +4,7 @@ import brands from './brands';
 import collections from './collections';
 import fits from './fits';
 import garments from './garments';
+import measurements from './measurements';
 import me from './me';
 import sizecharts from './sizecharts';
 import sizes from './sizes';
@@ -15,6 +16,7 @@ router.use('/collections', collections);
 router.use('/fits', fits);
 router.use('/garments', garments);
 router.use('/me', me);
+router.use('/measurements', measurements);
 router.use('/sizecharts', sizecharts);
 router.use('/sizes', sizes);
 

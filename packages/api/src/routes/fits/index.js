@@ -1,8 +1,10 @@
 import { Router } from 'express';
 import { Fit } from '@models';
-import { creator } from '@utils/handlers';
+import { creator, destroy } from '@utils/handlers';
 
 const fits = new Router();
+
+fits.delete('/:id', destroy(Fit));
 
 fits.post(
 	'/:id/sizes/',

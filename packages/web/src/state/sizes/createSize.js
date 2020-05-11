@@ -21,10 +21,13 @@ export const createSizeReducer = {
 	}),
 };
 
-export const createSize = ({ fitId, name }) => ({
+export const createSize = ({
+	fit: { id },
+	name,
+}) => ({
 	types: [types.start, types.success, types.fail],
 	promise: ({ api }) => api.post(
-		`/fits/${fitId}/sizes/`,
+		`/fits/${id}/sizes/`,
 		{ name },
 	),
 });

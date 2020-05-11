@@ -7,6 +7,7 @@ import styles from './styles.scss';
 
 export function CollectionGarmentForm({
 	handleSubmit,
+	deleteCollection,
 	garments,
 	values: { collection },
 }) {
@@ -24,6 +25,11 @@ export function CollectionGarmentForm({
 			/>
 
 			<Button type="submit">Submit</Button>
+
+			<a onClick={() => deleteCollection(collection)}>
+				{`Delete ${collection.name} collection`}
+			</a>
+
 		</form>
 	);
 }

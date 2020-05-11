@@ -14,8 +14,10 @@ const COMMON_SIZES = [
 ];
 
 export function SizeCreateForm({
+	deleteFit,
 	existing,
 	handleSubmit,
+	values: { fit },
 }) {
 	return (
 		<form onSubmit={handleSubmit}>
@@ -32,6 +34,10 @@ export function SizeCreateForm({
 			/>
 
 			<Button type="submit">Add size</Button>
+
+			<a onClick={() => deleteFit(fit)}>
+				{`Delete ${fit.name} fit`}
+			</a>
 
 		</form>
 	);

@@ -20,13 +20,13 @@ export const createMeasurementReducer = {
 };
 
 export const createMeasurement = ({
-	sizeId,
+	size: { id },
 	segmentId,
 	average,
 }) => ({
 	types: [types.start, types.success, types.fail],
 	promise: ({ api }) => api.post(
-		`/sizes/${sizeId}/measurements/`,
+		`/sizes/${id}/measurements/`,
 		{ segmentId, average },
 	),
 });
