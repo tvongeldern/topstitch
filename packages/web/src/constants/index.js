@@ -13,3 +13,7 @@ export const EMAIL_PATTERN = /^[^@]+@[^@.]+.[^@.]+$/;
 export const NON_ALPHANUMERIC_GLOBAL_PATTERN = /[^a-z0-9]/g;
 
 export const NON_NUMERIC_GLOBAL_PATTERN = /[^0-9]/g;
+
+export const UNITS = ['in', 'cm'];
+
+export const [DEFAULT_UNITS] = UNITS;

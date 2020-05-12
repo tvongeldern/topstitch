@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
-import { arrayOf, bool, func, object, string } from 'prop-types';
+import { bool, func, object } from 'prop-types';
 import { Field, Form } from 'react-final-form';
 import { RadioLabel } from '@components/inputs';
-import { RETURN_NAME, RETURN_NULL  } from '@utils';
-import { EMPTY_ARRAY } from '@constants';
+import {
+	RETURN_NAME,
+	RETURN_NULL,
+	RETURN_SELF,
+} from '@utils';
 import {
 	DIVIDER,
 	SIZECHART_ATTRIBUTES_CHAIN,
@@ -11,17 +14,54 @@ import {
 } from './attributesChain';
 import styles from './styles.scss';
 
-function showAttribute({
-	attribute,
-	browseMode,
-	members,
-}) {
-	if (!browseMode) {
-		return true;
-	}
+/**
+ * Browse mode filters
+ */
+
+function showInBrowseMode({ attribute, members }) {
 	const minLength = attribute === 'measurements' ? 0 : 2;
 	return members.length >= minLength;
 }
+
+function AttributeFilter(browseMode) {
+	if (!browseMode) {
+		return RETURN_SELF;
+	}
+	return showInBrowseMode;
+}
+
+/**
+ * Rendering functions
+ */
+
+function renderRow({
+	attribute,
+	baseValue,
+	members,
+	getLabel = RETURN_NAME,
+	selectedId,
+}) {
+	return (
+		<div className={styles.list} key={attribute}>
+			{members.map((member) => (
+				<Field
+					name="selected"
+					type="radio"
+					label={getLabel(member)}
+					component={RadioLabel}
+					value={baseValue ? [baseValue, member.id].join(DIVIDER) : member.id}
+					key={member.id}
+					defaultSelected={selectedId === member.id}
+				/>
+			))}
+		</div>
+	);
+}
+
+
+/**
+ * Sizechart
+ */
 
 function SizechartForm({
 	onChange,
@@ -64,31 +104,9 @@ function SizechartForm({
 		<div className={styles.sizechart}>
 			{header && <h3>{header}</h3>}
 
-			{Object.values(radioGroups).map(({
-				attribute,
-				baseValue,
-				members,
-				getLabel = RETURN_NAME,
-				selectedId,
-			}) => showAttribute({
-				attribute,
-				browseMode,
-				members,
-			}) && (
-				<div className={styles.list} key={attribute}>
-					{members.map((member) => (
-						<Field
-							name="selected"
-							type="radio"
-							label={getLabel(member)}
-							component={RadioLabel}
-							value={baseValue ? [baseValue, member.id].join(DIVIDER) : member.id}
-							key={member.id}
-							defaultSelected={selectedId === member.id}
-						/>
-					))}
-				</div>
-			))}
+			{Object.values(radioGroups)
+				.filter(AttributeFilter(browseMode))
+				.map(renderRow)}
 		</div>
 	);
 }

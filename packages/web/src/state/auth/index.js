@@ -2,7 +2,7 @@ import { createReducer } from '@utils/redux';
 import * as reducers from './_reducers';
 
 const INITIAL_STATE = {
-	auth: {},
+	units: 'in',
 };
 
 export const auth = createReducer(reducers, INITIAL_STATE);
