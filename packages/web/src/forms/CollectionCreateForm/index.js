@@ -6,7 +6,7 @@ import {
 	SuggestionGroup,
 	TextInput,
 } from '@components';
-import { validateRequired } from '@forms/validators';
+import { validateRequired } from '@utils/validators';
 import styles from './styles.scss';
 
 const COMMON_COLLECTIONS = [

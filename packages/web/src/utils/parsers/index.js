@@ -1,0 +1,1 @@
+export { parseNumeric } from './parseNumeric';

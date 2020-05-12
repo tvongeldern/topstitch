@@ -1,4 +1,4 @@
-import { errorActionReducer, Logger  } from '@utils';
+import { Logger  } from '@utils';
 
 export function provideLogger(request, response, next) {
 	const logger = new Logger().context(request.originalUrl);

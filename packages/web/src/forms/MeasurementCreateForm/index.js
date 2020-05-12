@@ -7,7 +7,12 @@ import {
 	Link,
 	TextInput,
 } from '@components';
-import { errorActionReducer, formatDropdownOption  } from '@utils';
+import {
+	mapToDropdownOption,
+	formatNumeric,
+	parseNumeric,
+	validateRequired,
+} from '@utils';
 
 export function MeasurementCreateForm({
 	deleteSize,
@@ -28,7 +33,8 @@ export function MeasurementCreateForm({
 				placeholder="Select one"
 				label="Measurement"
 				component={Dropdown}
-				options={segments.map(formatDropdownOption)}
+				options={segments.map(mapToDropdownOption)}
+				validate={validateRequired}
 			/>
 
 			<Field
@@ -36,6 +42,9 @@ export function MeasurementCreateForm({
 				name="average"
 				label="Length"
 				component={TextInput}
+				format={formatNumeric}
+				parse={parseNumeric}
+				validate={validateRequired}
 			/>
 
 			<Button type="submit">Add measurement</Button>

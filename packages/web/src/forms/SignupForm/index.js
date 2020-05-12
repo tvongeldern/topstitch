@@ -2,14 +2,14 @@ import React from 'react';
 import { func } from 'prop-types';
 import { Field } from 'react-final-form';
 import { Button, TextInput } from '@components';
-import { errorActionReducer, RETURN_SELF  } from '@utils';
 import {
 	composeValidators,
+	RETURN_SELF,
 	validateEmail,
 	validatePassword,
 	validateRequired,
 	validateConfirmPassword,
-} from '../validators';
+} from '@utils';
 import styles from './styles.scss';
 
 const email = composeValidators(validateRequired, validateEmail);

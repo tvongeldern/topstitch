@@ -9,7 +9,7 @@ import {
 	errorHandler,
 } from '@middleware';
 import routes from '@routes';
-import { errorActionReducer, Logger  } from '@utils';
+import { Logger  } from '@utils';
 import { config } from '@constants';
 
 const logger = new Logger().context('startup');

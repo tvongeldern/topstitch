@@ -1,5 +1,5 @@
 import { Auth as Amplify } from 'aws-amplify';
-import { errorActionReducer, EMPTY_FUNCTION  } from '@utils';
+import { EMPTY_FUNCTION  } from '@utils';
 import { config } from '@constants';
 
 function CookiesStorage({ cookies }) {

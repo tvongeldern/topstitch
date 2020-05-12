@@ -1,3 +1,3 @@
-import { errorActionReducer, Logger  } from '@utils';
+import { Logger  } from '@utils';
 
 export const logger = new Logger().context('DB Migration');

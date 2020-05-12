@@ -2,7 +2,7 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import jwkToPem from 'jwk-to-pem';
 import { COGNITO_PUBLIC_KEYS_URL } from '@constants/config';
-import { errorActionReducer, Logger  } from '@utils';
+import { Logger  } from '@utils';
 
 // https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html
 

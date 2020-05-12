@@ -13,7 +13,7 @@ export function Footer() {
 				<p>Topstitch | Chicago</p>
 				<div className={styles.links}>
 					<Link href="/faq">FAQ</Link>
-					<a href="/privacy.html">Privacy</a>
+					<a href="/privacy.html" target="_blank">Privacy</a>
 				</div>
 			</div>
 		</div>

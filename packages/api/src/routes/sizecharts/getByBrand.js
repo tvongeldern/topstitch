@@ -1,6 +1,6 @@
 import { Brand } from '@models';
 import { UUID } from '@constants/patterns';
-import { errorActionReducer, getSizechart  } from '@utils';
+import { getSizechart  } from '@utils';
 
 const type = 'brand';
 const attributes = ['id'];

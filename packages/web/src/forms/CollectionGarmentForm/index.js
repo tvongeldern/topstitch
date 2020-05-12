@@ -2,7 +2,7 @@ import React from 'react';
 import { arrayOf, func, object } from 'prop-types';
 import { Field } from 'react-final-form';
 import { Button, Dropdown } from '@components';
-import { errorActionReducer, formatDropdownOption  } from '@utils';
+import { mapToDropdownOption  } from '@utils';
 import styles from './styles.scss';
 
 export function CollectionGarmentForm({
@@ -21,7 +21,7 @@ export function CollectionGarmentForm({
 				component={Dropdown}
 				label="Select a garment"
 				placeholder="Select one"
-				options={garments.map(formatDropdownOption)}
+				options={garments.map(mapToDropdownOption)}
 			/>
 
 			<Button type="submit">Submit</Button>

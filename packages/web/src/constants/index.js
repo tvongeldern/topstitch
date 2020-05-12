@@ -11,3 +11,5 @@ export const MAGIC_RATIO = 1.6180339887;
 export const EMAIL_PATTERN = /^[^@]+@[^@.]+.[^@.]+$/;
 
 export const NON_ALPHANUMERIC_GLOBAL_PATTERN = /[^a-z0-9]/g;
+
+export const NON_NUMERIC_GLOBAL_PATTERN = /[^0-9]/g;

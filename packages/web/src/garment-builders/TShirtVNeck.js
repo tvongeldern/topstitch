@@ -1,4 +1,4 @@
-import { errorActionReducer, ADD_ABS, Garment  } from '@utils';
+import { ADD_ABS, Garment  } from '@utils';
 import {
 	ShirtTorso,
 	ShirtSleevesShort,

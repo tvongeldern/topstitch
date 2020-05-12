@@ -1,4 +1,4 @@
-import { errorActionReducer, ADD_ABS, Garment  } from '@utils';
+import { ADD_ABS, Garment  } from '@utils';
 import { ShirtTorso, ShirtSleevesShort, ShirtNeckStandard } from './components';
 
 export class TShirt extends Garment {

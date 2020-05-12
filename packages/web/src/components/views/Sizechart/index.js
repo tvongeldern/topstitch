@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { arrayOf, bool, func, object, string } from 'prop-types';
 import { Field, Form } from 'react-final-form';
 import { RadioLabel } from '@components/inputs';
-import { errorActionReducer, RETURN_NAME, RETURN_NULL  } from '@utils';
+import { RETURN_NAME, RETURN_NULL  } from '@utils';
 import { EMPTY_ARRAY } from '@constants';
 import {
 	DIVIDER,

@@ -2,8 +2,7 @@ import React from 'react';
 import { func } from 'prop-types';
 import { Field } from 'react-final-form';
 import { Button, TextInput } from '@components';
-import { errorActionReducer, RETURN_SELF  } from '@utils';
-import { validateRequired } from '../validators';
+import { RETURN_SELF, validateRequired  } from '@utils';
 
 export function LoginForm({
 	handleSubmit,
