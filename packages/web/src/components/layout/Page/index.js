@@ -1,6 +1,7 @@
 import React from 'react';
 import { arrayOf, node, oneOfType, string } from 'prop-types';
 import Head from 'next/head';
+import { Footer } from '../Footer';
 import { NavBar } from '../NavBar';
 import styles from './styles.scss';
 
@@ -22,6 +23,7 @@ export function Page({
 			<div className={styles.content}>
 				{error || children}
 			</div>
+			<Footer />
 		</div>
 	);
 }

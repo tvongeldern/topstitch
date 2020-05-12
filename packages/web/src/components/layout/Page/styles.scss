@@ -12,7 +12,7 @@
 		box-sizing: border-box;
 		width: 100%;
 		max-width: $content-max-width;
-		min-height: calc(100vh - #{$nav-height});
+		min-height: calc(100vh - #{$nav-height} - #{$footer-height});
 		padding: 16px;
 	}
 }
