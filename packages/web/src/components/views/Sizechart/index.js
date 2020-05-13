@@ -14,25 +14,10 @@ import {
 } from './attributesChain';
 import styles from './styles.scss';
 
-/**
- * Browse mode filters
- */
-
 function showInBrowseMode({ attribute, members }) {
 	const minLength = attribute === 'measurements' ? 0 : 2;
 	return members.length >= minLength;
 }
-
-function AttributeFilter(browseMode) {
-	if (!browseMode) {
-		return RETURN_SELF;
-	}
-	return showInBrowseMode;
-}
-
-/**
- * Rendering functions
- */
 
 function renderRow({
 	attribute,
@@ -40,6 +25,7 @@ function renderRow({
 	members,
 	getLabel = RETURN_NAME,
 	selectedId,
+	units,
 }) {
 	return (
 		<div className={styles.list} key={attribute}>
@@ -47,7 +33,7 @@ function renderRow({
 				<Field
 					name="selected"
 					type="radio"
-					label={getLabel(member)}
+					label={getLabel(member, units)}
 					component={RadioLabel}
 					value={baseValue ? [baseValue, member.id].join(DIVIDER) : member.id}
 					key={member.id}
@@ -68,6 +54,7 @@ function SizechartForm({
 	sizechart,
 	browseMode,
 	header,
+	units,
 	values: {
 		selected = '',
 	},
@@ -85,6 +72,7 @@ function SizechartForm({
 		{
 			scope: { brands: [sizechart] },
 			selected,
+			units,
 		},
 	);
 
@@ -105,7 +93,7 @@ function SizechartForm({
 			{header && <h3>{header}</h3>}
 
 			{Object.values(radioGroups)
-				.filter(AttributeFilter(browseMode))
+				.filter(browseMode ? showInBrowseMode : RETURN_SELF)
 				.map(renderRow)}
 		</div>
 	);

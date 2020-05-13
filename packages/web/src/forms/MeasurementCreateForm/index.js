@@ -9,9 +9,9 @@ import {
 } from '@components';
 import {
 	mapToDropdownOption,
-	formatNumeric,
-	parseNumeric,
 	validateRequired,
+	LengthFormatter,
+	LengthParser,
 } from '@utils';
 
 export function MeasurementCreateForm({
@@ -42,8 +42,6 @@ export function MeasurementCreateForm({
 				name="average"
 				label="Length"
 				component={TextInput}
-				format={formatNumeric}
-				parse={parseNumeric}
 				validate={validateRequired}
 			/>
 

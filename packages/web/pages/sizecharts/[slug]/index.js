@@ -16,6 +16,7 @@ import { EMPTY_ARRAY, EMPTY_OBJECT } from '@constants';
 function sizechartPageSelector({
 	auth: {
 		savedSizes,
+		units,
 	},
 	sizecharts: {
 		sizecharts
@@ -24,11 +25,12 @@ function sizechartPageSelector({
 	return {
 		savedSizes,
 		sizecharts,
+		units,
 	};
 }
 
 function SizechartPage({ slug }) {
-	const { savedSizes, sizecharts } = useSelector(
+	const { savedSizes, sizecharts, units } = useSelector(
 		sizechartPageSelector,
 	);
 	const sizechart = sizecharts[slug];
@@ -96,6 +98,7 @@ function SizechartPage({ slug }) {
 						//
 						selectedSavedSize={savedSizesView[0]}
 						selectedSizechartSize={sizechartSizesView[0]}
+						units={units}
 					/>
 				}
 			/>

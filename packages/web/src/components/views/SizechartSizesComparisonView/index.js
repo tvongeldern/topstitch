@@ -1,10 +1,11 @@
 import React from 'react';
 import { } from 'prop-types';
+import { LengthFormatter } from '@utils/formatters';
 import { Sizechart } from '../Sizechart';
 import { SizesBrowser } from '../SizesBrowser'
 import styles from './styles.scss';
 
-function TextSize({ name, measurements }) {
+function TextSize({ name, measurements, units }) {
 	return (
 		<div className={styles.textSize}>
 			<h5>{name}</h5>
@@ -12,7 +13,7 @@ function TextSize({ name, measurements }) {
 				{measurements.map(({ average, id, segment }) => (
 					<div className={styles.measurement} key={id}>
 						<b>{segment.name}</b>
-						<span>{average}</span>
+						<span>{`${LengthFormatter(units)(average)} ${units}`}</span>
 					</div>
 				))}
 			</div>
@@ -29,6 +30,7 @@ export function SizechartSizesComparisonView({
 	onSizesChange,
 	selectedSavedSize,
 	selectedSizechartSize,
+	units,
 }) {
 	return (
 		<div className={styles.container}>
@@ -42,6 +44,7 @@ export function SizechartSizesComparisonView({
 						initialValues={{
 							selected: defaultSelected.join(Sizechart.DIVIDER),
 						}}
+						units={units}
 						browseMode
 					/>
 				</div>
@@ -61,9 +64,15 @@ export function SizechartSizesComparisonView({
 				<div className={styles.comparison}>
 					<h3>Measurements</h3>
 					{selectedSizechartSize && (
-						<TextSize {...selectedSizechartSize} />
+						<TextSize
+							{...selectedSizechartSize}
+							units={units}
+						/>
 					)}
-					<TextSize {...selectedSavedSize} />
+					<TextSize
+						{...selectedSavedSize}
+						units={units}
+					/>
 				</div>
 			)}
 		</div>

@@ -1,3 +1,4 @@
+import { LengthFormatter } from '@utils/formatters';
 import { EMPTY_ARRAY, EMPTY_OBJECT } from '@constants';
 
 export const DIVIDER = '::::';
@@ -16,6 +17,7 @@ export function reduceAttributesChain(
 		// in
 		selected,
 		scope,
+		units,
 		// transitory
 		selectedIds = selected.split(DIVIDER),
 		trailingNameChain,
@@ -46,6 +48,7 @@ export function reduceAttributesChain(
 	return {
 		// pass through
 		selectedIds,
+		units,
 		// reduce
 		trailingNameChain: nameChain,
 		trailingIdChain: idChain,
@@ -63,6 +66,7 @@ export function reduceAttributesChain(
 				baseValue: idChain.join(DIVIDER),
 				members,
 				selectedId: nextIterationScope.id,
+				units,
 				...attributePayload,
 			},
 		},
@@ -87,6 +91,6 @@ export const SIZECHART_ATTRIBUTES_CHAIN = [
 	},
 	{
 		attribute: 'measurements',
-		getLabel: ({ average, segment }) => `${segment.name} : ${average}`,
+		getLabel: ({ average, segment }, units) => `${segment.name} : ${LengthFormatter(units)(average)} ${units}`,
 	},
 ];

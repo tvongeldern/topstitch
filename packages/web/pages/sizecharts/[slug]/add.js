@@ -44,6 +44,7 @@ function GarmentFilter({ garments = [] } = {}) {
 }
 
 function addSizechartSelector({
+	auth: { units },
 	brands: { brands },
 	collections: { collections },
 	garments: { garments },
@@ -62,6 +63,7 @@ function addSizechartSelector({
 		measurements,
 		segments,
 		sizecharts,
+		units,
 	};
 }
 
@@ -100,6 +102,7 @@ export default function AddSizechartPage({ slug }) {
 		segments,
 		//
 		sizecharts,
+		units,
 	} = useSelector(
 		addSizechartSelector,
 	);
@@ -236,7 +239,7 @@ export default function AddSizechartPage({ slug }) {
 							deleteSize={dispatchDeleteSize}
 							segments={Object.values(segments)}
 							garment={garments[state.garment]}
-							initialValues={{ size: selectedObject }}
+							initialValues={{ size: selectedObject, units }}
 						/>
 					)}
 
@@ -254,6 +257,7 @@ export default function AddSizechartPage({ slug }) {
 						sizechart={sizechart}
 						onChange={updateState}
 						initialValues={{ selected }}
+						units={units}
 					/>
 				</>
 			</FormSizechartContainer>

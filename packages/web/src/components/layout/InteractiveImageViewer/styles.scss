@@ -22,10 +22,8 @@ $garment-box-height-mobile: 40vh;
 	}
 
 	.textModule {
-		align-self: center;
+		// align-self: center;
 		padding: 0 24px;
-		overflow-y: scroll;
-		height: 90vh;
 		overflow-y: scroll;
 
 		.header {
@@ -64,7 +62,6 @@ $garment-box-height-mobile: 40vh;
 		.textModule {
 			margin-top: $garment-box-height-mobile;
 			height: inherit;
-			padding-top: 16px;
 			width: 100%;
 		}
 	}

@@ -1,4 +1,8 @@
-import { errorActionReducer, RETURN_SELF  } from '@utils';
+import {
+	errorActionReducer,
+	LengthFormatter,
+	RETURN_SELF,
+} from '@utils';
 
 const types = {
 	start: 'topstitch.measurements.createMeasurement.start',
@@ -22,10 +26,14 @@ export const createMeasurement = ({
 	size: { id },
 	segmentId,
 	average,
+	units,
 }) => ({
 	types: [types.start, types.success, types.fail],
 	promise: ({ api }) => api.post(
 		`/sizes/${id}/measurements/`,
-		{ segmentId, average },
+		{
+			segmentId,
+			average: LengthFormatter(units)(average),
+		},
 	),
 });
