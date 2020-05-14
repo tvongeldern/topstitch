@@ -51,12 +51,12 @@ async function up() {
 				});
 
 					await adidasMenSlimSmall.createMeasurement({
-						average: 26,
+						average: 26 * 24,
 						segmentId: hipWidth.id,
 					});
 
 					await adidasMenSlimSmall.createMeasurement({
-						average: 29,
+						average: 29 * 24,
 						segmentId: chestWidth.id,
 					});
 
@@ -69,12 +69,12 @@ async function up() {
 				});
 
 				await adidasMenSlimMedium.createMeasurement({
-					average: 28,
+					average: 28 * 24,
 					segmentId: hipWidth.id,
 				});
 
 				await adidasMenSlimMedium.createMeasurement({
-					average: 31,
+					average: 31 * 24,
 					segmentId: chestWidth.id,
 				});
 
@@ -87,12 +87,12 @@ async function up() {
 				});
 
 				await adidasMenSlimLarge.createMeasurement({
-					average: 30,
+					average: 30 * 24,
 					segmentId: hipWidth.id,
 				});
 
 				await adidasMenSlimLarge.createMeasurement({
-					average: 34,
+					average: 34 * 24,
 					segmentId: chestWidth.id,
 				});
 
@@ -115,12 +115,12 @@ async function up() {
 				});
 
 				await adidasMenRegularSmall.createMeasurement({
-					average: 28,
+					average: 28 * 24,
 					segmentId: hipWidth.id,
 				});
 
 				await adidasMenRegularSmall.createMeasurement({
-					average: 28,
+					average: 28 * 24,
 					segmentId: chestWidth.id,
 				});
 
@@ -133,12 +133,12 @@ async function up() {
 				});
 
 				await adidasMenRegularMedium.createMeasurement({
-					average: 31,
+					average: 31 * 24,
 					segmentId: hipWidth.id,
 				});
 
 				await adidasMenRegularMedium.createMeasurement({
-					average: 31,
+					average: 31 * 24,
 					segmentId: chestWidth.id,
 				});
 
@@ -151,12 +151,12 @@ async function up() {
 				});
 
 				await adidasMenRegularLarge.createMeasurement({
-					average: 34,
+					average: 34 * 24,
 					segmentId: hipWidth.id,
 				});
 
 				await adidasMenRegularLarge.createMeasurement({
-					average: 34,
+					average: 34 * 24,
 					segmentId: chestWidth.id,
 				});
 
@@ -189,12 +189,12 @@ async function up() {
 	});
 
 	await adidasWomenSlimSmall.createMeasurement({
-		average: 20,
+		average: 20 * 24,
 		segmentId: hipWidth.id,
 	});
 
 	await adidasWomenSlimSmall.createMeasurement({
-		average: 22,
+		average: 22 * 24,
 		segmentId: chestWidth.id,
 	});
 
@@ -207,12 +207,12 @@ async function up() {
 	});
 
 	await adidasWomenSlimMedium.createMeasurement({
-		average: 22,
+		average: 22 * 24,
 		segmentId: hipWidth.id,
 	});
 
 	await adidasWomenSlimMedium.createMeasurement({
-		average: 24,
+		average: 24 * 24,
 		segmentId: chestWidth.id,
 	});
 
@@ -225,12 +225,12 @@ async function up() {
 	});
 
 	await adidasWomenSlimLarge.createMeasurement({
-		average: 24,
+		average: 24 * 24,
 		segmentId: hipWidth.id,
 	});
 
 	await adidasWomenSlimLarge.createMeasurement({
-		average: 26,
+		average: 26 * 24,
 		segmentId: chestWidth.id,
 	});
 
@@ -253,12 +253,12 @@ async function up() {
 	});
 
 	await adidasWomenRegularSmall.createMeasurement({
-		average: 24,
+		average: 24 * 24,
 		segmentId: hipWidth.id,
 	});
 
 	await adidasWomenRegularSmall.createMeasurement({
-		average: 24,
+		average: 24 * 24,
 		segmentId: chestWidth.id,
 	});
 
@@ -271,12 +271,12 @@ async function up() {
 	});
 
 	await adidasWomenRegularMedium.createMeasurement({
-		average: 26,
+		average: 26 * 24,
 		segmentId: hipWidth.id,
 	});
 
 	await adidasWomenRegularMedium.createMeasurement({
-		average: 26,
+		average: 26 * 24,
 		segmentId: chestWidth.id,
 	});
 
@@ -289,12 +289,12 @@ async function up() {
 	});
 
 	await adidasWomenRegularLarge.createMeasurement({
-		average: 28,
+		average: 28 * 24,
 		segmentId: hipWidth.id,
 	});
 
 	await adidasWomenRegularLarge.createMeasurement({
-		average: 28,
+		average: 28 * 24,
 		segmentId: chestWidth.id,
 	});
 

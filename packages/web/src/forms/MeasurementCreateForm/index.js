@@ -10,17 +10,28 @@ import {
 import {
 	mapToDropdownOption,
 	validateRequired,
-	LengthFormatter,
-	LengthParser,
 } from '@utils';
+import styles from './styles.scss';
+
+function getSegmentId({ segment: { id } }) {
+	return id;
+}
 
 export function MeasurementCreateForm({
 	deleteSize,
+	dirtySinceLastSubmit,
 	garment,
 	handleSubmit,
 	segments,
+	submitError,
 	values: { size },
 }) {
+	const segmentIds = size.measurements.map(getSegmentId);
+	const segmentOptions = segments
+		.filter(
+			({ id }) => !segmentIds.includes(id),
+		)
+		.map(mapToDropdownOption);
 	return (
 		<form onSubmit={handleSubmit}>
 
@@ -33,7 +44,7 @@ export function MeasurementCreateForm({
 				placeholder="Select one"
 				label="Measurement"
 				component={Dropdown}
-				options={segments.map(mapToDropdownOption)}
+				options={segmentOptions}
 				validate={validateRequired}
 			/>
 
@@ -44,6 +55,10 @@ export function MeasurementCreateForm({
 				component={TextInput}
 				validate={validateRequired}
 			/>
+
+			{submitError && !dirtySinceLastSubmit && (
+				<p className={styles.error}>{submitError}</p>
+			)}
 
 			<Button type="submit">Add measurement</Button>
 

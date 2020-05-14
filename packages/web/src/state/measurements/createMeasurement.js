@@ -1,6 +1,6 @@
 import {
 	errorActionReducer,
-	LengthFormatter,
+	LengthParser,
 	RETURN_SELF,
 } from '@utils';
 
@@ -33,7 +33,7 @@ export const createMeasurement = ({
 		`/sizes/${id}/measurements/`,
 		{
 			segmentId,
-			average: LengthFormatter(units)(average),
+			average: LengthParser(units)(average),
 		},
 	),
 });

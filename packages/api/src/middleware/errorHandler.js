@@ -13,6 +13,9 @@ function deriveErrorStatus({ error }) {
 	if (error.name === 'SequelizeUniqueConstraintError') {
 		return 409;
 	}
+	if (error.name === 'SequelizeDatabaseError') {
+		return 400;
+	}
 	return 500;
 }
 
@@ -29,6 +32,9 @@ function deriveErrorMessage({ error, status }) {
 	}
 	if (error.name === 'SequelizeValidationError') {
 		return error.errors?.map(getMessage).join(', ');
+	}
+	if (error.name === 'SequelizeDatabaseError') {
+		return error.original?.message;
 	}
 	if (error.name === 'SequelizeUniqueConstraintError') {
 		const fields = Object.keys(error.fields || {});
