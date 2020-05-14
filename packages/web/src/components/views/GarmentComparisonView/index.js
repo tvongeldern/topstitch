@@ -55,8 +55,8 @@ export function GarmentComparisonView({
 			viewBox={viewBox}
 			strokeWidth={strokeWidth}
 		>
-			{garmentDrawingInstructions.map(({ name, strokes }, index) => (
-				<g key={name}>
+			{garmentDrawingInstructions.map(({ id, name, strokes }, index) => (
+				<g key={id}>
 					{strokes.map(({ draw }) => (
 						<path d={draw} key={draw} />
 					))}

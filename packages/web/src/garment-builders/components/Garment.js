@@ -1,6 +1,6 @@
 import { EMPTY_OBJECT, EMPTY_ARRAY } from '@constants';
-import { drawMeasurements } from '../drawing';
-import { calculateSize, shiftCoordinates } from '../geometry';
+import { drawMeasurements } from '@utils/drawing';
+import { calculateSize, shiftCoordinates } from '@utils/geometry';
 
 function reduceMeasurementsToObject(measurementsArray) {
 	return measurementsArray.reduce((measurementsObject, { average, segment }) => ({

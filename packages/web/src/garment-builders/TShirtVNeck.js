@@ -1,5 +1,6 @@
-import { ADD_ABS, Garment  } from '@utils';
+import { ADD_ABS } from '@utils';
 import {
+	Garment,
 	ShirtTorso,
 	ShirtSleevesShort,
 	ShirtNeckVNeck,

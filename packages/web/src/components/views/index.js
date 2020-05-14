@@ -2,5 +2,8 @@ export { GarmentComparisonView } from './GarmentComparisonView';
 export { GarmentSegmentsView } from './GarmentSegmentsView';
 export { SegmentsBrowser } from './SegmentsBrowser';
 export { Sizechart } from './Sizechart';
+export { SizechartComparisonView } from './SizechartComparisonView';
 export { SizechartSizesComparisonView } from './SizechartSizesComparisonView';
 export { SizesBrowser } from './SizesBrowser';
+export { FormSizechartContainer } from './FormSizechartContainer';
+export { InteractiveImageViewer } from './InteractiveImageViewer';

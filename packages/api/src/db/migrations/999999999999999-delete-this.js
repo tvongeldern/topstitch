@@ -299,15 +299,296 @@ async function up() {
 	});
 
 
-	/**
-	 * Semi-created brand
-	 */
-	const semiBrand = await new Brand({ name: 'Semi', slug: 'semi' }).save();
 
-	const semiMen = await semiBrand.createCollection({
-		name: 'Semi Men',
+
+
+
+
+
+
+	/**
+	 * Nike
+	 */
+
+	const nike = await new Brand({
+		name: `Nike`,
+		slug: `nike`,
+	}).save();
+
+	/**
+	 * Nike men
+	 */
+
+	const nikeMen = await nike.createCollection({
+		name: 'Men',
 	});
-	await semiMen.addGarment(tshirt.id);
+	await nikeMen.addGarment(tshirt.id);
+
+	/**
+	 * Nike men slim
+	 */
+
+	const nikeMenSlim = await nikeMen.createFit({
+		name: 'Slim',
+		garmentId: tshirt.id,
+	});
+
+	/**
+	 * Nike men slim small
+	 */
+
+	const nikeMenSlimSmall = await nikeMenSlim.createSize({
+		name: 'Small',
+	});
+
+	await nikeMenSlimSmall.createMeasurement({
+		average: 26 * 24,
+		segmentId: hipWidth.id,
+	});
+
+	await nikeMenSlimSmall.createMeasurement({
+		average: 29 * 24,
+		segmentId: chestWidth.id,
+	});
+
+	/**
+	 * Nike men slim medium
+	 */
+
+	const nikeMenSlimMedium = await nikeMenSlim.createSize({
+		name: 'Medium',
+	});
+
+	await nikeMenSlimMedium.createMeasurement({
+		average: 28 * 24,
+		segmentId: hipWidth.id,
+	});
+
+	await nikeMenSlimMedium.createMeasurement({
+		average: 31 * 24,
+		segmentId: chestWidth.id,
+	});
+
+	/**
+	 * Nike men slim large
+	 */
+
+	const nikeMenSlimLarge = await nikeMenSlim.createSize({
+		name: 'Large',
+	});
+
+	await nikeMenSlimLarge.createMeasurement({
+		average: 30 * 24,
+		segmentId: hipWidth.id,
+	});
+
+	await nikeMenSlimLarge.createMeasurement({
+		average: 34 * 24,
+		segmentId: chestWidth.id,
+	});
+
+
+	/**
+	 * Nike men regular
+	 */
+
+	const nikeMenRegular = await nikeMen.createFit({
+		name: 'Regular',
+		garmentId: tshirt.id,
+	});
+
+	/**
+	 * Nike men regular small
+	 */
+
+	const nikeMenRegularSmall = await nikeMenRegular.createSize({
+		name: 'Small',
+	});
+
+	await nikeMenRegularSmall.createMeasurement({
+		average: 28 * 24,
+		segmentId: hipWidth.id,
+	});
+
+	await nikeMenRegularSmall.createMeasurement({
+		average: 28 * 24,
+		segmentId: chestWidth.id,
+	});
+
+	/**
+	 * Nike men regular medium
+	 */
+
+	const nikeMenRegularMedium = await nikeMenRegular.createSize({
+		name: 'Medium',
+	});
+
+	await nikeMenRegularMedium.createMeasurement({
+		average: 31 * 24,
+		segmentId: hipWidth.id,
+	});
+
+	await nikeMenRegularMedium.createMeasurement({
+		average: 31 * 24,
+		segmentId: chestWidth.id,
+	});
+
+	/**
+	 * Nike men regular large
+	 */
+
+	const nikeMenRegularLarge = await nikeMenRegular.createSize({
+		name: 'Large',
+	});
+
+	await nikeMenRegularLarge.createMeasurement({
+		average: 34 * 24,
+		segmentId: hipWidth.id,
+	});
+
+	await nikeMenRegularLarge.createMeasurement({
+		average: 34 * 24,
+		segmentId: chestWidth.id,
+	});
+
+
+
+	/**
+	 * Nike women
+	 */
+
+	const nikeWomen = await nike.createCollection({
+		name: 'Women',
+	});
+	await nikeWomen.addGarment(tshirt.id);
+
+	/**
+	 * Nike women slim
+	 */
+
+	const nikeWomenSlim = await nikeWomen.createFit({
+		name: 'Petite',
+		garmentId: tshirt.id,
+	});
+
+	/**
+	 * Nike women slim small
+	 */
+
+	const nikeWomenSlimSmall = await nikeWomenSlim.createSize({
+		name: 'Small',
+	});
+
+	await nikeWomenSlimSmall.createMeasurement({
+		average: 20 * 24,
+		segmentId: hipWidth.id,
+	});
+
+	await nikeWomenSlimSmall.createMeasurement({
+		average: 22 * 24,
+		segmentId: chestWidth.id,
+	});
+
+	/**
+	 * Nike women slim medium
+	 */
+
+	const nikeWomenSlimMedium = await nikeWomenSlim.createSize({
+		name: 'Medium',
+	});
+
+	await nikeWomenSlimMedium.createMeasurement({
+		average: 22 * 24,
+		segmentId: hipWidth.id,
+	});
+
+	await nikeWomenSlimMedium.createMeasurement({
+		average: 24 * 24,
+		segmentId: chestWidth.id,
+	});
+
+	/**
+	 * Nike women slim large
+	 */
+
+	const nikeWomenSlimLarge = await nikeWomenSlim.createSize({
+		name: 'Large',
+	});
+
+	await nikeWomenSlimLarge.createMeasurement({
+		average: 24 * 24,
+		segmentId: hipWidth.id,
+	});
+
+	await nikeWomenSlimLarge.createMeasurement({
+		average: 26 * 24,
+		segmentId: chestWidth.id,
+	});
+
+
+	/**
+	 * Nike women regular
+	 */
+
+	const nikeWomenRegular = await nikeWomen.createFit({
+		name: 'Regular',
+		garmentId: tshirt.id,
+	});
+
+	/**
+	 * Nike women regular small
+	 */
+
+	const nikeWomenRegularSmall = await nikeWomenRegular.createSize({
+		name: 'Small',
+	});
+
+	await nikeWomenRegularSmall.createMeasurement({
+		average: 24 * 24,
+		segmentId: hipWidth.id,
+	});
+
+	await nikeWomenRegularSmall.createMeasurement({
+		average: 24 * 24,
+		segmentId: chestWidth.id,
+	});
+
+	/**
+	 * Nike women regular medium
+	 */
+
+	const nikeWomenRegularMedium = await nikeWomenRegular.createSize({
+		name: 'Medium',
+	});
+
+	await nikeWomenRegularMedium.createMeasurement({
+		average: 26 * 24,
+		segmentId: hipWidth.id,
+	});
+
+	await nikeWomenRegularMedium.createMeasurement({
+		average: 26 * 24,
+		segmentId: chestWidth.id,
+	});
+
+	/**
+	 * Nike women regular large
+	 */
+
+	const nikeWomenRegularLarge = await nikeWomenRegular.createSize({
+		name: 'Large',
+	});
+
+	await nikeWomenRegularLarge.createMeasurement({
+		average: 28 * 24,
+		segmentId: hipWidth.id,
+	});
+
+	await nikeWomenRegularLarge.createMeasurement({
+		average: 28 * 24,
+		segmentId: chestWidth.id,
+	});
+
 }
 
 export default { up, down: () => ({}) };

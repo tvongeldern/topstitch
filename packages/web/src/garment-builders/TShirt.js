@@ -1,5 +1,10 @@
-import { ADD_ABS, Garment  } from '@utils';
-import { ShirtTorso, ShirtSleevesShort, ShirtNeckStandard } from './components';
+import { ADD_ABS  } from '@utils';
+import {
+	Garment,
+	ShirtTorso,
+	ShirtSleevesShort,
+	ShirtNeckStandard,
+} from './components';
 
 export class TShirt extends Garment {
 	defaultMeasurements = {
