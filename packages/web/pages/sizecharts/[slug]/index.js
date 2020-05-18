@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { string } from 'prop-types';
+import { Form } from 'react-final-form';
+import Router from 'next/router';
 import {
+	Column,
 	FixedWrapContainer,
 	SizeComparisonView,
 	Loading,
 	Page,
 	Sizechart,
 } from '@components';
+import { BrandCompareToForm } from '@forms'
 import { TShirt } from '@garment-builders';
-import { getSizechart } from '@state/actions';
-import { useSelector } from '@utils/hooks';
+import { getSizechart, searchBrands } from '@state/actions';
+import { useActionCreators, useSelector } from '@utils/hooks';
 
 function updateState({
 	defaultSelected,
@@ -51,18 +55,25 @@ function sizechartPageSelector({
 	auth: {
 		units,
 	},
+	brands: {
+		brands,
+	},
 	sizecharts: {
 		sizecharts
 	},
 }) {
 	return {
+		brands,
 		sizecharts,
 		units,
 	};
 }
 
 function SizechartPage({ slug }) {
-	const { sizecharts, units } = useSelector(
+	const [dispatchSearch] = useActionCreators(
+		searchBrands,
+	);
+	const { brands, sizecharts, units } = useSelector(
 		sizechartPageSelector,
 	);
 	const sizechart = sizecharts[slug];
@@ -95,14 +106,26 @@ function SizechartPage({ slug }) {
 					<Loading size="240" />
 				)}
 
-				<Sizechart
-					sizechart={sizechart}
-					onChange={updateState}
-					units={units}
-					initialValues={{ selected }}
-					header={sizechart.name}
-					browseMode
-				/>
+				<Column>
+					<Sizechart
+						sizechart={sizechart}
+						onChange={updateState}
+						units={units}
+						initialValues={{ selected }}
+						header={sizechart.name}
+						browseMode
+					/>
+
+					<Form
+						component={BrandCompareToForm}
+						search={dispatchSearch}
+						brands={brands}
+						onSubmit={({ name }) => Router.push(
+							'/compare/[...slugs]',
+							`/compare/${slug}/${name}`,
+						)}
+					/>
+				</Column>
 			</FixedWrapContainer>
 		</Page>
 	);

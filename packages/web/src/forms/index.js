@@ -1,3 +1,4 @@
+export { BrandCompareToForm } from './BrandCompareToForm';
 export { BrandCreateForm } from './BrandCreateForm';
 export { CollectionCreateForm } from './CollectionCreateForm';
 export { CollectionGarmentForm } from './CollectionGarmentForm';
