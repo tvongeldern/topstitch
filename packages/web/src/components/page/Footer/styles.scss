@@ -8,6 +8,7 @@
 	background-color: $theme-color-primary;
 	height: $footer-height;
 	box-sizing: border-box;
+	z-index: 1;
 
 	.content {
 		display: flex;

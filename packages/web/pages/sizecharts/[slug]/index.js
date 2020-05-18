@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { string } from 'prop-types';
 import {
+	FixedWrapContainer,
 	GarmentComparisonView,
-	InteractiveImageViewer,
 	Page,
-	SizechartSizesComparisonView,
+	Sizechart,
 } from '@components';
 import { TShirt } from '@garment-builders';
 import { getSizechart } from '@state/actions';
@@ -12,6 +12,42 @@ import { useSelector } from '@utils/hooks';
 import { EMPTY_ARRAY, EMPTY_OBJECT } from '@constants';
 // import savedSizes from '../../../dev/mocks/_mysavedsizes.json';
 // import sizechart from '../../../dev/mocks/_sizechart.json';
+
+function updateState({
+	defaultSelected,
+	selectedObject,
+	state,
+}) {
+	const selected = defaultSelected.join(Sizechart.DIVIDER);
+	if (selectedObject.measurements) {
+		const [brandId] = defaultSelected;
+		return {
+			...state,
+			selected,
+			[brandId]: selectedObject,
+		};
+	}
+	return {
+		...state,
+		selected,
+	};
+}
+
+function wrapState([state, setState]) {
+	return [
+		state,
+		({
+			defaultSelected,
+			selectedObject,
+		}) => setState(
+			updateState({
+				defaultSelected,
+				selectedObject,
+				state,
+			}),
+		),
+	];
+}
 
 function sizechartPageSelector({
 	auth: {
@@ -39,69 +75,32 @@ function SizechartPage({ slug }) {
 		return <Page error="Sizechart not found" />;
 	}
 
-	const [state, setState] = useState(EMPTY_OBJECT);
-	const {
-		sizechartSizesView = EMPTY_ARRAY,
-		savedSizesView = EMPTY_ARRAY,
-		defaultSelected = [sizechart.id],
-	} = state;
-
-	const sizechartChangeHandler = ({
-		defaultSelected,
-		displayName,
-		selectedObject: { id, measurements },
-	}) => setState({
-		...state,
-		defaultSelected,
-		sizechartSizesView: measurements
-		? [
-				{
-					id,
-					measurements,
-					name: displayName,
-				},
-			]
-		: state.sizechartSizesView,
-	});
-
-	const sizeChangeHandler = ({
-		id,
-		name,
-		measurements,
-	}) => setState({
-		...state,
-		savedSizesView: savedSizesView[0]?.name === name
-			? []
-			: [{ id, measurements, name }],
-	});
+	const [
+		{
+			selected,
+			...measurementSets
+		},
+		updateState,
+	] = wrapState(
+		useState({ selected: sizechart.id }),
+	);
 
 	return (
 		<Page title={slug}>
-			<InteractiveImageViewer
-				svg={
-					<GarmentComparisonView
-						builder={TShirt}
-						measurementSets={[
-							...sizechartSizesView,
-							...savedSizesView,
-						]}
-					/>
-				}
-				textModule={
-					<SizechartSizesComparisonView
-						sizesHeader="My saved sizes"
-						sizechart={sizechart}
-						sizes={savedSizes}
-						onSizechartChange={sizechartChangeHandler}
-						onSizesChange={sizeChangeHandler}
-						defaultSelected={defaultSelected}
-						//
-						selectedSavedSize={savedSizesView[0]}
-						selectedSizechartSize={sizechartSizesView[0]}
-						units={units}
-					/>
-				}
-			/>
+			<FixedWrapContainer>
+				<GarmentComparisonView
+					builder={TShirt}
+					measurementSets={Object.values(measurementSets)}
+				/>
+
+				<Sizechart
+					sizechart={sizechart}
+					onChange={updateState}
+					units={units}
+					initialValues={{ selected }}
+					browseMode
+				/>
+			</FixedWrapContainer>
 		</Page>
 	);
 }

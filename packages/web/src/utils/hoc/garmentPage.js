@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import {
-	Page,
+	FixedWrapContainer,
 	GarmentSegmentsView,
-	InteractiveImageViewer,
+	Page,
 	SegmentsBrowser,
 } from '@components';
 import { getGarment, getGarmentSegments } from '@state/actions';
@@ -41,23 +41,17 @@ export function garmentPage(slug, Component) {
 		const textHeader = 'Measurements';
 		return (
 			<Page title={garment.name}>
-				<InteractiveImageViewer
-					textHeader={textHeader}
-					svgHeader={svgHeader}
-					svg={
-						<GarmentSegmentsView
-							builder={Component}
-							selectedSegment={selectedSegment}
-						/>
-					}
-					textModule={
-						<SegmentsBrowser
-							onHover={segmentHoverHandler}
-							segments={segments}
-							selectedSegment={selectedSegment}
-						/>
-					}
-				/>
+				<FixedWrapContainer>
+					<GarmentSegmentsView
+						builder={Component}
+						selectedSegment={selectedSegment}
+					/>
+					<SegmentsBrowser
+						onHover={segmentHoverHandler}
+						segments={segments}
+						selectedSegment={selectedSegment}
+					/>
+				</FixedWrapContainer>
 			</Page>
 		);
 	};

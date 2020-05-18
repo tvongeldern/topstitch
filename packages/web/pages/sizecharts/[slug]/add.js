@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Form } from 'react-final-form';
 import Router from 'next/router';
 import {
-	FormSizechartContainer,
+	FixedWrapContainer,
 	Loading,
 	Page,
 	Sizechart,
@@ -182,85 +182,86 @@ export default function AddSizechartPage({ slug }) {
 
 	return (
 		<Page title="Add sizechart">
-			<FormSizechartContainer>
+			<FixedWrapContainer>
 				<>
-					{!selectedAttribute && <form />}
+				{!selectedAttribute && <form />}
 
-					{selectedAttribute === 'brand' && (
-						<Form
-							component={CollectionCreateForm}
-							onSubmit={submitCollection}
-							initialValues={{ brand: selectedObject }}
-							deleteBrand={dispatchDeleteBrand}
-						/>
-					)}
-
-					{selectedAttribute === 'collection' && (
-						<Form
-							component={CollectionGarmentForm}
-							onSubmit={submitGarment}
-							initialValues={{ collection: selectedObject }}
-							deleteCollection={dispatchDeleteCollection}
-							garments={Object.values(garments)
-								.filter(
-									GarmentFilter(
-										selectedObject,
-									),
-								)}
-						/>
-					)}
-
-					{selectedAttribute === 'garment' && (
-						<Form
-							component={FitCreateForm}
-							onSubmit={submitFit}
-							collections={collections}
-							initialValues={{
-								garment: selectedObject,
-								collectionId: state.collection,
-							}}
-						/>
-					)}
-
-					{selectedAttribute === 'fit' && (
-						<Form
-							component={SizeCreateForm}
-							onSubmit={submitSize}
-							deleteFit={dispatchDeleteFit}
-							existing={selectedObject.sizes}
-							initialValues={{ fit: selectedObject }}
-						/>
-					)}
-
-					{selectedAttribute === 'size' && (
-						<Form
-							component={MeasurementCreateForm}
-							onSubmit={submitMeasurement}
-							deleteSize={dispatchDeleteSize}
-							segments={Object.values(segments)}
-							garment={garments[state.garment]}
-							initialValues={{ size: selectedObject, units }}
-						/>
-					)}
-
-					{selectedAttribute === 'measurement' && (
-						<form>
-							{selectedObject?.segment && (
-								<a onClick={() => dispatchDeleteMeasurement(selectedObject)}>
-									{`Delete ${selectedObject.segment.name} measurement`}
-								</a>
-							)}
-						</form>
-					)}
-
-					<Sizechart
-						sizechart={sizechart}
-						onChange={updateState}
-						initialValues={{ selected }}
-						units={units}
+				{selectedAttribute === 'brand' && (
+					<Form
+						component={CollectionCreateForm}
+						onSubmit={submitCollection}
+						initialValues={{ brand: selectedObject }}
+						deleteBrand={dispatchDeleteBrand}
 					/>
+				)}
+
+				{selectedAttribute === 'collection' && (
+					<Form
+						component={CollectionGarmentForm}
+						onSubmit={submitGarment}
+						initialValues={{ collection: selectedObject }}
+						deleteCollection={dispatchDeleteCollection}
+						garments={Object.values(garments)
+							.filter(
+								GarmentFilter(
+									selectedObject,
+								),
+							)}
+					/>
+				)}
+
+				{selectedAttribute === 'garment' && (
+					<Form
+						component={FitCreateForm}
+						onSubmit={submitFit}
+						collections={collections}
+						initialValues={{
+							garment: selectedObject,
+							collectionId: state.collection,
+						}}
+					/>
+				)}
+
+				{selectedAttribute === 'fit' && (
+					<Form
+						component={SizeCreateForm}
+						onSubmit={submitSize}
+						deleteFit={dispatchDeleteFit}
+						existing={selectedObject.sizes}
+						initialValues={{ fit: selectedObject }}
+					/>
+				)}
+
+				{selectedAttribute === 'size' && (
+					<Form
+						component={MeasurementCreateForm}
+						onSubmit={submitMeasurement}
+						deleteSize={dispatchDeleteSize}
+						segments={Object.values(segments)}
+						garment={garments[state.garment]}
+						initialValues={{ size: selectedObject, units }}
+					/>
+				)}
+
+				{selectedAttribute === 'measurement' && (
+					<form>
+						{selectedObject?.segment && (
+							<a onClick={() => dispatchDeleteMeasurement(selectedObject)}>
+								{`Delete ${selectedObject.segment.name} measurement`}
+							</a>
+						)}
+					</form>
+				)}
+
 				</>
-			</FormSizechartContainer>
+
+				<Sizechart
+					sizechart={sizechart}
+					onChange={updateState}
+					initialValues={{ selected }}
+					units={units}
+				/>
+			</FixedWrapContainer>
 		</Page>
 	);
 }
