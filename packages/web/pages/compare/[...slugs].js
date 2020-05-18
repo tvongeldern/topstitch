@@ -51,9 +51,11 @@ function CompareSizechartsPage({ slugs }) {
 					{sizechartsArray.map((sizechart) => (
 						<Sizechart
 							key={sizechart.id}
+							header={sizechart.name}
 							sizechart={sizechart}
 							onChange={setState}
 							units={units}
+							browseMode
 						/>
 					))}
 				</Column>

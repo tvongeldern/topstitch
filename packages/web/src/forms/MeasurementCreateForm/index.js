@@ -62,9 +62,11 @@ export function MeasurementCreateForm({
 
 			<Button type="submit">Add measurement</Button>
 
-			<a onClick={() => deleteSize(size)}>
-				{`Delete ${size.name} size`}
-			</a>
+			<div className={styles.cta}>
+				<a onClick={() => deleteSize(size)}>
+					{`Delete ${size.name} size`}
+				</a>
+			</div>
 
 		</form>
 	);

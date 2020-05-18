@@ -3,6 +3,7 @@ import { arrayOf, func, object } from 'prop-types';
 import { Field } from 'react-final-form';
 import { Button, SuggestionGroup, TextInput } from '@components';
 import { EMPTY_ARRAY } from '@constants';
+import styles from './styles.scss';
 
 const COMMON_SIZES = [
 	'Small',
@@ -35,9 +36,11 @@ export function SizeCreateForm({
 
 			<Button type="submit">Add size</Button>
 
-			<a onClick={() => deleteFit(fit)}>
-				{`Delete ${fit.name} fit`}
-			</a>
+			<div className={styles.cta}>
+				<a onClick={() => deleteFit(fit)}>
+					{`Delete ${fit.name} fit`}
+				</a>
+			</div>
 
 		</form>
 	);

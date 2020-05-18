@@ -47,9 +47,11 @@ export function CollectionCreateForm({
 
 			<Button type="submit">Add collection</Button>
 
-			<a onClick={() => deleteBrand(brand)}>
-				{`Delete ${brand.name}`}
-			</a>
+			<div className={styles.cta}>
+				<a onClick={() => deleteBrand(brand)}>
+					{`Delete ${brand.name}`}
+				</a>
+			</div>
 
 		</form>
 	);

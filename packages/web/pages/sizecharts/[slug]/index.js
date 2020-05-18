@@ -3,15 +3,13 @@ import { string } from 'prop-types';
 import {
 	FixedWrapContainer,
 	GarmentComparisonView,
+	Loading,
 	Page,
 	Sizechart,
 } from '@components';
 import { TShirt } from '@garment-builders';
 import { getSizechart } from '@state/actions';
 import { useSelector } from '@utils/hooks';
-import { EMPTY_ARRAY, EMPTY_OBJECT } from '@constants';
-// import savedSizes from '../../../dev/mocks/_mysavedsizes.json';
-// import sizechart from '../../../dev/mocks/_sizechart.json';
 
 function updateState({
 	defaultSelected,
@@ -51,7 +49,6 @@ function wrapState([state, setState]) {
 
 function sizechartPageSelector({
 	auth: {
-		savedSizes,
 		units,
 	},
 	sizecharts: {
@@ -59,14 +56,13 @@ function sizechartPageSelector({
 	},
 }) {
 	return {
-		savedSizes,
 		sizecharts,
 		units,
 	};
 }
 
 function SizechartPage({ slug }) {
-	const { savedSizes, sizecharts, units } = useSelector(
+	const { sizecharts, units } = useSelector(
 		sizechartPageSelector,
 	);
 	const sizechart = sizecharts[slug];
@@ -85,19 +81,26 @@ function SizechartPage({ slug }) {
 		useState({ selected: sizechart.id }),
 	);
 
+	const measurementSetsArray = Object.values(measurementSets);
+
 	return (
-		<Page title={slug}>
+		<Page title={sizechart.name}>
 			<FixedWrapContainer>
-				<GarmentComparisonView
-					builder={TShirt}
-					measurementSets={Object.values(measurementSets)}
-				/>
+				{measurementSetsArray.length ? (
+					<GarmentComparisonView
+						builder={TShirt}
+						measurementSets={measurementSetsArray}
+					/>
+				) : (
+					<Loading size="240" />
+				)}
 
 				<Sizechart
 					sizechart={sizechart}
 					onChange={updateState}
 					units={units}
 					initialValues={{ selected }}
+					header={sizechart.name}
 					browseMode
 				/>
 			</FixedWrapContainer>

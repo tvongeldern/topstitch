@@ -26,9 +26,11 @@ export function CollectionGarmentForm({
 
 			<Button type="submit">Submit</Button>
 
+		<div className={styles.cta}>
 			<a onClick={() => deleteCollection(collection)}>
 				{`Delete ${collection.name} collection`}
 			</a>
+		</div>
 
 		</form>
 	);
