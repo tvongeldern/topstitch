@@ -6,7 +6,7 @@
   },
   "scripts": {
     "build": "docker-compose build",
-    "dev": "npm run down ; npm run down ; docker-compose -f dev/docker-compose.yml up --build ; npm run down",
+    "dev": "docker-compose -f dev/docker-compose.yml up --build ; npm run down",
     "dev:api": "docker-compose -f dev/docker-compose.yml up --build api ; npm run down",
     "dev:web": "cd ./packages/web && npm run dev ; cd ../..",
     "docker:clean": "npm run docker:clean:volumes ; npm run docker:clean:system",

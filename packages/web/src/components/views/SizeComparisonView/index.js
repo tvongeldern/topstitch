@@ -1,5 +1,5 @@
 import React from 'react';
-import { } from 'prop-types';
+import { arrayOf, func, object } from 'prop-types';
 import { SVG } from '@components/ui';
 import { getViewBox } from '@utils/drawing';
 import styles from './styles.scss';
@@ -22,7 +22,7 @@ function getSizes({ garment, ...rest }) {
 	};
 }
 
-export function GarmentComparisonView({
+export function SizeComparisonView({
 	builder: Builder,
 	measurementSets,
 }) {
@@ -72,4 +72,7 @@ export function GarmentComparisonView({
 	);
 }
 
-GarmentComparisonView.propTypes = {};
+SizeComparisonView.propTypes = {
+	builder: func.isRequired,
+	measurementSets: arrayOf(object).isRequired,
+};

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { string } from 'prop-types';
 import {
 	FixedWrapContainer,
-	GarmentComparisonView,
+	SizeComparisonView,
 	Loading,
 	Page,
 	Sizechart,
@@ -87,7 +87,7 @@ function SizechartPage({ slug }) {
 		<Page title={sizechart.name}>
 			<FixedWrapContainer>
 				{measurementSetsArray.length ? (
-					<GarmentComparisonView
+					<SizeComparisonView
 						builder={TShirt}
 						measurementSets={measurementSetsArray}
 					/>

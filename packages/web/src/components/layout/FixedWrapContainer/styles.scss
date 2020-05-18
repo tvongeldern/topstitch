@@ -39,6 +39,7 @@ $mobile-first-child-height: 42vh;
 				overflow-y: scroll;
 				margin-top: $mobile-first-child-height;
 				align-items: flex-start;
+				max-height: $mobile-first-child-height;
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-import { Page, GarmentComparisonView } from '@components';
+import { Page, SizeComparisonView } from '@components';
 import { TShirt } from '@garment-builders';
 
 const MEASUREMENT_SETS = [
@@ -21,7 +21,7 @@ const MEASUREMENT_SETS = [
 export default function Compare() {
 	return (
 		<Page>
-			<GarmentComparisonView
+			<SizeComparisonView
 				builder={TShirt}
 				measurementSets={MEASUREMENT_SETS}
 			/>

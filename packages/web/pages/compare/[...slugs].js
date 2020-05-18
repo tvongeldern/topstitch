@@ -3,7 +3,7 @@ import { arrayOf, string } from 'prop-types';
 import {
 	Column,
 	FixedWrapContainer,
-	GarmentComparisonView,
+	SizeComparisonView,
 	Page,
 	Sizechart,
 } from '@components';
@@ -12,16 +12,37 @@ import { getSizecharts } from '@state/actions';
 import { useSelector } from '@utils/hooks';
 import { EMPTY_OBJECT } from '@constants';
 
+const INITIAL_STATE = {
+	formValues: {},
+	measurementSets: {},
+};
+
 function wrapState([state, setState]) {
 	return [
 		state,
 		({
-			defaultSelected: [brandId],
+			defaultSelected,
 			selectedObject,
-		}) => selectedObject.measurements && setState({
-			...state,
-			[brandId]: selectedObject,
-		}),
+		}) => {
+			const [brandId] = defaultSelected;
+			if (selectedObject.measurements) {
+				setState({
+					...state,
+					measurementSets: {
+						...state.measurementSets,
+						[brandId]: selectedObject,
+					},
+				});
+			} else {
+				setState({
+					...state,
+					formValues: {
+						...state.formValues,
+						[brandId]: defaultSelected.join(Sizechart.DIVIDER),
+					},
+				});
+			}
+		},
 	];
 }
 
@@ -36,15 +57,18 @@ function CompareSizechartsPage({ slugs }) {
 	const { sizecharts, units } = useSelector(
 		comparePageSelector,
 	);
-	const [state, setState] = wrapState(
-		useState(EMPTY_OBJECT),
+	const [
+		{ formValues, measurementSets },
+		setState,
+	] = wrapState(
+		useState(INITIAL_STATE),
 	);
 	const sizechartsArray = slugs.map((slug) => sizecharts[slug]);
 	return (
 		<Page title="Compare">
 			<FixedWrapContainer>
-				<GarmentComparisonView
-					measurementSets={Object.values(state)}
+				<SizeComparisonView
+					measurementSets={Object.values(measurementSets)}
 					builder={TShirt}
 				/>
 				<Column>
@@ -55,6 +79,7 @@ function CompareSizechartsPage({ slugs }) {
 							sizechart={sizechart}
 							onChange={setState}
 							units={units}
+							initialValues={{ selected: formValues[sizechart.id] || sizechart.id }}
 							browseMode
 						/>
 					))}
