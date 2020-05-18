@@ -2,9 +2,9 @@ import React from 'react';
 import { arrayOf, node, oneOfType } from 'prop-types';
 import styles from './styles.scss';
 
-export function Column({ children }) {
+export function Column({ children, ...rest }) {
 	return (
-		<div className={styles.column}>
+		<div className={styles.column} {...rest}>
 			{children}
 		</div>
 	);

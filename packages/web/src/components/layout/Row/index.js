@@ -2,9 +2,9 @@ import React from 'react';
 import { arrayOf, node, oneOfType } from 'prop-types';
 import styles from './styles.scss';
 
-export function Row({ children }) {
+export function Row({ children, ...rest }) {
 	return (
-		<div className={styles.row}>
+		<div className={styles.row} {...rest}>
 			{children}
 		</div>
 	);

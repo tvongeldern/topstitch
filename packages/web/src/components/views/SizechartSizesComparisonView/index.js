@@ -1,8 +1,7 @@
 import React from 'react';
 import { } from 'prop-types';
 import { LengthFormatter } from '@utils/formatters';
-import { Sizechart } from '../Sizechart';
-import { SizesBrowser } from '../SizesBrowser'
+import { Sizechart, SizesBrowser } from '@components/pickers';
 import styles from './styles.scss';
 
 function TextSize({ name, measurements, units }) {

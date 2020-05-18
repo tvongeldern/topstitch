@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { } from 'prop-types';
 import { TShirt } from '@garment-builders';
 import { EMPTY_OBJECT } from '@constants';
-import { Sizechart } from '../Sizechart';
+import { Sizechart } from '@components/pickers';
 import { GarmentComparisonView } from '../GarmentComparisonView';
 import styles from './styles.scss';
 
