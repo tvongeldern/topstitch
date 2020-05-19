@@ -3,3 +3,6 @@ lerna-debug.log*
 .DS_Store
 /**/*/.DS_Store
 /dev/.env*
+/terraform/env/
+/terraform/*.tfstate*
+/terraform/.*
