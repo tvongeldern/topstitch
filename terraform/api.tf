@@ -16,18 +16,18 @@ resource "aws_ecs_task_definition" "task_api" {
 					"name": "PORT",
 					"value": "8000"
 				},
-				{
-					"name": "POSTGRES_USER",
-					"value": "${aws_db_instance.postgres.username}"
-				},
-				{
-					"name": "POSTGRES_PASSWORD",
-					"value": "${aws_db_instance.postgres.password}"
-				},
-				{
-					"name": "POSTGRES_DB",
-					"value": "${aws_db_instance.postgres.name}"
-				},
+				# {
+				# 	"name": "POSTGRES_USER",
+				# 	"value": "${aws_db_instance.postgres.username}"
+				# },
+				# {
+				# 	"name": "POSTGRES_PASSWORD",
+				# 	"value": "${aws_db_instance.postgres.password}"
+				# },
+				# {
+				# 	"name": "POSTGRES_DB",
+				# 	"value": "${aws_db_instance.postgres.name}"
+				# },
 				{
 					"name": "POSTGRES_HOST",
 					"value": "postgres"

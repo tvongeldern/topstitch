@@ -24,4 +24,21 @@ resource "aws_codebuild_project" "api_build" {
       value = "SOME_VALUE1"
     }
   }
+
+	source {
+		type = "GITHUB"
+		git_clone_depth = 1
+		location = "https://github.com/tvongeldern/topstitch.git"
+		report_build_status = true
+		auth {
+			type = "OAUTH"
+			resource = var.github_token
+		}
+	}
+
+	source_version = local.git_branch
+}
+
+resource "aws_codebuild_webhook" "api_codebuild_webhook" {
+	project_name = aws_codebuild_project.api_build.name
 }

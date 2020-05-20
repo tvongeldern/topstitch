@@ -1,4 +1,5 @@
 include env/aws.env
+include env/github.env
 ENVIRONMENT?=dev
 TF_WORKSPACE?=$(ENVIRONMENT)
 include env/$(ENVIRONMENT).env

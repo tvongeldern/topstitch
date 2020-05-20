@@ -28,7 +28,20 @@ variable "db_instance_class" {
 	}
 }
 
+variable "git_branch" {
+	type = map(string)
+	default = {
+		dev = "master"
+		prod = "prod"
+	}
+}
+
+variable "github_token" {
+	type = string
+}
+
 locals {
 	db_instance_class = var.db_instance_class[terraform.workspace]
+	git_branch = var.git_branch[terraform.workspace]
 	lambdas_dir = ".build/lambdas"
 }
