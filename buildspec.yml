@@ -1,7 +1,7 @@
 version: 0.2
 phases: 
-  build: 
-    - "npm run build"
-  install: 
+	install: 
     runtime-versions: 
       docker: 18
+  build: 
+    - npm run build
