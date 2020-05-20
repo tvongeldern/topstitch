@@ -1,4 +1,4 @@
-import { errorActionReducer } from '@utils/redux';
+import { errorActionReducer } from '@utils';
 
 const types = {
 	start: 'topstitch.auth.createAccount.start',
