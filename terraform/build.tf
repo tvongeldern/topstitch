@@ -1,5 +1,5 @@
-resource "aws_codebuild_project" "api_build" {
-	name = "topstitch_${terraform.workspace}_api_build"
+resource "aws_codebuild_project" "build" {
+	name = "topstitch_${terraform.workspace}_build"
 	build_timeout = 60
 	service_role = aws_iam_role.iam_for_codebuild.arn
 
@@ -35,6 +35,6 @@ resource "aws_codebuild_project" "api_build" {
 	source_version = local.git_branch
 }
 
-resource "aws_codebuild_webhook" "api_codebuild_webhook" {
-	project_name = aws_codebuild_project.api_build.name
+resource "aws_codebuild_webhook" "codebuild_webhook" {
+	project_name = aws_codebuild_project.build.name
 }
