@@ -3,6 +3,13 @@ provider "github" {
 	organization = "topstitch"
 }
 
+resource "github_repository" "topstitch" {
+  name        = "topstitch"
+  description = "The fitting room for online clothing stores"
+
+  private = true
+}
+
 resource "github_repository_webhook" "api_github_webhook" {
 	active     = true
   events     = ["push"]

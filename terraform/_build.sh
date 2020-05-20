@@ -1,1 +1,0 @@
-for file in $(ls lambdas); do zip -r .build/${file}.zip lambdas/${file}; done

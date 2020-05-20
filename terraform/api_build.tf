@@ -28,12 +28,8 @@ resource "aws_codebuild_project" "api_build" {
 	source {
 		type = "GITHUB"
 		git_clone_depth = 1
-		location = "https://github.com/tvongeldern/topstitch.git"
+		location = "https://github.com/topstitch/topstitch.git"
 		report_build_status = true
-		auth {
-			type = "OAUTH"
-			resource = var.github_token
-		}
 	}
 
 	source_version = local.git_branch
