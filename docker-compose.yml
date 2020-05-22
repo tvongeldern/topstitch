@@ -20,13 +20,8 @@ services:
     build:
       context: ./packages/api
       dockerfile: Dockerfile
-    depends_on:
-      - postgres
     environment:
       PORT: 8000
-      POSTGRES_USER: first_user
-      POSTGRES_PASSWORD: d96f9sbd^A9f86b9a##86
-      POSTGRES_DB: monolith
     ports:
       - '8000:8000'
     working_dir: /app/api/
@@ -35,11 +30,3 @@ services:
       - ./packages/api:/app/api/
       - /app/api/node_modules
       - /app/api/dist
-  postgres:
-    image: postgres:12.2
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USER: first_user
-      POSTGRES_PASSWORD: d96f9sbd^A9f86b9a##86
-      POSTGRES_DB: monolith
