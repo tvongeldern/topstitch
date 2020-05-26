@@ -1,6 +1,6 @@
 import Router from 'next/router';
 import { getMe } from '@state/auth';
-import qs from 'qs'; // deeply nested dependency...
+import qs from 'querystring';
 
 const LOGIN_PATH = '/login';
 
