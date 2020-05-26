@@ -1,7 +1,0 @@
-build:
-  docker:
-    web: packages/web/Dockerfile
-  config:
-    NODE_ENV: production
-run:
-  web: npm start
