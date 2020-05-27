@@ -24,10 +24,10 @@ $mobile-first-child-height: 42vh;
 	.fixedWrap {
 		.container {
 			width: 100%;
-			position: fixed;
-			left: 0;
 
 			&:first-child {
+				position: fixed;
+				left: 0;
 				top: $nav-height;
 				margin-top: 2px;
 				height: $mobile-first-child-height;
@@ -36,11 +36,8 @@ $mobile-first-child-height: 42vh;
 			}
 
 			&:last-child {
-				overflow-y: scroll;
 				margin-top: $mobile-first-child-height;
-				padding-bottom: 40px; // offset for footer
 				align-items: flex-start;
-				max-height: $mobile-first-child-height;
 			}
 		}
 	}
