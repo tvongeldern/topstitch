@@ -38,6 +38,7 @@ $mobile-first-child-height: 42vh;
 			&:last-child {
 				overflow-y: scroll;
 				margin-top: $mobile-first-child-height;
+				padding-bottom: 40px; // offset for footer
 				align-items: flex-start;
 				max-height: $mobile-first-child-height;
 			}
