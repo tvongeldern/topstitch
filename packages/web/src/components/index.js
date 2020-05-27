@@ -1,3 +1,4 @@
+export * from './cta';
 export * from './icons';
 export * from './inputs';
 export * from './layout';

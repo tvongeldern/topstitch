@@ -8,6 +8,7 @@ import {
 	SizeComparisonView,
 	Loading,
 	Page,
+	ReviewSizechartCta,
 	Sizechart,
 } from '@components';
 import { BrandCompareToForm } from '@forms'
@@ -125,6 +126,9 @@ function SizechartPage({ slug }) {
 							`/compare/${slug}/${name}`,
 						)}
 					/>
+
+					<ReviewSizechartCta sizechartSlug={slug} />
+
 				</Column>
 			</FixedWrapContainer>
 		</Page>

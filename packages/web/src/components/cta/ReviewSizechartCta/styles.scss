@@ -1,0 +1,19 @@
+@import 'web';
+
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+
+	a {
+		display: flex;
+		width: 100%;
+
+		button {
+			width: 100%;
+			margin: 24px 0;
+		}
+	}
+
+}

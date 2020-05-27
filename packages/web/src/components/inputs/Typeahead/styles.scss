@@ -25,6 +25,7 @@
     max-height: 400px;
     overflow-y: scroll;
     padding-top: 2px;
+    z-index: 2;
 
     p {
       color: $text-color;
