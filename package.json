@@ -26,7 +26,8 @@
     "install:web": "npm --prefix packages/web install --save",
     "install:web:dev": "npm --prefix packages/web install --save-dev",
     "start": "docker-compose up",
-    "deploy:api:dev": "heroku git:remote -a topstitch-api-dev && git subtree push --prefix packages/api heroku master",
-    "deploy:web:dev": "heroku git:remote -a topstitch-web-dev && git subtree push --prefix packages/web heroku master"
+    "deploy:dev:api": "heroku git:remote -a topstitch-api-dev && git subtree push --prefix packages/api heroku master",
+    "deploy:dev:web": "heroku git:remote -a topstitch-web-dev && git subtree push --prefix packages/web heroku master",
+    "deploy:dev": "npm run deploy:dev:api && npm run deploy:dev:web"
   }
 }

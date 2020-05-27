@@ -17,3 +17,9 @@ resource "aws_cognito_user_pool" "cognito" {
 		pre_sign_up = aws_lambda_function.cognito_pre_signup_trigger.arn
 	}
 }
+
+resource "aws_cognito_user_pool_client" "web" {
+  name = "web"
+
+  user_pool_id = aws_cognito_user_pool.cognito.id
+}
