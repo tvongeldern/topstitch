@@ -1,6 +1,9 @@
 export { Checkbox } from './Checkbox';
 export { Dropdown } from './Dropdown';
 export { RadioLabel } from './RadioLabel';
+export { StarRating } from './StarRating';
 export { SuggestionGroup } from './SuggestionGroup';
+export { TextArea } from './TextArea';
 export { TextInput } from './TextInput';
+export { ThumbRating } from './ThumbRating';
 export { Typeahead } from './Typeahead';

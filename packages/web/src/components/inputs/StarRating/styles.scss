@@ -1,0 +1,21 @@
+@import 'web';
+
+.star {
+	input {
+		display: none;
+	}
+	svg {
+		cursor: pointer;
+
+		path {
+			transition: fill 0.4s;
+		}
+	}
+	&.filled {
+		svg {
+			path {
+				fill: $theme-color-secondary;
+			}
+		}
+	}
+}

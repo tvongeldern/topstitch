@@ -1,0 +1,11 @@
+@import 'web';
+
+.svg {
+	overflow: hidden;
+
+	path {
+		fill: $white;
+		stroke: $text-color;
+		stroke-width: 2;
+	}
+}

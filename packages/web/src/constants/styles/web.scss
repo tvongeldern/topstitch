@@ -30,8 +30,10 @@ html body {
 	span,
 	label,
 	button,
+	textarea,
 	div {
 		font-size: $font-size-regular;
+		font-family: $theme-font-secondary;
 	}
 
 	h1,

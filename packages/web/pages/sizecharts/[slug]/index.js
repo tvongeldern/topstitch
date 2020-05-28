@@ -53,15 +53,9 @@ function wrapState([state, setState]) {
 }
 
 function sizechartPageSelector({
-	auth: {
-		units,
-	},
-	brands: {
-		brands,
-	},
-	sizecharts: {
-		sizecharts
-	},
+	auth: { units },
+	brands: { brands },
+	sizecharts: { sizecharts },
 }) {
 	return {
 		brands,

@@ -1,9 +1,9 @@
 import React from 'react';
 import { oneOf } from 'prop-types';
-import { getInputErrorState  } from '@utils';
+import { getInputErrorState } from '@utils';
 import styles from './styles.scss';
 
-export function TextInput({
+export function TextArea({
 	input,
 	label,
 	meta: {
@@ -17,9 +17,7 @@ export function TextInput({
 	return (
 		<div className={styles.inputContainer}>
 			{label && <label>{label}</label>}
-			<input
-				data-lpignore={type !== 'email' && type !== 'password'}
-				autoComplete={type === 'email' ? 'on' : 'off'}
+			<textarea
 				{...rest}
 				{...input}
 			/>
@@ -28,10 +26,10 @@ export function TextInput({
 	);
 }
 
-TextInput.propTypes = {
+TextArea.propTypes = {
 	errors: oneOf(['show', 'hide', 'submit']),
 };
 
-TextInput.defaultProps = {
+TextArea.defaultProps = {
 	errors: 'submit',
 };

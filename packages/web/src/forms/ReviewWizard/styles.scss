@@ -1,0 +1,21 @@
+@import 'web';
+
+.step {
+	h2 {
+		margin-top: 0;
+	}
+
+	h5 {
+		margin-bottom: 16px;
+	}
+
+	> button {
+		width: 100%;
+	}
+
+	.stars {
+		> label:first-child {
+			margin-left: -5px; // makes up for some internal misalignment in the Star SVG
+		}
+	}
+}

@@ -6,6 +6,7 @@ export { FitCreateForm } from './FitCreateForm';
 export { HomepageHero } from './HomepageHero';
 export { LoginForm } from './LoginForm';
 export { MeasurementCreateForm } from './MeasurementCreateForm';
+export { ReviewWizard } from './ReviewWizard';
 export { SearchForm } from './SearchForm';
 export { SignupForm } from './SignupForm';
 export { SizeCreateForm } from './SizeCreateForm';
