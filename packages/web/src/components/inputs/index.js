@@ -1,9 +1,9 @@
+export { ButtonRadio } from './ButtonRadio';
 export { Checkbox } from './Checkbox';
 export { Dropdown } from './Dropdown';
-export { RadioLabel } from './RadioLabel';
-export { StarRating } from './StarRating';
+export { StarRadio } from './StarRadio';
 export { SuggestionGroup } from './SuggestionGroup';
 export { TextArea } from './TextArea';
 export { TextInput } from './TextInput';
-export { ThumbRating } from './ThumbRating';
+export { ThumbRadio } from './ThumbRadio';
 export { Typeahead } from './Typeahead';

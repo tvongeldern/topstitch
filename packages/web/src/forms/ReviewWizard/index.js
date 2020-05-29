@@ -4,12 +4,22 @@ import { Field } from 'react-final-form';
 import {
 	Button,
 	Sizechart,
-	StarRating,
+	StarRadio,
+	ButtonRadio,
 	TextArea,
+	ThumbRadio,
 } from '@components';
 import styles from './styles.scss';
 
 const STAR_RATINGS = [1, 2, 3, 4, 5];
+const INITIAL_REVIEW_VALUES = [
+	'',
+	'Terrible!',
+	'I expected better.',
+	'Meh',
+	'Good.',
+	'Great!',
+];
 
 function sizechartChangeHandler(form) {
 	return function handleSizechartChange({
@@ -33,7 +43,9 @@ export function ReviewWizard({
 		displayName,
 		size,
 		step = 1,
-		rating,
+		rating = 0,
+		review,
+		shipping,
 	},
 }) {
 	return (
@@ -69,7 +81,7 @@ export function ReviewWizard({
 								<Field
 									name="rating"
 									type="radio"
-									component={StarRating}
+									component={StarRadio}
 									key={value}
 									value={value}
 									filled={rating >= value}
@@ -82,7 +94,87 @@ export function ReviewWizard({
 						label="Review"
 						component={TextArea}
 						rows={4}
+						defaultValue={INITIAL_REVIEW_VALUES[rating]}
 					/>
+
+					<Button
+						disabled={!rating || !review}
+						onClick={() => form.change('step', 3)}
+					>
+						Confirm
+					</Button>
+
+				</div>
+			)}
+
+			{step === 3 && (
+				<div className={styles.step}>
+					<h4>Optional Ratings</h4>
+					<div className={styles.inputContainer}>
+						<label>Shipping</label>
+
+						<div className={styles.thumbsContainer}>
+							<Field
+								component={ThumbRadio}
+								type="radio"
+								name="shipping"
+								value="-1"
+								label="Slow"
+							/>
+
+							<Field
+								component={ThumbRadio}
+								type="radio"
+								name="shipping"
+								value="1"
+								label="Fast"
+							/>
+
+							{shipping && (
+								<Field
+									component={ButtonRadio}
+									type="radio"
+									name="shipping"
+									label="Clear"
+								/>
+							)}
+						</div>
+					</div>
+
+					<div className={styles.inputContainer}>
+						<label>Fit</label>
+
+						<div className={styles.thumbsContainer}>
+							<Field
+								component={ThumbRadio}
+								type="radio"
+								name="shipping"
+								value="-1"
+								label="Slow"
+							/>
+
+							<Field
+								component={ThumbRadio}
+								type="radio"
+								name="shipping"
+								value="1"
+								label="Fast"
+							/>
+
+							{shipping && (
+								<Field
+									component={ButtonRadio}
+									type="radio"
+									name="shipping"
+									label="Clear"
+								/>
+							)}
+						</div>
+					</div>
+
+					<Button type="submit">
+						Submit review
+					</Button>
 				</div>
 			)}
 		</form>

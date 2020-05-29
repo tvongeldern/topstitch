@@ -3,7 +3,7 @@ import { bool, object, string } from 'prop-types';
 import cn from 'classnames';
 import styles from './styles.scss';
 
-export function RadioLabel({
+export function ButtonRadio({
 	defaultSelected,
 	input,
 	label,
@@ -26,12 +26,12 @@ export function RadioLabel({
 }
 
 
-RadioLabel.propTypes = {
+ButtonRadio.propTypes = {
 	defaultSelected: bool,
 	input: object.isRequired,
 	label: string.isRequired,
 };
 
-RadioLabel.defaultProps = {
+ButtonRadio.defaultProps = {
 	defaultSelected: false,
 };

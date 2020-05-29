@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { Star } from '@components/icons';
 import styles from './styles.scss';
 
-export function StarRating({ filled, input }) {
+export function StarRadio({ filled, input }) {
 	const { name, value } = input;
 	const id = `star-rating-radio-${name}-${value}`;
 	return (
@@ -15,7 +15,7 @@ export function StarRating({ filled, input }) {
 	);
 }
 
-StarRating.propTypes = {
+StarRadio.propTypes = {
 	filled: bool.isRequired,
 	input: object.isRequired,
 };

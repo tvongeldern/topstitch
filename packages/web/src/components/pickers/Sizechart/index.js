@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { bool, func, object } from 'prop-types';
 import { Field, Form } from 'react-final-form';
-import { RadioLabel } from '@components/inputs';
+import { ButtonRadio } from '@components/inputs';
 import {
 	RETURN_NAME,
 	RETURN_NULL,
@@ -34,7 +34,7 @@ function renderRow({
 					name="selected"
 					type="radio"
 					label={getLabel(member, units)}
-					component={RadioLabel}
+					component={ButtonRadio}
 					value={baseValue ? [baseValue, member.id].join(DIVIDER) : member.id}
 					key={member.id}
 					defaultSelected={selectedId === member.id}

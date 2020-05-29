@@ -2,7 +2,7 @@ import React from 'react';
 import { arrayOf, func, number, object, string } from 'prop-types';
 import { Field } from 'react-final-form';
 import { RETURN_NAME  } from '@utils';
-import { RadioLabel } from '../RadioLabel';
+import { ButtonRadio } from '../ButtonRadio';
 import styles from './styles.scss';
 
 function renderSuggestion(name) {
@@ -13,7 +13,7 @@ function renderSuggestion(name) {
 			value={name}
 			label={name}
 			key={name}
-			component={RadioLabel}
+			component={ButtonRadio}
 			defaultSelected
 		/>
 	);

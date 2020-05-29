@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { arrayOf, func, object, string } from 'prop-types';
 import { Field, Form } from 'react-final-form';
-import { RadioLabel } from '@components';
+import { ButtonRadio } from '@components';
 import { RETURN_NULL  } from '@utils';
 import { EMPTY_ARRAY, EMPTY_OBJECT } from '@constants';
 import styles from './styles.scss';
@@ -28,7 +28,7 @@ function SizesBrowserForm({
 				<Field
 					type="radio"
 					name="size"
-					component={RadioLabel}
+					component={ButtonRadio}
 					value={JSON.stringify(size)}
 					label={size.name}
 					key={size.id}
