@@ -11,9 +11,17 @@
 		cursor: pointer;
 		fill: $white;
 		stroke-width: 2;
+		user-select: none;
 
 		path:last-child {
 			stroke: $text-color;
+			transition: fill 0.4s;
+		}
+	}
+
+	&.down {
+		svg {
+			transform: rotate(180deg);
 		}
 	}
 }

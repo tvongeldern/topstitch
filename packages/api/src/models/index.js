@@ -7,6 +7,7 @@ import { Segment } from './Segment';
 import { Garment } from './Garment';
 import { Size } from './Size';
 import { Measurement } from './Measurement';
+import { Review } from './Review';
 import { SizeSegment } from './SizeSegment';
 import { SavedSize } from './SavedSize';
 
@@ -47,6 +48,13 @@ SavedSize.belongsTo(Account);
 Size.hasMany(SavedSize);
 SavedSize.belongsTo(Account);
 
+// Reviews
+Size.hasMany(Review);
+Review.belongsTo(Size);
+
+Account.hasMany(Review);
+Review.belongsTo(Account, { as: 'createdBy' });
+
 export {
 	Account,
 	Brand,
@@ -57,4 +65,5 @@ export {
 	Size,
 	Measurement,
 	SavedSize,
+	Review,
 };

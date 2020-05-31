@@ -3,12 +3,12 @@ import { FileLoader } from '@utils/clients';
 function provideContextToFileLoader({ types, ...action }, dispatch) {
 	// File uploads have 4 action types
 	const [START, PROGRESS, SUCCESS, ERROR] = types;
-	function uploadSingleFile(url, file) {
+	function uploadSingleFile(key, file) {
 		const filename = file.name;
 		// We make a hash of the file name so that individual uploads
 		// can be distinguished from each other before the uploads are complete
 		// Setting up progress actions for dispatch
-		function onUploadProgress({ loaded, total } = {}) {
+		function progressCallback({ loaded, total } = {}) {
 			dispatch({
 				...action,
 				progress: {
@@ -24,7 +24,7 @@ function provideContextToFileLoader({ types, ...action }, dispatch) {
 		// First action we dispatch is the START action
 		dispatch({ ...action, type: START });
 		// We pass the PROGRESS actions as onUploadProgress
-		return FileLoader.upload(url, file, onUploadProgress)
+		return FileLoader.put(key, file, { progressCallback })
 			.then((response) => dispatch({
 				...action,
 				response,
@@ -48,7 +48,7 @@ function provideContextToFileLoader({ types, ...action }, dispatch) {
 		);
 	}
 	return {
-		download: FileLoader.download,
+		download: FileLoader.get,
 		upload,
 	};
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { func } from 'prop-types';
 import { Field } from 'react-final-form';
 import {
@@ -8,7 +8,11 @@ import {
 	ButtonRadio,
 	TextArea,
 	ThumbRadio,
+	Dropdown,
+	TextInput,
 } from '@components';
+import { mapToDropdownOption } from '@utils';
+import { EMPTY_OBJECT } from '@constants';
 import styles from './styles.scss';
 
 const STAR_RATINGS = [1, 2, 3, 4, 5];
@@ -23,13 +27,17 @@ const INITIAL_REVIEW_VALUES = [
 
 function sizechartChangeHandler(form) {
 	return function handleSizechartChange({
+		defaultSelected: [brand, collection, garment, fit, size],
 		displayName,
 		selectedAttribute,
-		selectedObject,
 	}) {
 		if (selectedAttribute === 'size') {
-			form.change('size', selectedObject.id);
 			form.change('displayName', displayName);
+			form.change('brand', brand);
+			form.change('collection', collection);
+			form.change('garment', garment);
+			form.change('fit', fit);
+			form.change('size', size);
 		}
 	}
 }
@@ -41,10 +49,12 @@ export function ReviewWizard({
 	units,
 	values: {
 		displayName,
-		size,
-		step = 1,
+		quality,
 		rating = 0,
 		review,
+		size,
+		sizing,
+		step = 1,
 		shipping,
 	},
 }) {
@@ -66,7 +76,7 @@ export function ReviewWizard({
 						disabled={!size}
 						onClick={() => form.change('step', 2)}
 					>
-						Select Size
+						Next
 					</Button>
 				</div>
 			)}
@@ -101,7 +111,7 @@ export function ReviewWizard({
 						disabled={!rating || !review}
 						onClick={() => form.change('step', 3)}
 					>
-						Confirm
+						Next
 					</Button>
 
 				</div>
@@ -119,7 +129,7 @@ export function ReviewWizard({
 								type="radio"
 								name="shipping"
 								value="-1"
-								label="Slow"
+								down
 							/>
 
 							<Field
@@ -127,7 +137,6 @@ export function ReviewWizard({
 								type="radio"
 								name="shipping"
 								value="1"
-								label="Fast"
 							/>
 
 							{shipping && (
@@ -142,39 +151,66 @@ export function ReviewWizard({
 					</div>
 
 					<div className={styles.inputContainer}>
-						<label>Fit</label>
+						<label>Sizing</label>
 
 						<div className={styles.thumbsContainer}>
 							<Field
 								component={ThumbRadio}
 								type="radio"
-								name="shipping"
+								name="sizing"
 								value="-1"
-								label="Slow"
+								down
 							/>
 
 							<Field
 								component={ThumbRadio}
 								type="radio"
-								name="shipping"
+								name="sizing"
 								value="1"
-								label="Fast"
 							/>
 
-							{shipping && (
+							{sizing && (
 								<Field
 									component={ButtonRadio}
 									type="radio"
-									name="shipping"
+									name="sizing"
 									label="Clear"
 								/>
 							)}
 						</div>
 					</div>
 
-					<Button type="submit">
-						Submit review
-					</Button>
+					<div className={styles.inputContainer}>
+						<label>Quality</label>
+
+						<div className={styles.thumbsContainer}>
+							<Field
+								component={ThumbRadio}
+								type="radio"
+								name="quality"
+								value="-1"
+								down
+							/>
+
+							<Field
+								component={ThumbRadio}
+								type="radio"
+								name="quality"
+								value="1"
+							/>
+
+							{quality && (
+								<Field
+									component={ButtonRadio}
+									type="radio"
+									name="quality"
+									label="Clear"
+								/>
+							)}
+						</div>
+					</div>
+
+					<Button type="submit">Submit review</Button>
 				</div>
 			)}
 		</form>

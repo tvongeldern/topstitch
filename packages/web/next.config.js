@@ -9,6 +9,7 @@ const config = {
 	publicRuntimeConfig: {
 		CLIENT_API_HOST: process.env.CLIENT_API_HOST,
 		DOCKER_API_HOST: process.env.DOCKER_API_HOST,
+		S3_BUCKET: process.env.S3_BUCKET,
 		cognito: {
 			region: process.env.COGNITO_REGION,
 			userPoolId: process.env.COGNITO_POOL_ID,

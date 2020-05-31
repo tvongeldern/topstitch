@@ -1,21 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { string } from 'prop-types';
 import { Form } from 'react-final-form';
 import { Page } from '@components';
 import { ReviewWizard } from '@forms';
-import { getSizechart } from '@state/actions';
-import { useSelector } from '@utils/hooks';
-import { EMPTY_OBJECT } from '@constants';
+import { addReview, getSizechart } from '@state/actions';
+import { useSelector, useSubmit } from '@utils/hooks';
 
 function sizechartPageSelector({
 	auth: { units },
 	sizecharts: { sizecharts },
 }) {
-	return { sizecharts, units };
+	return {
+		sizecharts,
+		units,
+	};
 }
 
 function ReviewSizechartPage({ slug }) {
-	const [state, setState] = useState(EMPTY_OBJECT);
+	const [submitReview] = useSubmit(addReview);
 	const { sizecharts, units } = useSelector(
 		sizechartPageSelector,
 	);
@@ -24,7 +26,7 @@ function ReviewSizechartPage({ slug }) {
 		<Page title={`Review ${sizechart.name}`}>
 			<Form
 				component={ReviewWizard}
-				onSubmit={console.log}
+				onSubmit={submitReview}
 				sizechart={sizechart}
 				units={units}
 			/>

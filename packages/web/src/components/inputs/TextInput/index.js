@@ -13,6 +13,7 @@ export function TextInput({
 	errors,
 	...rest
 }) {
+	const { type } = input;
 	const showErrorMessage = getInputErrorState(errors, meta);
 	return (
 		<div className={styles.inputContainer}>

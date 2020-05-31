@@ -1,5 +1,5 @@
 import { DataTypes, Sequelize } from 'sequelize';
-import { PROP_NAME,SLUG } from '@constants/patterns';
+import { PROP_NAME, SLUG } from '@constants/patterns';
 
 function foreignKey(model) {
   return {
@@ -26,6 +26,7 @@ const constrainedNumber = ({
   max,
   minMsg = 'Does not meet minimum value',
   maxMsg = 'Exceeds maximum value',
+  ...rest
 }) => ({
   type: DataTypes.SMALLINT,
   validate: {
@@ -38,6 +39,7 @@ const constrainedNumber = ({
       msg: maxMsg,
     }
   },
+  ...rest,
 });
 
 const createdAt = {
@@ -61,6 +63,17 @@ const email = {
   type: DataTypes.STRING,
   validate: {
     isEmail: true,
+  },
+};
+
+const thumbRating = {
+  type: DataTypes.SMALLINT,
+  allowNull: true,
+  validate: {
+    isIn: {
+      args: [[-1, 1]],
+      msg: 'Thumb rating can be either +1 or -1',
+    },
   },
 };
 
@@ -226,6 +239,28 @@ const TABLES = {
       sizeId: 'sizes',
       accountId: 'accounts',
     },
+  },
+  reviews: {
+    columns: {
+      review: paragraph,
+      rating: constrainedNumber({
+        max: 5,
+        maxMsg: 'Star ratings must be between 1 and 5',
+        min: 1,
+        minMsg: 'Star ratings must be between 1 and 5',
+        allowNull: false,
+      }),
+      quality: thumbRating,
+      shipping: thumbRating,
+      sizing: thumbRating,
+    },
+    foreignKeys: {
+      sizeId: 'sizes',
+      createdBy: 'accounts',
+    },
+    uniqueIndexes: [
+      ['sizeId', 'createdBy'],
+    ],
   },
 };
 

@@ -22,7 +22,6 @@
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
     "final-form": "^4.19.1",
-    "js-file-download": "^0.4.11",
     "next": "^9.4.1",
     "next-compose-plugins": "^2.2.0",
     "next-images": "^1.4.0",

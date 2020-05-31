@@ -6,6 +6,7 @@ function constrainedNumber({
 	max,
 	minMsg = 'Does not meet minimum value',
 	maxMsg = 'Exceeds maximum value',
+	...rest
 }) {
 	return {
 		type: DataTypes.SMALLINT,
@@ -19,6 +20,7 @@ function constrainedNumber({
 				msg: maxMsg,
 			}
 		},
+		...rest,
 	};
 }
 
@@ -74,6 +76,16 @@ export const propName = {
 	},
 };
 
+export const rating = constrainedNumber({
+	max: 5,
+	maxMsg: 'Star ratings must be between 1 and 5',
+	min: 1,
+	minMsg: 'Star ratings must be between 1 and 5',
+	allowNull: false,
+});
+
+export const review = paragraph;
+
 // A unique string that can be used to locate an object,
 // designed to be used as the last part of a URL
 export const slug = {
@@ -83,6 +95,17 @@ export const slug = {
 	validate: {
 		is: SLUG,
 		len: [2, 32],
+	},
+};
+
+export const thumbRating = {
+	type: DataTypes.SMALLINT,
+	allowNull: true,
+	validate: {
+		isIn: {
+			args: [[-1, 1]],
+			msg: 'Thumb rating can be either +1 or -1',
+		},
 	},
 };
 
