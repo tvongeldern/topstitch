@@ -22,6 +22,7 @@ services:
     volumes:
       - ../packages/web:/app/web/
       - /app/web/node_modules
+      - /app/web/.next
   api:
     build:
       context: ../packages/api

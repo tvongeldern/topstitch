@@ -17,6 +17,7 @@ const config = {
 		},
 		cookies: {
 			maxAge: 1000 * 60 * 60 * 24 * 365, // 1 year
+			path: '/',
 		},
 	},
 };

@@ -3,7 +3,7 @@ import { Size } from '@models';
 export async function addReview(
 	{
 		body,
-		me,
+		me: { id: createdBy },
 		params: { id },
 	},
 	response,
@@ -16,10 +16,15 @@ export async function addReview(
 			message: 'Size not found',
 		});
 	}
-	const review = await parent.addReview({
-		...body,
-		createdBy: me.id,
-	});
-	const json = await review.toJSON();
-	return response.send(json);
+	try {
+		const review = await parent.addReview({
+			...body,
+			createdBy,
+		});
+		const json = await review.toJSON();
+		return response.send(json);
+	} catch (error) {
+		console.log(error);
+		return errorHandler({ error });
+	}
 }

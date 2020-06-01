@@ -95,6 +95,7 @@ export function ReviewWizard({
 									key={value}
 									value={value}
 									filled={rating >= value}
+									parse={parseFloat}
 								/>
 							))}
 						</div>
@@ -129,6 +130,7 @@ export function ReviewWizard({
 								type="radio"
 								name="shipping"
 								value="-1"
+								parse={parseFloat}
 								down
 							/>
 
@@ -137,6 +139,7 @@ export function ReviewWizard({
 								type="radio"
 								name="shipping"
 								value="1"
+								parse={parseFloat}
 							/>
 
 							{shipping && (
@@ -159,6 +162,7 @@ export function ReviewWizard({
 								type="radio"
 								name="sizing"
 								value="-1"
+								parse={parseFloat}
 								down
 							/>
 
@@ -167,6 +171,7 @@ export function ReviewWizard({
 								type="radio"
 								name="sizing"
 								value="1"
+								parse={parseFloat}
 							/>
 
 							{sizing && (
@@ -189,6 +194,7 @@ export function ReviewWizard({
 								type="radio"
 								name="quality"
 								value="-1"
+								parse={parseFloat}
 								down
 							/>
 
@@ -197,6 +203,7 @@ export function ReviewWizard({
 								type="radio"
 								name="quality"
 								value="1"
+								parse={parseFloat}
 							/>
 
 							{quality && (
