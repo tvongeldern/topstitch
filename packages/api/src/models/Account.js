@@ -1,5 +1,5 @@
 import { db } from '@db';
-import { email, id, uuid } from './_fields';
+import { email, id, cognitoId } from './_fields';
 
 
 export const Account = db.define(
@@ -11,10 +11,7 @@ export const Account = db.define(
 			allowNull: false,
 			unique: true,
 		},
-		cognitoId: {
-			...uuid,
-			allowNull: false,
-		},
+		cognitoId,
 	},
 );
 

@@ -2,8 +2,14 @@
 import { FORM_ERROR } from 'final-form';
 
 const DEFAULT_MESSAGE = 'Submit failed';
-const getError = ({ error }) => error;
-const getMessage = (error) => error || DEFAULT_MESSAGE;
+
+function getError({ error }) {
+	return error;
+}
+
+function getMessage(error = '') {
+	return error.message || error || DEFAULT_MESSAGE;
+}
 
 function isErrorFieldSpecific(error, form) {
 	const formKeys = Object.keys(form || {});

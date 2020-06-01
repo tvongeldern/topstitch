@@ -14,6 +14,7 @@ export function creator(ParentModel, methodName) {
 
 	return async function createNested({
 		body,
+		me: { id: createdBy },
 		params: { id }
 	},
 		response,
@@ -25,7 +26,10 @@ export function creator(ParentModel, methodName) {
 				next({ status: 404, message: `No ${ParentModel.name} found with ID "${id}"` });
 			}
 			try {
-				const child = await parent[methodName](body);
+				const child = await parent[methodName]({
+					...body,
+					createdBy,
+				});
 				const json = child.toJSON();
 				return response.send(json);
 			} catch (error) {

@@ -16,7 +16,7 @@ import { SavedSize } from './SavedSize';
 Garment.hasMany(Segment);
 Segment.belongsTo(Garment);
 
-// Sizechart
+// Sizechart chain
 
 Brand.hasMany(Collection);
 
@@ -40,20 +40,23 @@ Size.belongsToMany(Segment, { through: SizeSegment });
 Measurement.belongsTo(Size, { through: SizeSegment });
 Measurement.belongsTo(Segment, { through: SizeSegment });
 
-// Personalization
-
-Account.hasMany(SavedSize);
-SavedSize.belongsTo(Account);
-
-Size.hasMany(SavedSize);
-SavedSize.belongsTo(Account);
-
 // Reviews
 Size.hasMany(Review);
 Review.belongsTo(Size);
 
-Account.hasMany(Review);
-Review.belongsTo(Account, { as: 'createdBy' });
+// CreatedBy
+[
+	Brand,
+	Collection,
+	Fit,
+	Size,
+	Measurement,
+	SavedSize,
+	Review,
+].forEach((Model) => {
+	Account.hasMany(Model);
+	Model.belongsTo(Account, { as: 'createdBy' });
+});
 
 export {
 	Account,

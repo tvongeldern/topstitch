@@ -23,6 +23,7 @@ export function SignupForm({
 	hasValidationErrors,
 	submitting,
 }) {
+	console.log(submitError);
 	const hasTouchedField = Object.values(touched).find(RETURN_SELF);
 	const hasError = hasTouchedField && (hasSubmitErrors || hasValidationErrors);
 	return (

@@ -39,14 +39,16 @@ export const email = {
 	},
 };
 
-export const uuid = {
+export const cognitoId = {
 	type: DataTypes.UUID,
 	unique: true,
+	allowNull: false,
 };
 
 // Unique object identifier
 export const id = {
-	...uuid,
+	type: DataTypes.UUID,
+	unique: true,
 	primaryKey: true,
 	allowNull: false,
 	defaultValue: Sequelize.UUIDV4,

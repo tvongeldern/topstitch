@@ -1,6 +1,9 @@
 export function destroy(Model) {
 	return async function destroyHandler(
-		{ params: { id } },
+		{
+			me,
+			params: { id },
+		},
 		response,
 		errorHandler,
 	) {
@@ -9,6 +12,12 @@ export function destroy(Model) {
 			if (!record) {
 				return errorHandler({
 					status: 404,
+				});
+			}
+			if (record.createdBy !== me.id) {
+				return errorHandler({
+					status: 403,
+					message: 'Forbidden',
 				});
 			}
 			await record.destroy();

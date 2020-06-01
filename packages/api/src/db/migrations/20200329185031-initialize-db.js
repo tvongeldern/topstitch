@@ -147,9 +147,13 @@ const TABLES = {
       slug,
       website,
     },
+    foreignKeys: {
+      createdBy: 'accounts',
+    },
   },
   collections: {
     foreignKeys: {
+      createdBy: 'accounts',
       brandId: 'brands',
     },
     columns: { name },
@@ -168,6 +172,7 @@ const TABLES = {
   },
   fits: {
     foreignKeys: {
+      createdBy: 'accounts',
       collectionId: 'collections',
       garmentId: 'garments',
     },
@@ -190,6 +195,7 @@ const TABLES = {
   },
   measurements: {
     foreignKeys: {
+      createdBy: 'accounts',
       sizeId: 'sizes',
       segmentId: 'segments',
     },
@@ -215,6 +221,7 @@ const TABLES = {
   },
   sizes: {
     foreignKeys: {
+      createdBy: 'accounts',
       fitId: 'fits',
     },
     columns: { name },
@@ -237,7 +244,7 @@ const TABLES = {
     },
     foreignKeys: {
       sizeId: 'sizes',
-      accountId: 'accounts',
+      createdBy: 'accounts',
     },
   },
   reviews: {
