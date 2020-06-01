@@ -1,8 +1,14 @@
 export function creator(ParentModel, methodName) {
 	if (!methodName) {
-		return async function create({ body }, response, next) {
+		return async function create({
+			body,
+			me: { id: createdBy },
+		}, response, next) {
 			try {
-				const object = new ParentModel(body);
+				const object = new ParentModel({
+					...body,
+					createdBy,
+				});
 				const saved = await object.save();
 				const json = saved.toJSON();
 				response.send(json);

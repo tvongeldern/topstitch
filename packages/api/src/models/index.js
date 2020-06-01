@@ -54,8 +54,7 @@ Review.belongsTo(Size);
 	SavedSize,
 	Review,
 ].forEach((Model) => {
-	Account.hasMany(Model);
-	Model.belongsTo(Account, { as: 'createdBy' });
+	Account.hasMany(Model, { foreignKey: 'createdBy' });
 });
 
 export {
