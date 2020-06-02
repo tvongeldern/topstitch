@@ -249,7 +249,10 @@ const TABLES = {
   },
   reviews: {
     columns: {
-      review: paragraph,
+      review: {
+        ...paragraph,
+        allowNull: false,
+      },
       rating: constrainedNumber({
         max: 5,
         maxMsg: 'Star ratings must be between 1 and 5',

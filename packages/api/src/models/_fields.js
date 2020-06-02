@@ -86,7 +86,10 @@ export const rating = constrainedNumber({
 	allowNull: false,
 });
 
-export const review = paragraph;
+export const review = {
+	...paragraph,
+	allowNull: false,
+};
 
 // A unique string that can be used to locate an object,
 // designed to be used as the last part of a URL

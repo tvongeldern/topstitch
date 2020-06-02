@@ -2,7 +2,6 @@ import { Router } from 'express';
 import { Size } from '@models';
 import { REQUIRE_AUTH } from '@middleware';
 import { creator, destroy } from '@utils/handlers';
-import { addReview } from './addReview';
 
 const sizes = new Router();
 
@@ -14,6 +13,10 @@ sizes.post(
 	creator(Size, 'createMeasurement'),
 );
 
-sizes.post('/:id/reviews/', REQUIRE_AUTH, addReview);
+sizes.post(
+	'/:id/reviews/',
+	REQUIRE_AUTH,
+	creator(Size, 'createReview'),
+);
 
 export default sizes;

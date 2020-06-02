@@ -28,6 +28,7 @@ function ReviewSizechartPage({ slug }) {
 				component={ReviewWizard}
 				onSubmit={submitReview}
 				sizechart={sizechart}
+				slug={slug}
 				units={units}
 			/>
 		</Page>

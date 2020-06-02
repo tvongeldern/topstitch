@@ -3,13 +3,13 @@ import { func } from 'prop-types';
 import { Field } from 'react-final-form';
 import {
 	Button,
+	ButtonRadio,
+	Link,
 	Sizechart,
 	StarRadio,
-	ButtonRadio,
+	Success,
 	TextArea,
 	ThumbRadio,
-	Dropdown,
-	TextInput,
 } from '@components';
 import { mapToDropdownOption } from '@utils';
 import { EMPTY_OBJECT } from '@constants';
@@ -24,6 +24,40 @@ const INITIAL_REVIEW_VALUES = [
 	'Good.',
 	'Great!',
 ];
+
+function ThumbsGroup({ name, header, value }) {
+	return (
+		<div className={styles.inputContainer}>
+			<label>{header}</label>
+
+			<div className={styles.thumbsContainer}>
+				<Field
+					component={ThumbRadio}
+					type="radio"
+					name={name}
+					value="-1"
+					down
+				/>
+
+				<Field
+					component={ThumbRadio}
+					type="radio"
+					name={name}
+					value="1"
+				/>
+
+				{value && (
+					<Field
+						component={ButtonRadio}
+						type="radio"
+						name={name}
+						label="Clear"
+					/>
+				)}
+			</div>
+		</div>
+	);
+}
 
 function sizechartChangeHandler(form) {
 	return function handleSizechartChange({
@@ -46,6 +80,8 @@ export function ReviewWizard({
 	form,
 	handleSubmit,
 	sizechart,
+	slug,
+	submitSucceeded,
 	units,
 	values: {
 		displayName,
@@ -58,6 +94,11 @@ export function ReviewWizard({
 		shipping,
 	},
 }) {
+	useEffect(() => {
+		if (submitSucceeded) {
+			form.change('step', 4);
+		}
+	}, [submitSucceeded]);
 	return (
 		<form onSubmit={handleSubmit}>
 
@@ -121,103 +162,39 @@ export function ReviewWizard({
 			{step === 3 && (
 				<div className={styles.step}>
 					<h4>Optional Ratings</h4>
-					<div className={styles.inputContainer}>
-						<label>Shipping</label>
+					
+					<ThumbsGroup
+						value={shipping}
+						name="shipping"
+						header="Shipping"
+					/>
 
-						<div className={styles.thumbsContainer}>
-							<Field
-								component={ThumbRadio}
-								type="radio"
-								name="shipping"
-								value="-1"
-								parse={parseFloat}
-								down
-							/>
+					<ThumbsGroup
+						value={sizing}
+						name="sizing"
+						header="Sizing"
+					/>
 
-							<Field
-								component={ThumbRadio}
-								type="radio"
-								name="shipping"
-								value="1"
-								parse={parseFloat}
-							/>
-
-							{shipping && (
-								<Field
-									component={ButtonRadio}
-									type="radio"
-									name="shipping"
-									label="Clear"
-								/>
-							)}
-						</div>
-					</div>
-
-					<div className={styles.inputContainer}>
-						<label>Sizing</label>
-
-						<div className={styles.thumbsContainer}>
-							<Field
-								component={ThumbRadio}
-								type="radio"
-								name="sizing"
-								value="-1"
-								parse={parseFloat}
-								down
-							/>
-
-							<Field
-								component={ThumbRadio}
-								type="radio"
-								name="sizing"
-								value="1"
-								parse={parseFloat}
-							/>
-
-							{sizing && (
-								<Field
-									component={ButtonRadio}
-									type="radio"
-									name="sizing"
-									label="Clear"
-								/>
-							)}
-						</div>
-					</div>
-
-					<div className={styles.inputContainer}>
-						<label>Quality</label>
-
-						<div className={styles.thumbsContainer}>
-							<Field
-								component={ThumbRadio}
-								type="radio"
-								name="quality"
-								value="-1"
-								parse={parseFloat}
-								down
-							/>
-
-							<Field
-								component={ThumbRadio}
-								type="radio"
-								name="quality"
-								value="1"
-								parse={parseFloat}
-							/>
-
-							{quality && (
-								<Field
-									component={ButtonRadio}
-									type="radio"
-									name="quality"
-									label="Clear"
-								/>
-							)}
-						</div>
-					</div>
+					<ThumbsGroup
+						value={quality}
+						name="quality"
+						header="Quality"
+					/>
 
 					<Button type="submit">Submit review</Button>
+				</div>
+			)}
+
+			{step === 4 && (
+				<div className={styles.step}>
+					<h3 className={styles.success}>
+						<Success />
+						<span>Review submitted!</span>
+					</h3>
+
+					<Link href="/sizecharts/[slug]" as={`/sizecharts/${slug}`}>
+						{`Back to ${sizechart.name} sizechart`}
+					</Link>
 				</div>
 			)}
 		</form>
