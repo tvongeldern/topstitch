@@ -19,7 +19,7 @@ export function FitCreateForm({
 	dirtySinceLastSubmit,
 	handleSubmit,
 	submitError,
-	values: { collectionId }
+	values: { garment, collectionId }
 }) {
 	const collection = collections[collectionId];
 	const CTA = collection
@@ -47,6 +47,11 @@ export function FitCreateForm({
 
 			<Button type="submit">Add fit</Button>
 
+			<div className={styles.cta}>
+				<a onClick={() => {}}>
+					{`Remove ${garment.name} from ${collection.name} collection`}
+				</a>
+			</div>
 		</form>
 	);
 }

@@ -61,6 +61,7 @@ export {
 	Account,
 	Brand,
 	Collection,
+	CollectionGarment,
 	Fit,
 	Segment,
 	Garment,
