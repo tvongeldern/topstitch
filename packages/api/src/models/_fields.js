@@ -103,17 +103,6 @@ export const slug = {
 	},
 };
 
-export const thumbRating = {
-	type: DataTypes.SMALLINT,
-	allowNull: true,
-	validate: {
-		isIn: {
-			args: [[-1, 1]],
-			msg: 'Thumb rating can be either +1 or -1',
-		},
-	},
-};
-
 export const website = {
 	type: DataTypes.STRING,
 	validate: {

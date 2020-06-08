@@ -22,5 +22,11 @@ brands.post(
 	creator(Brand, 'createCollection'),
 );
 
+brands.post(
+	'/:id/reviews/',
+	REQUIRE_AUTH,
+	creator(Brand, 'createReview'),
+);
+
 
 export default brands;

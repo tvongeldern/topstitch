@@ -1,3 +1,4 @@
+export { addReviewReducer } from './addReview';
 export { clearCreatedBrandReducer } from './clearCreatedBrand';
 export { createBrandReducer } from './createBrand';
 export { deleteBrandReducer } from './deleteBrand';

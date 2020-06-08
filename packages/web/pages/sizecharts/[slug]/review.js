@@ -7,18 +7,15 @@ import { addReview, getSizechart } from '@state/actions';
 import { useSelector, useSubmit } from '@utils/hooks';
 
 function sizechartPageSelector({
-	auth: { units },
+	auth: { me },
 	sizecharts: { sizecharts },
 }) {
-	return {
-		sizecharts,
-		units,
-	};
+	return { me, sizecharts };
 }
 
 function ReviewSizechartPage({ slug }) {
 	const [submitReview] = useSubmit(addReview);
-	const { sizecharts, units } = useSelector(
+	const { me, sizecharts } = useSelector(
 		sizechartPageSelector,
 	);
 	const sizechart = sizecharts[slug];
@@ -31,8 +28,8 @@ function ReviewSizechartPage({ slug }) {
 				component={ReviewWizard}
 				onSubmit={submitReview}
 				sizechart={sizechart}
-				slug={slug}
-				units={units}
+				initialValues={{ brand: sizechart.id }}
+				showNameField={!me.name}
 			/>
 		</Page>
 	);

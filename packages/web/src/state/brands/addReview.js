@@ -19,16 +19,13 @@ export const addReviewReducer = {
 };
 
 export const addReview = ({
-	size,
+	brand,
 	review,
 	rating,
-	quality,
-	sizing,
-	shipping,
 }) => ({
 	types: [types.start, types.success, types.fail],
 	promise: ({ api }) => api.post(
-		`/sizes/${size}/reviews/`,
-		{ review, rating, quality, sizing, shipping }
+		`/brands/${brand}/reviews/`,
+		{ review, rating }
 	),
 });

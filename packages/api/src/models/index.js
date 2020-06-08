@@ -41,8 +41,8 @@ Measurement.belongsTo(Size, { through: SizeSegment });
 Measurement.belongsTo(Segment, { through: SizeSegment });
 
 // Reviews
-Size.hasMany(Review);
-Review.belongsTo(Size);
+Brand.hasMany(Review);
+Review.belongsTo(Brand);
 
 // CreatedBy
 [

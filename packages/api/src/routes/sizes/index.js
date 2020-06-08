@@ -13,10 +13,4 @@ sizes.post(
 	creator(Size, 'createMeasurement'),
 );
 
-sizes.post(
-	'/:id/reviews/',
-	REQUIRE_AUTH,
-	creator(Size, 'createReview'),
-);
-
 export default sizes;

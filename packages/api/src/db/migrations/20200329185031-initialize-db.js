@@ -66,17 +66,6 @@ const email = {
   },
 };
 
-const thumbRating = {
-  type: DataTypes.SMALLINT,
-  allowNull: true,
-  validate: {
-    isIn: {
-      args: [[-1, 1]],
-      msg: 'Thumb rating can be either +1 or -1',
-    },
-  },
-};
-
 const uuid = {
   type: DataTypes.UUID,
   unique: true,
@@ -264,16 +253,13 @@ const TABLES = {
         minMsg: 'Star ratings must be between 1 and 5',
         allowNull: false,
       }),
-      quality: thumbRating,
-      shipping: thumbRating,
-      sizing: thumbRating,
     },
     foreignKeys: {
-      sizeId: 'sizes',
+      brandId: 'brands',
       accountId: 'accounts',
     },
     uniqueIndexes: [
-      ['sizeId', 'accountId'],
+      ['brandId', 'accountId'],
     ],
   },
 };

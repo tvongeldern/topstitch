@@ -1,5 +1,5 @@
 import { db } from '@db';
-import { id, rating, review, thumbRating } from './_fields';
+import { id, rating, review } from './_fields';
 
 /**
  * A garment is a type of clothing,
@@ -11,15 +11,12 @@ export const Review = db.define(
 		id,
 		rating,
 		review,
-		quality: thumbRating,
-		shipping: thumbRating,
-		sizing: thumbRating,
 	},
 	{
 		indexes: [
 			{
 				unique: true,
-				fields: ['accountId', 'sizeId'],
+				fields: ['accountId', 'brandId'],
 			},
 		],
 	},
