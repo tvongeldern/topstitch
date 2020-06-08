@@ -1,17 +1,26 @@
 import { db } from '@db';
-import { email, id, cognitoId } from './_fields';
+import {
+	cognitoId,
+	email,
+	id,
+	name,
+} from './_fields';
 
 
 export const Account = db.define(
 	'account',
 	{
-		id,
+		cognitoId,
 		email: {
 			...email,
 			allowNull: false,
 			unique: true,
 		},
-		cognitoId,
+		id,
+		name: {
+			...name,
+			allowNull: true,
+		},
 	},
 );
 

@@ -22,6 +22,9 @@ function ReviewSizechartPage({ slug }) {
 		sizechartPageSelector,
 	);
 	const sizechart = sizecharts[slug];
+	if (!sizechart) {
+		return <Page error="Sizechart not found" />;
+	}
 	return (
 		<Page title={`Review ${sizechart.name}`}>
 			<Form

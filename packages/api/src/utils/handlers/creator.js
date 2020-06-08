@@ -2,12 +2,12 @@ export function creator(ParentModel, methodName) {
 	if (!methodName) {
 		return async function create({
 			body,
-			me: { id: createdBy },
+			me: { id: accountId },
 		}, response, next) {
 			try {
 				const object = new ParentModel({
 					...body,
-					createdBy,
+					accountId,
 				});
 				const saved = await object.save();
 				const json = saved.toJSON();
@@ -20,7 +20,7 @@ export function creator(ParentModel, methodName) {
 
 	return async function createNested({
 		body,
-		me: { id: createdBy },
+		me: { id: accountId },
 		params: { id }
 	},
 		response,
@@ -34,7 +34,7 @@ export function creator(ParentModel, methodName) {
 			try {
 				const child = await parent[methodName]({
 					...body,
-					createdBy,
+					accountId,
 				});
 				const json = child.toJSON();
 				return response.send(json);

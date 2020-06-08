@@ -4,11 +4,11 @@ import { getJSON } from '@utils';
 const FEED_QUERY = {
 	order: [['createdAt', 'DESC']],
 	limit: 5,
-	// include: ['createdBy']
+	include: [Account]
 };
 
 function sortFeed({ createdAt: a }, { createdAt: b }) {
-	return a.localeCompare(b);
+	return new Date(b) - new Date(a);
 }
 
 export async function getFeed(request, response, errorHandler) {

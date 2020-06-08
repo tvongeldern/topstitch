@@ -19,7 +19,7 @@ export const Review = db.define(
 		indexes: [
 			{
 				unique: true,
-				fields: ['createdBy', 'sizeId'],
+				fields: ['accountId', 'sizeId'],
 			},
 		],
 	},

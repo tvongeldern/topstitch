@@ -14,7 +14,7 @@ export function destroy(Model) {
 					status: 404,
 				});
 			}
-			if (record.createdBy !== me.id) {
+			if (record.accountId !== me.id) {
 				return errorHandler({
 					status: 403,
 					message: 'Forbidden',

@@ -139,6 +139,10 @@ const TABLES = {
         allowNull: false,
         unique: true,
       },
+      name: {
+        ...name,
+        allowNull: true,
+      },
     },
   },
   brands: {
@@ -148,12 +152,12 @@ const TABLES = {
       website,
     },
     foreignKeys: {
-      createdBy: 'accounts',
+      accountId: 'accounts',
     },
   },
   collections: {
     foreignKeys: {
-      createdBy: 'accounts',
+      accountId: 'accounts',
       brandId: 'brands',
     },
     columns: { name },
@@ -172,7 +176,7 @@ const TABLES = {
   },
   fits: {
     foreignKeys: {
-      createdBy: 'accounts',
+      accountId: 'accounts',
       collectionId: 'collections',
       garmentId: 'garments',
     },
@@ -195,7 +199,7 @@ const TABLES = {
   },
   measurements: {
     foreignKeys: {
-      createdBy: 'accounts',
+      accountId: 'accounts',
       sizeId: 'sizes',
       segmentId: 'segments',
     },
@@ -221,7 +225,7 @@ const TABLES = {
   },
   sizes: {
     foreignKeys: {
-      createdBy: 'accounts',
+      accountId: 'accounts',
       fitId: 'fits',
     },
     columns: { name },
@@ -244,7 +248,7 @@ const TABLES = {
     },
     foreignKeys: {
       sizeId: 'sizes',
-      createdBy: 'accounts',
+      accountId: 'accounts',
     },
   },
   reviews: {
@@ -266,10 +270,10 @@ const TABLES = {
     },
     foreignKeys: {
       sizeId: 'sizes',
-      createdBy: 'accounts',
+      accountId: 'accounts',
     },
     uniqueIndexes: [
-      ['sizeId', 'createdBy'],
+      ['sizeId', 'accountId'],
     ],
   },
 };
