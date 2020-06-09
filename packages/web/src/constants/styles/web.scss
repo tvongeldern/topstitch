@@ -14,6 +14,7 @@ $footer-height: 40px;
 :global(#__next) {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	font-family: $theme-font-secondary;
 	color: $text-color;
 }

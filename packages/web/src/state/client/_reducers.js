@@ -1,0 +1,1 @@
+export { getFeedReducer } from './getFeed';

@@ -3,6 +3,8 @@
 // https://pixabay.com/photos/jeans-tape-measure-fabric-scissors-2406521/
 
 .container {
+	height: 80vh;
+
 	.pinned {
 		position: fixed;
 		width: 100%;
@@ -53,7 +55,6 @@
 			}
 		}
 	}
-	
 }
 
 @include mobile {

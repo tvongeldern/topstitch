@@ -7,6 +7,7 @@ import {
 	StarRadio,
 	Success,
 	TextArea,
+	TextInput,
 } from '@components';
 import styles from './styles.scss';
 
@@ -22,12 +23,12 @@ const INITIAL_REVIEW_VALUES = [
 
 export function ReviewWizard({
 	handleSubmit,
+	showNameField,
 	sizechart,
 	slug,
 	submitError,
 	submitSucceeded,
 	values: {
-		displayName,
 		rating = 0,
 		review,
 	},
@@ -74,6 +75,14 @@ export function ReviewWizard({
 							rows={4}
 							defaultValue={INITIAL_REVIEW_VALUES[rating]}
 						/>
+
+						{showNameField && (
+							<Field
+								name="name"
+								label="Your name"
+								component={TextInput}
+							/>
+						)}
 
 						<p className={styles.error}>{submitError}</p>
 

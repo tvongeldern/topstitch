@@ -20,12 +20,11 @@ export const addReviewReducer = {
 
 export const addReview = ({
 	brand,
-	review,
-	rating,
+	...payload
 }) => ({
 	types: [types.start, types.success, types.fail],
 	promise: ({ api }) => api.post(
 		`/brands/${brand}/reviews/`,
-		{ review, rating }
+		payload,
 	),
 });

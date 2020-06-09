@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Router from 'next/router';
 import { Form } from 'react-final-form';
-import { Page } from '@components';
+import { Feed, Footer, NavBar } from '@components';
 import { HomepageHero } from '@forms';
-import { searchBrands } from '@state/actions';
+import { getFeed, searchBrands } from '@state/actions';
 import {
 	useActionCreators,
 	useSelector,
@@ -12,15 +12,18 @@ import { EMPTY_OBJECT } from '@constants';
 
 function hompeageSelector({
 	brands: { brands },
+	client: { feed },
 }) {
-	return { brands };
+	return { brands, feed };
 }
 
 export default function Homepage() {
 	const [dispatchSearchBrands] = useActionCreators(
 		searchBrands,
 	);
-	const { brands } = useSelector(hompeageSelector);
+	const { brands, feed } = useSelector(
+		hompeageSelector,
+	);
 	const [{ slug }, setState] = useState(EMPTY_OBJECT);
 
 	useEffect(() => {
@@ -33,13 +36,20 @@ export default function Homepage() {
 	}, [slug]);
 
 	return (
-		<Page>
+		<>
+			<NavBar />
 			<Form
 				component={HomepageHero}
 				search={dispatchSearchBrands}
 				brands={brands}
 				onSubmit={setState}
 			/>
-		</Page>
+
+			<Feed feed={feed} />
+
+			<Footer />
+		</>
 	);
 };
+
+Homepage.populate = [getFeed];

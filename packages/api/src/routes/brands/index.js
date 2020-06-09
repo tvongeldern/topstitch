@@ -6,6 +6,7 @@ import {
 	destroy,
 	search,
 } from '@utils/handlers';
+import { reviewMiddleware } from './reviewMiddleware';
 
 const SEARCH_ATTRIBUTES = ['id', 'name', 'slug'];
 
@@ -25,6 +26,7 @@ brands.post(
 brands.post(
 	'/:id/reviews/',
 	REQUIRE_AUTH,
+	reviewMiddleware,
 	creator(Brand, 'createReview'),
 );
 

@@ -1,10 +1,32 @@
 import { Account, Review, Brand } from '@models';
 import { getJSON } from '@utils';
 
+const ACCOUNT_NAME = {
+	model: Account,
+	attributes: ['name'],
+};
+
 const FEED_QUERY = {
 	order: [['createdAt', 'DESC']],
 	limit: 5,
-	include: [Account]
+};
+
+const FEED_QUERY_BRANDS = {
+	...FEED_QUERY,
+	attributes: ['id', 'name', 'slug', 'createdAt'],
+	include: [ACCOUNT_NAME],
+};
+
+const FEED_QUERY_REVIEWS = {
+	...FEED_QUERY,
+	attributes: ['id', 'rating', 'review', 'createdAt'],
+	include: [
+		ACCOUNT_NAME,
+		{
+			model: Brand,
+			attributes: ['name', 'slug'],
+		},
+	],
 };
 
 function sortFeed({ createdAt: a }, { createdAt: b }) {
@@ -14,8 +36,8 @@ function sortFeed({ createdAt: a }, { createdAt: b }) {
 export async function getFeed(request, response, errorHandler) {
 	try {
 		const [brands, reviews] = await Promise.all([
-			Brand.findAll(FEED_QUERY),
-			Review.findAll(FEED_QUERY),
+			Brand.findAll(FEED_QUERY_BRANDS),
+			Review.findAll(FEED_QUERY_REVIEWS),
 		]);
 		const sorted = [...brands, ...reviews]
 			.sort(sortFeed)

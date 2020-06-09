@@ -1,5 +1,6 @@
 export * from './auth';
 export * from './brands';
+export * from './client';
 export * from './collections';
 export * from './fits';
 export * from './garments';

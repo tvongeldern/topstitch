@@ -3,7 +3,11 @@ import { string } from 'prop-types';
 import { Form } from 'react-final-form';
 import { Page } from '@components';
 import { ReviewWizard } from '@forms';
-import { addReview, getSizechart } from '@state/actions';
+import {
+	addReview,
+	getMe,
+	getSizechart,
+} from '@state/actions';
 import { useSelector, useSubmit } from '@utils/hooks';
 
 function sizechartPageSelector({
@@ -30,12 +34,13 @@ function ReviewSizechartPage({ slug }) {
 				sizechart={sizechart}
 				initialValues={{ brand: sizechart.id }}
 				showNameField={!me.name}
+				slug={slug}
 			/>
 		</Page>
 	);
 }
 
-ReviewSizechartPage.populate = [getSizechart];
+ReviewSizechartPage.populate = [getMe, getSizechart];
 
 ReviewSizechartPage.propTypes = {
 	slug: string.isRequired,

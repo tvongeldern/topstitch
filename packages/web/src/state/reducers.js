@@ -1,5 +1,6 @@
 export { auth } from './auth';
 export { brands } from './brands';
+export { client } from './client';
 export { collections } from './collections';
 export { fits } from './fits';
 export { garments } from './garments';
