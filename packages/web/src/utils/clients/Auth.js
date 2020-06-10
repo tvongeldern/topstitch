@@ -9,8 +9,8 @@ function CookiesStorage({ cookies }) {
 
 	this.getItem = (...args) => cookies.get(...args);
 
-	this.removeItem = (...args) => {
-		cookies.remove(...args);
+	this.removeItem = (cookieName) => {
+		cookies.remove(cookieName);
 	};
 
 	this.clear = () => {
@@ -32,9 +32,14 @@ export function Auth({ cookies } = {}) {
 	};
 
 	this.logout = async function logout() {
-		const data = await Amplify.signOut({ global: true });
-		storage.clear();
-		return { data };
+		try {
+			const data = await Amplify.signOut({ global: true });
+			client.storage.clear();
+			return { data };
+		} catch (error) {
+			client.storage.clear();
+			return null;
+		}
 	};
 
 	this.signUp = async function signUp({ email, password }) {

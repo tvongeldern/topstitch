@@ -41,6 +41,7 @@ function ReviewSizechartPage({ slug }) {
 }
 
 ReviewSizechartPage.populate = [getMe, getSizechart];
+ReviewSizechartPage.private = true;
 
 ReviewSizechartPage.propTypes = {
 	slug: string.isRequired,

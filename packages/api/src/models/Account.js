@@ -25,5 +25,5 @@ export const Account = db.define(
 );
 
 Account.addScope('myself', {
-	attributes: ['id', 'email'],
+	attributes: ['id', 'email', 'name'],
 });

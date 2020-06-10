@@ -14,6 +14,10 @@ export const addReviewReducer = {
 	[types.start]: RETURN_SELF,
 	[types.success]: (state, { response }) => ({
 		...state,
+		reviews: {
+			...state.reviews,
+			[response.id]: response,
+		},
 	}),
 	[types.fail]: errorActionReducer,
 };

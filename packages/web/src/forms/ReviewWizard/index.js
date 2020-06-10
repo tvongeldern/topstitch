@@ -9,6 +9,7 @@ import {
 	TextArea,
 	TextInput,
 } from '@components';
+import { validateRequired } from '@utils';
 import styles from './styles.scss';
 
 const STAR_RATINGS = [1, 2, 3, 4, 5];
@@ -28,6 +29,7 @@ export function ReviewWizard({
 	slug,
 	submitError,
 	submitSucceeded,
+	valid,
 	values: {
 		rating = 0,
 		review,
@@ -81,13 +83,14 @@ export function ReviewWizard({
 								name="name"
 								label="Your name"
 								component={TextInput}
+								validate={validateRequired}
 							/>
 						)}
 
 						<p className={styles.error}>{submitError}</p>
 
 						<Button
-							disabled={!rating || !review}
+							disabled={!valid || !rating || !review}
 							type="submit"
 						>
 							Submit

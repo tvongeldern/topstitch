@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react';
 import { func } from 'prop-types';
 import { Field } from 'react-final-form';
-import { Loading, Typeahead } from '@components';
+import {
+	Loading,
+	RequireAuth,
+	Typeahead,
+} from '@components';
 import styles from './styles.scss';
 
 export function SearchForm({
@@ -10,6 +14,7 @@ export function SearchForm({
 	search,
 	values: { name },
 	addSizechart,
+	me,
 }) {
 	useEffect(() => {
 		if (name) {
@@ -26,7 +31,13 @@ export function SearchForm({
 				search={search}
 				options={Object.values(brands)}
 				outputField="slug"
-				renderPinnedOption={(name) => <a onClick={() => addSizechart({ name })}>Add sizechart for {name}</a>}
+				renderPinnedOption={(name) => (
+					<RequireAuth me={me}>
+						<a onClick={() => addSizechart({ name })}>
+							Add sizechart for {name}
+						</a>
+					</RequireAuth>
+				)}
 			/>
 
 			{name && <Loading className={styles.loading} />}

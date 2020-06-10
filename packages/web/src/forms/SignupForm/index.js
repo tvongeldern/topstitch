@@ -1,7 +1,7 @@
 import React from 'react';
 import { func } from 'prop-types';
 import { Field } from 'react-final-form';
-import { Button, TextInput } from '@components';
+import { Button, Link, TextInput } from '@components';
 import {
 	composeValidators,
 	RETURN_SELF,
@@ -62,6 +62,11 @@ export function SignupForm({
 			>
 				Sign up
 			</Button>
+
+			<p className={styles.loginCta}>
+				<span>Already have an account?</span>
+				<Link href="/login">Log in</Link>
+			</p>
 		</form>
 	);
 }

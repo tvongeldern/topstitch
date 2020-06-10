@@ -1,0 +1,10 @@
+@import 'web';
+
+.alert {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 8px;
+	border-radius: 4px;
+	border: 2px solid $ui-warning-color;
+}

@@ -6,6 +6,7 @@ import { BrandCreateForm, SearchForm } from '@forms';
 import {
 	clearCreatedBrand,
 	createBrand,
+	getMe,
 	searchBrands,
 } from '@state/actions';
 import {
@@ -16,9 +17,10 @@ import {
 import { EMPTY_OBJECT } from '@constants';
 
 function sizechartsPageSelector({
+	auth: { me },
 	brands: { brands, created },
 }) {
-	return { brands, created };
+	return { brands, created, me };
 }
 
 function navigate({ name }) {
@@ -37,7 +39,7 @@ export default function SizechartsPage() {
 	const [submitBrand] = useSubmit(
 		createBrand,
 	);
-	const { brands, created } = useSelector(
+	const { brands, created, me } = useSelector(
 		sizechartsPageSelector,
 	);
 	useEffect(() => {
@@ -57,6 +59,7 @@ export default function SizechartsPage() {
 				search={dispatchSearch}
 				brands={brands}
 				addSizechart={setState}
+				me={me}
 			/>
 			
 			{state.name && (

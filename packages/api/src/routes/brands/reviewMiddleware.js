@@ -11,15 +11,12 @@ export async function reviewMiddleware(
 	response,
 	next,
 ) {
-	if (!name) {
-		return next();
-	}
-	const me = await Account.findByPk(id);
-	console.log(me);
-	console.log('name', me.name);
-	if (!me.name) {
-		me.name = name;
-		await me.save();
+	if (name) {
+		const account = await Account.findByPk(id);
+		if (!account.name) {
+			account.name = name;
+			await account.save();
+		}
 	}
 	return next();
 }

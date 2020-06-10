@@ -1,14 +1,23 @@
 import React, { useEffect } from 'react';
 import { Form } from 'react-final-form';
 import Router from 'next/router';
-import { Page } from '@components';
+import { Alert, Page } from '@components';
 import { SignupForm } from '@forms';
-import { createAccount, signUp } from '@state/actions';
+import { createAccount, getMe, signUp } from '@state/actions';
 import {
 	useActionCreators,
 	useSelector,
 	useSubmit,
 } from '@utils/hooks';
+
+function getAlertText({ redirect, as }) {
+	if (redirect === '/sizecharts') {
+		return 'You need an account to add a sizechart';
+	}
+	if (redirect === '/sizecharts/[slug]/review') {
+		return 'You need an account to add a review';
+	}
+}
 
 function signupPageSelector({
 	auth: {
@@ -22,7 +31,10 @@ function signupPageSelector({
 	};
 }
 
-export default function LoginPage() {
+export default function SignupPage({
+	as,
+	redirect = '/',
+}) {
 	const [submitSignUp] = useSubmit(signUp);
 	const [dispatchCreateAccount] = useActionCreators(
 		createAccount,
@@ -33,13 +45,16 @@ export default function LoginPage() {
 	// Dispatch actions based on signup status
 	useEffect(() => {
 		if (me) {
-			Router.push('/');
+			Router.push(redirect, as);
 		} else if (cognitoUser) {
 			dispatchCreateAccount();
 		}
 	}, [!me, !cognitoUser]);
 	return (
 		<Page title="Sign up">
+			<Alert
+				message={getAlertText({ as, redirect })}
+			/>
 			<Form
 				component={SignupForm}
 				onSubmit={submitSignUp}
