@@ -1,4 +1,14 @@
 # TopStitch
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
-Based on https://github.com/HugoDF/express-postgres-starter/
+A website that allows you to try clothes on while online shopping!
+
+Technologies used:
+Terraform
+Lerna
+Docker
+PostgresQL
+NodeJS
+Express
+ReactJS
+NextJS
