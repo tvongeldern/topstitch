@@ -20,6 +20,8 @@ function log(message, level, context) {
 	console.log(logString);
 }
 
+// @TODO implement Winston
+
 class Logger {
 	_level = DEFAULT_LEVEL;
 	_context = DEFAULT_CONTEXT;
